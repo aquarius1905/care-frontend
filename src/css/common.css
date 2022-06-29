@@ -2,3 +2,26 @@ body {
   background-color: #eee;
   font-size: 18px;
 }
+.box-shadow {
+  box-shadow: 2px 2px 4px 1px #888;
+}
+.form-ttl {
+  color: #fff;
+  background-color: #1D2088;
+  padding: 20px;
+  border-radius: 5px 5px 0 0;
+}
+.btn {
+  color: #fff;
+  background-color: #1D2088;
+  border: none;
+  padding: 5px 0;
+  width: 100px;
+  font-size: 18px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.form-btn-wrap {
+  text-align: center;
+  padding: 20px 0;
+}

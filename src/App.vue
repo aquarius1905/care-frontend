@@ -3,6 +3,7 @@
     <CommonHeader></CommonHeader>
     <nav>
       <router-link to="/care-manager/register">ケアマネージャー登録</router-link>
+      <router-link to="/care-manager/login">ケアマネージャーログイン</router-link>
     </nav>
     <router-view />
   </div>

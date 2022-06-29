@@ -9,7 +9,7 @@
   width: 90%;
 }
 .ttl {
-  color: #0034ff;
+  color: #1D2088;
   font-weight: bold;
   font-size: 34px;
   margin-left: 20px;
