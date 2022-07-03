@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import CareManagerRegisterationView from '../views/CareManagerRegisterationView.vue'
+import CareManagerRegistrationView from '../views/CareManagerRegistrationView.vue'
 import CareManagerLoginView from '../views/CareManagerLoginView.vue'
+import CareManagerRegistrationCompleteView from '../views/CareManagerRegistrationCompleteView.vue'
+import CareManagerRegistrationConfirmationView from '../views/CareManagerRegistrationConfirmationView.vue'
 
 Vue.use(VueRouter)
 
@@ -14,12 +16,22 @@ const routes = [
   },
   {
     path: '/care-manager/register',
-    name: 'care_manager_register',
-    component: CareManagerRegisterationView
+    name: 'CareManagerRegistration',
+    component: CareManagerRegistrationView
+  },
+  {
+    path: '/care-manager/register/confirm',
+    name: 'CareManagerRegistrationConfirmation',
+    component: CareManagerRegistrationConfirmationView
+  },
+  {
+    path: '/care-manager/register/complete',
+    name: 'CareManagerRegistrationComplete',
+    component: CareManagerRegistrationCompleteView
   },
   {
     path: '/care-manager/login',
-    name: 'care_manager_login',
+    name: 'CareManagerLogin',
     component: CareManagerLoginView
   }
 ]

@@ -6,7 +6,7 @@
         <div class="form-item">
           <label class="form-item-lbl" for="registration_number">介護支援専門員登録番号</label>
           <div class="form-item-input">
-            <input type="text" id="registration_number" class="input-form" v-model="first_name" placeholder="1300000000"
+            <input type="text" id="registration_number" class="input-form" v-model="first_name" placeholder="13000000"
               required>
           </div>
         </div>
@@ -43,21 +43,6 @@ export default {
   max-width: 400px;
   margin: 0 auto;
   border-radius: 6px;
-}
-.form-item {
-  margin-bottom: 30px;
-}
-.form-item:last-child {
-  margin-bottom: 0;
-}
-.form-item-lbl {
-  display: inline-block;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-.form-item-input {
-  display: flex;
-  align-items: center;
 }
 .input-form {
   border: 1px solid #ddd;
