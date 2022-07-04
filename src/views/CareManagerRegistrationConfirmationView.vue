@@ -63,8 +63,9 @@ export default {
         delete this.send_data['last_name_furigana'];
         delete this.send_data['first_name_furigana'];
         delete this.send_data['support_office'];
+        console.log(this.send_data);
         axios
-          .post('/care-managers', this.send_data)
+          .post(`${process.env.VUE_APP_API_ORIGIN}/care-managers`, this.send_data)
           .then(reseponse => {
             console.log(reseponse.message);
             this.$router.push({ name: 'CareManagerRegistrationComplete' });

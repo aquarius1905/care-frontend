@@ -8,13 +8,6 @@ body {
 .box-shadow {
   box-shadow: 2px 2px 4px 1px #888;
 }
-.msg-box {
-  background-color: #fff;
-  max-width: 600px;
-  margin: 0 auto;
-  border-radius: 6px;
-  font-size: 20px;
-}
 .form-ttl {
   color: #fff;
   background-color: #4527A0;
