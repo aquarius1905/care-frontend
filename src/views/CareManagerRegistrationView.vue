@@ -1,5 +1,5 @@
 <template>
-  <div class="care-manager-registration">
+  <div>
     <div class="form box-shadow">
       <h2 class="form-ttl">ケアマネージャー 登録</h2>
       <ValidationObserver ref="obs" v-slot="ObserverProps">
@@ -57,7 +57,9 @@
             <ValidationProvider v-slot="{ errors }" rules="required">
               <div class="form-item-input">
                 <select id="suport_office" class="select-form" v-model="send_data.support_office">
-                  <option v-for="support_office in support_offices" v-bind:key="support_office.id" :value="support_office">{{ support_office.name }}</option>
+                  <option v-for="support_office in support_offices" :key="support_office.id" :value="support_office">
+                    {{ support_office.name }}
+                  </option>
                 </select>
               </div>
               <div class="error">{{ errors[0] }}</div>
@@ -95,7 +97,7 @@
         </div>
         <div class="form-btn-wrap">
           <button class="btn"
-            @click="confirmRegistration(!ObserverProps.isValid && ObserverProps.validated)">登録内容確認</button>
+            @click="confirmRegistration(ObserverProps)">登録内容確認</button>
         </div>
       </ValidationObserver>
     </div>
@@ -105,31 +107,22 @@
 <script>
 import axios from "axios";
 export default {
+  props: ['senddata'],
   data() {
     return {
       support_offices: null,
-      send_data: {
-        last_name: null,
-        first_name: null,
-        last_name_furigana: null,
-        first_name_furigana: null,
-        support_office: null,
-        registration_number: null,
-        email: null,
-        tel: null,
-        password: null
-      }
+      send_data: this.senddata
     }
   },
   methods: {
-    confirmRegistration(isValid) {
-      if (isValid) {
-        this.$router.push({
-          name: 'CareManagerRegistrationConfirmation',
-          query: { send_data: this.send_data }
-        });
-      } else {
+    confirmRegistration(ObserverProps) {
+      console.log(ObserverProps);
+      if (ObserverProps.invalid || !ObserverProps.validated) {
         alert('入力エラーがあります');
+      } else {
+        this.$router.push({
+          name: 'CareManagerRegistrationConfirmation'
+        });
       }
     }
   },
@@ -138,6 +131,9 @@ export default {
       .get(`${process.env.VUE_APP_API_ORIGIN}/home-care-support-offices`)
       .then(response => {
         this.support_offices = response.data.data;
+        if (this.send_data.support_office === null) {
+          this.send_data.support_office = this.support_offices[0];
+        }
       })
       .catch(error => {
         console.log(error);

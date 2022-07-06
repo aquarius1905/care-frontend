@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+Vue.use(VueRouter)
+
 import HomeView from '../views/HomeView.vue'
-import CareManagerRegistrationView from '../views/CareManagerRegistrationView.vue'
+import CareManagerFormView from '../views/CareManagerFormView.vue'
 import CareManagerLoginView from '../views/CareManagerLoginView.vue'
+import CareManagerRegistrationView from '../views/CareManagerRegistrationView.vue'
 import CareManagerRegistrationCompleteView from '../views/CareManagerRegistrationCompleteView.vue'
 import CareManagerRegistrationConfirmationView from '../views/CareManagerRegistrationConfirmationView.vue'
 
-Vue.use(VueRouter)
 
 const routes = [
   {
@@ -16,13 +18,23 @@ const routes = [
   },
   {
     path: '/care-manager/register',
-    name: 'CareManagerRegistration',
-    component: CareManagerRegistrationView
-  },
-  {
-    path: '/care-manager/register/confirm',
-    name: 'CareManagerRegistrationConfirmation',
-    component: CareManagerRegistrationConfirmationView
+    name: 'CareManagerForm',
+    component: CareManagerFormView,
+    children: [
+      {
+        path: '/care-manager/register',
+        name: 'CareManagerRegistration',
+        component: CareManagerRegistrationView
+      },
+      {
+        path: '/care-manager/register/confirm',
+        name: 'CareManagerRegistrationConfirmation',
+        component: CareManagerRegistrationConfirmationView,
+        meta: {
+          isConfirm: true
+        }
+      }
+    ]
   },
   {
     path: '/care-manager/register/complete',

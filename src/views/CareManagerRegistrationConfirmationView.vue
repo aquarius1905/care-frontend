@@ -6,27 +6,27 @@
         <table class="confirm-tbl">
           <tr>
             <th>お名前</th>
-            <td>{{ send_data.last_name }}&emsp;{{ send_data.first_name }}</td>
+            <td>{{ senddata.last_name }}&emsp;{{ senddata.first_name }}</td>
           </tr>
           <tr>
             <th>フリガナ</th>
-            <td>{{ send_data.last_name_furigana }}&emsp;{{ send_data.first_name_furigana }}</td>
+            <td>{{ senddata.last_name_furigana }}&emsp;{{ senddata.first_name_furigana }}</td>
           </tr>
           <tr>
             <th>介護支援専門員登録番号</th>
-            <td>{{ send_data.registration_number }}</td>
+            <td>{{ senddata.registration_number }}</td>
           </tr>
           <tr>
             <th>所属居宅介護支援事業所</th>
-            <td>{{ send_data.support_office.name }}</td>
+            <td>{{ senddata.support_office.name }}</td>
           </tr>
           <tr>
             <th>メールアドレス</th>
-            <td>{{ send_data.email }}</td>
+            <td>{{ senddata.email }}</td>
           </tr>
           <tr>
             <th>電話番号</th>
-            <td>{{ send_data.tel }}</td>
+            <td>{{ senddata.tel }}</td>
           </tr>
           <tr>
             <th>パスワード</th>
@@ -34,7 +34,7 @@
           </tr>
         </table>
         <div class="register-btn-wrap">
-          <button class="btn" @click="back">戻る</button>
+          <button class="back-btn btn" @click="$router.back()">戻る</button>
           <button class="btn" @click="register">登録</button>
         </div>
       </div>
@@ -45,15 +45,16 @@
 <script>
 import axios from "axios";
 export default {
-  data() {
+  props: ['senddata'],
+  data: function () {
     return {
-      send_data: this.$route.query.send_data
+      send_data: this.senddata
     }
   },
   methods: {
     register() {
       if (confirm('登録しますか？')) {
-        this.send_data['support_office_id'] = this.send_data.support_office.id;
+        this.send_data['support_office_id'] = this.send_data['support_office']['id'];
         this.send_data['name']
           = this.send_data['last_name'] + '　' + this.send_data['first_name'];
         this.send_data['name_furigana']
@@ -63,7 +64,6 @@ export default {
         delete this.send_data['last_name_furigana'];
         delete this.send_data['first_name_furigana'];
         delete this.send_data['support_office'];
-        console.log(this.send_data);
         axios
           .post(`${process.env.VUE_APP_API_ORIGIN}/care-managers`, this.send_data)
           .then(reseponse => {
@@ -75,12 +75,10 @@ export default {
           });
       }
     },
-    back() {
-
-    }
   }
-}
+};
 </script>
+
 <style scoped>
 .care-manager-registration-confirmation {
   background-color: #eee;
@@ -95,7 +93,12 @@ export default {
 }
 .register-btn-wrap {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   text-align: center;
+}
+.back-btn {
+  width: 120px;
+  background-color: #7E57C2;
+  margin-right: 30px;
 }
 </style>
