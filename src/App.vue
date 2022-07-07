@@ -1,22 +1,26 @@
 <template>
   <div id="app">
-    <CommonHeader></CommonHeader>
-    <nav>
-      <router-link to="/care-manager/register">ケアマネージャー登録</router-link>
-      <router-link to="/care-manager/login">ケアマネージャーログイン</router-link>
-    </nav>
+    <div class="header">
+      <SideBar></SideBar>
+      <CommonHeader></CommonHeader>
+    </div>
     <router-view />
   </div>
 </template>
 
 <script>
 import CommonHeader from "./components/CommonHeader";
+import SideBar from "./components/SideBar";
 export default {
-  components: { CommonHeader }
+  components: { CommonHeader, SideBar }
 };
 </script>
 
 <style>
 @import "./css/reset.css";
 @import "./css/common.css";
+
+.header {
+  display: flex;
+}
 </style>

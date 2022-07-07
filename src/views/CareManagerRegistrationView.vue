@@ -87,7 +87,7 @@
           </div>
           <div class="form-item">
             <label class="form-item-lbl" for="password">パスワード</label>
-            <ValidationProvider v-slot="{ errors }" rules="required|min:8">
+            <ValidationProvider v-slot="{ errors }" rules="required|min:8|max:255">
               <div class="form-item-input">
                 <input type="password" id="password" class="input-form" v-model="send_data.password" required>
               </div>

@@ -10,13 +10,14 @@ body {
 }
 .form-ttl {
   color: #fff;
-  background-color: #4527A0;
+  background-color: #1A237E;
   padding: 20px;
   font-size: 20px;
+  font-weight: normal;
   border-radius: 5px 5px 0 0;
 }
 .form {
-  background-color: #fff;
+  background-color: #eee;
   max-width: 600px;
   margin: 0 auto;
   border-radius: 6px;
@@ -32,6 +33,7 @@ body {
   display: inline-block;
   font-weight: bold;
   margin-bottom: 10px;
+  color: #555;
 }
 .form-item-input {
   display: flex;
@@ -51,7 +53,7 @@ body {
 }
 .btn {
   color: #fff;
-  background-color: #4527A0;
+  background-color: #1A237E;
   border: none;
   padding: 5px 0;
   width: 150px;
