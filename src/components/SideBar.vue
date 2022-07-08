@@ -1,12 +1,22 @@
 <template>
   <div>
-    <nav class="nav" id="nav">
+    <nav v-if="$store.getters.isCareManagerAccessToken" class="nav" id="nav">
       <ul>
         <li>
           <router-link class="link" to="/care-manager/register">ケアマネージャー登録</router-link>
         </li>
         <li>
           <router-link class="link" to="/care-manager/login">ケアマネージャーログイン</router-link>
+        </li>
+      </ul>
+    </nav>
+    <nav v-else class="nav" id="nav">
+      <ul>
+        <li>
+          <router-link class="link" to="/care-receiver/register">被介護者登録</router-link>
+        </li>
+        <li>
+          <button class="btn-link" @click="logout">ログアウト</button>
         </li>
       </ul>
     </nav>
@@ -19,6 +29,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   methods: {
     toggleMenu() {
@@ -26,6 +37,13 @@ export default {
       target.classList.toggle('open');
       const nav = document.getElementById("nav");
       nav.classList.toggle('in');
+    },
+    registerCareReceiver() {
+
+    },
+    logout() {
+      axios
+        .post(`${process.env.VUE_APP_API_ORIGIN}/care-managers/logout`);
     }
   }
 }
@@ -54,6 +72,11 @@ export default {
   text-decoration: none;
   color: #1A237E;
   font-size: 30px;
+}
+.btn-link {
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
 }
 .menu {
   display: inline-block;

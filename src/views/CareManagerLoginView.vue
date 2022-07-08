@@ -51,8 +51,8 @@ export default {
         axios
           .post(`${process.env.VUE_APP_API_ORIGIN}/care-managers/login`, this.login_data)
           .then(response => {
-            console.log(response.access_token);
-            this.$store.dispatch('setCareManagerAccessTokenAction', response.access_token);
+            const access_token = response.data.access_token;
+            this.$store.dispatch('setCareManagerAccessTokenAction', access_token);
             console.log(this.$store.getters.getCareManagerAccessToken);
           })
           .catch(error => {

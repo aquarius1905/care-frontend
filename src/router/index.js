@@ -8,7 +8,8 @@ import CareManagerLoginView from '../views/CareManagerLoginView.vue'
 import CareManagerRegistrationView from '../views/CareManagerRegistrationView.vue'
 import CareManagerRegistrationCompleteView from '../views/CareManagerRegistrationCompleteView.vue'
 import CareManagerRegistrationConfirmationView from '../views/CareManagerRegistrationConfirmationView.vue'
-
+import CareReceiverRegistrationView from '../views/CareReceiverRegistrationView.vue'
+import CareReceiverFormView from '../views/CareReceiverFormView.vue'
 
 const routes = [
   {
@@ -37,6 +38,26 @@ const routes = [
     ]
   },
   {
+    path: '/care-receiver/register',
+    name: 'CareReceiverForm',
+    component: CareReceiverFormView,
+    children: [
+      {
+        path: '/care-receiver/register',
+        name: 'CareReceiverRegistration',
+        component: CareReceiverRegistrationView
+      },
+      // {
+      //   path: '/care-receiver/register/confirm',
+      //   name: 'CareReceiverRegistrationConfirmation',
+      //   component: CareReceiverRegistrationConfirmationView,
+      //   meta: {
+      //     isConfirm: true
+      //   }
+      // }
+    ]
+  },
+  {
     path: '/care-manager/register/complete',
     name: 'CareManagerRegistrationComplete',
     component: CareManagerRegistrationCompleteView
@@ -45,7 +66,7 @@ const routes = [
     path: '/care-manager/login',
     name: 'CareManagerLogin',
     component: CareManagerLoginView
-  }
+  },
 ]
 
 const router = new VueRouter({

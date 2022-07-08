@@ -10,6 +10,9 @@ export default new Vuex.Store({
   getters: {
     getCareManagerAccessToken(state) {
       return state.careManagerAccessToken;
+    },
+    isCareManagerAuthenticated(state) {
+      return state.careManagerAccessToken != null
     }
   },
   mutations: {
@@ -19,7 +22,7 @@ export default new Vuex.Store({
   },
   actions: {
     setCareManagerAccessTokenAction(context, payload) {
-      context.commit('setCareManagerToken', payload);
+      context.commit('setCareManagerAccessToken', payload);
     }
   },
   modules: {
