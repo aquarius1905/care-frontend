@@ -16,13 +16,19 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    setCareManagerAccessToken(state, payload) {
+    login(state, payload) {
       state.careManagerAccessToken = payload;
+    },
+    logout(state) {
+      state.careManagerAccessToken = null;
     }
   },
   actions: {
-    setCareManagerAccessTokenAction(context, payload) {
-      context.commit('setCareManagerAccessToken', payload);
+    login(context, payload) {
+      context.commit('login', payload);
+    },
+    logout(context) {
+      context.commit('logout');
     }
   },
   modules: {

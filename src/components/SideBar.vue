@@ -43,7 +43,18 @@ export default {
     },
     logout() {
       axios
-        .post(`${process.env.VUE_APP_API_ORIGIN}/care-managers/logout`);
+        .post(`${process.env.VUE_APP_API_ORIGIN}/care-managers/logout`)
+        .then(response => {
+          console.log(response);
+          this.$store.dispatch('logout');
+          console.log(this.$store.getters.isCareManagerAuthenticated);
+          this.$router.push({
+            name: 'CareManagerLogin'
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   }
 }
