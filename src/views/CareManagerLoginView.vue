@@ -54,7 +54,9 @@ export default {
             const access_token = response.data.access_token;
             axios.defaults.headers.common['Authorization'] = 'Bearer ' + access_token;
             this.$store.dispatch('login', access_token);
-            console.log(this.$store.getters.isCareManagerAuthenticated);
+            this.$router.push({
+              name: 'CareReceiverRegistration'
+            });
           })
           .catch(error => {
             console.log(error);

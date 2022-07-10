@@ -12,7 +12,7 @@ export default new Vuex.Store({
       return state.careManagerAccessToken;
     },
     isCareManagerAuthenticated(state) {
-      return state.careManagerAccessToken != null
+      return state.careManagerAccessToken !== null
     }
   },
   mutations: {

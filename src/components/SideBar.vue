@@ -1,22 +1,20 @@
 <template>
   <div>
-    <nav v-if="$store.getters.isCareManagerAccessToken" class="nav" id="nav">
-      <ul>
-        <li>
-          <router-link class="link" to="/care-manager/register">ケアマネージャー登録</router-link>
-        </li>
-        <li>
-          <router-link class="link" to="/care-manager/login">ケアマネージャーログイン</router-link>
-        </li>
-      </ul>
-    </nav>
-    <nav v-else class="nav" id="nav">
-      <ul>
+    <nav class="nav" id="nav">
+      <ul v-if="isLoggedin">
         <li>
           <router-link class="link" to="/care-receiver/register">被介護者登録</router-link>
         </li>
         <li>
           <button class="btn-link" @click="logout">ログアウト</button>
+        </li>
+      </ul>
+      <ul v-else>
+        <li>
+          <router-link class="link" to="/care-manager/register">ケアマネージャー登録</router-link>
+        </li>
+        <li>
+          <router-link class="link" to="/care-manager/login">ケアマネージャーログイン</router-link>
         </li>
       </ul>
     </nav>
@@ -47,7 +45,6 @@ export default {
         .then(response => {
           console.log(response);
           this.$store.dispatch('logout');
-          console.log(this.$store.getters.isCareManagerAuthenticated);
           this.$router.push({
             name: 'CareManagerLogin'
           });
@@ -55,6 +52,11 @@ export default {
         .catch(error => {
           console.log(error);
         });
+    }
+  },
+  computed: {
+    isLoggedin() {
+      return this.$store.getters.isCareManagerAuthenticated;
     }
   }
 }
