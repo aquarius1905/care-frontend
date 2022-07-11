@@ -48,6 +48,7 @@
               <div class="form-item-input">
                 <input type="text" id="post_code" class="input-form" v-model="send_data.post_code" placeholder="1050004"
                   required>
+                <button class="search-btn btn" @click="searchAddress">住所検索</button>
               </div>
               <div class="error">{{ errors[0] }}</div>
             </ValidationProvider>
@@ -56,40 +57,41 @@
             <label class="form-item-lbl" for="address">住所</label>
             <ValidationProvider v-slot="{ errors }" rules="required|max:255">
               <div class="form-item-input">
-                <input type="text" id="address" class="input-form" v-model="send_data.address" placeholder="東京都港区新橋5-6-7"
-                  required>
+                <input type="text" id="address" class="input-form" v-model="send_data.address"
+                  placeholder="東京都港区新橋5-6-7" required>
               </div>
               <div class="error">{{ errors[0] }}</div>
             </ValidationProvider>
           </div>
           <div class="form-item">
-            <label class="form-item-lbl" for="email">メールアドレス</label>
-            <ValidationProvider v-slot="{ errors }" rules="required|email">
-              <div class="form-item-input">
-                <input type="email" id="email" class="input-form" v-model="send_data.email"
-                  placeholder="taro_yamada@sample.com" required>
+            <fieldset class="fieldset">
+              <legend class="form-item-lbl">介護度</legend>
+              <div class="care_level_wrap">
+                <div class="form-radio-item">
+                  <label><input type="radio" name="care_level" v-model="send_data.care_level" value="0">要支援1</label>
+                </div>
+                <div class="form-radio-item">
+                  <label><input type="radio" name="care_level" v-model="send_data.care_level" value="1">要支援2</label>
+                </div>
               </div>
-              <div class="error">{{ errors[0] }}</div>
-            </ValidationProvider>
-          </div>
-          <div class="form-item">
-            <label class="form-item-lbl" for="tel">電話番号</label>
-            <ValidationProvider v-slot="{ errors }" rules="required|min:10|max:11">
-              <div class="form-item-input">
-                <input type="text" id="tel" class="input-form" v-model="send_data.tel" placeholder="09012345678"
-                  required>
+              <div class="care_level_wrap">
+                <div class="form-radio-item">
+                  <label><input type="radio" name="care_level" v-model="send_data.care_level" value="2">要介護1</label>
+                </div>
+                <div class="form-radio-item">
+                  <label><input type="radio" name="care_level" v-model="send_data.care_level" value="3">要介護2</label>
+                </div>
+                <div class="form-radio-item">
+                  <label><input type="radio" name="care_level" v-model="send_data.care_level" value="4">要介護3</label>
+                </div>
+                <div class="form-radio-item">
+                  <label><input type="radio" name="care_level" v-model="send_data.care_level" value="5">要介護4</label>
+                </div>
+                <div class="form-radio-item">
+                  <label><input type="radio" name="care_level" v-model="send_data.care_level" value="6">要介護5</label>
+                </div>
               </div>
-              <div class="error">{{ errors[0] }}</div>
-            </ValidationProvider>
-          </div>
-          <div class="form-item">
-            <label class="form-item-lbl" for="password">パスワード</label>
-            <ValidationProvider v-slot="{ errors }" rules="required|min:8|max:255">
-              <div class="form-item-input">
-                <input type="password" id="password" class="input-form" v-model="send_data.password" required>
-              </div>
-              <div class="error">{{ errors[0] }}</div>
-            </ValidationProvider>
+            </fieldset>
           </div>
         </div>
         <div class="form-btn-wrap">
@@ -102,6 +104,7 @@
 
 <script>
 import axios from "axios";
+const jsonpAdapter = require('axios-jsonp')
 export default {
   props: ['senddata'],
   data() {
@@ -111,6 +114,13 @@ export default {
     }
   },
   methods: {
+    searchAddress() {
+      axios
+        .get(`https://api.zipaddress.net/?zipcode=${this.send_data.post_code}`, { adapter: jsonpAdapter })
+        .then(response => {
+          this.send_data.address = response.data.fullAddress;
+      })
+    },
     confirmRegistration(ObserverProps) {
       console.log(ObserverProps);
       if (ObserverProps.invalid || !ObserverProps.validated) {
@@ -162,5 +172,20 @@ export default {
   font-size: 18px;
   height: 40px;
   width: 100%;
+}
+.search-btn {
+  width: 120px;
+  margin-left: 10px;
+}
+.care_level_wrap {
+  display: flex;
+  margin-bottom: 20px
+}
+.form-radio-item {
+  margin-right: 20px;
+}
+.fieldset {
+  border: 1px solid #555;
+  padding: 10px;
 }
 </style>

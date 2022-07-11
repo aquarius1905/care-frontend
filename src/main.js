@@ -28,6 +28,8 @@ localize({
       email: "メールアドレス",
       tel: "電話番号",
       password: "パスワード",
+      post_code: "郵便番号",
+      address: "住所"
     },
    },
 });
