@@ -5,42 +5,52 @@
       <ValidationObserver ref="obs" v-slot="ObserverProps">
         <div class="form-content">
           <div class="form-item">
-            <label class="form-item-lbl">お名前</label>
-            <ValidationProvider v-slot="{ errors }" rules="required|max:127">
-              <div class="form-item-input">
-                <label for="last_name" class="name_lbl">姓</label>
-                <input type="text" id="last_name" class="input-form first-name-input" v-model="send_data.last_name"
-                  name="姓" placeholder="山田">
+            <div class="form-item-wrap">
+              <div class="form-item-name-wrap">
+                <ValidationProvider v-slot="{ errors }" rules="required|max:127">
+                  <label for="last_name" class="form-item-lbl">姓</label>
+                  <div class="form-item-input">
+                    <input type="text" id="last_name" class="input-form" v-model="send_data.last_name" name="姓"
+                      placeholder="山田">
+                  </div>
+                  <div class="error">{{ errors[0] }}</div>
+                </ValidationProvider>
               </div>
-              <div class="error">{{ errors[0] }}</div>
-            </ValidationProvider>
-            <ValidationProvider v-slot="{ errors }" rules="required|max:127">
-              <div class="form-item-input">
-                <label for="first_name" class="name_lbl">名</label>
-                <input type="text" id="first_name" class="input-form" v-model="send_data.first_name" name="名"
-                  placeholder="太郎">
+              <div class="form-item-name-wrap">
+                <ValidationProvider v-slot="{ errors }" rules="required|max:127">
+                  <label for="first_name" class="form-item-lbl">名</label>
+                  <div class="form-item-input">
+                    <input type="text" id="first_name" class="input-form" v-model="send_data.first_name" name="名"
+                      placeholder="太郎">
+                  </div>
+                  <div class="error">{{ errors[0] }}</div>
+                </ValidationProvider>
               </div>
-              <div class="error">{{ errors[0] }}</div>
-            </ValidationProvider>
+            </div>
           </div>
           <div class="form-item">
-            <label class="form-item-lbl">フリガナ</label>
-            <ValidationProvider v-slot="{ errors }" rules="required|max:127">
-              <div class="form-item-input">
-                <label for="last_name_furigana" class="name_lbl">セイ</label>
-                <input type="text" id="last_name_furigana" class="input-form first-name-input"
-                  v-model="send_data.last_name_furigana" placeholder="ヤマダ" required>
+            <div class="form-item-wrap">
+              <div class="form-item-name-wrap">
+                <ValidationProvider v-slot="{ errors }" rules="required|max:127">
+                  <label for="last_name_furigana" class="form-item-lbl">セイ</label>
+                  <div class="form-item-input">
+                    <input type="text" id="last_name_furigana" class="input-form furigana-input-form"
+                      v-model="send_data.last_name_furigana" placeholder="ヤマダ" required>
+                  </div>
+                  <div class="error">{{ errors[0] }}</div>
+                </ValidationProvider>
               </div>
-              <div class="error">{{ errors[0] }}</div>
-            </ValidationProvider>
-            <ValidationProvider v-slot="{ errors }" rules="required|max:127">
-              <div class="form-item-input">
-                <label for="first_name_furigana" class="name_lbl">メイ</label>
-                <input type="text" id="first_name_furigana" class="input-form" v-model="send_data.first_name_furigana"
-                  placeholder="タロウ" required>
+              <div class="form-item-name-wrap">
+                <ValidationProvider v-slot="{ errors }" rules="required|max:127">
+                  <label for="first_name_furigana" class="form-item-lbl">メイ</label>
+                  <div class="form-item-input">
+                    <input type="text" id="first_name_furigana" class="input-form furigana-input-form"
+                      v-model="send_data.first_name_furigana" placeholder="タロウ" required>
+                  </div>
+                  <div class="error">{{ errors[0] }}</div>
+                </ValidationProvider>
               </div>
-              <div class="error">{{ errors[0] }}</div>
-            </ValidationProvider>
+            </div>
           </div>
           <div class="form-item">
             <label class="form-item-lbl" for="post_code">郵便番号</label>
@@ -68,7 +78,8 @@
               <legend class="form-item-lbl">介護度</legend>
               <div class="care_level_wrap">
                 <div class="form-radio-item">
-                  <label><input type="radio" name="care_level" v-model="send_data.care_level" value="0" required>要支援1</label>
+                  <label><input type="radio" name="care_level" v-model="send_data.care_level" value="0"
+                      required>要支援1</label>
                 </div>
                 <div class="form-radio-item">
                   <label><input type="radio" name="care_level" v-model="send_data.care_level" value="1">要支援2</label>
@@ -148,12 +159,6 @@ export default {
 }
 </script>
 <style scoped>
-.care-manager-registration {
-  background-color: #eee;
-}
-.first-name-input {
-  margin-bottom: 10px;
-}
 .input-form {
   border: 1px solid #777;
   border-radius: 6px;
@@ -161,17 +166,6 @@ export default {
   height: 48px;
   width: 100%;
   font-size: 18px;
-}
-.name_lbl {
-  width: 100px;
-}
-.select-form {
-  border: 1px solid #777;
-  border-radius: 6px;
-  padding: 0 10px;
-  font-size: 18px;
-  height: 40px;
-  width: 100%;
 }
 .search-btn {
   width: 120px;

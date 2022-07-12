@@ -17,7 +17,7 @@ body {
   border-radius: 5px 5px 0 0;
 }
 .form {
-  background-color: #eee;
+  background-color: #f9f9f9;
   max-width: 600px;
   margin: 0 auto;
   border-radius: 6px;
@@ -27,7 +27,7 @@ body {
   padding: 20px;
 }
 .form-item {
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 .form-item-lbl {
   display: inline-block;
@@ -41,6 +41,13 @@ body {
 }
 .form-item:last-child {
   margin-bottom: 0;
+}
+.form-item-name-wrap {
+  width: 48%;
+}
+.form-item-wrap {
+  display: flex;
+  justify-content: space-between;
 }
 .form-btn-wrap {
   text-align: center;
