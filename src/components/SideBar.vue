@@ -68,7 +68,7 @@ export default {
   height: 100vh;
   width: 100%;
   left: -100%;
-  background: #eee;
+  background: #f5f5f5;
   transition: .7s;
   text-align: center;
 }
@@ -90,6 +90,8 @@ export default {
   border: none;
   font-size: 30px;
   cursor: pointer;
+  color: #1A237E;
+  background: transparent;
 }
 .menu {
   display: inline-block;

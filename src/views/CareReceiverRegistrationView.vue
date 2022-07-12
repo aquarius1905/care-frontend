@@ -68,7 +68,7 @@
               <legend class="form-item-lbl">介護度</legend>
               <div class="care_level_wrap">
                 <div class="form-radio-item">
-                  <label><input type="radio" name="care_level" v-model="send_data.care_level" value="0">要支援1</label>
+                  <label><input type="radio" name="care_level" v-model="send_data.care_level" value="0" required>要支援1</label>
                 </div>
                 <div class="form-radio-item">
                   <label><input type="radio" name="care_level" v-model="send_data.care_level" value="1">要支援2</label>
