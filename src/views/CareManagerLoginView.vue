@@ -8,8 +8,8 @@
             <label class="form-item-lbl" for="email">メールアドレス</label>
             <ValidationProvider v-slot="{ errors }" rules="required|email">
               <div class="form-item-input">
-                <input type="email" id="email" class="input-form" v-model="login_data.email" placeholder="test@sample.com"
-                  required>
+                <input type="email" id="email" class="input" v-model="login_data.email"
+                  placeholder="test@sample.com" required>
               </div>
               <div class="error">{{ errors[0] }}</div>
             </ValidationProvider>
@@ -18,7 +18,7 @@
             <label class="form-item-lbl" for="password">パスワード</label>
             <ValidationProvider v-slot="{ errors }" rules="required|min:8|max:255">
               <div class="form-item-input">
-                <input type="password" id="password" class="input-form" v-model="login_data.password" required>
+                <input type="password" id="password" class="input" v-model="login_data.password" required>
               </div>
               <div class="error">{{ errors[0] }}</div>
             </ValidationProvider>
@@ -76,15 +76,6 @@ export default {
   max-width: 400px;
   margin: 0 auto;
   border-radius: 6px;
-}
-.input-form {
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 0 10px;
-  height: 48px;
-  width: 100%;
-  background: #eee;
-  font-size: 18px;
 }
 .login-btn {
   width: 120px;

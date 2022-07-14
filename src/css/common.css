@@ -17,7 +17,7 @@ body {
   border-radius: 5px 5px 0 0;
 }
 .form {
-  background-color: #f9f9f9;
+  background-color: #fff;
   max-width: 600px;
   margin: 0 auto;
   border-radius: 6px;
@@ -57,6 +57,7 @@ body {
   color: tomato;
   font-weight: bold;
   margin: 10px 0;
+  font-size: 16px;
 }
 .btn {
   color: #fff;
@@ -68,6 +69,21 @@ body {
   border-radius: 6px;
   cursor: pointer;
 }
-.flex {
-  display: flex;
+.input {
+  border: 1px solid #ddd;
+  background-color: #eee;
+  border-radius: 6px;
+  padding: 0 10px;
+  height: 48px;
+  width: 100%;
+  font-size: 18px;
+}
+.select {
+  border: 1px solid #ddd;
+  background-color: #eee;
+  border-radius: 6px;
+  padding: 0 10px;
+  font-size: 18px;
+  height: 40px;
+  width: 100%;
 }

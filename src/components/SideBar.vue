@@ -14,15 +14,16 @@
           <router-link class="link" to="/care-manager/register">ケアマネージャー登録</router-link>
         </li>
         <li>
-          <router-link class="link" to="/care-manager/login">ケアマネージャーログイン</router-link>
+          <router-link class="link" to="/care-manager/login">ケアマネージャーログイン
+          </router-link>
         </li>
       </ul>
     </nav>
-    <div class="menu" id="menu" @click="toggleMenu">
+    <!-- <div class="menu" id="menu" @click="toggleMenu">
       <span class="menu__line--top"></span>
       <span class="menu__line--middle"></span>
       <span class="menu__line--bottom"></span>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -31,10 +32,10 @@ import axios from "axios";
 export default {
   methods: {
     toggleMenu() {
-      const target = document.getElementById("menu");
-      target.classList.toggle('open');
-      const nav = document.getElementById("nav");
-      nav.classList.toggle('in');
+      // const target = document.getElementById("menu");
+      // target.classList.toggle('open');
+      // const nav = document.getElementById("nav");
+      // nav.classList.toggle('in');
     },
     registerCareReceiver() {
 
@@ -64,39 +65,42 @@ export default {
 
 <style>
 .nav {
-  position: absolute;
+  position: fixed;
+  top: 90px;
+  left: 0;
+  background: #1A237E;
+  width: 20%;
   height: 100vh;
-  width: 100%;
-  left: -100%;
-  background: #f5f5f5;
-  transition: .7s;
-  text-align: center;
 }
 
 .nav ul {
-  padding-top: 80px;
+  padding-top: 50px;
 }
 
 .nav ul li {
   list-style-type: none;
-  margin-top: 50px;
 }
 .link {
   text-decoration: none;
-  color: #1A237E;
-  font-size: 30px;
+  color: #fff;
+  font-size: 20px;
+  width: 100%;
+  height: 100%;
+  line-height: 65px;
+  padding-left: 20px;
 }
 .btn-link {
   border: none;
-  font-size: 30px;
+  font-size: 20px;
   cursor: pointer;
-  color: #1A237E;
+  color: #fff;
   background: transparent;
+  padding-left: 20px;
 }
 .menu {
   display: inline-block;
-  width: 36px;
-  height: 32px;
+  width: 28px;
+  height: 26px;
   cursor: pointer;
   position: relative;
   left: 20px;
@@ -109,7 +113,7 @@ export default {
   display: inline-block;
   width: 100%;
   height: 4px;
-  background-color: #1A237E;
+  background-color: #f5f5f5;
   position: absolute;
   transition: 0.5s;
 }
@@ -119,7 +123,7 @@ export default {
 }
 
 .menu__line--middle {
-  top: 14px;
+  top: 11px;
 }
 
 .menu__line--bottom {

@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <div class="header">
-      <SideBar></SideBar>
+    <div>
       <CommonHeader></CommonHeader>
     </div>
-    <router-view />
+    <SideBar></SideBar>
+    <router-view class="router-view" />
   </div>
 </template>
 
@@ -20,7 +20,8 @@ export default {
 @import "./css/reset.css";
 @import "./css/common.css";
 
-.header {
-  display: flex;
+.router-view {
+  width: 80%;
+  margin: 90px 0 0 auto;
 }
 </style>

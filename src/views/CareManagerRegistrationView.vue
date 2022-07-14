@@ -10,7 +10,7 @@
                 <ValidationProvider v-slot="{ errors }" rules="required|max:127">
                   <label for="last_name" class="form-item-lbl">姓</label>
                   <div class="form-item-input">
-                    <input type="text" id="last_name" class="input-form" v-model="send_data.last_name" name="姓"
+                    <input type="text" id="last_name" class="input" v-model="send_data.last_name" name="姓"
                       placeholder="山田">
                   </div>
                   <div class="error">{{ errors[0] }}</div>
@@ -20,7 +20,7 @@
                 <ValidationProvider v-slot="{ errors }" rules="required|max:127">
                   <label for="first_name" class="form-item-lbl">名</label>
                   <div class="form-item-input">
-                    <input type="text" id="first_name" class="input-form" v-model="send_data.first_name" name="名"
+                    <input type="text" id="first_name" class="input" v-model="send_data.first_name" name="名"
                       placeholder="太郎">
                   </div>
                   <div class="error">{{ errors[0] }}</div>
@@ -34,7 +34,7 @@
                 <ValidationProvider v-slot="{ errors }" rules="required|max:127">
                   <label for="last_name_furigana" class="form-item-lbl">セイ</label>
                   <div class="form-item-input">
-                    <input type="text" id="last_name_furigana" class="input-form" v-model="send_data.last_name_furigana"
+                    <input type="text" id="last_name_furigana" class="input" v-model="send_data.last_name_furigana"
                       placeholder="ヤマダ" required>
                   </div>
                   <div class="error">{{ errors[0] }}</div>
@@ -44,7 +44,7 @@
                 <ValidationProvider v-slot="{ errors }" rules="required|max:127">
                   <label for="first_name_furigana" class="form-item-lbl">メイ</label>
                   <div class="form-item-input">
-                    <input type="text" id="first_name_furigana" class="input-form"
+                    <input type="text" id="first_name_furigana" class="input"
                       v-model="send_data.first_name_furigana" placeholder="タロウ" required>
                   </div>
                   <div class="error">{{ errors[0] }}</div>
@@ -56,7 +56,7 @@
             <label class="form-item-lbl" for="registration_number">介護支援専門員登録番号</label>
             <ValidationProvider v-slot="{ errors }" rules="required|length:8">
               <div class="form-item-input">
-                <input type="text" id="registration_number" class="input-form" v-model="send_data.registration_number"
+                <input type="text" id="registration_number" class="input" v-model="send_data.registration_number"
                   placeholder="13000000" required>
               </div>
               <div class="error">{{ errors[0] }}</div>
@@ -66,7 +66,7 @@
             <label class="form-item-lbl" for="suport_office">所属居宅介護支援事業所</label>
             <ValidationProvider v-slot="{ errors }" rules="required">
               <div class="form-item-input">
-                <select id="suport_office" class="select-form" v-model="send_data.support_office">
+                <select id="suport_office" class="select" v-model="send_data.support_office">
                   <option v-for="support_office in support_offices" :key="support_office.id" :value="support_office">
                     {{ support_office.name }}
                   </option>
@@ -79,7 +79,7 @@
             <label class="form-item-lbl" for="email">メールアドレス</label>
             <ValidationProvider v-slot="{ errors }" rules="required|email">
               <div class="form-item-input">
-                <input type="email" id="email" class="input-form" v-model="send_data.email"
+                <input type="email" id="email" class="input" v-model="send_data.email"
                   placeholder="taro_yamada@sample.com" required>
               </div>
               <div class="error">{{ errors[0] }}</div>
@@ -89,7 +89,7 @@
             <label class="form-item-lbl" for="tel">電話番号</label>
             <ValidationProvider v-slot="{ errors }" rules="required|min:10|max:11">
               <div class="form-item-input">
-                <input type="text" id="tel" class="input-form" v-model="send_data.tel" placeholder="09012345678"
+                <input type="text" id="tel" class="input" v-model="send_data.tel" placeholder="09012345678"
                   required>
               </div>
               <div class="error">{{ errors[0] }}</div>
@@ -99,7 +99,7 @@
             <label class="form-item-lbl" for="password">パスワード</label>
             <ValidationProvider v-slot="{ errors }" rules="required|min:8|max:255">
               <div class="form-item-input">
-                <input type="password" id="password" class="input-form" v-model="send_data.password" required>
+                <input type="password" id="password" class="input" v-model="send_data.password" required>
               </div>
               <div class="error">{{ errors[0] }}</div>
             </ValidationProvider>
@@ -150,21 +150,3 @@ export default {
   }
 }
 </script>
-<style scoped>
-.input-form {
-  border: 1px solid #777;
-  border-radius: 6px;
-  padding: 0 10px;
-  height: 48px;
-  width: 100%;
-  font-size: 18px;
-}
-.select-form {
-  border: 1px solid #777;
-  border-radius: 6px;
-  padding: 0 10px;
-  font-size: 18px;
-  height: 40px;
-  width: 100%;
-}
-</style>

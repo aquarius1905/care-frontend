@@ -10,7 +10,7 @@
                 <ValidationProvider v-slot="{ errors }" rules="required|max:127">
                   <label for="last_name" class="form-item-lbl">姓</label>
                   <div class="form-item-input">
-                    <input type="text" id="last_name" class="input-form" v-model="send_data.last_name" name="姓"
+                    <input type="text" id="last_name" class="input" v-model="send_data.last_name" name="姓"
                       placeholder="山田">
                   </div>
                   <div class="error">{{ errors[0] }}</div>
@@ -20,7 +20,7 @@
                 <ValidationProvider v-slot="{ errors }" rules="required|max:127">
                   <label for="first_name" class="form-item-lbl">名</label>
                   <div class="form-item-input">
-                    <input type="text" id="first_name" class="input-form" v-model="send_data.first_name" name="名"
+                    <input type="text" id="first_name" class="input" v-model="send_data.first_name" name="名"
                       placeholder="太郎">
                   </div>
                   <div class="error">{{ errors[0] }}</div>
@@ -34,7 +34,7 @@
                 <ValidationProvider v-slot="{ errors }" rules="required|max:127">
                   <label for="last_name_furigana" class="form-item-lbl">セイ</label>
                   <div class="form-item-input">
-                    <input type="text" id="last_name_furigana" class="input-form furigana-input-form"
+                    <input type="text" id="last_name_furigana" class="input furigana-input"
                       v-model="send_data.last_name_furigana" placeholder="ヤマダ" required>
                   </div>
                   <div class="error">{{ errors[0] }}</div>
@@ -44,7 +44,7 @@
                 <ValidationProvider v-slot="{ errors }" rules="required|max:127">
                   <label for="first_name_furigana" class="form-item-lbl">メイ</label>
                   <div class="form-item-input">
-                    <input type="text" id="first_name_furigana" class="input-form furigana-input-form"
+                    <input type="text" id="first_name_furigana" class="input furigana-input"
                       v-model="send_data.first_name_furigana" placeholder="タロウ" required>
                   </div>
                   <div class="error">{{ errors[0] }}</div>
@@ -53,10 +53,19 @@
             </div>
           </div>
           <div class="form-item">
+            <ValidationProvider v-slot="{ errors }" rules="required|">
+              <label class="form-item-lbl" for="birthday">生年月日</label>
+              <div class="form-item-input">
+                <input type="date" id="birthday" class="input" v-model="send_data.birthday" min="1900-01-01" max="1970-01-01" required>
+              </div>
+              <div class="error">{{ errors[0] }}</div>
+            </ValidationProvider>
+          </div>
+          <div class="form-item">
             <label class="form-item-lbl" for="post_code">郵便番号</label>
             <ValidationProvider v-slot="{ errors }" rules="required|length:7">
               <div class="form-item-input">
-                <input type="text" id="post_code" class="input-form" v-model="send_data.post_code" placeholder="1050004"
+                <input type="text" id="post_code" class="input" v-model="send_data.post_code" placeholder="1050004"
                   required>
                 <button class="search-btn btn" @click="searchAddress">住所検索</button>
               </div>
@@ -67,8 +76,8 @@
             <label class="form-item-lbl" for="address">住所</label>
             <ValidationProvider v-slot="{ errors }" rules="required|max:255">
               <div class="form-item-input">
-                <input type="text" id="address" class="input-form" v-model="send_data.address"
-                  placeholder="東京都港区新橋5-6-7" required>
+                <input type="text" id="address" class="input" v-model="send_data.address" placeholder="東京都港区新橋5-6-7"
+                  required>
               </div>
               <div class="error">{{ errors[0] }}</div>
             </ValidationProvider>
@@ -155,11 +164,15 @@ export default {
       .catch(error => {
         console.log(error);
       });
+
+    if (this.send_data.birthday === null) {
+      this.send_data.birthday = new Date("1940/01/01");
+    }
   }
 }
 </script>
 <style scoped>
-.input-form {
+.input {
   border: 1px solid #777;
   border-radius: 6px;
   padding: 0 10px;

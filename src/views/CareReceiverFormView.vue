@@ -15,6 +15,7 @@ export default {
         first_name_furigana: null,
         post_code: null,
         address: null,
+        birthday: null,
         care_level: 0
       }
     }
