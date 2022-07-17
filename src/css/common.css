@@ -25,33 +25,35 @@ body {
 .form-content,
 .confirm-content {
   padding: 20px;
+  box-sizing: border-box;
 }
 .form-item {
+  width: 100%;
   margin-bottom: 25px;
 }
 .form-item-lbl {
-  display: inline-block;
+  display: block;
   font-weight: bold;
   margin-bottom: 10px;
   color: #555;
-}
-.form-item-input {
-  display: flex;
-  align-items: center;
 }
 .form-item:last-child {
   margin-bottom: 0;
 }
 .form-item-name-wrap {
-  width: 48%;
+  width: 100%;
 }
 .form-item-wrap {
   display: flex;
   justify-content: space-between;
+  width: 100%;
 }
 .form-btn-wrap {
   text-align: center;
   padding: 20px 0;
+}
+.form-confrim-btn-wrap {
+  padding-top: 0;
 }
 .error {
   color: tomato;
@@ -69,21 +71,23 @@ body {
   border-radius: 6px;
   cursor: pointer;
 }
-.input {
-  border: 1px solid #ddd;
-  background-color: #eee;
-  border-radius: 6px;
-  padding: 0 10px;
-  height: 48px;
-  width: 100%;
-  font-size: 18px;
+.btn:disabled {
+  background: #777;
 }
+.input,
+.name-input,
 .select {
   border: 1px solid #ddd;
   background-color: #eee;
   border-radius: 6px;
   padding: 0 10px;
   font-size: 18px;
-  height: 40px;
+  height: 48px;
+  width: 96%;
+}
+.name-input {
+  width: 85%;
+}
+.select {
   width: 100%;
 }

@@ -6,27 +6,27 @@
         <table class="confirm-tbl">
           <tr>
             <th>お名前</th>
-            <td>{{ senddata.last_name }}&emsp;{{ senddata.first_name }}</td>
+            <td>{{ send_data.last_name }}&emsp;{{ send_data.first_name }}</td>
           </tr>
           <tr>
             <th>フリガナ</th>
-            <td>{{ senddata.last_name_furigana }}&emsp;{{ senddata.first_name_furigana }}</td>
+            <td>{{ send_data.last_name_furigana }}&emsp;{{ send_data.first_name_furigana }}</td>
           </tr>
           <tr>
             <th>介護支援専門員登録番号</th>
-            <td>{{ senddata.registration_number }}</td>
+            <td>{{ send_data.registration_number }}</td>
           </tr>
           <tr>
             <th>所属居宅介護支援事業所</th>
-            <td>{{ senddata.support_office.name }}</td>
+            <td>{{ send_data.support_office.name }}</td>
           </tr>
           <tr>
             <th>メールアドレス</th>
-            <td>{{ senddata.email }}</td>
+            <td>{{ send_data.email }}</td>
           </tr>
           <tr>
             <th>電話番号</th>
-            <td>{{ senddata.tel }}</td>
+            <td>{{ send_data.tel }}</td>
           </tr>
           <tr>
             <th>パスワード</th>
@@ -45,25 +45,15 @@
 <script>
 import axios from "axios";
 export default {
-  props: ['senddata'],
   data: function () {
     return {
-      send_data: this.senddata
+      send_data: null
     }
   },
   methods: {
     register() {
       if (confirm('登録しますか？')) {
-        this.send_data['support_office_id'] = this.send_data['support_office']['id'];
-        this.send_data['name']
-          = this.send_data['last_name'] + '　' + this.send_data['first_name'];
-        this.send_data['name_furigana']
-          = this.send_data['last_name_furigana'] + '　' + this.send_data['first_name_furigana'];
-        delete this.send_data['last_name'];
-        delete this.send_data['first_name'];
-        delete this.send_data['last_name_furigana'];
-        delete this.send_data['first_name_furigana'];
-        delete this.send_data['support_office'];
+        this.makeCareManagerData();
         axios
           .post(`${process.env.VUE_APP_API_ORIGIN}/care-managers`, this.send_data)
           .then(reseponse => {
@@ -75,6 +65,22 @@ export default {
           });
       }
     },
+    makeCareManagerData() {
+      this.send_data['support_office_id'] = this.send_data['support_office']['id'];
+      this.send_data['name']
+        = this.send_data['last_name'] + '　' + this.send_data['first_name'];
+      this.send_data['name_furigana']
+        = this.send_data['last_name_furigana'] + '　' + this.send_data['first_name_furigana'];
+      delete this.send_data['last_name'];
+      delete this.send_data['first_name'];
+      delete this.send_data['last_name_furigana'];
+      delete this.send_data['first_name_furigana'];
+      delete this.send_data['support_office'];
+    }
+  },
+  created() {
+    this.send_data = this.$store.getters.getCareManager;
+    console.log(this.send_data);
   }
 };
 </script>

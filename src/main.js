@@ -30,7 +30,8 @@ localize({
       password: "パスワード",
       post_code: "郵便番号",
       address: "住所",
-      birthday: "生年月日"
+      birthday: "生年月日",
+      relationship: "続柄"
     },
    },
 });
