@@ -29,16 +29,16 @@
               <div class="form-item-name-wrap">
                 <validation-provider v-slot="{ errors }" rules="required|max:127">
                   <label for="last_name_furigana" class="form-item-lbl">セイ</label>
-                  <input type="text" id="last_name_furigana" class="name-input" v-model="care_receiver.last_name_furigana"
-                    placeholder="ヤマダ" required>
+                  <input type="text" id="last_name_furigana" class="name-input"
+                    v-model="care_receiver.last_name_furigana" placeholder="ヤマダ" required>
                   <div class="error">{{ errors[0] }}</div>
                 </validation-provider>
               </div>
               <div class="form-item-name-wrap">
                 <validation-provider v-slot="{ errors }" rules="required|max:127">
                   <label for="first_name_furigana" class="form-item-lbl">メイ</label>
-                  <input type="text" id="first_name_furigana" class="name-input" v-model="care_receiver.first_name_furigana"
-                    placeholder="タロウ" required>
+                  <input type="text" id="first_name_furigana" class="name-input"
+                    v-model="care_receiver.first_name_furigana" placeholder="タロウ" required>
                   <div class="error">{{ errors[0] }}</div>
                 </validation-provider>
               </div>
@@ -75,22 +75,8 @@
             <fieldset class="fieldset">
               <legend class="form-item-lbl">介護度</legend>
               <div class="care_level_wrap">
-                <label class="care-level-lbl"><input type="radio" name="care_level" v-model="care_receiver.care_level"
-                    value="0" required>要支援1</label>
-                <label class="care-level-lbl"><input type="radio" name="care_level" v-model="care_receiver.care_level"
-                    value="1">要支援2</label>
-              </div>
-              <div class="care_level_wrap">
-                <label class="care-level-lbl"><input type="radio" name="care_level" v-model="care_receiver.care_level"
-                    value="2">要介護1</label>
-                <label class="care-level-lbl"><input type="radio" name="care_level" v-model="care_receiver.care_level"
-                    value="3">要介護2</label>
-                <label class="care-level-lbl"><input type="radio" name="care_level" v-model="care_receiver.care_level"
-                    value="4">要介護3</label>
-                <label class="care-level-lbl"><input type="radio" name="care_level" v-model="care_receiver.care_level"
-                    value="5">要介護4</label>
-                <label class="care-level-lbl"><input type="radio" name="care_level" v-model="care_receiver.care_level"
-                    value="6">要介護5</label>
+                <label v-for="care_level in care_levels" :key="care_level.id" :value="care_level" class="care-level-lbl">
+                <input type="radio" name="care_level" v-model="care_receiver.care_level">{{ care_level.name }}</label>
               </div>
             </fieldset>
             <fieldset class="keyperson-fieldset fieldset">
@@ -138,7 +124,7 @@
               <div class="form-item">
                 <validation-provider v-slot="{ errors }" rules="required|max:10">
                   <label class="form-item-lbl" for="relationship">続柄</label>
-                  <input type="text" id="relationship" class="input" v-model="key_person.address" placeholder="妻"
+                  <input type="text" id="relationship" class="input" v-model="key_person.relationship" placeholder="妻"
                     required>
                   <div class="error">{{ errors[0] }}</div>
                 </validation-provider>
@@ -177,6 +163,7 @@ export default {
   data() {
     return {
       support_offices: null,
+      care_levels: null,
       care_receiver: null,
       key_person: null
     }
@@ -195,20 +182,18 @@ export default {
       this.$router.push({
         name: 'CareReceiverRegistrationConfirmation'
       });
+    },
+    async getCareLevels() {
+      const { data } = await axios.get(`${process.env.VUE_APP_API_ORIGIN}/care-levels`);
+      this.care_levels = data.data;
+      console.log(this.care_levels);
+      if (this.care_receiver.care_level === null) {
+        this.care_receiver.care_level = this.care_levels[0];
+      }
     }
   },
   created() {
-    axios
-      .get(`${process.env.VUE_APP_API_ORIGIN}/home-care-support-offices`)
-      .then(response => {
-        this.support_offices = response.data.data;
-        if (this.care_receiver.support_office === null) {
-          this.care_receiver.support_office = this.support_offices[0];
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    this.getCareLevels();
 
     this.care_receiver = this.$store.getters.getCareReceiver;
     if (this.care_receiver.birthday === null) {
@@ -223,7 +208,6 @@ export default {
   margin-left: 10px;
 }
 .care_level_wrap {
-  display: flex;
   margin-bottom: 20px
 }
 .care-level-lbl {

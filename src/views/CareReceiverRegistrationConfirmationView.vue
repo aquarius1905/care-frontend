@@ -24,8 +24,10 @@
             <th>介護度</th>
             <td>{{ care_receiver.care_level }}</td>
           </tr>
-          <fieldset>
-            <legend>キーパーソン</legend>
+        </table>
+        <fieldset class="confirm-fieldset">
+          <legend class="legend">キーパーソン</legend>
+          <table class="confirm-tbl">
             <tr>
               <th>お名前</th>
               <td>{{ key_person.last_name }}&emsp;{{ key_person.first_name }}</td>
@@ -46,8 +48,8 @@
               <th>電話番号</th>
               <td>{{ key_person.tel }}</td>
             </tr>
-          </fieldset>
-        </table>
+          </table>
+        </fieldset>
         <div class="register-btn-wrap">
           <button class="back-btn btn" @click="$router.back()">戻る</button>
           <button class="btn" @click="register">登録</button>
@@ -105,12 +107,26 @@ export default {
   background-color: #eee;
 }
 .confirm-tbl {
+  table-layout: fixed;
   width: 100%;
 }
 .confirm-tbl th {
   text-align: left;
   height: 70px;
-  width: 40%;
+  width: 30%;
+}
+.confirm-tbl td {
+  width: 90%;
+}
+.confirm-fieldset {
+  border: 1px solid #555;
+  padding: 20px 10px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+.legend {
+  font-weight: bold;
 }
 .register-btn-wrap {
   display: flex;
