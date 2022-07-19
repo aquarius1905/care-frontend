@@ -3,7 +3,7 @@
     <nav class="nav" id="nav">
       <ul v-if="isLoggedin">
         <li>
-          <router-link class="link" to="/care-receiver/register">被介護者登録</router-link>
+          <router-link class="link" @click="displayCareReceiverRegistrationPage">被介護者登録</router-link>
         </li>
         <li>
           <button class="btn-link" @click="logout">ログアウト</button>
@@ -40,6 +40,12 @@ export default {
     registerCareReceiver() {
 
     },
+    displayCareReceiverRegistrationPage() {
+      this.$router.push({
+        name: 'CareReceiverRegistration',
+        query: {care_receiver: null, key_person: null}
+      });
+    },
     logout() {
       axios
         .post(`${process.env.VUE_APP_API_ORIGIN}/care-managers/logout`)
@@ -57,7 +63,7 @@ export default {
   },
   computed: {
     isLoggedin() {
-      return this.$store.getters.isCareManagerAuthenticated;
+      return this.$store.getters.isCareManagerLoggedIn;
     }
   }
 }

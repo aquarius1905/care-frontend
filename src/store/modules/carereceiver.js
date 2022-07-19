@@ -7,7 +7,7 @@ const state = {
     post_code: null,
     address: null,
     birthday: null,
-    care_level: 0
+    care_level: null
   },
   keyPerson: {
     last_name: null,

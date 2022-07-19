@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '../store/index';
 Vue.use(VueRouter)
 
 import HomeView from '../views/HomeView.vue'
@@ -19,39 +20,61 @@ const routes = [
   {
     path: '/care-manager/register',
     name: 'CareManagerRegistration',
-    component: CareManagerRegistrationView
+    component: CareManagerRegistrationView,
+    meta: {requiresAuth: false},
   },
   {
     path: '/care-manager/register/confirm',
     name: 'CareManagerRegistrationConfirmation',
-    component: CareManagerRegistrationConfirmationView
+    component: CareManagerRegistrationConfirmationView,
+    meta: {requiresAuth: false},
   },
   {
     path: '/care-manager/register/complete',
     name: 'CareManagerRegistrationComplete',
-    component: CareManagerRegistrationCompleteView
+    component: CareManagerRegistrationCompleteView,
+    meta: {requiresAuth: false},
   },
   {
     path: '/care-receiver/register',
     name: 'CareReceiverRegistration',
-    component: CareReceiverRegistrationView
+    component: CareReceiverRegistrationView,
+    meta: {requiresAuth: true},
   },
   {
     path: '/care-receiver/register/confirm',
     name: 'CareReceiverRegistrationConfirmation',
     component: CareReceiverRegistrationConfirmationView,
+    meta: {requiresAuth: true},
   },
   {
     path: '/care-manager/login',
     name: 'CareManagerLogin',
-    component: CareManagerLoginView
+    component: CareManagerLoginView,
+    meta: {requiresAuth: false},
   },
 ]
+
+function isCareManagerLoggedIn() {
+  return store.getters.isCareManagerLoggedIn;
+}
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (isCareManagerLoggedIn()) {
+      next()
+    } else {
+      next('/care-manager/login')
+    }
+  } else {
+    next()
+  }
 })
 
 export default router

@@ -13,7 +13,7 @@ export default new Vuex.Store({
     getCareManagerAccessToken(state) {
       return state.careManagerAccessToken;
     },
-    isCareManagerAuthenticated(state) {
+    isCareManagerLoggedIn(state) {
       return state.careManagerAccessToken !== null
     },
   },

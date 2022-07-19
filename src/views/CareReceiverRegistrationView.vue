@@ -75,8 +75,10 @@
             <fieldset class="fieldset">
               <legend class="form-item-lbl">介護度</legend>
               <div class="care_level_wrap">
-                <label v-for="care_level in care_levels" :key="care_level.id" :value="care_level" class="care-level-lbl">
-                <input type="radio" name="care_level" v-model="care_receiver.care_level">{{ care_level.name }}</label>
+                <label v-for="value in care_levels" :key="value.id" :value="value.name" class="care-level-lbl">
+                  <input type="radio" name="care_level" v-model="care_receiver.care_level_id">
+                  {{ value.name }}
+                </label>
               </div>
             </fieldset>
             <fieldset class="keyperson-fieldset fieldset">
@@ -164,17 +166,32 @@ export default {
     return {
       support_offices: null,
       care_levels: null,
-      care_receiver: null,
-      key_person: null
+      care_receiver: {
+        last_name: null,
+        first_name: null,
+        last_name_furigana: null,
+        first_name_furigana: null,
+        post_code: null,
+        address: null,
+        birthday: null,
+        care_level_id: 0
+      },
+      key_person: {
+        last_name: null,
+        first_name: null,
+        last_name_furigana: null,
+        first_name_furigana: null,
+        relationship: null,
+        email: null,
+        tel: null
+      }
     }
   },
   methods: {
-    searchAddress() {
-      axios
-        .get(`https://api.zipaddress.net/?zipcode=${this.care_receiver.post_code}`, { adapter: jsonpAdapter })
-        .then(response => {
-          this.care_receiver.address = response.data.fullAddress;
-      })
+    async searchAddress() {
+      const { data } = await axios
+        .get(`https://api.zipaddress.net/?zipcode=${this.care_receiver.post_code}`, { adapter: jsonpAdapter });
+      this.care_receiver.address = data.fullAddress;
     },
     confirmRegistration() {
       this.$store.commit('setCareReceiver', this.care_receiver);
@@ -185,21 +202,26 @@ export default {
     },
     async getCareLevels() {
       const { data } = await axios.get(`${process.env.VUE_APP_API_ORIGIN}/care-levels`);
+
       this.care_levels = data.data;
-      console.log(this.care_levels);
-      if (this.care_receiver.care_level === null) {
-        this.care_receiver.care_level = this.care_levels[0];
+
+      if (this.care_receiver.care_level_id === 0) {
+        this.care_receiver.care_level_id = this.care_levels[0].id;
       }
     }
   },
   created() {
+    if (this.$route.query.care_receiver !== null) {
+      this.care_receiver = this.$route.query.care_receiver
+    }
+    if (this.$route.query.key_person !== null) {
+      this.key_person = this.$route.query.key_person;
+    }
     this.getCareLevels();
 
-    this.care_receiver = this.$store.getters.getCareReceiver;
     if (this.care_receiver.birthday === null) {
       this.care_receiver.birthday = "1940-01-01";
     }
-    this.key_person = this.$store.getters.getKeyPerson;
   }
 }
 </script>
