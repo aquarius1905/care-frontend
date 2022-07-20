@@ -13,6 +13,10 @@
             <td>{{ care_receiver.last_name_furigana }}&emsp;{{ care_receiver.first_name_furigana }}</td>
           </tr>
           <tr>
+            <th>生年月日</th>
+            <td>{{ care_receiver.birthday }}</td>
+          </tr>
+          <tr>
             <th>郵便番号</th>
             <td>{{ care_receiver.post_code }}</td>
           </tr>
@@ -22,7 +26,7 @@
           </tr>
           <tr>
             <th>介護度</th>
-            <td>{{ care_receiver.care_level }}</td>
+            <td>{{ care_receiver.care_level.name }}</td>
           </tr>
         </table>
         <fieldset class="confirm-fieldset">
@@ -51,7 +55,7 @@
           </table>
         </fieldset>
         <div class="register-btn-wrap">
-          <button class="back-btn btn" @click="$router.back()">戻る</button>
+          <button class="back-btn btn" @click="back">戻る</button>
           <button class="btn" @click="register">登録</button>
         </div>
       </div>
@@ -69,6 +73,12 @@ export default {
     }
   },
   methods: {
+    back() {
+      this.$router.push({
+        name: 'CareReceiverRegistration',
+        query: { care_receiver: this.care_receiver, key_person: this.key_person }
+      });
+    },
     register() {
       if (confirm('登録しますか？')) {
         this.makeCareReceiverData()
@@ -95,9 +105,8 @@ export default {
     }
   },
   created() {
-    this.care_receiver = this.$store.getters.getCareReceiver;
-    console.log(this.care_receiver);
-    this.key_person = this.$store.getters.getKeyPerson;
+    this.care_receiver = this.$route.query.care_receiver
+    this.key_person = this.$route.query.key_person;
   }
 };
 </script>
@@ -120,7 +129,7 @@ export default {
 }
 .confirm-fieldset {
   border: 1px solid #555;
-  padding: 20px 10px;
+  padding: 20px 10px 0;
   width: 100%;
   box-sizing: border-box;
   margin-bottom: 20px;

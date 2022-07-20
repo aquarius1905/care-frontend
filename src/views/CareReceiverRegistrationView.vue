@@ -2,7 +2,7 @@
   <div>
     <div class="form box-shadow">
       <h2 class="form-ttl">被介護者 登録</h2>
-      <validation-observer ref="obs" v-slot="ObserverProps">
+      <validation-observer v-slot="{ invalid }">
         <div class="form-content">
           <div class="form-item">
             <div class="form-item-wrap">
@@ -72,13 +72,35 @@
             </validation-provider>
           </div>
           <div class="form-item">
+            <validation-provider v-slot="{ errors }" rules="required|length:11">
+              <label class="form-item-lbl" for="insured_number">被保険者番号</label>
+              <input type="text" id="insured_number" class="input"
+                v-model="care_receiver.insured_number"
+                placeholder="12345678901" required>
+              <div class="error">{{ errors[0] }}</div>
+            </validation-provider>
+          </div>
+          <div class="form-item">
             <fieldset class="fieldset">
               <legend class="form-item-lbl">介護度</legend>
               <div class="care_level_wrap">
-                <label v-for="value in care_levels" :key="value.id" :value="value.name" class="care-level-lbl">
-                  <input type="radio" name="care_level" v-model="care_receiver.care_level_id">
-                  {{ value.name }}
-                </label>
+                <ul class="care_level_lst">
+                  <li v-for="needed_support_level in needed_support_levels" :key="needed_support_level.id">
+                    <input type="radio" name="care_level" :id="needed_support_level.name" :value="needed_support_level"
+                      v-model="care_receiver.care_level">
+                    <label class="care-level-lbl" :for="needed_support_level.name">{{ needed_support_level.name
+                    }}</label>
+                  </li>
+                </ul>
+              </div>
+              <div class="care_level_wrap">
+                <ul class="care_level_lst">
+                  <li v-for="needed_care_level in needed_care_levels" :key="needed_care_level.id">
+                    <input type="radio" name="care_level" :id="needed_care_level.name" :value="needed_care_level"
+                      v-model="care_receiver.care_level">
+                    <label class="care-level-lbl" :for="needed_care_level.name">{{ needed_care_level.name }}</label>
+                  </li>
+                </ul>
               </div>
             </fieldset>
             <fieldset class="keyperson-fieldset fieldset">
@@ -150,8 +172,7 @@
           </div>
         </div>
         <div class="form-btn-wrap form-confrim-btn-wrap">
-          <button class=" btn" @click="confirmRegistration"
-            :disabled="ObserverProps.invalid || !ObserverProps.validated">登録内容確認</button>
+          <button class=" btn" @click="confirmRegistration()" :disabled="invalid">登録内容確認</button>
         </div>
       </validation-observer>
     </div>
@@ -165,7 +186,8 @@ export default {
   data() {
     return {
       support_offices: null,
-      care_levels: null,
+      needed_support_levels: null,
+      needed_care_levels: null,
       care_receiver: {
         last_name: null,
         first_name: null,
@@ -174,7 +196,10 @@ export default {
         post_code: null,
         address: null,
         birthday: null,
-        care_level_id: 0
+        care_level: {
+          id: 0,
+          name: null
+        }
       },
       key_person: {
         last_name: null,
@@ -197,16 +222,19 @@ export default {
       this.$store.commit('setCareReceiver', this.care_receiver);
       this.$store.commit('setKeyPerson', this.key_person);
       this.$router.push({
-        name: 'CareReceiverRegistrationConfirmation'
+        name: 'CareReceiverRegistrationConfirmation',
+        query: { care_receiver: this.care_receiver, key_person: this.key_person }
       });
     },
     async getCareLevels() {
       const { data } = await axios.get(`${process.env.VUE_APP_API_ORIGIN}/care-levels`);
 
-      this.care_levels = data.data;
+      this.needed_support_levels = data.data.slice(0, 2);
+      this.needed_care_levels = data.data.slice(2);
 
-      if (this.care_receiver.care_level_id === 0) {
-        this.care_receiver.care_level_id = this.care_levels[0].id;
+      if (this.care_receiver.care_level.id === 0) {
+        this.care_receiver.care_level.id = this.needed_support_levels[0].id;
+        this.care_receiver.care_level.name = this.needed_support_levels[0].name;
       }
     }
   },
@@ -232,9 +260,13 @@ export default {
 .care_level_wrap {
   margin-bottom: 20px
 }
+.care_level_lst {
+  list-style: none;
+  display: flex;
+}
 .care-level-lbl {
   display: inline-block;
-  margin-right: 20px;
+  margin-right: 10px;
 }
 .fieldset {
   border: 1px solid #555;
