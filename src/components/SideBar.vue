@@ -3,7 +3,7 @@
     <nav class="nav" id="nav">
       <ul v-if="isLoggedin">
         <li>
-          <router-link class="link" @click="displayCareReceiverRegistrationPage">被介護者登録</router-link>
+          <button class="btn-link" @click="displayCareReceiverRegistrationPage">被介護者登録</button>
         </li>
         <li>
           <button class="btn-link" @click="logout">ログアウト</button>
@@ -11,7 +11,7 @@
       </ul>
       <ul v-else>
         <li>
-          <router-link class="link" to="/care-manager/register">ケアマネージャー登録</router-link>
+          <button class="btn-link" @click="displayCareManagerRegistrationPage">ケアマネージャー登録</button>
         </li>
         <li>
           <router-link class="link" to="/care-manager/login">ケアマネージャーログイン
@@ -39,6 +39,12 @@ export default {
     },
     registerCareReceiver() {
 
+    },
+    displayCareManagerRegistrationPage() {
+      this.$router.push({
+        name: 'CareManagerRegistration',
+        query: { care_manager: null }
+      });
     },
     displayCareReceiverRegistrationPage() {
       this.$router.push({
@@ -101,7 +107,7 @@ export default {
   cursor: pointer;
   color: #fff;
   background: transparent;
-  padding-left: 20px;
+  padding: 20px 20px 0 20px;
 }
 .menu {
   display: inline-block;

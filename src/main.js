@@ -31,10 +31,22 @@ localize({
       post_code: "郵便番号",
       address: "住所",
       birthday: "生年月日",
+      insurer_number: "保険者番号",
+      insured_number: "被保険者番号",
       relationship: "続柄"
     },
    },
 });
+
+//パスワードのカスタムルール
+extend('password_rule', {
+  message: '{_field_}は半角英小文字、半角英大文字、半角数字を全て使用してください',
+  validate(value) {
+    if (value.match(/^[A-Za-z0-9]+$/)) {
+      return true;
+    }
+  }
+})
 
 Vue.component('ValidationProvider', ValidationProvider);
 Vue.component('ValidationObserver', ValidationObserver);

@@ -6,27 +6,27 @@
         <table class="confirm-tbl">
           <tr>
             <th>お名前</th>
-            <td>{{ send_data.last_name }}&emsp;{{ send_data.first_name }}</td>
+            <td>{{ care_manager.last_name }}&emsp;{{ care_manager.first_name }}</td>
           </tr>
           <tr>
             <th>フリガナ</th>
-            <td>{{ send_data.last_name_furigana }}&emsp;{{ send_data.first_name_furigana }}</td>
+            <td>{{ care_manager.last_name_furigana }}&emsp;{{ care_manager.first_name_furigana }}</td>
           </tr>
           <tr>
             <th>介護支援専門員登録番号</th>
-            <td>{{ send_data.registration_number }}</td>
+            <td>{{ care_manager.registration_number }}</td>
           </tr>
           <tr>
             <th>所属居宅介護支援事業所</th>
-            <td>{{ send_data.support_office.name }}</td>
+            <td>{{ care_manager.support_office.name }}</td>
           </tr>
           <tr>
             <th>メールアドレス</th>
-            <td>{{ send_data.email }}</td>
+            <td>{{ care_manager.email }}</td>
           </tr>
           <tr>
             <th>電話番号</th>
-            <td>{{ send_data.tel }}</td>
+            <td>{{ care_manager.tel }}</td>
           </tr>
           <tr>
             <th>パスワード</th>
@@ -34,7 +34,7 @@
           </tr>
         </table>
         <div class="register-btn-wrap">
-          <button class="back-btn btn" @click="$router.back()">戻る</button>
+          <button class="bk-btn btn" @click="back">戻る</button>
           <button class="btn" @click="register">登録</button>
         </div>
       </div>
@@ -47,15 +47,21 @@ import axios from "axios";
 export default {
   data: function () {
     return {
-      send_data: null
+      care_manager: null
     }
   },
   methods: {
+    back() {
+      this.$router.push({
+        name: 'CareManagerRegistration',
+        query: { care_manager: this.care_manager }
+      });
+    },
     register() {
       if (confirm('登録しますか？')) {
         this.makeCareManagerData();
         axios
-          .post(`${process.env.VUE_APP_API_ORIGIN}/care-managers`, this.send_data)
+          .post(`${process.env.VUE_APP_API_ORIGIN}/care-managers`, this.care_manager)
           .then(reseponse => {
             console.log(reseponse.message);
             this.$router.push({ name: 'CareManagerRegistrationComplete' });
@@ -66,21 +72,23 @@ export default {
       }
     },
     makeCareManagerData() {
-      this.send_data['support_office_id'] = this.send_data['support_office']['id'];
-      this.send_data['name']
-        = this.send_data['last_name'] + '　' + this.send_data['first_name'];
-      this.send_data['name_furigana']
-        = this.send_data['last_name_furigana'] + '　' + this.send_data['first_name_furigana'];
-      delete this.send_data['last_name'];
-      delete this.send_data['first_name'];
-      delete this.send_data['last_name_furigana'];
-      delete this.send_data['first_name_furigana'];
-      delete this.send_data['support_office'];
+      this.care_manager['support_office_id'] = this.care_manager['support_office']['id'];
+      this.care_manager['name']
+        = this.care_manager['last_name'] + '　' + this.care_manager['first_name'];
+      this.care_manager['name_furigana']
+        = this.care_manager['last_name_furigana'] + '　' + this.care_manager['first_name_furigana'];
+      [
+        'last_name',
+        'first_name',
+        'last_name_furigana',
+        'first_name_furigana',
+        'support_office'
+      ].forEach(e => delete this.care_manager[e]);
     }
   },
   created() {
-    this.send_data = this.$store.getters.getCareManager;
-    console.log(this.send_data);
+    this.care_manager = this.$route.query.care_manager;
+    console.log(this.care_manager);
   }
 };
 </script>
@@ -102,7 +110,7 @@ export default {
   justify-content: center;
   text-align: center;
 }
-.back-btn {
+.bk-btn {
   width: 120px;
   background-color: #7E57C2;
   margin-right: 30px;

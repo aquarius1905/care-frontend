@@ -72,10 +72,17 @@
             </validation-provider>
           </div>
           <div class="form-item">
+            <validation-provider v-slot="{ errors }" rules="required|min:6|max:8">
+              <label class="form-item-lbl" for="insurer_number">保険者番号</label>
+              <input type="text" id="insurer_number" class="input" v-model="care_receiver.insurer_number"
+                placeholder="12345678901" required>
+              <div class="error">{{ errors[0] }}</div>
+            </validation-provider>
+          </div>
+          <div class="form-item">
             <validation-provider v-slot="{ errors }" rules="required|length:11">
               <label class="form-item-lbl" for="insured_number">被保険者番号</label>
-              <input type="text" id="insured_number" class="input"
-                v-model="care_receiver.insured_number"
+              <input type="text" id="insured_number" class="input" v-model="care_receiver.insured_number"
                 placeholder="12345678901" required>
               <div class="error">{{ errors[0] }}</div>
             </validation-provider>
@@ -89,7 +96,7 @@
                     <input type="radio" name="care_level" :id="needed_support_level.name" :value="needed_support_level"
                       v-model="care_receiver.care_level">
                     <label class="care-level-lbl" :for="needed_support_level.name">{{ needed_support_level.name
-                    }}</label>
+                      }}</label>
                   </li>
                 </ul>
               </div>
@@ -168,11 +175,18 @@
                   <div class="error">{{ errors[0] }}</div>
                 </validation-provider>
               </div>
+              <div class="form-item">
+                <ValidationProvider v-slot="{ errors }" rules="required|min:12|password_rule">
+                  <label class="form-item-lbl" for="password">パスワード</label>
+                  <input type="password" id="password" class="input" v-model="key_person.password" required>
+                  <div class="error">{{ errors[0] }}</div>
+                </ValidationProvider>
+              </div>
             </fieldset>
           </div>
         </div>
         <div class="form-btn-wrap form-confrim-btn-wrap">
-          <button class=" btn" @click="confirmRegistration()" :disabled="invalid">登録内容確認</button>
+          <button class="btn" @click="confirmRegistration()" :disabled="invalid">登録内容確認</button>
         </div>
       </validation-observer>
     </div>
@@ -193,9 +207,11 @@ export default {
         first_name: null,
         last_name_furigana: null,
         first_name_furigana: null,
+        birthday: null,
         post_code: null,
         address: null,
-        birthday: null,
+        insurer_number: null,
+        insured_number: null,
         care_level: {
           id: 0,
           name: null
@@ -208,8 +224,9 @@ export default {
         first_name_furigana: null,
         relationship: null,
         email: null,
-        tel: null
-      }
+        tel: null,
+        password: null
+      },
     }
   },
   methods: {
@@ -219,8 +236,6 @@ export default {
       this.care_receiver.address = data.fullAddress;
     },
     confirmRegistration() {
-      this.$store.commit('setCareReceiver', this.care_receiver);
-      this.$store.commit('setKeyPerson', this.key_person);
       this.$router.push({
         name: 'CareReceiverRegistrationConfirmation',
         query: { care_receiver: this.care_receiver, key_person: this.key_person }

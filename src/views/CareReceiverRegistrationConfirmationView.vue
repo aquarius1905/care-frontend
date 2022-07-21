@@ -28,6 +28,14 @@
             <th>介護度</th>
             <td>{{ care_receiver.care_level.name }}</td>
           </tr>
+          <tr>
+            <th>保険者番号</th>
+            <td>{{ care_receiver.insurer_number }}</td>
+          </tr>
+          <tr>
+            <th>被保険者番号</th>
+            <td>{{ care_receiver.insured_number }}</td>
+          </tr>
         </table>
         <fieldset class="confirm-fieldset">
           <legend class="legend">キーパーソン</legend>
@@ -112,9 +120,6 @@ export default {
 </script>
 
 <style scoped>
-.care-manager-registration-confirmation {
-  background-color: #eee;
-}
 .confirm-tbl {
   table-layout: fixed;
   width: 100%;
