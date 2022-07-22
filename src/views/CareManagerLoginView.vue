@@ -8,8 +8,8 @@
             <label class="form-item-lbl" for="email">メールアドレス</label>
             <ValidationProvider v-slot="{ errors }" rules="required|email">
               <div class="form-item-input">
-                <input type="email" id="email" class="input" v-model="login_data.email"
-                  placeholder="test@sample.com" required>
+                <input type="email" id="email" class="input" v-model="login_data.email" placeholder="test@sample.com"
+                  required>
               </div>
               <div class="error">{{ errors[0] }}</div>
             </ValidationProvider>
@@ -25,7 +25,7 @@
           </div>
         </div>
         <div class="form-btn-wrap">
-          <button class="btn login-btn" @click="login(ObserverProps)">ログイン</button>
+          <button class="btn login-btn" :disabled="ObserverProps.invalid || !ObserverProps.validated" @click="login">ログイン</button>
         </div>
       </ValidationObserver>
     </div>
@@ -44,13 +44,11 @@ export default {
     }
   },
   methods: {
-    login(ObserverProps) {
-      if (ObserverProps.invalid || !ObserverProps.validated) {
-        alert('入力エラーがあります');
-      } else {
-        axios
-          .post(`${process.env.VUE_APP_API_ORIGIN}/care-managers/login`, this.login_data)
-          .then(response => {
+    login() {
+      axios
+        .post(`${process.env.VUE_APP_API_ORIGIN}/care-managers/login`, this.login_data)
+        .then(response => {
+          if (response.status === 200) {
             const access_token = response.data.access_token;
             axios.defaults.headers.common['Authorization'] = 'Bearer ' + access_token;
             this.$store.dispatch('login', access_token);
@@ -58,11 +56,11 @@ export default {
               name: 'CareReceiverRegistration',
               query: { care_receiver: null, key_person: null }
             });
-          })
-          .catch(error => {
-            console.log(error);
-          });
-      }
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   }
 }

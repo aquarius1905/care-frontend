@@ -62,9 +62,10 @@ export default {
         this.makeCareManagerData();
         axios
           .post(`${process.env.VUE_APP_API_ORIGIN}/care-managers`, this.care_manager)
-          .then(reseponse => {
-            console.log(reseponse.message);
-            this.$router.push({ name: 'CareManagerRegistrationComplete' });
+          .then(response => {
+            if (response.status === 201) {
+              this.$router.push({ name: 'CareManagerRegistrationComplete' });
+            }
           })
           .catch(error => {
             console.log(error);

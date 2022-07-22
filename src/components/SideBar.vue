@@ -3,7 +3,13 @@
     <nav class="nav" id="nav">
       <ul v-if="isLoggedin">
         <li>
+          <button class="btn-link" @click="displayCareReceiverRegistrationPage">被介護者一覧</button>
+        </li>
+        <li>
           <button class="btn-link" @click="displayCareReceiverRegistrationPage">被介護者登録</button>
+        </li>
+        <li>
+          <button class="btn-link" @click="displayCareManagerInfo">設定情報</button>
         </li>
         <li>
           <button class="btn-link" @click="logout">ログアウト</button>
@@ -52,15 +58,19 @@ export default {
         query: {care_receiver: null, key_person: null}
       });
     },
+    displayCareManagerInfo() {
+
+    },
     logout() {
       axios
         .post(`${process.env.VUE_APP_API_ORIGIN}/care-managers/logout`)
         .then(response => {
-          console.log(response);
-          this.$store.dispatch('logout');
-          this.$router.push({
-            name: 'CareManagerLogin'
-          });
+          if (response.status === 200) {
+            this.$store.dispatch('logout');
+            this.$router.push({
+              name: 'CareManagerLogin'
+            });
+          }
         })
         .catch(error => {
           console.log(error);

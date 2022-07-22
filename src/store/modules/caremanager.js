@@ -1,27 +1,23 @@
 const state = {
-  careManager: {
-    last_name: null,
-    first_name: null,
-    last_name_furigana: null,
-    first_name_furigana: null,
-    support_office: null,
-    registration_number: null,
-    email: null,
-    tel: null,
-    password: null
-  }
+  supportOffices: null
 };
 const getters = {
-  getCareManager(state) {
-    return state.careManager;
+  getSupportOffices(state) {
+    return state.supportOffices;
+  },
+  hasSupportOffices() {
+    return state.supportOffices !== null;
   }
 };
 const mutations = {
-  setCareManager(state, payload) {
-    state.careManager = payload;
+  setSupportOffices(state, payload) {
+    state.supportOffices = payload;
   }
 };
 const actions = {
+  setSupportOffices(context, payload) {
+    context.commit('setSupportOffices', payload);
+  }
 };
  
 export default {
