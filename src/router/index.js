@@ -3,20 +3,15 @@ import VueRouter from 'vue-router'
 import store from '../store/index';
 Vue.use(VueRouter)
 
-import HomeView from '../views/HomeView.vue'
 import CareManagerLoginView from '../views/CareManagerLoginView.vue'
 import CareManagerRegistrationView from '../views/CareManagerRegistrationView.vue'
 import CareManagerRegistrationCompleteView from '../views/CareManagerRegistrationCompleteView.vue'
 import CareManagerRegistrationConfirmationView from '../views/CareManagerRegistrationConfirmationView.vue'
+import CareManagerInfoView from '../views/CareManagerInfoView.vue'
 import CareReceiverRegistrationView from '../views/CareReceiverRegistrationView.vue'
 import CareReceiverRegistrationConfirmationView from '../views/CareReceiverRegistrationConfirmationView.vue'
 
 const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: HomeView
-  },
   {
     path: '/care-manager/register',
     name: 'CareManagerRegistration',
@@ -34,6 +29,12 @@ const routes = [
     name: 'CareManagerRegistrationComplete',
     component: CareManagerRegistrationCompleteView,
     meta: {requiresAuth: false},
+  },
+  {
+    path: '/care-manager/info',
+    name: 'CareManagerInfo',
+    component: CareManagerInfoView,
+    meta: {requiresAuth: true},
   },
   {
     path: '/care-receiver/register',

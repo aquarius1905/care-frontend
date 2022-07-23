@@ -9,7 +9,7 @@
           <button class="btn-link" @click="displayCareReceiverRegistrationPage">被介護者登録</button>
         </li>
         <li>
-          <button class="btn-link" @click="displayCareManagerInfo">設定情報</button>
+          <router-link class="link" to="/care-manager/info">設定情報</router-link>
         </li>
         <li>
           <button class="btn-link" @click="logout">ログアウト</button>
@@ -58,9 +58,6 @@ export default {
         query: {care_receiver: null, key_person: null}
       });
     },
-    displayCareManagerInfo() {
-
-    },
     logout() {
       axios
         .post(`${process.env.VUE_APP_API_ORIGIN}/care-managers/logout`)
@@ -91,33 +88,31 @@ export default {
   top: 90px;
   left: 0;
   background: #1A237E;
-  width: 20%;
+  width: 15%;
   height: 100vh;
 }
-
 .nav ul {
-  padding-top: 50px;
+  padding-top: 20px;
 }
-
 .nav ul li {
   list-style-type: none;
 }
 .link {
   text-decoration: none;
   color: #fff;
-  font-size: 20px;
+  font-size: 16px;
   width: 100%;
   height: 100%;
-  line-height: 65px;
+  line-height: 50px;
   padding-left: 20px;
 }
 .btn-link {
   border: none;
-  font-size: 20px;
+  font-size: 16px;
   cursor: pointer;
   color: #fff;
   background: transparent;
-  padding: 20px 20px 0 20px;
+  padding: 20px;
 }
 .menu {
   display: inline-block;
