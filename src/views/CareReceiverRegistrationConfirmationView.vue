@@ -107,10 +107,13 @@ export default {
         = this.care_receiver['last_name'] + '　' + this.care_receiver['first_name'];
       this.care_receiver['name_furigana']
         = this.care_receiver['last_name_furigana'] + '　' + this.care_receiver['first_name_furigana'];
-      delete this.care_receiver['last_name'];
-      delete this.care_receiver['first_name'];
-      delete this.care_receiver['last_name_furigana'];
-      delete this.care_receiver['first_name_furigana'];
+
+      [
+        'last_name',
+        'first_name',
+        'last_name_furigana',
+        'first_name_furigana'
+      ].forEach(e => delete this.care_receiver[e]);
     }
   },
   created() {

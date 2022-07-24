@@ -1,35 +1,38 @@
 <template>
-  <div>
+  <div id="sidebar">
+    <h1 class="ttl">Care</h1>
     <nav class="nav" id="nav">
-      <ul v-if="isLoggedin">
-        <li>
-          <button class="btn-link" @click="displayCareReceiverRegistrationPage">被介護者一覧</button>
-        </li>
-        <li>
-          <button class="btn-link" @click="displayCareReceiverRegistrationPage">被介護者登録</button>
-        </li>
-        <li>
-          <router-link class="link" to="/care-manager/info">設定情報</router-link>
-        </li>
-        <li>
-          <button class="btn-link" @click="logout">ログアウト</button>
-        </li>
-      </ul>
-      <ul v-else>
-        <li>
-          <button class="btn-link" @click="displayCareManagerRegistrationPage">ケアマネージャー登録</button>
-        </li>
-        <li>
-          <router-link class="link" to="/care-manager/login">ケアマネージャーログイン
-          </router-link>
-        </li>
-      </ul>
+      <div v-if="this.$store.getters.isCareManagerLoggedIn">
+        <input id="care-manager" class="toggle" type="checkbox">
+        <label class="acd-lbl" for="care-manager">ケアマネージャー</label>
+        <ul class="acd-content">
+          <li>
+            <button class="btn-link" @click="displayCareReceiverRegistrationPage">被介護者一覧</button>
+          </li>
+          <li>
+            <button class="btn-link" @click="displayCareReceiverRegistrationPage">被介護者登録</button>
+          </li>
+          <li>
+            <router-link class="link" to="/care-manager/info">設定情報</router-link>
+          </li>
+          <li>
+            <button class="btn-link" @click="logout">ログアウト</button>
+          </li>
+        </ul>
+      </div>
+      <div v-else>
+        <input id="care-manager" class="toggle" type="checkbox">
+        <label class="acd-lbl" for="care-manager">ケアマネージャー</label>
+        <ul class="acd-content">
+          <li>
+            <button class="btn-link" @click="displayCareManagerRegistrationPage">登録</button>
+          </li>
+          <li>
+            <router-link class="link" to="/care-manager/login">ログイン</router-link>
+          </li>
+        </ul>
+      </div>
     </nav>
-    <!-- <div class="menu" id="menu" @click="toggleMenu">
-      <span class="menu__line--top"></span>
-      <span class="menu__line--middle"></span>
-      <span class="menu__line--bottom"></span>
-    </div> -->
   </div>
 </template>
 
@@ -37,12 +40,6 @@
 import axios from "axios";
 export default {
   methods: {
-    toggleMenu() {
-      // const target = document.getElementById("menu");
-      // target.classList.toggle('open');
-      // const nav = document.getElementById("nav");
-      // nav.classList.toggle('in');
-    },
     registerCareReceiver() {
 
     },
@@ -74,94 +71,85 @@ export default {
         });
     }
   },
-  computed: {
-    isLoggedin() {
-      return this.$store.getters.isCareManagerLoggedIn;
-    }
-  }
 }
 </script>
 
 <style>
+#sidebar {
+  width: 200px;
+}
+.ttl {
+  color: #1A237E;
+  font-size: 32px;
+  padding: 10px 0 10px 20px;
+  user-select: none;
+}
 .nav {
-  position: fixed;
-  top: 90px;
-  left: 0;
   background: #1A237E;
-  width: 15%;
+  width: 100%;
   height: 100vh;
 }
-.nav ul {
-  padding-top: 20px;
+.toggle {
+  display: none;
 }
-.nav ul li {
-  list-style-type: none;
+.acd-lbl {
+  display: block;
+  font-size: 16px;
+  color: #fff;
+  padding: 16px;
+  cursor: pointer;
+}
+.acd-lbl::before { /*タイトル横の矢印*/
+	content:"";
+	width: 6px;
+	height: 6px;
+	border-top: 2px solid #fff;
+	border-right: 2px solid #fff;
+	-webkit-transform: rotate(45deg);
+	position: absolute;
+	top: calc(50% - 5px);
+	right: 15px;
+	transform: rotate(135deg);
+}
+.acd-lbl,
+.acd-content {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  transition: all .3s;
+}
+.acd-content {
+	height: 0;
+  padding: 0 20px;
+	margin-bottom: 10px;
+	overflow: hidden;
+}
+.toggle:checked +.acd-lbl +.acd-content { /*開閉時*/
+  height: auto;
+  padding: 10px 20px;
+  transition: all .3s;
+}
+.toggle:checked + .acd-lbl::before {
+  transform: rotate(-45deg) !important;
 }
 .link {
   text-decoration: none;
   color: #fff;
-  font-size: 16px;
+  font-size: 14px;
   width: 100%;
-  height: 100%;
-  line-height: 50px;
-  padding-left: 20px;
+  line-height: 40px;
+  height: 40px;
 }
 .btn-link {
   border: none;
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
   color: #fff;
-  background: transparent;
-  padding: 20px;
-}
-.menu {
-  display: inline-block;
-  width: 28px;
-  height: 26px;
-  cursor: pointer;
-  position: relative;
-  left: 20px;
-  top: 20px;
-}
-
-.menu__line--top,
-.menu__line--middle,
-.menu__line--bottom {
-  display: inline-block;
+  background: #1A237E;
   width: 100%;
-  height: 4px;
-  background-color: #f5f5f5;
-  position: absolute;
-  transition: 0.5s;
-}
-
-.menu__line--top {
-  top: 0;
-}
-
-.menu__line--middle {
-  top: 11px;
-}
-
-.menu__line--bottom {
-  bottom: 0;
-}
-
-.menu.open span:nth-of-type(1) {
-  top: 14px;
-  transform: rotate(45deg);
-}
-
-.menu.open span:nth-of-type(2) {
-  opacity: 0;
-}
-
-.menu.open span:nth-of-type(3) {
-  top: 14px;
-  transform: rotate(-45deg);
-}
-
-.in {
-  transform: translateX(100%);
+  text-align: left;
+  padding: 0;
+  line-height: 40px;
+  height: 40px;
 }
 </style>

@@ -61,8 +61,9 @@ export default {
             }
         })
         .then(response => {
-          console.log(response.data.user);
-          this.care_manager = response.data.user;
+          if (response.data.result) {
+            this.care_manager = response.data.care_manager;
+          }
         })
         .catch(error => {
           console.log(error);

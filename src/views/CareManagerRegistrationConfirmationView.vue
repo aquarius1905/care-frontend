@@ -73,11 +73,12 @@ export default {
       }
     },
     makeCareManagerData() {
-      this.care_manager['support_office_id'] = this.care_manager['support_office']['id'];
+      this.care_manager['home_care_support_office_id'] = this.care_manager['support_office']['id'];
       this.care_manager['name']
         = this.care_manager['last_name'] + '　' + this.care_manager['first_name'];
       this.care_manager['name_furigana']
         = this.care_manager['last_name_furigana'] + '　' + this.care_manager['first_name_furigana'];
+      
       [
         'last_name',
         'first_name',
@@ -89,7 +90,6 @@ export default {
   },
   created() {
     this.care_manager = this.$route.query.care_manager;
-    console.log(this.care_manager);
   }
 };
 </script>
