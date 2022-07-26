@@ -20,7 +20,7 @@ export default {
   display: flex;
 }
 .router-view {
-  width: 100%;
+  width: calc(100% - 200px);
   margin: 52px 0 0 auto;
 }
 </style>

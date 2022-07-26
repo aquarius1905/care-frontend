@@ -60,12 +60,12 @@ export default {
                 Authorization: `Bearer ${this.$store.getters.getCareManagerAccessToken}`,
             }
         })
-        .then(response => {
+        .then((response) => {
           if (response.data.result) {
             this.care_manager = response.data.care_manager;
           }
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
         });
     }

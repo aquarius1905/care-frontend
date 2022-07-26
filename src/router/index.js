@@ -3,11 +3,11 @@ import VueRouter from 'vue-router'
 import store from '../store/index';
 Vue.use(VueRouter)
 
+import CareManagerInfoView from '../views/CareManagerInfoView.vue'
 import CareManagerLoginView from '../views/CareManagerLoginView.vue'
 import CareManagerRegistrationView from '../views/CareManagerRegistrationView.vue'
 import CareManagerRegistrationCompleteView from '../views/CareManagerRegistrationCompleteView.vue'
 import CareManagerRegistrationConfirmationView from '../views/CareManagerRegistrationConfirmationView.vue'
-import CareManagerInfoView from '../views/CareManagerInfoView.vue'
 import CareReceiverRegistrationView from '../views/CareReceiverRegistrationView.vue'
 import CareReceiverRegistrationConfirmationView from '../views/CareReceiverRegistrationConfirmationView.vue'
 

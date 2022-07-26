@@ -59,6 +59,7 @@ export default {
       axios
         .post(`${process.env.VUE_APP_API_ORIGIN}/care-managers/logout`)
         .then(response => {
+          console.log(response);
           if (response.status === 200) {
             this.$store.dispatch('logout');
             this.$router.push({
