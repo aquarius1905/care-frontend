@@ -64,7 +64,9 @@ export default {
           .post(`${process.env.VUE_APP_API_ORIGIN}/care-managers`, this.care_manager)
           .then(response => {
             if (response.status === 201) {
-              this.$router.push({ name: 'CareManagerRegistrationComplete' });
+              this.$router.push(
+                { name: 'CareManagerRegistrationComplete' }
+              );
             }
           })
           .catch(error => {

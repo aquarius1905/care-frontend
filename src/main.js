@@ -14,6 +14,26 @@ for (rule in originalRules) {
   });
 }
 
+//パスワードのカスタムルール
+extend('password_rule', {
+  message: '{_field_}は半角英小文字、半角英大文字、半角数字を全て使用してください',
+  validate(value) {
+    if (value.match(/^[A-Za-z0-9]+$/)) {
+      return true;
+    }
+  }
+})
+
+//全角カタカタのカスタムルール
+extend('full_sized_katakana', {
+  message: '{_field_}は全角カタカナで入力してください',
+  validate(value) {
+    if (value.match(/^[ァ-ヶー]+$/)) {
+      return true;
+    }
+  }
+})
+
 // 日本語に設定
 localize('ja', ja);
 localize({
@@ -37,16 +57,6 @@ localize({
     },
    },
 });
-
-//パスワードのカスタムルール
-extend('password_rule', {
-  message: '{_field_}は半角英小文字、半角英大文字、半角数字を全て使用してください',
-  validate(value) {
-    if (value.match(/^[A-Za-z0-9]+$/)) {
-      return true;
-    }
-  }
-})
 
 Vue.component('ValidationProvider', ValidationProvider);
 Vue.component('ValidationObserver', ValidationObserver);

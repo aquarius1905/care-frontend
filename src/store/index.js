@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import CareManager from "./modules/caremanager"
-import CareReceiver from "./modules/carereceiver"
 
 Vue.use(Vuex)
 
@@ -34,7 +33,6 @@ export default new Vuex.Store({
     }
   },
   modules: {
-    CareManager,
-    CareReceiver
+    CareManager
   }
 })

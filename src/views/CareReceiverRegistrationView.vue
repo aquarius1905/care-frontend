@@ -27,7 +27,7 @@
           <div class="form-item">
             <div class="form-item-wrap">
               <div class="form-item-name-wrap">
-                <validation-provider v-slot="{ errors }" rules="required|max:127">
+                <validation-provider v-slot="{ errors }" rules="required|max:127|full_sized_katakana">
                   <label for="last_name_furigana" class="form-item-lbl">セイ</label>
                   <input type="text" id="last_name_furigana" class="name-input"
                     v-model="care_receiver.last_name_furigana" placeholder="ヤマダ" required>
@@ -35,7 +35,7 @@
                 </validation-provider>
               </div>
               <div class="form-item-name-wrap">
-                <validation-provider v-slot="{ errors }" rules="required|max:127">
+                <validation-provider v-slot="{ errors }" rules="required|max:127|full_sized_katakana">
                   <label for="first_name_furigana" class="form-item-lbl">メイ</label>
                   <input type="text" id="first_name_furigana" class="name-input"
                     v-model="care_receiver.first_name_furigana" placeholder="タロウ" required>
@@ -53,12 +53,11 @@
             </validation-provider>
           </div>
           <div class="form-item">
-            <validation-provider v-slot="{ errors }" rules="required|length:7">
+            <validation-provider v-slot="{ errors }" rules="required|numeric|length:7">
               <label class="form-item-lbl" for="post_code">郵便番号</label>
               <div class="post-code-wrap">
                 <input type="text" id="post_code" class="input" v-model="care_receiver.post_code" placeholder="1050004"
-                  required>
-                <button class="search-btn btn" @click="searchAddress">住所検索</button>
+                  @blur="fetchAddress" required>
               </div>
               <div class="error">{{ errors[0] }}</div>
             </validation-provider>
@@ -72,15 +71,15 @@
             </validation-provider>
           </div>
           <div class="form-item">
-            <validation-provider v-slot="{ errors }" rules="required|min:6|max:8">
+            <validation-provider v-slot="{ errors }" rules="required|numeric|min:6|max:8">
               <label class="form-item-lbl" for="insurer_number">保険者番号</label>
               <input type="text" id="insurer_number" class="input" v-model="care_receiver.insurer_number"
-                placeholder="12345678901" required>
+                placeholder="39130000" required>
               <div class="error">{{ errors[0] }}</div>
             </validation-provider>
           </div>
           <div class="form-item">
-            <validation-provider v-slot="{ errors }" rules="required|length:11">
+            <validation-provider v-slot="{ errors }" rules="required|numeric|length:11">
               <label class="form-item-lbl" for="insured_number">被保険者番号</label>
               <input type="text" id="insured_number" class="input" v-model="care_receiver.insured_number"
                 placeholder="12345678901" required>
@@ -135,7 +134,7 @@
               <div class="form-item">
                 <div class="form-item-wrap">
                   <div class="form-item-name-wrap">
-                    <validation-provider v-slot="{ errors }" rules="required|max:127">
+                    <validation-provider v-slot="{ errors }" rules="required|max:127|full_sized_katakana">
                       <label for="last_name_furigana" class="form-item-lbl">セイ</label>
                       <input type="text" id="last_name_furigana" class="name-input"
                         v-model="key_person.last_name_furigana" placeholder="ヤマダ" required>
@@ -143,7 +142,7 @@
                     </validation-provider>
                   </div>
                   <div class="form-item-name-wrap">
-                    <validation-provider v-slot="{ errors }" rules="required|max:127">
+                    <validation-provider v-slot="{ errors }" rules="required|max:127|full_sized_katakana">
                       <label for="first_name_furigana" class="form-item-lbl">メイ</label>
                       <input type="text" id="first_name_furigana" class="name-input"
                         v-model="key_person.first_name_furigana" placeholder="タロウ" required>
@@ -169,18 +168,18 @@
                 </ValidationProvider>
               </div>
               <div class="form-item">
-                <validation-provider v-slot="{ errors }" rules="required|min:10|max:11">
+                <validation-provider v-slot="{ errors }" rules="required|numeric|min:10|max:11">
                   <label class="form-item-lbl" for="tel">電話番号</label>
                   <input type="text" id="tel" class="input" v-model="key_person.tel" placeholder="09012345678" required>
                   <div class="error">{{ errors[0] }}</div>
                 </validation-provider>
               </div>
               <div class="form-item">
-                <ValidationProvider v-slot="{ errors }" rules="required|min:12|password_rule">
+                <validation-provider v-slot="{ errors }" rules="required|min:12|password_rule">
                   <label class="form-item-lbl" for="password">パスワード</label>
                   <input type="password" id="password" class="input" v-model="key_person.password" required>
                   <div class="error">{{ errors[0] }}</div>
-                </ValidationProvider>
+                </validation-provider>
               </div>
             </fieldset>
           </div>
@@ -230,7 +229,7 @@ export default {
     }
   },
   methods: {
-    async searchAddress() {
+    async fetchAddress() {
       const { data } = await axios
         .get(`https://api.zipaddress.net/?zipcode=${this.care_receiver.post_code}`, { adapter: jsonpAdapter });
       this.care_receiver.address = data.fullAddress;
@@ -269,9 +268,6 @@ export default {
 }
 </script>
 <style scoped>
-.search-btn {
-  margin-left: 10px;
-}
 .care_level_wrap {
   margin-bottom: 20px
 }

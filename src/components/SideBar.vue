@@ -7,7 +7,7 @@
         <label class="acd-lbl" for="care-manager">ケアマネージャー</label>
         <ul class="acd-content">
           <li>
-            <button class="btn-link" @click="displayCareReceiverRegistrationPage">被介護者一覧</button>
+            <router-link class="link" to="/care-receiver/list">被介護者一覧</router-link>
           </li>
           <li>
             <button class="btn-link" @click="displayCareReceiverRegistrationPage">被介護者登録</button>

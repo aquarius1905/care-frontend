@@ -1,11 +1,7 @@
 <template>
   <div>
     <div class="msg-box box-shadow">
-      <p>登録が完了しました<br><br>
-        ご登録頂いたメールアドレス宛てに<br>
-        メールを送信しましたので<br>
-        認証をお願い致します
-      </p>
+      <p>被介護者、及びキーパーソンの登録が完了しました</p>
     </div>
   </div>
 </template>
@@ -14,7 +10,7 @@
 .msg-box {
   background-color: #fff;
   max-width: 700px;
-  height: 400px;
+  height: 300px;
   display: grid;
   place-items: center;
   margin: 0 auto;

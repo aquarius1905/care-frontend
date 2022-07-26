@@ -10,6 +10,8 @@ import CareManagerRegistrationCompleteView from '../views/CareManagerRegistratio
 import CareManagerRegistrationConfirmationView from '../views/CareManagerRegistrationConfirmationView.vue'
 import CareReceiverRegistrationView from '../views/CareReceiverRegistrationView.vue'
 import CareReceiverRegistrationConfirmationView from '../views/CareReceiverRegistrationConfirmationView.vue'
+import CareReceiverRegistrationCompleteView from '../views/CareReceiverRegistrationCompleteView.vue'
+import CareReceiverListView from '../views/CareReceiverListView.vue'
 
 const routes = [
   {
@@ -37,6 +39,12 @@ const routes = [
     meta: {requiresAuth: true},
   },
   {
+    path: '/care-manager/login',
+    name: 'CareManagerLogin',
+    component: CareManagerLoginView,
+    meta: {requiresAuth: false},
+  },
+  {
     path: '/care-receiver/register',
     name: 'CareReceiverRegistration',
     component: CareReceiverRegistrationView,
@@ -46,14 +54,20 @@ const routes = [
     path: '/care-receiver/register/confirm',
     name: 'CareReceiverRegistrationConfirmation',
     component: CareReceiverRegistrationConfirmationView,
-    meta: {requiresAuth: true},
+    meta: {requiresAuth: true },
   },
   {
-    path: '/care-manager/login',
-    name: 'CareManagerLogin',
-    component: CareManagerLoginView,
-    meta: {requiresAuth: false},
+    path: '/care-receiver/register/complete',
+    name: 'CareReceiverRegistrationComplete',
+    component: CareReceiverRegistrationCompleteView,
+    meta: { requiresAuth: true },
   },
+  {
+    path: '/care-receiver/list',
+    name: 'CareReceiverList',
+    component: CareReceiverListView,
+    meta: { requiresAuth: false },
+  }
 ]
 
 function isCareManagerLoggedIn() {

@@ -60,6 +60,10 @@
               <th>電話番号</th>
               <td>{{ key_person.tel }}</td>
             </tr>
+            <tr>
+              <th>パスワード</th>
+              <td>************</td>
+            </tr>
           </table>
         </fieldset>
         <div class="register-btn-wrap">
@@ -89,31 +93,71 @@ export default {
     },
     register() {
       if (confirm('登録しますか？')) {
-        this.makeCareReceiverData()
-        axios
-          .post(`${process.env.VUE_APP_API_ORIGIN}/care-managers`, this.care_receiver)
-          .then(response => {
-            if (response.status === 201) {
-              this.$router.push({ name: 'CareManagerRegistrationComplete' });
-            }
-          })
-          .catch(error => {
-            console.log(error);
-          });
+        this.registerCareReceiver();
       }
     },
     makeCareReceiverData() {
-      this.care_receiver['name']
-        = this.care_receiver['last_name'] + '　' + this.care_receiver['first_name'];
-      this.care_receiver['name_furigana']
-        = this.care_receiver['last_name_furigana'] + '　' + this.care_receiver['first_name_furigana'];
+      let registration_data = this.care_receiver;
+      registration_data.name
+        = registration_data.last_name + '　' + registration_data.first_name;
+      registration_data.name_furigana
+        = registration_data.last_name_furigana + '　' + registration_data.first_name_furigana;
+      registration_data.care_level_id = this.care_receiver.care_level.id;
+
+      [
+        'last_name',
+        'first_name',
+        'last_name_furigana',
+        'first_name_furigana',
+        'care_level'
+      ].forEach(e => delete registration_data[e]);
+
+      return registration_data;
+    },
+    makeKeyPersonData(care_receiver_id) {
+      let registration_data = this.key_person;
+      registration_data.name
+        = registration_data.last_name + '　' + registration_data.first_name;
+      registration_data.name_furigana
+        = registration_data.last_name_furigana + '　' + registration_data.first_name_furigana;
+      registration_data.care_receiver_id = care_receiver_id;
 
       [
         'last_name',
         'first_name',
         'last_name_furigana',
         'first_name_furigana'
-      ].forEach(e => delete this.care_receiver[e]);
+      ].forEach(e => delete registration_data[e]);
+
+      return registration_data;
+    },
+    registerCareReceiver() {
+      const care_receiver = this.makeCareReceiverData();
+      axios
+        .post(`${process.env.VUE_APP_API_ORIGIN}/care-managers`, care_receiver)
+        .then(response => {
+          if (response.status === 201) {
+            this.registerKeyPerson(response.data.care_receiver_id);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    registerKeyPerson(care_receiver_id) {
+      const key_person = this.makeKeyPersonData(care_receiver_id);
+      axios
+        .post(`${process.env.VUE_APP_API_ORIGIN}/key-persons`, key_person)
+        .then(response => {
+          if (response.status === 201) {
+            this.$router.push(
+              { name: 'CareManagerRegistrationComplete' }
+            );
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   },
   created() {
