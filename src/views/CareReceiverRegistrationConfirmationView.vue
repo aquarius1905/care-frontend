@@ -102,7 +102,7 @@ export default {
         = registration_data.last_name + '　' + registration_data.first_name;
       registration_data.name_furigana
         = registration_data.last_name_furigana + '　' + registration_data.first_name_furigana;
-      registration_data.care_level_id = this.care_receiver.care_level.id;
+      registration_data.care_level_id = registration_data.care_level.id;
 
       [
         'last_name',
@@ -134,7 +134,13 @@ export default {
     registerCareReceiver() {
       const care_receiver = this.makeCareReceiverData();
       axios
-        .post(`${process.env.VUE_APP_API_ORIGIN}/care-managers`, care_receiver)
+        .post(`${process.env.VUE_APP_API_ORIGIN}/care-receivers`,
+          care_receiver,
+          {
+            headers: {
+              Authorization: `Bearer ${this.$store.getters.getCareManagerAccessToken}`,
+            }
+          })
         .then(response => {
           if (response.status === 201) {
             this.registerKeyPerson(response.data.care_receiver_id);
@@ -147,7 +153,13 @@ export default {
     registerKeyPerson(care_receiver_id) {
       const key_person = this.makeKeyPersonData(care_receiver_id);
       axios
-        .post(`${process.env.VUE_APP_API_ORIGIN}/key-persons`, key_person)
+        .post(`${process.env.VUE_APP_API_ORIGIN}/key-persons`,
+          key_person,
+          {
+            headers: {
+              Authorization: `Bearer ${this.$store.getters.getCareManagerAccessToken}`,
+            }
+        })
         .then(response => {
           if (response.status === 201) {
             this.$router.push(
