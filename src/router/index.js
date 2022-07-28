@@ -66,7 +66,7 @@ const routes = [
     path: '/care-receiver/list',
     name: 'CareReceiverList',
     component: CareReceiverListView,
-    meta: { requiresAuth: false },
+    meta: { requiresAuth: true },
   }
 ]
 

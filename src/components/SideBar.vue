@@ -2,10 +2,10 @@
   <div id="sidebar">
     <h1 class="ttl">Care</h1>
     <nav class="nav" id="nav">
-      <div v-if="this.$store.getters.isCareManagerLoggedIn">
+      <div>
         <input id="care-manager" class="toggle" type="checkbox">
         <label class="acd-lbl" for="care-manager">ケアマネージャー</label>
-        <ul class="acd-content">
+        <ul class="acd-content" v-if="this.$store.getters.isCareManagerLoggedIn">
           <li>
             <router-link class="link" to="/care-receiver/list">被介護者一覧</router-link>
           </li>
@@ -19,11 +19,7 @@
             <button class="btn-link" @click="logout">ログアウト</button>
           </li>
         </ul>
-      </div>
-      <div v-else>
-        <input id="care-manager" class="toggle" type="checkbox">
-        <label class="acd-lbl" for="care-manager">ケアマネージャー</label>
-        <ul class="acd-content">
+        <ul class="acd-content" v-else>
           <li>
             <button class="btn-link" @click="displayCareManagerRegistrationPage">登録</button>
           </li>
@@ -59,7 +55,6 @@ export default {
       axios
         .post(`${process.env.VUE_APP_API_ORIGIN}/care-managers/logout`)
         .then(response => {
-          console.log(response);
           if (response.status === 200) {
             this.$store.dispatch('logout');
             this.$router.push({

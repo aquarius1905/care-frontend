@@ -53,8 +53,7 @@ export default {
             axios.defaults.headers.common['Authorization'] = 'Bearer ' + access_token;
             this.$store.dispatch('login', access_token);
             this.$router.push({
-              name: 'CareReceiverRegistration',
-              query: { care_receiver: null, key_person: null }
+              name: 'CareReceiverList'
             });
           }
         })
