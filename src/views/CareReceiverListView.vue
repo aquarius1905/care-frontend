@@ -17,9 +17,9 @@
           <td>{{ care_receiver.id }}</td>
           <td>{{ care_receiver.name }}</td>
           <td>{{ care_receiver.name_furigana }}</td>
-          <td>{{ care_receiver.birthday }}</td>
+          <td>{{ $dayjs(care_receiver.birthday).format('YYYY/MM/DD') }}</td>
           <td>{{ care_receiver.care_level.name }}</td>
-          <td><button>詳細</button></td>
+          <td><button class="btn detail-btn">詳細</button></td>
         </tr>
       </tbody>
     </table>
@@ -42,8 +42,7 @@ export default {
         }
       });
       this.care_receivers = data.data;
-      console.log(this.care_receivers);
-    }
+    },
   },
   created() {
     this.getCareReceivers();
@@ -70,7 +69,7 @@ export default {
 }
 .tbl th {
   font-size: 20px;
-  color: #fff;
+  color: #f5f5f5;
   background-color: #1A237E;
 }
 .tbl th:first-child {
@@ -85,5 +84,9 @@ export default {
 }
 .tbl td {
   color: #555;
+}
+.detail-btn {
+  width: auto;
+  padding: 5px 10px;
 }
 </style>

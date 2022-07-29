@@ -2,6 +2,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import dayjs from 'dayjs'
+import 'dayjs/locale/ja'
 import { ValidationProvider, ValidationObserver, extend, localize } from 'vee-validate';
 import * as originalRules from 'vee-validate/dist/rules';
 import ja from 'vee-validate/dist/locale/ja.json';
@@ -16,9 +18,9 @@ for (rule in originalRules) {
 
 //パスワードのカスタムルール
 extend('password_rule', {
-  message: '{_field_}は半角英小文字、半角英大文字、半角数字を全て使用してください',
+  message: 'パスワードは半角英小文字、半角英大文字、半角数字をそれぞれ1種類以上含む12文字以上100文字以下で入力してください',
   validate(value) {
-    if (value.match(/^[A-Za-z0-9]+$/)) {
+    if (value.match(/^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])[a-zA-Z0-9]{12,100}$/)) {
       return true;
     }
   }
@@ -62,6 +64,10 @@ Vue.component('ValidationProvider', ValidationProvider);
 Vue.component('ValidationObserver', ValidationObserver);
 
 Vue.config.productionTip = false
+
+// ロケール設定
+dayjs.locale('ja')
+Vue.prototype.$dayjs = dayjs;
 
 new Vue({
   router,

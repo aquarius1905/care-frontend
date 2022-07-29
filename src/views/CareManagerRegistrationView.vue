@@ -79,7 +79,7 @@
             </ValidationProvider>
           </div>
           <div class="form-item">
-            <ValidationProvider v-slot="{ errors }" rules="required|min:12|password_rule">
+            <ValidationProvider v-slot="{ errors }" rules="required|password_rule">
               <label class="form-item-lbl" for="password">パスワード</label>
               <input type="password" id="password" class="input" v-model="care_manager.password" required>
               <div class="error">{{ errors[0] }}</div>
