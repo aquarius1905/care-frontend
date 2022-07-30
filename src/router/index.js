@@ -12,6 +12,7 @@ import CareReceiverRegistrationView from '../views/CareReceiverRegistrationView.
 import CareReceiverRegistrationConfirmationView from '../views/CareReceiverRegistrationConfirmationView.vue'
 import CareReceiverRegistrationCompleteView from '../views/CareReceiverRegistrationCompleteView.vue'
 import CareReceiverListView from '../views/CareReceiverListView.vue'
+import CareReceiverDetailView from '../views/CareReceiverDetailView.vue'
 
 const routes = [
   {
@@ -66,6 +67,12 @@ const routes = [
     path: '/care-receiver/list',
     name: 'CareReceiverList',
     component: CareReceiverListView,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/care-receiver/detail',
+    name: 'CareReceiverDetail',
+    component: CareReceiverDetailView,
     meta: { requiresAuth: true },
   }
 ]

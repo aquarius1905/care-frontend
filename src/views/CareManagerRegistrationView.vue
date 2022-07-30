@@ -27,7 +27,7 @@
           <div class="form-item">
             <div class="form-item-wrap">
               <div class="form-item-name-wrap">
-                <ValidationProvider v-slot="{ errors }" rules="required|max:127">
+                <ValidationProvider v-slot="{ errors }" rules="required|full_sized_katakana|max:127" name="セイ">
                   <label for="last_name_furigana" class="form-item-lbl">セイ</label>
                   <input type="text" id="last_name_furigana" class="name-input"
                     v-model="care_manager.last_name_furigana" placeholder="ヤマダ" required>
@@ -35,7 +35,8 @@
                 </ValidationProvider>
               </div>
               <div class="form-item-name-wrap">
-                <ValidationProvider v-slot="{ errors }" rules="required|max:127">
+                <ValidationProvider v-slot="{ errors }" 
+                rules="required|full_sized_katakana|max:127" name="メイ">
                   <label for="first_name_furigana" class="form-item-lbl">メイ</label>
                   <input type="text" id="first_name_furigana" class="name-input"
                     v-model="care_manager.first_name_furigana" placeholder="タロウ" required>

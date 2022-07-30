@@ -93,16 +93,17 @@ export default {
     },
     register() {
       if (confirm('登録しますか？')) {
-        this.registerCareReceiver();
+        this.registerKeyPerson();
       }
     },
-    makeCareReceiverData() {
+    makeCareReceiverData(key_person_id) {
       let registration_data = this.care_receiver;
       registration_data.name
         = registration_data.last_name + '　' + registration_data.first_name;
       registration_data.name_furigana
         = registration_data.last_name_furigana + '　' + registration_data.first_name_furigana;
       registration_data.care_level_id = registration_data.care_level.id;
+      registration_data.key_person_id = key_person_id;
 
       [
         'last_name',
@@ -114,13 +115,12 @@ export default {
 
       return registration_data;
     },
-    makeKeyPersonData(care_receiver_id) {
+    makeKeyPersonData() {
       let registration_data = this.key_person;
       registration_data.name
         = registration_data.last_name + '　' + registration_data.first_name;
       registration_data.name_furigana
         = registration_data.last_name_furigana + '　' + registration_data.first_name_furigana;
-      registration_data.care_receiver_id = care_receiver_id;
 
       [
         'last_name',
@@ -131,8 +131,27 @@ export default {
 
       return registration_data;
     },
-    registerCareReceiver() {
-      const care_receiver = this.makeCareReceiverData();
+    registerKeyPerson() {
+      const key_person = this.makeKeyPersonData();
+      axios
+        .post(`${process.env.VUE_APP_API_ORIGIN}/key-persons`,
+          key_person,
+          {
+            headers: {
+              Authorization: `Bearer ${this.$store.getters.getCareManagerAccessToken}`,
+            }
+          })
+        .then(response => {
+          if (response.status === 201) {
+            this.registerCareReceiver(response.data.key_person_id);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    registerCareReceiver(key_person_id) {
+      const care_receiver = this.makeCareReceiverData(key_person_id);
       axios
         .post(`${process.env.VUE_APP_API_ORIGIN}/care-receivers`,
           care_receiver,
@@ -143,34 +162,15 @@ export default {
           })
         .then(response => {
           if (response.status === 201) {
-            this.registerKeyPerson(response.data.care_receiver_id);
-          }
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    },
-    registerKeyPerson(care_receiver_id) {
-      const key_person = this.makeKeyPersonData(care_receiver_id);
-      axios
-        .post(`${process.env.VUE_APP_API_ORIGIN}/key-persons`,
-          key_person,
-          {
-            headers: {
-              Authorization: `Bearer ${this.$store.getters.getCareManagerAccessToken}`,
-            }
-        })
-        .then(response => {
-          if (response.status === 201) {
             this.$router.push({
-              name: 'CareManagerRegistrationComplete'
+              name: 'CareReceiverRegistrationComplete'
             });
           }
         })
         .catch(error => {
           console.log(error);
         });
-    }
+    },
   },
   created() {
     this.care_receiver = this.$route.query.care_receiver

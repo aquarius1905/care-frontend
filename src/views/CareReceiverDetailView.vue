@@ -1,32 +1,6 @@
 <template>
   <div>
-    <h2 class="ttl">担当被介護者一覧</h2>
-    <table class="tbl box-shadow">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>氏名</th>
-          <th>フリガナ</th>
-          <th>生年月日</th>
-          <th>介護度</th>
-          <th></th>
-          <th></th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="care_receiver in care_receivers" :key="care_receiver.id">
-          <td>{{ care_receiver.id }}</td>
-          <td>{{ care_receiver.name }}</td>
-          <td>{{ care_receiver.name_furigana }}</td>
-          <td>{{ $dayjs(care_receiver.birthday).format('YYYY/MM/DD') }}</td>
-          <td>{{ care_receiver.care_level.name }}</td>
-          <td><button class="btn detail-btn">詳細</button></td>
-          <td><button class="btn detail-btn">更新</button></td>
-          <td><button class="btn detail-btn">削除</button></td>
-        </tr>
-      </tbody>
-    </table>
+    <h2 class="ttl">被介護者詳細</h2>
   </div>
 </template>
 
