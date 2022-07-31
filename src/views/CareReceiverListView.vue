@@ -21,7 +21,7 @@
           <td>{{ care_receiver.name_furigana }}</td>
           <td>{{ $dayjs(care_receiver.birthday).format('YYYY/MM/DD') }}</td>
           <td>{{ care_receiver.care_level.name }}</td>
-          <td><button class="btn detail-btn">詳細</button></td>
+          <td><button class="btn detail-btn" @click="showDetail(care_receiver)">詳細</button></td>
           <td><button class="btn detail-btn">更新</button></td>
           <td><button class="btn detail-btn">削除</button></td>
         </tr>
@@ -47,6 +47,12 @@ export default {
       });
       this.care_receivers = data.data;
     },
+    showDetail(care_receiver) {
+      this.$router.push({
+        name: 'CareReceiverDetail',
+        query: { care_receiver: care_receiver }
+      });
+    }
   },
   created() {
     this.getCareReceivers();

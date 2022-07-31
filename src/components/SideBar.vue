@@ -28,6 +28,20 @@
           </li>
         </ul>
       </div>
+      <div>
+        <input id="key-person" class="toggle" type="checkbox">
+        <label class="acd-lbl" for="key-person">キーパーソン</label>
+        <ul class="acd-content" v-if="this.$store.getters.isCareManagerLoggedIn">
+          <li>
+            <button class="btn-link" @click="logout">ログアウト</button>
+          </li>
+        </ul>
+        <ul class="acd-content" v-else>
+          <li>
+            <router-link class="link" to="/key-person/login">ログイン</router-link>
+          </li>
+        </ul>
+      </div>
     </nav>
   </div>
 </template>
@@ -53,7 +67,11 @@ export default {
     },
     logout() {
       axios
-        .post(`${process.env.VUE_APP_API_ORIGIN}/care-managers/logout`)
+        .post(`${process.env.VUE_APP_API_ORIGIN}/care-managers/logout`, {
+          headers: {
+            Authorization: `Bearer ${this.$store.getters.getCareManagerAccessToken}`
+          }
+        })
         .then(response => {
           if (response.status === 200) {
             this.$store.dispatch('logout');
@@ -116,7 +134,7 @@ export default {
 }
 .acd-content {
 	height: 0;
-  padding: 0 20px;
+  padding: 10px 20px;
 	margin-bottom: 10px;
 	overflow: hidden;
 }

@@ -21,11 +21,13 @@
                 <input type="password" id="password" class="input" v-model="login_data.password" required>
               </div>
               <div class="error">{{ errors[0] }}</div>
+              <div class="error">{{ login_error }}</div>
             </ValidationProvider>
           </div>
         </div>
         <div class="form-btn-wrap">
-          <button class="btn login-btn" :disabled="ObserverProps.invalid || !ObserverProps.validated" @click="login">ログイン</button>
+          <button class="btn login-btn" :disabled="ObserverProps.invalid || !ObserverProps.validated"
+            @click="login">ログイン</button>
         </div>
       </ValidationObserver>
     </div>
@@ -40,7 +42,8 @@ export default {
       login_data: {
         email: null,
         password: null,
-      }
+      },
+      login_error: null
     }
   },
   methods: {
@@ -50,7 +53,6 @@ export default {
         .then(response => {
           if (response.status === 200) {
             const access_token = response.data.access_token;
-            axios.defaults.headers.common['Authorization'] = 'Bearer ' + access_token;
             this.$store.dispatch('login', access_token);
             this.$router.push({
               name: 'CareReceiverList'
@@ -58,7 +60,7 @@ export default {
           }
         })
         .catch(error => {
-          console.log(error);
+          this.login_error = error.response.data.login_error
         });
     }
   }

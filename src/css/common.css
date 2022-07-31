@@ -28,7 +28,8 @@ body {
   border-radius: 6px;
 }
 .form-content,
-.confirm-content {
+.confirm-content,
+.content {
   padding: 20px;
   box-sizing: border-box;
 }
