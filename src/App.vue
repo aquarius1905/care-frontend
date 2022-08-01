@@ -21,6 +21,6 @@ export default {
 }
 .router-view {
   width: calc(100% - 200px);
-  margin: 52px 0 0 auto;
+  margin: 46px 0 0 auto;
 }
 </style>

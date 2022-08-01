@@ -1,12 +1,6 @@
 <template>
   <div class="detail">
-    <div class="menu">
-      <ul>
-        <li>被介護者登録情報</li>
-        <li>訪問日時</li>
-        <li>介護計画</li>
-      </ul>
-    </div>
+    <DetailMenu></DetailMenu>
     <div class="form box-shadow">
       <h2 class="form-ttl">被介護者登録情報</h2>
       <div class="content">
@@ -75,7 +69,9 @@
 </template>
 
 <script>
+import DetailMenu from "../components/DetailMenu";
 export default {
+  components: { DetailMenu },
   data: function () {
     return {
       care_receiver: null,

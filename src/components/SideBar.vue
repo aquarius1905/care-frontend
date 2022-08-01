@@ -31,7 +31,7 @@
       <div>
         <input id="key-person" class="toggle" type="checkbox">
         <label class="acd-lbl" for="key-person">キーパーソン</label>
-        <ul class="acd-content" v-if="this.$store.getters.isCareManagerLoggedIn">
+        <ul class="acd-content" v-if="this.$store.getters.isKeyPersonLoggedIn">
           <li>
             <button class="btn-link" @click="logout">ログアウト</button>
           </li>
