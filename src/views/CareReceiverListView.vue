@@ -4,7 +4,7 @@
     <table class="tbl box-shadow">
       <thead>
         <tr>
-          <th>ID</th>
+          <th>No</th>
           <th>氏名</th>
           <th>フリガナ</th>
           <th>生年月日</th>
@@ -15,15 +15,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="care_receiver in care_receivers" :key="care_receiver.id">
-          <td>{{ care_receiver.id }}</td>
+        <tr v-for="(care_receiver, index) in care_receivers" :key="care_receiver.id">
+          <td>{{ index + 1 }}</td>
           <td>{{ care_receiver.name }}</td>
           <td>{{ care_receiver.name_furigana }}</td>
           <td>{{ $dayjs(care_receiver.birthday).format('YYYY/MM/DD') }}</td>
           <td>{{ care_receiver.care_level.name }}</td>
           <td><button class="btn detail-btn" @click="showDetail(care_receiver)">詳細</button></td>
-          <td><button class="btn detail-btn">更新</button></td>
-          <td><button class="btn detail-btn">削除</button></td>
+          <td><button class="btn detail-btn" @click="updateCareReceiver()">更新</button></td>
+          <td><button class="btn detail-btn" @click="deleteCareReceiver(care_receiver.id)">削除</button></td>
         </tr>
       </tbody>
     </table>
@@ -52,6 +52,24 @@ export default {
         name: 'CareReceiverDetail',
         query: { care_receiver: care_receiver }
       });
+    },
+    updateCareReceiver() {
+
+    },
+    async deleteCareReceiver(care_receiver_id) {
+      if (confirm("削除しますか？")) {
+        const response = await axios.delete(`${process.env.VUE_APP_API_ORIGIN}/care-receivers/` + care_receiver_id
+        , {
+          headers: {
+            Authorization: `Bearer ${this.$store.getters.getCareManagerAccessToken}`,
+          }
+          });
+        if (response.status === 200) {
+          this.getCareReceivers();
+        } else {
+          alert("削除に失敗しました");
+        }
+      }
     }
   },
   created() {
