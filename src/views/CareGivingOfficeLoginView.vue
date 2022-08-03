@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="login-form box-shadow">
-      <h2 class="form-ttl">ケアマネージャー ログイン</h2>
+      <h2 class="form-ttl">介護事業所 ログイン</h2>
       <ValidationObserver ref="obs" v-slot="ObserverProps">
         <div class="login-form-content">
           <div class="form-item">
@@ -49,14 +49,11 @@ export default {
   methods: {
     login() {
       axios
-        .post(`${process.env.VUE_APP_API_ORIGIN}/care-managers/login`, this.login_data)
+        .post(`${process.env.VUE_APP_API_ORIGIN}/key-persons/login`, this.login_data)
         .then(response => {
           if (response.status === 200) {
             const access_token = response.data.access_token;
             this.$store.dispatch('login', access_token);
-            this.$router.push({
-              name: 'CareReceiverList'
-            });
           }
         })
         .catch(error => {
@@ -66,3 +63,6 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+</style>

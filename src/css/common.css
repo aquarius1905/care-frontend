@@ -2,12 +2,15 @@ body {
   background-color: #f5f5f5;
   font-size: 18px;
 }
+
 ::placeholder {
   color: #c0c0c0;
 }
+
 .box-shadow {
   box-shadow: 2px 2px 4px 1px #888;
 }
+
 .form-ttl {
   color: #fff;
   background-color: #1A237E;
@@ -16,51 +19,62 @@ body {
   font-weight: normal;
   border-radius: 5px 5px 0 0;
 }
+
 .ttl {
   color: #1A237E;
   font-weight: bold;
   font-size: 30px;
 }
+
 .form {
   background-color: #fff;
   max-width: 600px;
   margin: 0 auto;
   border-radius: 6px;
 }
+
 .form-content,
 .confirm-content,
 .content {
   padding: 20px;
   box-sizing: border-box;
 }
+
 .form-item {
   width: 100%;
   margin-bottom: 25px;
 }
+
 .form-item-lbl {
   display: block;
   font-weight: bold;
   margin-bottom: 10px;
   color: #555;
 }
+
 .form-item:last-child {
   margin-bottom: 0;
 }
+
 .form-item-name-wrap {
   width: 100%;
 }
+
 .form-item-wrap {
   display: flex;
   justify-content: space-between;
   width: 100%;
 }
+
 .form-btn-wrap {
   text-align: center;
   padding: 20px 0;
 }
+
 .form-confrim-btn-wrap {
   padding-top: 0;
 }
+
 .error {
   color: tomato;
   font-weight: bold;
@@ -68,6 +82,7 @@ body {
   font-size: 16px;
   line-height: 1.3;
 }
+
 .btn {
   color: #f5f5f5;
   background-color: #1A237E;
@@ -78,6 +93,7 @@ body {
   border-radius: 6px;
   cursor: pointer;
 }
+
 .btn:disabled {
   background: #777;
 }
@@ -92,14 +108,32 @@ body {
   height: 48px;
   width: 96%;
 }
+
 .name-input {
   width: 85%;
 }
+
 .select {
   width: 100%;
 }
+
 .fieldset {
   border: 1px solid #555;
   padding: 10px;
   margin-bottom: 20px;
+}
+
+.login-form-content {
+  padding: 30px 20px 20px;
+}
+
+.login-form {
+  background-color: #fff;
+  max-width: 400px;
+  margin: 0 auto;
+  border-radius: 6px;
+}
+
+.login-btn {
+  width: 120px;
 }

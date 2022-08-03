@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import store from '../store/index';
 Vue.use(VueRouter)
 
+import HomeView from '../views/HomeView.vue'
 import CareManagerInfoView from '../views/CareManagerInfoView.vue'
 import CareManagerLoginView from '../views/CareManagerLoginView.vue'
 import CareManagerRegistrationView from '../views/CareManagerRegistrationView.vue'
@@ -13,8 +14,16 @@ import CareReceiverRegistrationConfirmationView from '../views/CareReceiverRegis
 import CareReceiverRegistrationCompleteView from '../views/CareReceiverRegistrationCompleteView.vue'
 import CareReceiverListView from '../views/CareReceiverListView.vue'
 import CareReceiverDetailView from '../views/CareReceiverDetailView.vue'
+import KeyPersonLoginView from '../views/KeyPersonLoginView.vue'
+import CareGivingOfficeLoginView from '../views/CareGivingOfficeLoginView.vue'
 
 const routes = [
+  {
+    path: '/',
+    name: 'Home',
+    component: HomeView,
+    meta: {requiresAuth: false},
+  },
   {
     path: '/care-manager/register',
     name: 'CareManagerRegistration',
@@ -74,6 +83,18 @@ const routes = [
     name: 'CareReceiverDetail',
     component: CareReceiverDetailView,
     meta: { requiresAuth: true },
+  },
+  {
+    path: '/key-person/login',
+    name: 'KeyPersonLogin',
+    component: KeyPersonLoginView,
+    meta: {requiresAuth: false},
+  },
+  {
+    path: '/care-giving-office/login',
+    name: 'CareGivingOfficeLogin',
+    component: CareGivingOfficeLoginView,
+    meta: {requiresAuth: false},
   }
 ]
 
