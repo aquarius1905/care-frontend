@@ -81,14 +81,18 @@ export default {
   data: function () {
     return {
       care_receiver: null,
-      key_person: null
+      key_person: null,
+      update_flg: false
     }
   },
   methods: {
     back() {
       this.$router.push({
         name: 'CareReceiverRegistration',
-        query: { care_receiver: this.care_receiver, key_person: this.key_person }
+        query: {
+          care_receiver: this.care_receiver,
+          key_person: this.key_person
+        }
       });
     },
     register() {

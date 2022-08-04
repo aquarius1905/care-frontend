@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="form box-shadow">
-      <h2 class="form-ttl">被介護者・キーパーソン 登録</h2>
+      <h2 class="form-ttl">被介護者・キーパーソン 更新</h2>
       <validation-observer v-slot="{ invalid }">
         <div class="form-content">
           <div class="form-item">
@@ -174,18 +174,11 @@
                   <div class="error">{{ errors[0] }}</div>
                 </validation-provider>
               </div>
-              <div class="form-item">
-                <validation-provider v-slot="{ errors }" rules="required|password_rule">
-                  <label class="form-item-lbl" for="password">パスワード</label>
-                  <input type="password" id="password" class="input" v-model="key_person.password" required>
-                  <div class="error">{{ errors[0] }}</div>
-                </validation-provider>
-              </div>
             </fieldset>
           </div>
         </div>
         <div class="form-btn-wrap form-confrim-btn-wrap">
-          <button class="btn" @click="confirmRegistration()" :disabled="invalid">登録内容確認</button>
+          <button class="btn" @click="confirmUpdate()" :disabled="invalid">更新内容確認</button>
         </div>
       </validation-observer>
     </div>
@@ -194,6 +187,7 @@
 
 <script>
 import axios from "axios";
+import dayjs from 'dayjs';
 const jsonpAdapter = require('axios-jsonp')
 export default {
   data() {
@@ -201,31 +195,8 @@ export default {
       support_offices: null,
       needed_support_levels: null,
       needed_care_levels: null,
-      care_receiver: {
-        last_name: null,
-        first_name: null,
-        last_name_furigana: null,
-        first_name_furigana: null,
-        birthday: null,
-        post_code: null,
-        address: null,
-        insurer_number: null,
-        insured_number: null,
-        care_level: {
-          id: 0,
-          name: null
-        }
-      },
-      key_person: {
-        last_name: null,
-        first_name: null,
-        last_name_furigana: null,
-        first_name_furigana: null,
-        relationship: null,
-        email: null,
-        tel: null,
-        password: null
-      },
+      care_receiver: null,
+      key_person: null
     }
   },
   methods: {
@@ -234,38 +205,46 @@ export default {
         .get(`https://api.zipaddress.net/?zipcode=${this.care_receiver.post_code}`, { adapter: jsonpAdapter });
       this.care_receiver.address = data.fullAddress;
     },
-    confirmRegistration() {
+    confirmUpdate() {
       this.$router.push({
         name: 'CareReceiverRegistrationConfirmation',
         query: { care_receiver: this.care_receiver, key_person: this.key_person }
       });
     },
-    getCareLevels() {
+    async getCareLevels() {
       if (!this.$store.getters.hasCareLevels) {
         this.$store.dispatch("fetchCareLevels");
       }
       const care_levels = this.$store.getters.getCareLevels;
       this.needed_support_levels = care_levels.slice(0, 2);
       this.needed_care_levels = care_levels.slice(2);
+    },
+    initialize() {
+      this.getCareLevels();
+      
+      this.care_receiver = this.$route.query.care_receiver;
+      const care_receiver_name_arr = this.care_receiver.name.split(/\u3000/);
+      this.care_receiver['last_name'] = care_receiver_name_arr[0];
+      this.care_receiver['first_name'] = care_receiver_name_arr[1];
 
-      if (this.care_receiver.care_level.id === 0) {
-        this.care_receiver.care_level.id = this.needed_support_levels[0].id;
-        this.care_receiver.care_level.name = this.needed_support_levels[0].name;
-      }
+      const care_receiver_furigana_arr = this.care_receiver.name_furigana.split(/\u3000/);
+      this.care_receiver['last_name_furigana'] = care_receiver_furigana_arr[0];
+      this.care_receiver['first_name_furigana'] = care_receiver_furigana_arr[1];
+
+      this.key_person = this.$route.query.care_receiver.key_person;
+      const key_person_name_arr = this.key_person.name.split(/\u3000/);
+      this.key_person['last_name'] = key_person_name_arr[0];
+      this.key_person['first_name'] = key_person_name_arr[1];
+
+      const key_person_furigana_arr = this.key_person.name_furigana.split(/\u3000/);
+      this.key_person['last_name_furigana'] = key_person_furigana_arr[0];
+      this.key_person['first_name_furigana'] = key_person_furigana_arr[1];
+
+      this.care_receiver.birthday = dayjs(this.care_receiver.birthday).format('YYYY-MM-DD');
     }
   },
   created() {
-    if (this.$route.query.care_receiver !== null) {
-      this.care_receiver = this.$route.query.care_receiver
-    }
-    if (this.$route.query.key_person !== null) {
-      this.key_person = this.$route.query.key_person;
-    }
-    this.getCareLevels();
-
-    if (this.care_receiver.birthday === null) {
-      this.care_receiver.birthday = "1940-01-01";
-    }
+    this.initialize();
   }
 }
 </script>

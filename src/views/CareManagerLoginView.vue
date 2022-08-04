@@ -53,7 +53,8 @@ export default {
         .then(response => {
           if (response.status === 200) {
             const access_token = response.data.access_token;
-            this.$store.dispatch('login', access_token);
+            this.$store.dispatch('loginCareManager', access_token);
+            console.log(this.$store.getters.getCareManagerAccessToken);
             this.$router.push({
               name: 'CareReceiverList'
             });

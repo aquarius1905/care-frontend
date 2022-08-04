@@ -18,10 +18,10 @@ const mutations = {
   },
 };
 const actions = {
-  login(context, payload) {
+  loginKeyPerson(context, payload) {
     context.commit('login', payload);
   },
-  logout(context) {
+  logoutKeyPerson(context) {
     context.commit('logout');
   }
 };

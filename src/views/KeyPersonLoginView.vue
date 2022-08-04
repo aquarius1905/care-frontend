@@ -53,7 +53,7 @@ export default {
         .then(response => {
           if (response.status === 200) {
             const access_token = response.data.access_token;
-            this.$store.dispatch('login', access_token);
+            this.$store.dispatch('loginKeyPerson', access_token);
           }
         })
         .catch(error => {

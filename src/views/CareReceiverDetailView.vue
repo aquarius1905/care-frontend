@@ -15,7 +15,7 @@
           </tr>
           <tr>
             <th>生年月日</th>
-            <td>{{ care_receiver.birthday }}</td>
+            <td>{{ $dayjs(care_receiver.birthday).format('YYYY/MM/DD') }}</td>
           </tr>
           <tr>
             <th>郵便番号</th>

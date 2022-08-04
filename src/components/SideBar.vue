@@ -10,7 +10,7 @@
             <router-link class="link" to="/care-receiver/list">被介護者一覧</router-link>
           </li>
           <li>
-            <button class="btn-link" @click="displayCareReceiverRegistrationPage">被介護者登録</button>
+            <button class="btn-link" @click="showCareReceiverRegistrationPage">被介護者登録</button>
           </li>
           <li>
             <router-link class="link" to="/care-manager/info">設定情報</router-link>
@@ -21,7 +21,7 @@
         </ul>
         <ul class="acd-content" v-else>
           <li>
-            <button class="btn-link" @click="displayCareManagerRegistrationPage">登録</button>
+            <button class="btn-link" @click="showCareManagerRegistrationPage">登録</button>
           </li>
           <li>
             <router-link class="link" to="/care-manager/login">ログイン</router-link>
@@ -53,16 +53,16 @@ export default {
     registerCareReceiver() {
 
     },
-    displayCareManagerRegistrationPage() {
+    showCareManagerRegistrationPage() {
       this.$router.push({
         name: 'CareManagerRegistration',
         query: { care_manager: null }
       });
     },
-    displayCareReceiverRegistrationPage() {
+    showCareReceiverRegistrationPage() {
       this.$router.push({
         name: 'CareReceiverRegistration',
-        query: {care_receiver: null, key_person: null}
+        query: { care_receiver: null, key_person: null, update_flg: false}
       });
     },
     logout() {
@@ -74,7 +74,7 @@ export default {
         })
         .then(response => {
           if (response.status === 200) {
-            this.$store.dispatch('logout');
+            this.$store.dispatch('logoutCareManager');
             this.$router.push({
               name: 'CareManagerLogin'
             });

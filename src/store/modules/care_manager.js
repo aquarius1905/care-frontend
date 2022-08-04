@@ -31,10 +31,10 @@ const actions = {
   setSupportOffices(context, payload) {
     context.commit('setSupportOffices', payload);
   },
-  login(context, payload) {
+  loginCareManager(context, payload) {
     context.commit('login', payload);
   },
-  logout(context) {
+  logoutCareManager(context) {
     context.commit('logout');
   }
 };

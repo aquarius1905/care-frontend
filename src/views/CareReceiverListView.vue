@@ -22,7 +22,7 @@
           <td>{{ $dayjs(care_receiver.birthday).format('YYYY/MM/DD') }}</td>
           <td>{{ care_receiver.care_level.name }}</td>
           <td><button class="btn detail-btn" @click="showDetail(care_receiver)">詳細</button></td>
-          <td><button class="btn detail-btn" @click="updateCareReceiver()">更新</button></td>
+          <td><button class="btn detail-btn" @click="updateCareReceiver(care_receiver)">更新</button></td>
           <td><button class="btn detail-btn" @click="deleteCareReceiver(care_receiver.id)">削除</button></td>
         </tr>
       </tbody>
@@ -53,8 +53,12 @@ export default {
         query: { care_receiver: care_receiver }
       });
     },
-    updateCareReceiver() {
-
+    updateCareReceiver(care_receiver) {
+      console.log(care_receiver);
+      this.$router.push({
+        name: 'CareReceiverUpdate',
+        query: { care_receiver: care_receiver }
+      });
     },
     async deleteCareReceiver(care_receiver_id) {
       if (confirm("削除しますか？")) {

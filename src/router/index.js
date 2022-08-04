@@ -12,6 +12,7 @@ import CareManagerRegistrationConfirmationView from '../views/CareManagerRegistr
 import CareReceiverRegistrationView from '../views/CareReceiverRegistrationView.vue'
 import CareReceiverRegistrationConfirmationView from '../views/CareReceiverRegistrationConfirmationView.vue'
 import CareReceiverRegistrationCompleteView from '../views/CareReceiverRegistrationCompleteView.vue'
+import CareReceiverUpdateView from '../views/CareReceiverUpdateView.vue'
 import CareReceiverListView from '../views/CareReceiverListView.vue'
 import CareReceiverDetailView from '../views/CareReceiverDetailView.vue'
 import KeyPersonLoginView from '../views/KeyPersonLoginView.vue'
@@ -71,6 +72,12 @@ const routes = [
     name: 'CareReceiverRegistrationComplete',
     component: CareReceiverRegistrationCompleteView,
     meta: { requiresAuth: true },
+  },
+  {
+    path: '/care-receiver/update',
+    name: 'CareReceiverUpdate',
+    component: CareReceiverUpdateView,
+    meta: {requiresAuth: true},
   },
   {
     path: '/care-receiver/list',
