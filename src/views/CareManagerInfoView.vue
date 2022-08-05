@@ -57,15 +57,15 @@ export default {
         .get(`${process.env.VUE_APP_API_ORIGIN}/care-managers/me`,
           {
             headers: {
-                Authorization: `Bearer ${this.$store.getters.getCareManagerAccessToken}`,
+              Authorization: `Bearer ${this.$store.getters.getCareManagerAccessToken}`,
             }
         })
-        .then((response) => {
+        .then(response => {
           if (response.data.result) {
             this.care_manager = response.data.care_manager;
           }
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
         });
     }

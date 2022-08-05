@@ -62,18 +62,16 @@ export default {
     showCareReceiverRegistrationPage() {
       this.$router.push({
         name: 'CareReceiverRegistration',
-        query: { care_receiver: null, key_person: null, update_flg: false}
+        query: { care_receiver: null, key_person: null }
       });
     },
     logout() {
+      axios.defaults.headers.common['Authorization'] = 'Bearer ' +  this.$store.getters.getCareManagerAccessToken;
       axios
-        .post(`${process.env.VUE_APP_API_ORIGIN}/care-managers/logout`, {
-          headers: {
-            Authorization: `Bearer ${this.$store.getters.getCareManagerAccessToken}`
-          }
-        })
+        .post(`${process.env.VUE_APP_API_ORIGIN}/care-managers/logout`)
         .then(response => {
           if (response.status === 200) {
+            axios.defaults.headers.common['Authorization'] = null;
             this.$store.dispatch('logoutCareManager');
             this.$router.push({
               name: 'CareManagerLogin'

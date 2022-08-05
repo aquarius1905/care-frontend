@@ -1,7 +1,7 @@
 <template>
   <div class="care-manager-registration-confirmation">
     <div class="form box-shadow">
-      <h2 class="form-ttl">被介護者 登録確認</h2>
+      <h2 class="form-ttl">被介護者・キーパーソン 更新確認</h2>
       <div class="confirm-content">
         <table class="confirm-tbl">
           <tr>
@@ -60,15 +60,11 @@
               <th>電話番号</th>
               <td>{{ key_person.tel }}</td>
             </tr>
-            <tr>
-              <th>パスワード</th>
-              <td>************</td>
-            </tr>
           </table>
         </fieldset>
         <div class="register-btn-wrap">
           <button class="back-btn btn" @click="back">戻る</button>
-          <button class="btn" @click="register">登録</button>
+          <button class="btn" @click="update">更新</button>
         </div>
       </div>
     </div>
@@ -81,22 +77,22 @@ export default {
   data: function () {
     return {
       care_receiver: null,
-      key_person: null
+      key_person: null,
     }
   },
   methods: {
     back() {
       this.$router.push({
-        name: 'CareReceiverRegistration',
+        name: 'CareReceiverUpdate',
         query: {
           care_receiver: this.care_receiver,
           key_person: this.key_person
         }
       });
     },
-    register() {
-      if (confirm('登録しますか？')) {
-        this.registerKeyPerson();
+    update() {
+      if (confirm('更新しますか？')) {
+        this.updateKeyPerson();
       }
     },
     makeCareReceiverData(key_person_id) {
@@ -134,10 +130,10 @@ export default {
 
       return registration_data;
     },
-    registerKeyPerson() {
+    updateKeyPerson() {
       const key_person = this.makeKeyPersonData();
       axios
-        .post(`${process.env.VUE_APP_API_ORIGIN}/key-persons`,
+        .post(`${process.env.VUE_APP_API_ORIGIN}/key-persons/${this.key_person.id}`,
           key_person,
           {
             headers: {
@@ -146,17 +142,17 @@ export default {
           })
         .then(response => {
           if (response.status === 201) {
-            this.registerCareReceiver(response.data.key_person_id);
+            this.updateCareReceiver(response.data.key_person_id);
           }
         })
         .catch(error => {
           console.log(error);
         });
     },
-    registerCareReceiver(key_person_id) {
+    updateCareReceiver(key_person_id) {
       const care_receiver = this.makeCareReceiverData(key_person_id);
       axios
-        .post(`${process.env.VUE_APP_API_ORIGIN}/care-receivers`,
+        .post(`${process.env.VUE_APP_API_ORIGIN}/care-receivers/${this.care_receiver.id}`,
           care_receiver,
           {
             headers: {
@@ -166,7 +162,7 @@ export default {
         .then(response => {
           if (response.status === 201) {
             this.$router.push({
-              name: 'CareReceiverRegistrationComplete'
+              name: 'CareReceiverUpdateComplete'
             });
           }
         })

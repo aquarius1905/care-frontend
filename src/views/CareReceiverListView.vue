@@ -54,7 +54,6 @@ export default {
       });
     },
     updateCareReceiver(care_receiver) {
-      console.log(care_receiver);
       this.$router.push({
         name: 'CareReceiverUpdate',
         query: { care_receiver: care_receiver }

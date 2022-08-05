@@ -207,13 +207,13 @@ export default {
     },
     confirmUpdate() {
       this.$router.push({
-        name: 'CareReceiverRegistrationConfirmation',
+        name: 'CareReceiverUpdateConfirmation',
         query: { care_receiver: this.care_receiver, key_person: this.key_person }
       });
     },
     async getCareLevels() {
       if (!this.$store.getters.hasCareLevels) {
-        this.$store.dispatch("fetchCareLevels");
+        await this.$store.dispatch("fetchCareLevels");
       }
       const care_levels = this.$store.getters.getCareLevels;
       this.needed_support_levels = care_levels.slice(0, 2);
