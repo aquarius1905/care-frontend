@@ -45,7 +45,17 @@
             </div>
           </div>
           <div class="form-item">
-            <validation-provider v-slot="{ errors }" rules="required|">
+            <validation-provider v-slot="{ errors }" rules="required">
+              <label class="form-item-lbl" for="gender">性別</label>
+              <input type="radio" name="gender" id="male" value="1" v-model="care_receiver.gender">
+              <label for="male" class="gender-lbl">男</label>
+              <input type="radio" name="gender" id="female" value="2" v-model="care_receiver.gender">
+              <label for="female" class="gender-lbl">女</label>
+              <div class="error">{{ errors[0] }}</div>
+            </validation-provider>
+          </div>
+          <div class="form-item">
+            <validation-provider v-slot="{ errors }" rules="required">
               <label class="form-item-lbl" for="birthday">生年月日</label>
               <input type="date" id="birthday" class="input" v-model="care_receiver.birthday" min="1900-01-01"
                 max="1970-01-01" required>
@@ -206,7 +216,8 @@ export default {
         first_name: null,
         last_name_furigana: null,
         first_name_furigana: null,
-        birthday: null,
+        gender: 1,
+        birthday: "1940-01-01",
         post_code: null,
         address: null,
         insurer_number: null,
@@ -240,9 +251,9 @@ export default {
         query: { care_receiver: this.care_receiver, key_person: this.key_person }
       });
     },
-    getCareLevels() {
+    async getCareLevels() {
       if (!this.$store.getters.hasCareLevels) {
-        this.$store.dispatch("fetchCareLevels");
+        await this.$store.dispatch("fetchCareLevels");
       }
       const care_levels = this.$store.getters.getCareLevels;
       this.needed_support_levels = care_levels.slice(0, 2);
@@ -262,10 +273,6 @@ export default {
       this.key_person = this.$route.query.key_person;
     }
     this.getCareLevels();
-
-    if (this.care_receiver.birthday === null) {
-      this.care_receiver.birthday = "1940-01-01";
-    }
   }
 }
 </script>
@@ -276,6 +283,10 @@ export default {
 .care_level_lst {
   list-style: none;
   display: flex;
+}
+.gender-lbl {
+  display: inline-block;
+  margin-right: 20px;
 }
 .care-level-lbl {
   display: inline-block;

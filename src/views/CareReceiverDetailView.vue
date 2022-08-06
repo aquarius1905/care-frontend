@@ -14,6 +14,10 @@
             <td>{{ care_receiver.name_furigana }}</td>
           </tr>
           <tr>
+            <th>性別</th>
+            <td>{{ care_receiver.gender === 1 ? "男" : "女" }}</td>
+          </tr>
+          <tr>
             <th>生年月日</th>
             <td>{{ $dayjs(care_receiver.birthday).format('YYYY/MM/DD') }}</td>
           </tr>

@@ -5,7 +5,7 @@
       <div class="confirm-content">
         <table class="confirm-tbl">
           <tr>
-            <th>お名前</th>
+            <th>氏名</th>
             <td>{{ care_manager.last_name }}&emsp;{{ care_manager.first_name }}</td>
           </tr>
           <tr>
@@ -54,7 +54,7 @@ export default {
     back() {
       this.$router.push({
         name: 'CareManagerRegistration',
-        query: { care_manager: this.care_manager }
+        query: { care_manager: this.care_manager, update_flg: false }
       });
     },
     register() {

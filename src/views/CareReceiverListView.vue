@@ -7,6 +7,7 @@
           <th>No</th>
           <th>氏名</th>
           <th>フリガナ</th>
+          <th>性別</th>
           <th>生年月日</th>
           <th>介護度</th>
           <th></th>
@@ -19,6 +20,7 @@
           <td>{{ index + 1 }}</td>
           <td>{{ care_receiver.name }}</td>
           <td>{{ care_receiver.name_furigana }}</td>
+          <td>{{ care_receiver.gender === 1 ? "男" : "女" }}</td>
           <td>{{ $dayjs(care_receiver.birthday).format('YYYY/MM/DD') }}</td>
           <td>{{ care_receiver.care_level.name }}</td>
           <td><button class="btn detail-btn" @click="showDetail(care_receiver)">詳細</button></td>

@@ -45,12 +45,12 @@
             </div>
           </div>
           <div class="form-item">
-            <validation-provider v-slot="{ errors }" rules="required|">
-              <label class="form-item-lbl" for="birthday">生年月日</label>
-              <input type="date" id="birthday" class="input" v-model="care_receiver.birthday" min="1900-01-01"
-                max="1970-01-01" required>
-              <div class="error">{{ errors[0] }}</div>
-            </validation-provider>
+            <label class="form-item-lbl">性別</label>
+            <label>{{ care_receiver.gender === 1 ? "男" : "女" }}</label>
+          </div>
+          <div class="form-item">
+            <label class="form-item-lbl" for="birthday">生年月日</label>
+            <label>{{ care_receiver.birthday }}</label>
           </div>
           <div class="form-item">
             <validation-provider v-slot="{ errors }" rules="required|numeric|length:7">
@@ -95,7 +95,7 @@
                     <input type="radio" name="care_level" :id="needed_support_level.name" :value="needed_support_level"
                       v-model="care_receiver.care_level">
                     <label class="care-level-lbl" :for="needed_support_level.name">{{ needed_support_level.name
-                      }}</label>
+                    }}</label>
                   </li>
                 </ul>
               </div>

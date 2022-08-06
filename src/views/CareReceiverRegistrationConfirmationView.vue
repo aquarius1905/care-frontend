@@ -5,7 +5,7 @@
       <div class="confirm-content">
         <table class="confirm-tbl">
           <tr>
-            <th>お名前</th>
+            <th>氏名</th>
             <td>{{ care_receiver.last_name }}&emsp;{{ care_receiver.first_name }}</td>
           </tr>
           <tr>
@@ -13,8 +13,12 @@
             <td>{{ care_receiver.last_name_furigana }}&emsp;{{ care_receiver.first_name_furigana }}</td>
           </tr>
           <tr>
+            <th>性別</th>
+            <td>{{ care_receiver.gender === 1 ? "男" : "女" }}</td>
+          </tr>
+          <tr>
             <th>生年月日</th>
-            <td>{{ care_receiver.birthday }}</td>
+            <td>{{ $dayjs(care_receiver.birthday).format('YYYY/MM/DD') }}</td>
           </tr>
           <tr>
             <th>郵便番号</th>
@@ -41,7 +45,7 @@
           <legend class="legend">キーパーソン</legend>
           <table class="confirm-tbl">
             <tr>
-              <th>お名前</th>
+              <th>氏名</th>
               <td>{{ key_person.last_name }}&emsp;{{ key_person.first_name }}</td>
             </tr>
             <tr>
@@ -141,7 +145,7 @@ export default {
           key_person,
           {
             headers: {
-              Authorization: `Bearer ${this.$store.getters.getKeyPersonToken}`,
+              Authorization: `Bearer ${this.$store.getters.getCareManagerAccessToken}`,
             }
           })
         .then(response => {

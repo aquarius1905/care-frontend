@@ -1,7 +1,7 @@
 <template>
   <div id="care-manager-info">
     <div class="form box-shadow">
-      <h2 class="form-ttl">ケアマネージャー 情報</h2>
+      <h2 class="form-ttl">ケアマネージャー 情報確認・更新</h2>
       <div class="form-content">
         <table class="info-tbl">
           <tr>
@@ -28,14 +28,10 @@
             <th>電話番号</th>
             <td>{{ care_manager.tel }}</td>
           </tr>
-          <tr>
-            <th>パスワード</th>
-            <td>************</td>
-          </tr>
         </table>
       </div>
       <div class="form-btn-wrap">
-        <button class="btn" @click="changeInfo">変更</button>
+        <button class="btn" @click="confirm">\更新内容確認</button>
       </div>
     </div>
   </div>
@@ -50,8 +46,9 @@ export default {
     }
   },
   methods: {
-    changeInfo() {
-    },
+    updateCareManager() {
+    
+  },
     getCareManagerInfo() {
       axios
         .get(`${process.env.VUE_APP_API_ORIGIN}/care-managers/me`,

@@ -1,7 +1,8 @@
 <template>
   <div id="care-manager-registration">
     <div class="form box-shadow">
-      <h2 class="form-ttl">ケアマネージャー 登録</h2>
+      <h2 class="form-ttl" v-if="update_flg">ケアマネージャー 登録</h2>
+      <h2 class="form-ttl" v-else>ケアマネージャー 登録情報更新</h2>
       <ValidationObserver v-slot="{ invalid }">
         <div class="form-content">
           <div class="form-item">
@@ -35,8 +36,7 @@
                 </ValidationProvider>
               </div>
               <div class="form-item-name-wrap">
-                <ValidationProvider v-slot="{ errors }" 
-                rules="required|full_sized_katakana|max:127" name="メイ">
+                <ValidationProvider v-slot="{ errors }" rules="required|full_sized_katakana|max:127" name="メイ">
                   <label for="first_name_furigana" class="form-item-lbl">メイ</label>
                   <input type="text" id="first_name_furigana" class="name-input"
                     v-model="care_manager.first_name_furigana" placeholder="タロウ" required>
@@ -88,7 +88,8 @@
           </div>
         </div>
         <div class="form-btn-wrap">
-          <button class="btn" @click="confirmRegistration()" :disabled="invalid">登録内容確認</button>
+          <button class="btn" v-if="update_flg" @click="confirmRegistration()" :disabled="invalid">登録内容確認</button>
+          <button class="btn" v-else @click="confirmRegistration()" :disabled="invalid">更新内容確認</button>
         </div>
       </ValidationObserver>
     </div>
@@ -100,6 +101,7 @@ import axios from "axios";
 export default {
   data() {
     return {
+      update_flg: false,
       support_offices: null,
       care_manager: {
         last_name: null,
@@ -141,13 +143,31 @@ export default {
         .catch(error => {
           console.log(error);
         });
+    },
+    async getCareManagerInfo() {
+      const { data } = await axios
+        .get(`${process.env.VUE_APP_API_ORIGIN}/care-managers/me`,
+          {
+            headers: {
+              Authorization: `Bearer ${this.$store.getters.getCareManagerAccessToken}`,
+            }
+          });
+      if (data.result) {
+        this.care_manager = data.care_manager;
+      }
+    },
+    initialize() {
+      this.getSupportOffices();
+      if (this.$route.query.update_flg && this.$route.query.care_manager === null) {
+        this.getCareManagerInfo();
+
+      } else if (this.$route.query.care_manager !== null) {
+        this.care_manager = this.$route.query.care_manager
+      }
     }
   },
   created() {
-    this.getSupportOffices();
-    if (this.$route.query.care_manager !== null) {
-      this.care_manager = this.$route.query.care_manager
-    }
+    this.initialize();
   }
 }
 </script>

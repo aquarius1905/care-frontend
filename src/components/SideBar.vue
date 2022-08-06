@@ -13,7 +13,7 @@
             <button class="btn-link" @click="showCareReceiverRegistrationPage">被介護者登録</button>
           </li>
           <li>
-            <router-link class="link" to="/care-manager/info">設定情報</router-link>
+            <button class="btn-link" @click="showCareManagerRegistrationPage(true)">登録情報確認・更新</button>
           </li>
           <li>
             <button class="btn-link" @click="logout">ログアウト</button>
@@ -21,7 +21,7 @@
         </ul>
         <ul class="acd-content" v-else>
           <li>
-            <button class="btn-link" @click="showCareManagerRegistrationPage">登録</button>
+            <button class="btn-link" @click="showCareManagerRegistrationPage(false)">登録</button>
           </li>
           <li>
             <router-link class="link" to="/care-manager/login">ログイン</router-link>
@@ -53,10 +53,10 @@ export default {
     registerCareReceiver() {
 
     },
-    showCareManagerRegistrationPage() {
+    showCareManagerRegistrationPage(update_flg) {
       this.$router.push({
         name: 'CareManagerRegistration',
-        query: { care_manager: null }
+        query: { care_manager: null, update_flg: update_flg }
       });
     },
     showCareReceiverRegistrationPage() {

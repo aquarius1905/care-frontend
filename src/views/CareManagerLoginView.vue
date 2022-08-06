@@ -60,6 +60,7 @@ export default {
           }
         })
         .catch(error => {
+          console.log(error);
           this.login_error = error.response.data.login_error
         });
     }
