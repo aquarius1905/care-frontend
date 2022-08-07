@@ -64,6 +64,6 @@ export default {
           this.login_error = error.response.data.login_error
         });
     }
-  }
+  },
 }
 </script>

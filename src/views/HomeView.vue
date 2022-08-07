@@ -26,7 +26,7 @@
   width: 400px;
   margin: 0 auto;
   padding: 40px;
-  background-color: #eee;
+  background-color: #fff;
   border-radius: 6px;
 }
 .home-link-wrap {

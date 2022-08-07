@@ -1,8 +1,8 @@
 <template>
   <div id="care-manager-registration">
     <div class="form box-shadow">
-      <h2 class="form-ttl" v-if="update_flg">ケアマネージャー 登録</h2>
-      <h2 class="form-ttl" v-else>ケアマネージャー 登録情報更新</h2>
+      <h2 class="form-ttl" v-if="update_flg">ケアマネージャー 登録情報更新</h2>
+      <h2 class="form-ttl" v-else>ケアマネージャー 登録</h2>
       <ValidationObserver v-slot="{ invalid }">
         <div class="form-content">
           <div class="form-item">

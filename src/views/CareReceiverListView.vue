@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="care-receiver-list">
     <h2 class="ttl">担当被介護者一覧</h2>
     <table class="tbl box-shadow">
       <thead>
@@ -84,11 +84,14 @@ export default {
 </script>
 
 <style scoped>
+#care-receiver-list {
+  width: 1000px;
+}
 .ttl {
   margin-bottom: 20px;
 }
 .tbl {
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
   border-radius: 6px;
 }

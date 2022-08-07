@@ -1,11 +1,11 @@
 <template>
   <div id="sidebar">
-    <h1 class="ttl">Care</h1>
-    <nav class="nav" id="nav">
+    <h1 class="main-ttl ttl">Care</h1>
+    <nav class="nav" v-show="isCareManagerURL">
+      <h2 class="menu-ttl">ケアマネージャー</h2>
       <div>
-        <input id="care-manager" class="toggle" type="checkbox">
-        <label class="acd-lbl" for="care-manager">ケアマネージャー</label>
-        <ul class="acd-content" v-if="this.$store.getters.isCareManagerLoggedIn">
+        <ul class="acd-content"
+          v-if="this.$store.getters.isCareManagerLoggedIn && this.$store.getters.isCareManagerLoggedIn">
           <li>
             <router-link class="link" to="/care-receiver/list">被介護者一覧</router-link>
           </li>
@@ -28,9 +28,10 @@
           </li>
         </ul>
       </div>
+    </nav>
+    <nav class="nav" v-show="isKeyPersonURL">
+      <h2 class="menu-ttl">キーパーソン</h2>
       <div>
-        <input id="key-person" class="toggle" type="checkbox">
-        <label class="acd-lbl" for="key-person">キーパーソン</label>
         <ul class="acd-content" v-if="this.$store.getters.isKeyPersonLoggedIn">
           <li>
             <button class="btn-link" @click="logout">ログアウト</button>
@@ -49,6 +50,15 @@
 <script>
 import axios from "axios";
 export default {
+  computed: {
+    isCareManagerURL: function () {
+      const path = this.$route.path
+      return path.includes('care-manager') || path.includes('care-receiver');
+    },
+    isKeyPersonURL: function () {
+      return this.$route.path.includes('key-person');
+    },
+  },
   methods: {
     registerCareReceiver() {
 
@@ -88,12 +98,13 @@ export default {
 
 <style>
 #sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 200px;
 }
-.ttl {
-  color: #1A237E;
-  font-size: 32px;
-  padding: 10px 0 10px 20px;
+.main-ttl {
+  padding: 15px;
   user-select: none;
 }
 .nav {
@@ -101,8 +112,10 @@ export default {
   width: 100%;
   height: 100vh;
 }
-.toggle {
-  display: none;
+.menu-ttl {
+  color: #fff;
+  padding: 20px 0 0 20px;
+  font-size: 16px;
 }
 .acd-lbl {
   display: block;
@@ -123,15 +136,7 @@ export default {
 	right: 15px;
 	transform: rotate(135deg);
 }
-.acd-lbl,
 .acd-content {
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  transform: translateZ(0);
-  transition: all .3s;
-}
-.acd-content {
-	height: 0;
   padding: 10px 20px;
 	margin-bottom: 10px;
 	overflow: hidden;
