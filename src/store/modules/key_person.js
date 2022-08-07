@@ -25,7 +25,7 @@ const actions = {
     context.commit('logout');
   }
 };
- 
+
 export default {
   state,
   getters,

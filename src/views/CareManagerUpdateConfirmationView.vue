@@ -1,7 +1,7 @@
 <template>
-  <div class="care-manager-registration-confirmation">
+  <div class="care-manager-update-confirmation">
     <div class="form box-shadow">
-      <h2 class="form-ttl">ケアマネージャー登録内容確認</h2>
+      <h2 class="form-ttl">ケアマネージャー更新内容確認</h2>
       <div class="confirm-content">
         <table class="confirm-tbl">
           <tr>
@@ -28,14 +28,10 @@
             <th>電話番号</th>
             <td>{{ care_manager.tel }}</td>
           </tr>
-          <tr>
-            <th>パスワード</th>
-            <td>************</td>
-          </tr>
         </table>
         <div class="register-btn-wrap">
           <button class="bk-btn btn" @click="back">戻る</button>
-          <button class="btn" @click="register">登録</button>
+          <button class="btn" @click="update">更新</button>
         </div>
       </div>
     </div>
@@ -53,12 +49,12 @@ export default {
   methods: {
     back() {
       this.$router.push({
-        name: 'CareManagerRegistration',
-        query: { care_manager: this.care_manager, update_flg: false }
+        name: 'CareManagerUpdate',
+        query: { care_manager: this.care_manager }
       });
     },
     register() {
-      if (confirm('登録しますか？')) {
+      if (confirm('更新しますか？')) {
         this.makeCareManagerData();
         axios
           .post(`${process.env.VUE_APP_API_ORIGIN}/care-managers`, this.care_manager)

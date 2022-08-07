@@ -1,6 +1,6 @@
 <template>
   <div id="sidebar">
-    <h1 class="main-ttl ttl">Care</h1>
+    <h1 class="main-ttl ttl" @click="backtoHome">Care</h1>
     <nav class="nav" v-show="isCareManagerURL">
       <h2 class="menu-ttl">ケアマネージャー</h2>
       <div>
@@ -13,7 +13,7 @@
             <button class="btn-link" @click="showCareReceiverRegistrationPage">被介護者登録</button>
           </li>
           <li>
-            <button class="btn-link" @click="showCareManagerRegistrationPage(true)">登録情報確認・更新</button>
+            <button class="btn-link" @click="showCareManagerUpdatePage">登録情報確認・更新</button>
           </li>
           <li>
             <button class="btn-link" @click="logout">ログアウト</button>
@@ -21,7 +21,7 @@
         </ul>
         <ul class="acd-content" v-else>
           <li>
-            <button class="btn-link" @click="showCareManagerRegistrationPage(false)">登録</button>
+            <button class="btn-link" @click="showCareManagerRegistrationPage()">登録</button>
           </li>
           <li>
             <router-link class="link" to="/care-manager/login">ログイン</router-link>
@@ -60,13 +60,21 @@ export default {
     },
   },
   methods: {
-    registerCareReceiver() {
-
+    backtoHome() {
+      this.$router.push({
+        name: 'Home'
+      });
     },
-    showCareManagerRegistrationPage(update_flg) {
+    showCareManagerRegistrationPage() {
       this.$router.push({
         name: 'CareManagerRegistration',
-        query: { care_manager: null, update_flg: update_flg }
+        query: { care_manager: null }
+      });
+    },
+    showCareManagerUpdatePage() {
+      this.$router.push({
+        name: 'CareManagerUpdate',
+        query: { care_manager: null }
       });
     },
     showCareReceiverRegistrationPage() {
@@ -106,6 +114,7 @@ export default {
 .main-ttl {
   padding: 15px;
   user-select: none;
+  cursor: pointer;
 }
 .nav {
   background: #1A237E;

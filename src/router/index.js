@@ -4,11 +4,12 @@ import store from '../store/index';
 Vue.use(VueRouter)
 
 import HomeView from '../views/HomeView.vue'
-import CareManagerInfoView from '../views/CareManagerInfoView.vue'
 import CareManagerLoginView from '../views/CareManagerLoginView.vue'
 import CareManagerRegistrationView from '../views/CareManagerRegistrationView.vue'
 import CareManagerRegistrationCompleteView from '../views/CareManagerRegistrationCompleteView.vue'
 import CareManagerRegistrationConfirmationView from '../views/CareManagerRegistrationConfirmationView.vue'
+import CareManagerUpdateView from '../views/CareManagerUpdateView.vue'
+import CareManagerUpdateConfirmationView from '../views/CareManagerUpdateConfirmationView.vue'
 import CareReceiverRegistrationView from '../views/CareReceiverRegistrationView.vue'
 import CareReceiverRegistrationConfirmationView from '../views/CareReceiverRegistrationConfirmationView.vue'
 import CareReceiverRegistrationCompleteView from '../views/CareReceiverRegistrationCompleteView.vue'
@@ -45,9 +46,15 @@ const routes = [
     meta: {requiresAuth: false},
   },
   {
-    path: '/care-manager/info',
-    name: 'CareManagerInfo',
-    component: CareManagerInfoView,
+    path: '/care-manager/update',
+    name: 'CareManagerUpdate',
+    component: CareManagerUpdateView,
+    meta: {requiresAuth: true},
+  },
+  {
+    path: '/care-manager/update/confirm',
+    name: 'CareManagerUpdateConfirmation',
+    component: CareManagerUpdateConfirmationView,
     meta: {requiresAuth: true},
   },
   {

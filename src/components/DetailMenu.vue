@@ -1,5 +1,5 @@
 <template>
-  <div id="detailmenu">
+  <div id="detail-menu">
     <ul class="menu-list">
       <li>
         <button class="detail-menu-btn" @click="showCareReceiverDeitalPage">被介護者詳細</button>
@@ -26,7 +26,7 @@ export default {
 </script>
 
 <style scoped>
-#detailmenu {
+#detail-menu {
   width: 150px;
   padding: 10px;
   background: #1D278B;

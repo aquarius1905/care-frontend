@@ -1,7 +1,7 @@
 <template>
   <div id="care-manager-registration">
     <div class="form box-shadow">
-      <h2 class="form-ttl">ケアマネージャー 登録</h2>
+      <h2 class="form-ttl">ケアマネージャー登録情報確認・更新</h2>
       <ValidationObserver v-slot="{ invalid }">
         <div class="form-content">
           <div class="form-item">
@@ -55,7 +55,7 @@
           <div class="form-item">
             <ValidationProvider v-slot="{ errors }" rules="required">
               <label class="form-item-lbl" for="suport_office">所属居宅介護支援事業所</label>
-              <select id="suport_office" class="select" v-model="care_manager.support_office">
+              <select id="suport_office" class="select" v-model="care_manager.home_care_support_office">
                 <option v-for="support_office in support_offices" :key="support_office.id" :value="support_office">
                   {{ support_office.name }}
                 </option>
@@ -78,17 +78,9 @@
               <div class="error">{{ errors[0] }}</div>
             </ValidationProvider>
           </div>
-          <div class="form-item">
-            <ValidationProvider v-slot="{ errors }" rules="required|password_rule">
-              <label class="form-item-lbl" for="password">パスワード</label>
-              <input type="password" id="password" class="input" v-model="care_manager.password" required>
-              <div class="error">{{ errors[0] }}</div>
-            </ValidationProvider>
-          </div>
         </div>
         <div class="form-btn-wrap">
-          <button class="btn" v-if="update_flg" @click="confirmRegistration()" :disabled="invalid">登録内容確認</button>
-          <button class="btn" v-else @click="confirmRegistration()" :disabled="invalid">更新内容確認</button>
+          <button class="btn" @click="confirmUpdate()" :disabled="invalid">更新内容確認</button>
         </div>
       </ValidationObserver>
     </div>
@@ -101,23 +93,13 @@ export default {
   data() {
     return {
       support_offices: null,
-      care_manager: {
-        last_name: null,
-        first_name: null,
-        last_name_furigana: null,
-        first_name_furigana: null,
-        support_office: null,
-        registration_number: null,
-        email: null,
-        tel: null,
-        password: null
-      },
+      care_manager: null,
     }
   },
   methods: {
-    confirmRegistration() {
+    confirmUpdate() {
       this.$router.push({
-        name: 'CareManagerRegistrationConfirmation',
+        name: 'CareManagerUpdateConfirmation',
         query: { care_manager: this.care_manager }
       });
     },
@@ -142,10 +124,33 @@ export default {
           console.log(error);
         });
     },
+    async getCareManagerInfo() {
+      const { data } = await axios
+        .get(`${process.env.VUE_APP_API_ORIGIN}/care-managers/me`,
+          {
+            headers: {
+              Authorization: `Bearer ${this.$store.getters.getCareManagerAccessToken}`,
+            }
+          });
+      if (data.result) {
+        this.care_manager = data.care_manager;
+        this.splitName();
+      }
+    },
+    splitName() {
+      const care_manager_name_arr = this.care_manager.name.split(/\u3000/);
+      this.care_manager.last_name = care_manager_name_arr[0];
+      this.care_manager.first_name = care_manager_name_arr[1];
+
+      const care_manager_name_furigana_arr = this.care_manager.name_furigana.split(/\u3000/);
+      this.care_manager.last_name_furigana = care_manager_name_furigana_arr[0];
+      this.care_manager.first_name_furigana = care_manager_name_furigana_arr[1];
+    },
     initialize() {
       this.getSupportOffices();
-      
-      if (this.$route.query.care_manager !== null) {
+      if (this.$route.query.care_manager === null) {
+        this.getCareManagerInfo();
+      } else {
         this.care_manager = this.$route.query.care_manager
       }
     }
