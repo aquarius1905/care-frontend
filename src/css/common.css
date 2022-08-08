@@ -34,6 +34,10 @@ body {
   border-radius: 6px;
 }
 
+.confirm-form {
+  width: 700px;
+}
+
 .form-content,
 .confirm-content,
 .content {

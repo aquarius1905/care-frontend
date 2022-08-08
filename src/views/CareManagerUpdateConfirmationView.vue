@@ -1,6 +1,6 @@
 <template>
   <div class="care-manager-update-confirmation">
-    <div class="form box-shadow">
+    <div class="form confirm-form box-shadow">
       <h2 class="form-ttl">ケアマネージャー更新内容確認</h2>
       <div class="confirm-content">
         <table class="confirm-tbl">
@@ -18,7 +18,7 @@
           </tr>
           <tr>
             <th>所属居宅介護支援事業所</th>
-            <td>{{ care_manager.support_office.name }}</td>
+            <td>{{ care_manager.home_care_support_office.name }}</td>
           </tr>
           <tr>
             <th>メールアドレス</th>
@@ -53,37 +53,34 @@ export default {
         query: { care_manager: this.care_manager }
       });
     },
-    register() {
+    update() {
       if (confirm('更新しますか？')) {
         this.makeCareManagerData();
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.getters.getCareManagerAccessToken;
         axios
-          .post(`${process.env.VUE_APP_API_ORIGIN}/care-managers`, this.care_manager)
+          .put(
+            `${process.env.VUE_APP_API_ORIGIN}/care-managers/${this.care_manager.id}`, this.care_manager
+          )
           .then(response => {
-            if (response.status === 201) {
+            if (response.status === 200) {
+              axios.defaults.headers.common['Authorization'] = null;
+              this.$store.dispatch('setCareManager', this.care_manager);
               this.$router.push({
-                name: 'CareManagerRegistrationComplete'
+                name: 'CareManagerUpdateComplete'
               });
             }
           })
           .catch(error => {
             console.log(error);
-          });
+          })
       }
     },
     makeCareManagerData() {
-      this.care_manager['home_care_support_office_id'] = this.care_manager['support_office']['id'];
+      this.care_manager['home_care_support_office_id'] = this.care_manager['home_care_support_office']['id'];
       this.care_manager['name']
         = this.care_manager['last_name'] + '　' + this.care_manager['first_name'];
       this.care_manager['name_furigana']
         = this.care_manager['last_name_furigana'] + '　' + this.care_manager['first_name_furigana'];
-      
-      [
-        'last_name',
-        'first_name',
-        'last_name_furigana',
-        'first_name_furigana',
-        'support_office'
-      ].forEach(e => delete this.care_manager[e]);
     }
   },
   created() {
@@ -93,9 +90,6 @@ export default {
 </script>
 
 <style scoped>
-.care-manager-registration-confirmation {
-  background-color: #eee;
-}
 .confirm-tbl {
   width: 100%;
 }

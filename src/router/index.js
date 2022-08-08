@@ -10,6 +10,7 @@ import CareManagerRegistrationCompleteView from '../views/CareManagerRegistratio
 import CareManagerRegistrationConfirmationView from '../views/CareManagerRegistrationConfirmationView.vue'
 import CareManagerUpdateView from '../views/CareManagerUpdateView.vue'
 import CareManagerUpdateConfirmationView from '../views/CareManagerUpdateConfirmationView.vue'
+import CareManagerUpdateCompleteView from '../views/CareManagerUpdateCompleteView.vue'
 import CareReceiverRegistrationView from '../views/CareReceiverRegistrationView.vue'
 import CareReceiverRegistrationConfirmationView from '../views/CareReceiverRegistrationConfirmationView.vue'
 import CareReceiverRegistrationCompleteView from '../views/CareReceiverRegistrationCompleteView.vue'
@@ -55,6 +56,12 @@ const routes = [
     path: '/care-manager/update/confirm',
     name: 'CareManagerUpdateConfirmation',
     component: CareManagerUpdateConfirmationView,
+    meta: {requiresAuth: true},
+  },
+  {
+    path: '/care-manager/update/complete',
+    name: 'CareManagerUpdateComplete',
+    component: CareManagerUpdateCompleteView,
     meta: {requiresAuth: true},
   },
   {

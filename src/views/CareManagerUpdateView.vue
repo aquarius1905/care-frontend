@@ -88,7 +88,6 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   data() {
     return {
@@ -103,39 +102,20 @@ export default {
         query: { care_manager: this.care_manager }
       });
     },
-    getSupportOffices() {
-      if (this.$store.getters.hasSupportOffices) {
-        this.support_offices = this.$store.getters.getSupportOffices;
-        return;
+    async getSupportOffices() {
+      if (!this.$store.getters.hasSupportOffices) {
+        await this.$store.dispatch('fetchSupportOffices');
       }
       
-      axios
-        .get(`${process.env.VUE_APP_API_ORIGIN}/home-care-support-offices`)
-        .then(response => {
-          if (response.status === 200) {
-            this.support_offices = response.data.data;
-            this.$store.dispatch('setSupportOffices', this.support_offices);
-            if (this.care_manager.support_office === null) {
-              this.care_manager.support_office = this.support_offices[0];
-            }
-          }
-        })
-        .catch(error => {
-          console.log(error);
-        });
+      this.support_offices = this.$store.getters.getSupportOffices;
     },
     async getCareManagerInfo() {
-      const { data } = await axios
-        .get(`${process.env.VUE_APP_API_ORIGIN}/care-managers/me`,
-          {
-            headers: {
-              Authorization: `Bearer ${this.$store.getters.getCareManagerAccessToken}`,
-            }
-          });
-      if (data.result) {
-        this.care_manager = data.care_manager;
-        this.splitName();
+      if (!this.$store.getters.hasCareManager) {
+        await this.$store.dispatch("fetchCareManagerInfo");
       }
+
+      this.care_manager = this.$store.getters.getCareManager;
+      this.splitName();
     },
     splitName() {
       const care_manager_name_arr = this.care_manager.name.split(/\u3000/);
