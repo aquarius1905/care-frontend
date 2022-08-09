@@ -50,7 +50,7 @@
           </div>
           <div class="form-item">
             <label class="form-item-lbl" for="birthday">生年月日</label>
-            <label>{{ care_receiver.birthday }}</label>
+            <label>{{ $dayjs(care_receiver.birthday).format('YYYY/MM/DD') }}</label>
           </div>
           <div class="form-item">
             <validation-provider v-slot="{ errors }" rules="required|numeric|length:7">

@@ -42,40 +42,13 @@
             <td>{{ care_receiver.insured_number }}</td>
           </tr>
         </table>
-        <fieldset class="fieldset">
-          <legend class="legend">キーパーソン</legend>
-          <table class="tbl">
-            <tr>
-              <th>氏名</th>
-              <td>{{ care_receiver.key_person.name }}</td>
-            </tr>
-            <tr>
-              <th>フリガナ</th>
-              <td>{{ care_receiver.key_person.name_furigana }}</td>
-            </tr>
-            <tr>
-              <th>続柄</th>
-              <td>{{ care_receiver.key_person.relationship }}</td>
-            </tr>
-            <tr>
-              <th>メールアドレス</th>
-              <td>{{ care_receiver.key_person.email }}</td>
-            </tr>
-            <tr>
-              <th>電話番号</th>
-              <td>{{ care_receiver.key_person.tel }}</td>
-            </tr>
-          </table>
-        </fieldset>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import DetailMenu from "../components/DetailMenu";
 export default {
-  components: { DetailMenu },
   data: function () {
     return {
       care_receiver: null,
@@ -85,6 +58,7 @@ export default {
   },
   created() {
     this.care_receiver = this.$route.query.care_receiver
+    console.log(this.care_receiver);
   }
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div id="care-receiver-list">
-    <h2 class="ttl">担当被介護者一覧</h2>
+    <h2 class="page-ttl">担当被介護者一覧</h2>
     <table class="tbl box-shadow">
       <thead>
         <tr>
@@ -10,9 +10,9 @@
           <th>性別</th>
           <th>生年月日</th>
           <th>介護度</th>
-          <th></th>
-          <th></th>
-          <th></th>
+          <th>詳細</th>
+          <th>更新</th>
+          <th>削除</th>
         </tr>
       </thead>
       <tbody>
@@ -23,9 +23,9 @@
           <td>{{ care_receiver.gender === 1 ? "男" : "女" }}</td>
           <td>{{ $dayjs(care_receiver.birthday).format('YYYY/MM/DD') }}</td>
           <td>{{ care_receiver.care_level.name }}</td>
-          <td><button class="btn detail-btn" @click="showDetail(care_receiver)">詳細</button></td>
-          <td><button class="btn detail-btn" @click="updateCareReceiver(care_receiver)">更新</button></td>
-          <td><button class="btn detail-btn" @click="deleteCareReceiver(care_receiver.id)">削除</button></td>
+          <td><button class="btn list-btn" @click="showDetail(care_receiver)">詳細</button></td>
+          <td><button class="btn list-btn" @click="updateCareReceiver(care_receiver)">更新</button></td>
+          <td><button class="btn list-btn" @click="deleteCareReceiver(care_receiver.id)">削除</button></td>
         </tr>
       </tbody>
     </table>
@@ -87,9 +87,6 @@ export default {
 #care-receiver-list {
   width: 1000px;
 }
-.ttl {
-  margin-bottom: 20px;
-}
 .tbl {
   width: 100%;
   margin: 0 auto;
@@ -121,7 +118,7 @@ export default {
 .tbl td {
   color: #555;
 }
-.detail-btn {
+.list-btn {
   width: auto;
   padding: 5px 10px;
 }

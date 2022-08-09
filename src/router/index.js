@@ -1,16 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '../store/index';
+import CareManagerRoutes from './care-manager-routes.js'
 Vue.use(VueRouter)
 
 import HomeView from '../views/HomeView.vue'
-import CareManagerLoginView from '../views/CareManagerLoginView.vue'
-import CareManagerRegistrationView from '../views/CareManagerRegistrationView.vue'
-import CareManagerRegistrationCompleteView from '../views/CareManagerRegistrationCompleteView.vue'
-import CareManagerRegistrationConfirmationView from '../views/CareManagerRegistrationConfirmationView.vue'
-import CareManagerUpdateView from '../views/CareManagerUpdateView.vue'
-import CareManagerUpdateConfirmationView from '../views/CareManagerUpdateConfirmationView.vue'
-import CareManagerUpdateCompleteView from '../views/CareManagerUpdateCompleteView.vue'
 import CareReceiverRegistrationView from '../views/CareReceiverRegistrationView.vue'
 import CareReceiverRegistrationConfirmationView from '../views/CareReceiverRegistrationConfirmationView.vue'
 import CareReceiverRegistrationCompleteView from '../views/CareReceiverRegistrationCompleteView.vue'
@@ -26,48 +20,6 @@ const routes = [
     path: '/',
     name: 'Home',
     component: HomeView,
-    meta: {requiresAuth: false},
-  },
-  {
-    path: '/care-manager/register',
-    name: 'CareManagerRegistration',
-    component: CareManagerRegistrationView,
-    meta: {requiresAuth: false},
-  },
-  {
-    path: '/care-manager/register/confirm',
-    name: 'CareManagerRegistrationConfirmation',
-    component: CareManagerRegistrationConfirmationView,
-    meta: {requiresAuth: false},
-  },
-  {
-    path: '/care-manager/register/complete',
-    name: 'CareManagerRegistrationComplete',
-    component: CareManagerRegistrationCompleteView,
-    meta: {requiresAuth: false},
-  },
-  {
-    path: '/care-manager/update',
-    name: 'CareManagerUpdate',
-    component: CareManagerUpdateView,
-    meta: {requiresAuth: true},
-  },
-  {
-    path: '/care-manager/update/confirm',
-    name: 'CareManagerUpdateConfirmation',
-    component: CareManagerUpdateConfirmationView,
-    meta: {requiresAuth: true},
-  },
-  {
-    path: '/care-manager/update/complete',
-    name: 'CareManagerUpdateComplete',
-    component: CareManagerUpdateCompleteView,
-    meta: {requiresAuth: true},
-  },
-  {
-    path: '/care-manager/login',
-    name: 'CareManagerLogin',
-    component: CareManagerLoginView,
     meta: {requiresAuth: false},
   },
   {
@@ -123,7 +75,8 @@ const routes = [
     name: 'CareGivingOfficeLogin',
     component: CareGivingOfficeLoginView,
     meta: {requiresAuth: false},
-  }
+  },
+  ...CareManagerRoutes.routes
 ]
 
 function isCareManagerLoggedIn() {

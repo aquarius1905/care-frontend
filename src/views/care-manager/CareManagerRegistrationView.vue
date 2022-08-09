@@ -1,6 +1,6 @@
 <template>
   <div id="care-manager-registration">
-    <div class="form box-shadow">
+    <div class="form confirm-form box-shadow">
       <h2 class="form-ttl">ケアマネージャー 登録</h2>
       <ValidationObserver v-slot="{ invalid }">
         <div class="form-content">
@@ -55,7 +55,7 @@
           <div class="form-item">
             <ValidationProvider v-slot="{ errors }" rules="required">
               <label class="form-item-lbl" for="suport_office">所属居宅介護支援事業所</label>
-              <select id="suport_office" class="select" v-model="care_manager.support_office">
+              <select id="suport_office" class="select" v-model="care_manager.home_care_support_office">
                 <option v-for="support_office in support_offices" :key="support_office.id" :value="support_office">
                   {{ support_office.name }}
                 </option>
@@ -87,8 +87,7 @@
           </div>
         </div>
         <div class="form-btn-wrap">
-          <button class="btn" v-if="update_flg" @click="confirmRegistration()" :disabled="invalid">登録内容確認</button>
-          <button class="btn" v-else @click="confirmRegistration()" :disabled="invalid">更新内容確認</button>
+          <button class="btn" @click="confirmRegistration()" :disabled="invalid">更新内容確認</button>
         </div>
       </ValidationObserver>
     </div>
@@ -105,7 +104,7 @@ export default {
         first_name: null,
         last_name_furigana: null,
         first_name_furigana: null,
-        support_office: null,
+        home_care_support_office: null,
         registration_number: null,
         email: null,
         tel: null,
@@ -129,7 +128,9 @@ export default {
     initialize() {
       this.getSupportOffices();
       
-      if (this.$route.query.care_manager !== null) {
+      if (this.$route.query.care_manager === null) {
+        this.care_manager.home_care_support_office = this.support_offices[0];
+      } else {
         this.care_manager = this.$route.query.care_manager
       }
     }

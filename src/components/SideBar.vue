@@ -4,8 +4,7 @@
     <nav class="nav" v-show="isCareManagerURL">
       <h2 class="menu-ttl">ケアマネージャー</h2>
       <div>
-        <ul class="acd-content"
-          v-if="this.$store.getters.isCareManagerLoggedIn && this.$store.getters.isCareManagerLoggedIn">
+        <ul class="acd-content" v-if="this.$store.getters.isCareManagerLoggedIn">
           <li>
             <router-link class="link" to="/care-receiver/list">被介護者一覧</router-link>
           </li>
@@ -13,7 +12,10 @@
             <button class="btn-link" @click="showCareReceiverRegistrationPage">被介護者登録</button>
           </li>
           <li>
-            <button class="btn-link" @click="showCareManagerUpdatePage">登録情報確認・更新</button>
+            <button class="btn-link" @click="showCareManagerUpdatePage">登録情報確認・変更</button>
+          </li>
+          <li>
+            <button class="btn-link" @click="showVisitDateTimePage">訪問日時登録・確認・変更</button>
           </li>
           <li>
             <button class="btn-link" @click="logout">ログアウト</button>
@@ -58,6 +60,9 @@ export default {
     isKeyPersonURL: function () {
       return this.$route.path.includes('key-person');
     },
+    isCareReceiverURL: function () {
+      return this.$route.path.includes('care-receiver');
+    }
   },
   methods: {
     backtoHome() {
@@ -83,6 +88,11 @@ export default {
         query: { care_receiver: null, key_person: null }
       });
     },
+    showVisitDateTimePage() {
+      this.$router.push({
+        name: 'CareManagerVisitDateTime'
+      });
+    },
     logout() {
       axios.defaults.headers.common['Authorization'] = 'Bearer ' +  this.$store.getters.getCareManagerAccessToken;
       axios
@@ -99,6 +109,12 @@ export default {
         .catch(error => {
           console.log(error);
         });
+    },
+    showCareReceiverDeitalPage() {
+    },
+    displayCareReceiverRegistrationPage() {
+    },
+    showVisitDateTiemPage() {
     }
   },
 }
@@ -109,7 +125,7 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
-  width: 200px;
+  width: 210px;
 }
 .main-ttl {
   padding: 15px;
