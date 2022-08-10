@@ -3,7 +3,8 @@ import axios from 'axios'
 const state = {
   supportOffices: null,
   careManagerAccessToken: null,
-  careManager: null
+  careManager: null,
+  visitTimes: null
 };
 const getters = {
   getSupportOffices(state) {
@@ -23,6 +24,12 @@ const getters = {
   },
   hasCareManager(state) {
     return state.careManager !== null;
+  },
+  getVisitTimes(state) {
+    return state.visitTimes;
+  },
+  hasVisitTimes(state) {
+    return state.visitTimes !== null;
   }
 };
 const mutations = {
@@ -67,7 +74,7 @@ const actions = {
     context.commit('logout');
   },
   setCareManager(context, payload) {
-      context.commit('setCareManager', payload);
+    context.commit('setCareManager', payload);
   }
 };
 

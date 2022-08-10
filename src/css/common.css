@@ -6,7 +6,7 @@ body {
 ::placeholder {
   color: #c0c0c0;
 }
-
+  
 .box-shadow {
   box-shadow: 2px 2px 4px 1px #888;
 }
@@ -37,7 +37,7 @@ body {
 
 .form {
   background-color: #fff;
-  max-width: 600px;
+  width: 600px;
   margin: 0 auto;
   border-radius: 6px;
 }

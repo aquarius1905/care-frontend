@@ -55,7 +55,9 @@ localize({
       birthday: "生年月日",
       insurer_number: "保険者番号",
       insured_number: "被保険者番号",
-      relationship: "続柄"
+      relationship: "続柄",
+      visit_date: "訪問日",
+      visit_time: "時間"
     },
    },
 });

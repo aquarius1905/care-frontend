@@ -58,7 +58,6 @@ export default {
   },
   created() {
     this.care_receiver = this.$route.query.care_receiver
-    console.log(this.care_receiver);
   }
 };
 </script>
