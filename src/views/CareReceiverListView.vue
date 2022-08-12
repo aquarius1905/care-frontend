@@ -24,8 +24,8 @@
           <td>{{ care_receiver.gender === 1 ? "男" : "女" }}</td>
           <td>{{ $dayjs(care_receiver.birthday).format('YYYY/MM/DD') }}</td>
           <td>{{ care_receiver.care_level.name }}</td>
-          <td><button class="btn list-btn" @click="showVisitDateTime(care_receiver)">訪問日時</button></td>
-          <td><button class="btn list-btn" @click="showDetail(care_receiver)">詳細</button></td>
+          <td><button class="btn list-btn" @click="showVisitDateTimeView(care_receiver)">訪問日時</button></td>
+          <td><button class="btn list-btn" @click="showDetailView(care_receiver)">詳細</button></td>
           <td><button class="btn list-btn" @click="updateCareReceiver(care_receiver)">更新</button></td>
           <td><button class="btn list-btn" @click="deleteCareReceiver(care_receiver.id)">削除</button></td>
         </tr>
@@ -51,16 +51,15 @@ export default {
       });
       this.care_receivers = data.data;
     },
-    showVisitDateTime(care_receiver) {
+    showVisitDateTimeView(care_receiver) {
       this.$router.push({
         name: 'CareManagerVisitDateTime',
         query: {
-          care_receiver_id: care_receiver.id,
-          care_receiver_name: care_receiver.name
+          care_receiver: care_receiver
         }
       });
     },
-    showDetail(care_receiver) {
+    showDetailView(care_receiver) {
       this.$router.push({
         name: 'CareReceiverDetail',
         query: { care_receiver: care_receiver }

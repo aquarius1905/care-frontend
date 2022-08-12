@@ -11,34 +11,38 @@
           <div class="form-item">
             <validation-provider v-slot="{ errors }" rules="required">
               <label class="form-item-lbl" for="visit_date">訪問日</label>
-              <input type="date" id="visit_date" class="input" v-model="care_receiver.date" v-bind:min="tomorrow"
-                required>
+              <vue-datepicker 
+              id="visit_date" :language="ja" 
+              :disabled-dates="disabledDates" 
+              format="yyyy/MM/dd" 
+              v-model="date">
+              </vue-datepicker>
               <div class="error">{{ errors[0] }}</div>
             </validation-provider>
           </div>
           <div class="form-item">
             <validation-provider v-slot="{ errors }" rules="required">
               <label class="form-item-lbl" for="visit_time">時間</label>
-              <input type="time" 
-              id="visit_time" 
-              class="input" 
-              min="09:00" 
-              max="18:00" 
-              step="1800" 
-              list="time-list"
-              v-model="care_receiver.time" 
-              required>
-              <datalist id="time-list">
-                <option value="09:00">09:00</option>
-                <option value="09:30">09:30</option>
-                <option value="10:00">10:00</option>
-              </datalist>
+              <div class="time-picker">
+                <vue-timepicker 
+                  id="visit_time" 
+                  hour-label="時" 
+                  minute-label="分"
+                  :hour-range="[[9, 18]]" 
+                  :minute-interval="30" 
+                  hide-disabled-hours 
+                  hide-clear-button 
+                  advanced-keyboard 
+                  manual-input 
+                  v-model="time">
+                </vue-timepicker>
+              </div>
               <div class="error">{{ errors[0] }}</div>
             </validation-provider>
           </div>
         </div>
         <div class="form-btn-wrap form-confrim-btn-wrap">
-          <button class="btn" @click="confirmRegistration()" :disabled="invalid">登録内容確認</button>
+          <button class="btn" @click="register" :disabled="invalid">登録</button>
         </div>
       </validation-observer>
     </div>
@@ -46,29 +50,64 @@
 </template>
 
 <script>
-import dayjs from 'dayjs';
+import axios from "axios";
+import Datepicker from 'vuejs-datepicker';
+import { ja } from 'vuejs-datepicker/dist/locale';
+import VueTimepicker from 'vue2-timepicker/src/vue-timepicker.vue'
 export default {
+  components: {
+    'vue-timepicker': VueTimepicker,
+    'vue-datepicker': Datepicker
+  },
   data() {
     return {
-      care_receiver: {
-        id: null,
-        name: null,
-        date: '',
-        time: ''
+      care_receiver: null,
+      date: null,
+      time: null,
+      ja: ja,
+      disabledDates: {
+        to: null
       },
-      tomorrow: null
     }
   },
   methods: {
     initialize() {
-      console.log(this.care_receiver);
-      this.care_receiver.id = this.$route.query.care_receiver_id;
-      this.care_receiver.name = this.$route.query.care_receiver_name;
-      console.log(this.care_receiver);
-      this.tomorrow = dayjs().add(1, 'day').format('YYYY-MM-DD');
-      if (!this.care_receiver.visit_date) {
-        this.care_receiver.visit_date = this.tommorow;
+      this.care_receiver = this.$route.query.care_receiver;
+
+      if (!this.time) {
+        this.time = '14:00'
       }
+
+      const today = new Date();
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      this.disabledDates.to = tomorrow;
+
+      if (!this.date) {
+        this.date = tomorrow;
+      }
+    },
+    async register() {
+      if (confirm("訪問日時を登録しますか？")) {
+        const visit_data = this.makeVisitData();
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.getters.getCareManagerAccessToken;
+        const response = await axios.post(`${process.env.VUE_APP_API_ORIGIN}/care-managers/visit`, visit_data);
+        if (response.status === 201) {
+          this.care_receiver.visit_data = visit_data;
+          this.$router.push({
+              name: 'CareReceiverDetail',
+              query: { care_receiver: this.care_receiver }
+            });
+        }
+        axios.defaults.headers.common['Authorization'] = null;
+      }
+    },
+    makeVisitData() {
+      let visit_data = {};
+      visit_data.care_receiver_id = this.care_receiver.id;
+      visit_data.date = this.date;
+      visit_data.time = this.time;
+      return visit_data;
     }
   },
   created() {
@@ -80,5 +119,56 @@ export default {
 <style scoped>
 .form {
   width: 500px;
+}
+    .time-picker >>> .vue__time-picker .dropdown ul li:not([disabled]).active,
+    .time-picker >>> .vue__time-picker .dropdown ul li:not([disabled]).active:focus,
+    .time-picker >>> .vue__time-picker .dropdown ul li:not([disabled]).active:hover {
+        background: #1A237E;
+    }
+</style>
+<style>
+.vue__time-picker {
+  display: inline-block;
+  position: relative;
+  font-size: 18px;
+  width: 100%;
+  height: 48px;
+  vertical-align: middle;
+}
+.vue__time-picker__calendar {
+  width: 100% !important;
+}
+.vue__time-picker input.display-time {
+  border: 1px solid #ddd;
+  background-color: #eee;
+  border-radius: 6px;
+  width: 100%;
+  height: 48px;
+  padding: 10px;
+  font-size: 1em;
+}
+.vdp-datepicker {
+  width: 100%;
+  height: 48px;
+}
+.vdp-datepicker__calendar {
+  width: 100% !important;
+}
+.vdp-datepicker div input {
+  border: 1px solid #ddd;
+  background-color: #eee;
+  border-radius: 6px;
+  font-size: 18px;
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+}
+.vdp-datepicker__calendar .cell.selected:hover {
+  background: #1A237E;
+}
+.vue__time-picker .dropdown,
+.vue__time-picker .dropdown .select-list {
+  width: 100%;
+  height: auto;
 }
 </style>
