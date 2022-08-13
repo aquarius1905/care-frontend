@@ -90,12 +90,7 @@ export default {
 </script>
 
 <style scoped>
-.confirm-tbl {
-  width: 100%;
-}
 .confirm-tbl th {
-  text-align: left;
-  height: 70px;
   width: 40%;
 }
 .register-btn-wrap {

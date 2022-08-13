@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '../store/index';
-import CareManagerRoutes from './care-manager-routes.js'
+import CareManagerRoutes from './care-managers-routes.js'
 Vue.use(VueRouter)
 
 import HomeView from '../views/HomeView.vue'

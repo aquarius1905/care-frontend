@@ -4,8 +4,13 @@ const state = {
   careLevels: null,
 };
 const getters = {
-  getCareLevels(state) {
-    return state.careLevels;
+  getNeededSupportLevels(state) {
+    const care_levels = state.careLevels;
+    return care_levels.slice(0, 2);
+  },
+  getNeededCareLevels(state) {
+    const care_levels = state.careLevels;
+    return care_levels.slice(2);
   },
   hasCareLevels(state) {
     return state.careLevels !== null;

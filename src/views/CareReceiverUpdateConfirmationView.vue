@@ -185,11 +185,8 @@ export default {
 <style scoped>
 .confirm-tbl {
   table-layout: fixed;
-  width: 100%;
 }
 .confirm-tbl th {
-  text-align: left;
-  height: 70px;
   width: 30%;
 }
 .confirm-tbl td {
@@ -201,9 +198,6 @@ export default {
   width: 100%;
   box-sizing: border-box;
   margin-bottom: 20px;
-}
-.legend {
-  font-weight: bold;
 }
 .register-btn-wrap {
   display: flex;

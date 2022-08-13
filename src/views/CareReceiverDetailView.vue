@@ -2,7 +2,7 @@
   <div class="detail">
     <DetailMenu></DetailMenu>
     <div class="form box-shadow">
-      <h2 class="form-ttl">被介護者登録情報</h2>
+      <h2 class="form-ttl">被介護者詳細情報</h2>
       <div class="content">
         <table class="tbl">
           <tr>
@@ -42,6 +42,19 @@
             <td>{{ care_receiver.insured_number }}</td>
           </tr>
         </table>
+        <fieldset class="fieldset">
+          <legend class="legend">次回訪問日時</legend>
+          <table class="detail-tbl">
+            <tr>
+              <th>日付</th>
+              <td>{{ $dayjs(care_receiver.visit_datetime.date).format('YYYY/MM/DD') }}</td>
+            </tr>
+            <tr>
+              <th>時間</th>
+              <td>{{ $dayjs(care_receiver.visit_datetime.time).format('HH:mm') }}</td>
+            </tr>
+          </table>
+        </fieldset>
       </div>
     </div>
   </div>
@@ -70,22 +83,14 @@ export default {
   table-layout: fixed;
   width: 100%;
 }
-.tbl th {
+.tbl th,
+.detail-tbl th {
   text-align: left;
   height: 50px;
   width: 30%;
 }
-.tbl td {
-  width: 90%;
-}
-.fieldset {
-  border: 1px solid #555;
-  padding: 20px 10px 0;
-  width: 100%;
-  box-sizing: border-box;
-  margin-bottom: 20px;
-}
-.legend {
-  font-weight: bold;
+.tbl td,
+.detail-tbl td {
+  width: 70%;
 }
 </style>

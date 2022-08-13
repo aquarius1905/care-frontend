@@ -101,14 +101,4 @@ export default {
 .tbl td {
   width: 90%;
 }
-.fieldset {
-  border: 1px solid #555;
-  padding: 20px 10px 0;
-  width: 100%;
-  box-sizing: border-box;
-  margin-bottom: 20px;
-}
-.legend {
-  font-weight: bold;
-}
 </style>

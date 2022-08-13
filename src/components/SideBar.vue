@@ -15,9 +15,6 @@
             <button class="btn-link" @click="showCareManagerUpdatePage">登録情報確認・変更</button>
           </li>
           <li>
-            <button class="btn-link" @click="showVisitDateTimePage">訪問日時登録・確認・変更</button>
-          </li>
-          <li>
             <button class="btn-link" @click="logout">ログアウト</button>
           </li>
         </ul>
@@ -86,11 +83,6 @@ export default {
       this.$router.push({
         name: 'CareReceiverRegistration',
         query: { care_receiver: null, key_person: null }
-      });
-    },
-    showVisitDateTimePage() {
-      this.$router.push({
-        name: 'CareManagerVisitDateTime'
       });
     },
     logout() {

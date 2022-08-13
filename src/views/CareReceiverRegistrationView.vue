@@ -255,9 +255,8 @@ export default {
       if (!this.$store.getters.hasCareLevels) {
         await this.$store.dispatch("fetchCareLevels");
       }
-      const care_levels = this.$store.getters.getCareLevels;
-      this.needed_support_levels = care_levels.slice(0, 2);
-      this.needed_care_levels = care_levels.slice(2);
+      this.needed_support_levels = this.$store.getters.getNeededSupportLevels;
+      this.needed_care_levels = this.$store.getters.getNeededCareLevels;
 
       if (this.care_receiver.care_level.id === 0) {
         this.care_receiver.care_level.id = this.needed_support_levels[0].id;
@@ -291,11 +290,6 @@ export default {
 .care-level-lbl {
   display: inline-block;
   margin-right: 10px;
-}
-.fieldset {
-  border: 1px solid #555;
-  padding: 10px;
-  margin-bottom: 20px;
 }
 .keyperson-fieldset {
   padding: 20px;

@@ -72,6 +72,7 @@ export default {
   },
   methods: {
     initialize() {
+      console.log(this.$route.query.care_receiver);
       this.care_receiver = this.$route.query.care_receiver;
 
       if (!this.time) {
@@ -89,25 +90,30 @@ export default {
     },
     async register() {
       if (confirm("訪問日時を登録しますか？")) {
-        const visit_data = this.makeVisitData();
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.getters.getCareManagerAccessToken;
-        const response = await axios.post(`${process.env.VUE_APP_API_ORIGIN}/care-managers/visit`, visit_data);
+        const visit_datetime = this.makeVisitData();
+        axios.defaults.headers.common['Authorization']
+          = 'Bearer ' + this.$store.getters.getCareManagerAccessToken;
+        const response = await axios.post(
+          `${process.env.VUE_APP_API_ORIGIN}/care-managers/visit`,
+          visit_datetime
+        );
+        
         if (response.status === 201) {
-          this.care_receiver.visit_data = visit_data;
+          axios.defaults.headers.common['Authorization'] = null;
+          this.care_receiver.visit_datetime = visit_datetime;
           this.$router.push({
               name: 'CareReceiverDetail',
               query: { care_receiver: this.care_receiver }
             });
         }
-        axios.defaults.headers.common['Authorization'] = null;
       }
     },
     makeVisitData() {
-      let visit_data = {};
-      visit_data.care_receiver_id = this.care_receiver.id;
-      visit_data.date = this.date;
-      visit_data.time = this.time;
-      return visit_data;
+      let visit_datetime = {};
+      visit_datetime.care_receiver_id = this.care_receiver.id;
+      visit_datetime.date = this.date;
+      visit_datetime.time = this.time;
+      return visit_datetime;
     }
   },
   created() {

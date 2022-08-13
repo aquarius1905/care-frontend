@@ -260,11 +260,6 @@ export default {
   display: inline-block;
   margin-right: 10px;
 }
-.fieldset {
-  border: 1px solid #555;
-  padding: 10px;
-  margin-bottom: 20px;
-}
 .keyperson-fieldset {
   padding: 20px;
 }
