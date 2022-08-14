@@ -70,7 +70,7 @@ export default {
   methods: {
   },
   created() {
-    this.care_receiver = this.$route.query.care_receiver
+    this.care_receiver = this.$route.query.care_receiver;
   }
 };
 </script>

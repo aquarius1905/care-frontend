@@ -34,6 +34,7 @@
                   hide-clear-button 
                   advanced-keyboard 
                   manual-input 
+                  :format="time_format"
                   v-model="time">
                 </vue-timepicker>
               </div>
@@ -64,6 +65,7 @@ export default {
       care_receiver: null,
       date: null,
       time: null,
+      time_format: 'HH:mm',
       ja: ja,
       disabledDates: {
         to: null
@@ -72,20 +74,21 @@ export default {
   },
   methods: {
     initialize() {
-      console.log(this.$route.query.care_receiver);
       this.care_receiver = this.$route.query.care_receiver;
-
-      if (!this.time) {
-        this.time = '14:00'
-      }
 
       const today = new Date();
       const tomorrow = new Date(today);
       tomorrow.setDate(tomorrow.getDate() + 1);
       this.disabledDates.to = tomorrow;
 
-      if (!this.date) {
+      const visit_datetime = this.care_receiver.visit_datetime;
+      if (visit_datetime) {
+        this.date = visit_datetime.date;
+        //修正が必要
+        this.time = '14:00';
+      } else {
         this.date = tomorrow;
+        this.time = '14:00'
       }
     },
     async register() {

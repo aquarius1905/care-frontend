@@ -54,9 +54,7 @@ export default {
     showVisitDateTimeView(care_receiver) {
       this.$router.push({
         name: 'CareManagerVisitDateTime',
-        query: {
-          care_receiver: care_receiver
-        }
+        query: { care_receiver: care_receiver }
       });
     },
     showDetailView(care_receiver) {
