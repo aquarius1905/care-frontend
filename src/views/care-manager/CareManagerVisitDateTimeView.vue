@@ -11,33 +11,16 @@
           <div class="form-item">
             <validation-provider v-slot="{ errors }" rules="required">
               <label class="form-item-lbl" for="visit_date">訪問日</label>
-              <vue-datepicker 
-              id="visit_date" :language="ja" 
-              :disabled-dates="disabledDates" 
-              format="yyyy/MM/dd" 
-              v-model="date">
-              </vue-datepicker>
+              <input type="date" id="visit_date" class="input" v-model="visit_datetime.date" :min="tomorrow" required>
               <div class="error">{{ errors[0] }}</div>
             </validation-provider>
           </div>
           <div class="form-item">
             <validation-provider v-slot="{ errors }" rules="required">
               <label class="form-item-lbl" for="visit_time">時間</label>
-              <div class="time-picker">
-                <vue-timepicker 
-                  id="visit_time" 
-                  hour-label="時" 
-                  minute-label="分"
-                  :hour-range="[[9, 18]]" 
-                  :minute-interval="30" 
-                  hide-disabled-hours 
-                  hide-clear-button 
-                  advanced-keyboard 
-                  manual-input 
-                  :format="time_format"
-                  v-model="time">
-                </vue-timepicker>
-              </div>
+              <select id="visit_time" class="select" v-model="visit_datetime.time">18
+                <option v-for="(time, index) of times" :value="time" :key="index">{{ time }}</option>
+              </select>
               <div class="error">{{ errors[0] }}</div>
             </validation-provider>
           </div>
@@ -52,58 +35,61 @@
 
 <script>
 import axios from "axios";
-import Datepicker from 'vuejs-datepicker';
-import { ja } from 'vuejs-datepicker/dist/locale';
-import VueTimepicker from 'vue2-timepicker/src/vue-timepicker.vue'
+import dayjs from 'dayjs';
 export default {
-  components: {
-    'vue-timepicker': VueTimepicker,
-    'vue-datepicker': Datepicker
-  },
   data() {
     return {
       care_receiver: null,
-      date: null,
-      time: null,
-      time_format: 'HH:mm',
-      ja: ja,
-      disabledDates: {
-        to: null
+      visit_datetime: {
+        care_receiver_id: null,
+        date: null,
+        time: null
       },
+      times: [],
+      tomorrow: null
     }
   },
   methods: {
     initialize() {
       this.care_receiver = this.$route.query.care_receiver;
+      this.visit_datetime.care_receiver_id = this.care_receiver.id;
 
-      const today = new Date();
-      const tomorrow = new Date(today);
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      this.disabledDates.to = tomorrow;
+      this.setTomorrow();
+      this.setTimes();
 
       const visit_datetime = this.care_receiver.visit_datetime;
       if (visit_datetime) {
-        this.date = visit_datetime.date;
-        //修正が必要
-        this.time = '14:00';
+        this.visit_datetime.date = dayjs(visit_datetime.date).format('YYYY-MM-DD');
+        this.visit_datetime.time = dayjs(visit_datetime.time).format('HH:mm');
       } else {
-        this.date = tomorrow;
-        this.time = '14:00'
+        this.visit_datetime.date = this.tomorrow;
+        this.visit_datetime.time = '14:00';
+      }
+    },
+    setTomorrow() {
+      const today = new Date();
+      const tomorrow = new Date(today);
+      tomorrow.setDate(today.getDate() + 1);
+      this.tomorrow = dayjs(tomorrow).format('YYYY-MM-DD');
+    },
+    setTimes() {
+      for (let h = 9; h <= 18; h++) {
+        this.times.push(h + ':' + '00');
+        this.times.push(h + ':' + '30');
       }
     },
     async register() {
       if (confirm("訪問日時を登録しますか？")) {
-        const visit_datetime = this.makeVisitData();
         axios.defaults.headers.common['Authorization']
           = 'Bearer ' + this.$store.getters.getCareManagerAccessToken;
         const response = await axios.post(
           `${process.env.VUE_APP_API_ORIGIN}/care-managers/visit`,
-          visit_datetime
+          this.visit_datetime
         );
         
         if (response.status === 201) {
           axios.defaults.headers.common['Authorization'] = null;
-          this.care_receiver.visit_datetime = visit_datetime;
+          this.care_receiver.visit_datetime = this.visit_datetime;
           this.$router.push({
               name: 'CareReceiverDetail',
               query: { care_receiver: this.care_receiver }
@@ -111,13 +97,6 @@ export default {
         }
       }
     },
-    makeVisitData() {
-      let visit_datetime = {};
-      visit_datetime.care_receiver_id = this.care_receiver.id;
-      visit_datetime.date = this.date;
-      visit_datetime.time = this.time;
-      return visit_datetime;
-    }
   },
   created() {
     this.initialize();

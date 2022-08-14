@@ -1,6 +1,5 @@
 <template>
   <div class="detail">
-    <DetailMenu></DetailMenu>
     <div class="form box-shadow">
       <h2 class="form-ttl">被介護者詳細情報</h2>
       <div class="content">
