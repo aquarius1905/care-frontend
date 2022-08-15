@@ -84,7 +84,7 @@ body {
   padding: 20px 0;
 }
 
-.form-confrim-btn-wrap {
+.form-confirm-btn-wrap {
   padding-top: 0;
 }
 
@@ -110,6 +110,12 @@ body {
 .btn:disabled {
   background: #777;
 }
+
+.register-btn,
+.update-btn {
+  width: 100px;
+}
+
 .input,
 .name-input,
 .select {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="form box-shadow">
-      <h2 class="form-ttl">訪問日時登録・確認・変更</h2>
+      <h2 class="form-ttl">訪問日時{{ registered_flg ? "確認・変更": "登録" }}</h2>
       <validation-observer v-slot="{ invalid }">
         <div class="form-content">
           <div class="form-item">
@@ -18,15 +18,16 @@
           <div class="form-item">
             <validation-provider v-slot="{ errors }" rules="required">
               <label class="form-item-lbl" for="visit_time">時間</label>
-              <select id="visit_time" class="select" v-model="visit_datetime.time">18
+              <select id="visit_time" class="select time-select" v-model="visit_datetime.time">
                 <option v-for="(time, index) of times" :value="time" :key="index">{{ time }}</option>
               </select>
               <div class="error">{{ errors[0] }}</div>
             </validation-provider>
           </div>
         </div>
-        <div class="form-btn-wrap form-confrim-btn-wrap">
-          <button class="btn" @click="register" :disabled="invalid">登録</button>
+        <div class="form-btn-wrap form-confirm-btn-wrap">
+          <button class="btn register-btn" @click="update" :disabled="invalid" v-if="registered_flg">更新</button>
+          <button class="btn update-btn" @click="register" :disabled="invalid" v-else>登録</button>
         </div>
       </validation-observer>
     </div>
@@ -46,13 +47,15 @@ export default {
         time: null
       },
       times: [],
-      tomorrow: null
+      tomorrow: null,
+      registered_flg: false
     }
   },
   methods: {
     initialize() {
       this.care_receiver = this.$route.query.care_receiver;
       this.visit_datetime.care_receiver_id = this.care_receiver.id;
+      this.registered_flg = this.$route.query.registered_flg;
 
       this.setTomorrow();
       this.setTimes();
@@ -97,6 +100,11 @@ export default {
         }
       }
     },
+    update() {
+      if (confirm("訪問日時を登録しますか？")) {
+        console.log("更新");
+      }
+    }
   },
   created() {
     this.initialize();
@@ -108,55 +116,8 @@ export default {
 .form {
   width: 500px;
 }
-    .time-picker >>> .vue__time-picker .dropdown ul li:not([disabled]).active,
-    .time-picker >>> .vue__time-picker .dropdown ul li:not([disabled]).active:focus,
-    .time-picker >>> .vue__time-picker .dropdown ul li:not([disabled]).active:hover {
-        background: #1A237E;
-    }
-</style>
-<style>
-.vue__time-picker {
-  display: inline-block;
-  position: relative;
-  font-size: 18px;
-  width: 100%;
-  height: 48px;
-  vertical-align: middle;
-}
-.vue__time-picker__calendar {
-  width: 100% !important;
-}
-.vue__time-picker input.display-time {
-  border: 1px solid #ddd;
-  background-color: #eee;
-  border-radius: 6px;
-  width: 100%;
-  height: 48px;
-  padding: 10px;
-  font-size: 1em;
-}
-.vdp-datepicker {
-  width: 100%;
-  height: 48px;
-}
-.vdp-datepicker__calendar {
-  width: 100% !important;
-}
-.vdp-datepicker div input {
-  border: 1px solid #ddd;
-  background-color: #eee;
-  border-radius: 6px;
-  font-size: 18px;
-  padding: 10px;
-  width: 100%;
-  height: 100%;
-}
-.vdp-datepicker__calendar .cell.selected:hover {
-  background: #1A237E;
-}
-.vue__time-picker .dropdown,
-.vue__time-picker .dropdown .select-list {
-  width: 100%;
-  height: auto;
+.time-select {
+  font-size: 20px;
+  padding: 0 5px;
 }
 </style>

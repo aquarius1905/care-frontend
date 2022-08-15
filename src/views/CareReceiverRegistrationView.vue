@@ -194,7 +194,7 @@
             </fieldset>
           </div>
         </div>
-        <div class="form-btn-wrap form-confrim-btn-wrap">
+        <div class="form-btn-wrap form-confirm-btn-wrap">
           <button class="btn" @click="confirmRegistration()" :disabled="invalid">登録内容確認</button>
         </div>
       </validation-observer>

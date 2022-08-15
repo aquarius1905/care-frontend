@@ -52,9 +52,10 @@ export default {
       this.care_receivers = data.data;
     },
     showVisitDateTimeView(care_receiver) {
+      const registered_flg = care_receiver.visit_datetime !== null;
       this.$router.push({
         name: 'CareManagerVisitDateTime',
-        query: { care_receiver: care_receiver }
+        query: { care_receiver: care_receiver, registered_flg: registered_flg }
       });
     },
     showDetailView(care_receiver) {
