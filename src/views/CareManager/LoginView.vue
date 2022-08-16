@@ -52,18 +52,14 @@ export default {
         .post(`${process.env.VUE_APP_API_ORIGIN}/care-managers/login`, this.login_data)
         .then(response => {
           if (response.status === 200) {
-            const access_token = response.data.access_token;
-            this.$store.dispatch('loginCareManager', access_token);
-            this.$router.push({
-              name: 'CareReceiverList'
-            });
+            this.$store.dispatch('loginCareManager', response.data.access_token);
+            this.$router.push({ name: 'CareReceiverList' });
           }
         })
         .catch(error => {
-          console.log(error);
           this.login_error = error.response.data.login_error
         });
     }
-  },
+  }
 }
 </script>

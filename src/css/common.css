@@ -48,7 +48,7 @@ body {
 
 .form-content,
 .confirm-content,
-.content {
+.detail-tbl-wrap {
   padding: 20px;
   box-sizing: border-box;
 }
@@ -185,4 +185,25 @@ body {
   font-size: 26px;
   text-align: center;
   line-height: 40px;
+}
+
+.detail {
+  display: flex;
+}
+
+.detail-tbl {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.detail-tbl th,
+.visit-datetime-tbl th {
+  text-align: left;
+  height: 50px;
+  width: 30%;
+}
+
+.detail-tbl td,
+.visit-datetime-tbl td {
+  width: 70%;
 }

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import CareLevels from "./modules/care_levels"
+import CareLevels from "./modules/care_level"
 import CareManager from "./modules/care_manager"
 import KeyPerson from "./modules/key_person"
 

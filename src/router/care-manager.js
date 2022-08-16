@@ -1,11 +1,11 @@
-import CareManagerLoginView from '../views/care-manager/CareManagerLoginView.vue'
-import CareManagerRegistrationView from '../views/care-manager/CareManagerRegistrationView.vue'
-import CareManagerRegistrationCompleteView from '../views/care-manager/CareManagerRegistrationCompleteView.vue'
-import CareManagerRegistrationConfirmationView from '../views/care-manager/CareManagerRegistrationConfirmationView.vue'
-import CareManagerUpdateView from '../views/care-manager/CareManagerUpdateView.vue'
-import CareManagerUpdateConfirmationView from '../views/care-manager/CareManagerUpdateConfirmationView.vue'
-import CareManagerUpdateCompleteView from '../views/care-manager/CareManagerUpdateCompleteView.vue'
-import CareManagerVisitDateTimeView from '../views/care-manager/CareManagerVisitDateTimeView.vue'
+import CareManagerLoginView from '../views/CareManager/LoginView.vue'
+import CareManagerRegistrationView from '../views/CareManager/RegistrationView.vue'
+import CareManagerRegistrationCompleteView from '../views/CareManager/RegistrationCompleteView.vue'
+import CareManagerRegistrationConfirmationView from '../views/CareManager/RegistrationConfirmationView.vue'
+import CareManagerUpdateView from '../views/CareManager/UpdateView.vue'
+import CareManagerUpdateConfirmationView from '../views/CareManager/UpdateConfirmationView.vue'
+import CareManagerUpdateCompleteView from '../views/CareManager/UpdateCompleteView.vue'
+import CareManagerVisitDateTimeView from '../views/CareManager/VisitDateTimeView.vue'
 
 export default {
   routes: [

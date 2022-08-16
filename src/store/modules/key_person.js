@@ -2,7 +2,7 @@ const state = {
   keyPersonAccessToken: null,
 };
 const getters = {
-  getkeyPersonAccessToken(state) {
+  getKeyPersonAccessToken(state) {
     return state.keyPersonAccessToken;
   },
   isKeyPersonLoggedIn(state) {

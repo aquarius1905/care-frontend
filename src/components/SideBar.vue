@@ -15,7 +15,7 @@
             <button class="btn-link" @click="showCareManagerUpdatePage">登録情報確認・変更</button>
           </li>
           <li>
-            <button class="btn-link" @click="logout">ログアウト</button>
+            <button class="btn-link" @click="logoutCareManager">ログアウト</button>
           </li>
         </ul>
         <ul class="acd-content" v-else>
@@ -33,7 +33,7 @@
       <div>
         <ul class="acd-content" v-if="this.$store.getters.isKeyPersonLoggedIn">
           <li>
-            <button class="btn-link" @click="logout">ログアウト</button>
+            <button class="btn-link" @click="logoutKeyPerson">ログアウト</button>
           </li>
         </ul>
         <ul class="acd-content" v-else>
@@ -85,8 +85,9 @@ export default {
         query: { care_receiver: null, key_person: null }
       });
     },
-    logout() {
-      axios.defaults.headers.common['Authorization'] = 'Bearer ' +  this.$store.getters.getCareManagerAccessToken;
+    logoutCareManager() {
+      axios.defaults.headers.common['Authorization']
+        = 'Bearer ' + this.$store.getters.getCareManagerAccessToken;
       axios
         .post(`${process.env.VUE_APP_API_ORIGIN}/care-managers/logout`)
         .then(response => {
@@ -102,12 +103,29 @@ export default {
           console.log(error);
         });
     },
+    logoutKeyPerson() {
+      axios.defaults.headers.common['Authorization']
+        = 'Bearer ' + this.$store.getters.getKeyPersonAccessToken;
+      axios
+        .post(`${process.env.VUE_APP_API_ORIGIN}/key-persons/logout`)
+        .then(response => {
+          if (response.status === 200) {
+            axios.defaults.headers.common['Authorization'] = null;
+            this.$store.dispatch('logoutKeyPerson');
+            this.$router.push({
+              name: 'KeyPersonLogin'
+            });
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
     showCareReceiverDeitalPage() {
     },
     displayCareReceiverRegistrationPage() {
     },
-    showVisitDateTiemPage() {
-    }
+
   },
 }
 </script>

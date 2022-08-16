@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '../store/index';
-import CareManagerRoutes from './care-managers-routes.js'
+import CareManagerRoutes from './care-manager.js'
+import KeyPsersonRoutes from './key-person.js'
 Vue.use(VueRouter)
 
 import HomeView from '../views/HomeView.vue'
@@ -12,7 +13,6 @@ import CareReceiverUpdateView from '../views/CareReceiverUpdateView.vue'
 import CareReceiverUpdateConfirmationView from '../views/CareReceiverUpdateConfirmationView.vue'
 import CareReceiverListView from '../views/CareReceiverListView.vue'
 import CareReceiverDetailView from '../views/CareReceiverDetailView.vue'
-import KeyPersonLoginView from '../views/KeyPersonLoginView.vue'
 import CareGivingOfficeLoginView from '../views/CareGivingOfficeLoginView.vue'
 
 const routes = [
@@ -20,19 +20,19 @@ const routes = [
     path: '/',
     name: 'Home',
     component: HomeView,
-    meta: {requiresAuth: false},
+    meta: { requiresAuth: false },
   },
   {
     path: '/care-receiver/register',
     name: 'CareReceiverRegistration',
     component: CareReceiverRegistrationView,
-    meta: {requiresAuth: true},
+    meta: { requiresAuth: true },
   },
   {
     path: '/care-receiver/register/confirm',
     name: 'CareReceiverRegistrationConfirmation',
     component: CareReceiverRegistrationConfirmationView,
-    meta: {requiresAuth: true },
+    meta: { requiresAuth: true },
   },
   {
     path: '/care-receiver/register/complete',
@@ -44,13 +44,13 @@ const routes = [
     path: '/care-receiver/update',
     name: 'CareReceiverUpdate',
     component: CareReceiverUpdateView,
-    meta: {requiresAuth: true},
+    meta: { requiresAuth: true },
   },
-    {
+  {
     path: '/care-receiver/update/confirm',
     name: 'CareReceiverUpdateConfirmation',
     component: CareReceiverUpdateConfirmationView,
-    meta: {requiresAuth: true},
+    meta: { requiresAuth: true },
   },
   {
     path: '/care-receiver/list',
@@ -65,23 +65,14 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-    path: '/key-person/login',
-    name: 'KeyPersonLogin',
-    component: KeyPersonLoginView,
-    meta: {requiresAuth: false},
-  },
-  {
     path: '/care-giving-office/login',
     name: 'CareGivingOfficeLogin',
     component: CareGivingOfficeLoginView,
-    meta: {requiresAuth: false},
+    meta: { requiresAuth: false },
   },
-  ...CareManagerRoutes.routes
+  ...CareManagerRoutes.routes,
+  ...KeyPsersonRoutes.routes
 ]
-
-function isCareManagerLoggedIn() {
-  return store.getters.isCareManagerLoggedIn;
-}
 
 const router = new VueRouter({
   mode: 'history',
@@ -91,7 +82,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (isCareManagerLoggedIn()) {
+    if (store.getters.isCareManagerLoggedIn) {
       next()
     } else {
       next('/care-manager/login')

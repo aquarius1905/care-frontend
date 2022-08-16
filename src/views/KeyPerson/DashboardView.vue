@@ -1,6 +1,6 @@
 <template>
-  <div class="detail">
-    <div class="form box-shadow">
+  <div class="dashboard">
+    <div class="form box-shadow" v-for="(care_receiver, index) in care_receivers" :key="index">
       <h2 class="form-ttl">被介護者詳細情報</h2>
       <div class="detail-tbl-wrap">
         <table class="detail-tbl">
@@ -60,16 +60,25 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data: function () {
     return {
-      care_receiver: null,
+      care_receivers: null
     }
   },
   methods: {
+    async getCareReceivers() {
+      const { data } = await axios.get(`${process.env.VUE_APP_API_ORIGIN}/care-receivers`, {
+        headers: {
+          Authorization: `Bearer ${this.$store.getters.getKeyPersonAccessToken}`,
+        }
+      });
+      this.care_receivers = data.data;
+    },
   },
   created() {
-    this.care_receiver = this.$route.query.care_receiver;
+    this.getCareReceivers();
   }
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="login-form box-shadow">
-      <h2 class="form-ttl">キーパーソン（被介護者） ログイン</h2>
+      <h2 class="form-ttl">キーパーソン ログイン</h2>
       <ValidationObserver ref="obs" v-slot="ObserverProps">
         <div class="login-form-content">
           <div class="form-item">
@@ -26,8 +26,9 @@
           </div>
         </div>
         <div class="form-btn-wrap">
-          <button class="btn login-btn" :disabled="ObserverProps.invalid || !ObserverProps.validated"
-            @click="login">ログイン</button>
+          <button class="btn login-btn" 
+          :disabled="ObserverProps.invalid || !ObserverProps.validated"
+          @click="login">ログイン</button>
         </div>
       </ValidationObserver>
     </div>
@@ -52,8 +53,8 @@ export default {
         .post(`${process.env.VUE_APP_API_ORIGIN}/key-persons/login`, this.login_data)
         .then(response => {
           if (response.status === 200) {
-            const access_token = response.data.access_token;
-            this.$store.dispatch('loginKeyPerson', access_token);
+            this.$store.dispatch('loginKeyPerson', response.data.access_token);
+            this.$router.push({ name: 'KeyPersonDashboard' });
           }
         })
         .catch(error => {
@@ -63,6 +64,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-</style>
