@@ -149,12 +149,16 @@ body {
 }
 
 .confirm-tbl,
-.detail-tbl {
+.detail-tbl,
+.visit-datetime-tbl {
   width: 100%;
 }
 
-.confirm-tbl th,
-.detail-tbl th {
+.detail-tbl {
+  table-layout: fixed;
+}
+
+.confirm-tbl th {
   text-align: left;
   height: 70px;
 }
@@ -189,11 +193,6 @@ body {
 
 .detail {
   display: flex;
-}
-
-.detail-tbl {
-  table-layout: fixed;
-  width: 100%;
 }
 
 .detail-tbl th,

@@ -33,6 +33,9 @@
       <div>
         <ul class="acd-content" v-if="this.$store.getters.isKeyPersonLoggedIn">
           <li>
+            <router-link class="link" to="/key-person/dashboard">ダッシュボード</router-link>
+          </li>
+          <li>
             <button class="btn-link" @click="logoutKeyPerson">ログアウト</button>
           </li>
         </ul>

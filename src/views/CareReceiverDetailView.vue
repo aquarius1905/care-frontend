@@ -46,7 +46,7 @@
           <table class="visit-datetime-tbl">
             <tr>
               <th>日付</th>
-              <td>{{ $dayjs(care_receiver.visit_datetime.date).format('YYYY/MM/DD') }}</td>
+              <td>{{ $dayjs(care_receiver.visit_datetime.date).format('YYYY/MM/DD (ddd)') }}</td>
             </tr>
             <tr>
               <th>時間</th>
