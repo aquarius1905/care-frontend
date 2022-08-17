@@ -6,39 +6,39 @@
         <table class="detail-tbl">
           <tr>
             <th>氏名</th>
-            <td>{{ care_receiver.name }}</td>
+            <td>{{ careReceiver.name }}</td>
           </tr>
           <tr>
             <th>フリガナ</th>
-            <td>{{ care_receiver.name_furigana }}</td>
+            <td>{{ careReceiver.name_furigana }}</td>
           </tr>
           <tr>
             <th>性別</th>
-            <td>{{ care_receiver.gender === 1 ? "男" : "女" }}</td>
+            <td>{{ careReceiver.gender === 1 ? "男" : "女" }}</td>
           </tr>
           <tr>
             <th>生年月日</th>
-            <td>{{ $dayjs(care_receiver.birthday).format('YYYY/MM/DD') }}</td>
+            <td>{{ $dayjs(careReceiver.birthday).format('YYYY/MM/DD') }}</td>
           </tr>
           <tr>
             <th>郵便番号</th>
-            <td>{{ care_receiver.post_code }}</td>
+            <td>{{ careReceiver.post_code }}</td>
           </tr>
           <tr>
             <th>住所</th>
-            <td>{{ care_receiver.address }}</td>
+            <td>{{ careReceiver.address }}</td>
           </tr>
           <tr>
             <th>介護度</th>
-            <td>{{ care_receiver.care_level.name }}</td>
+            <td>{{ careReceiver.care_level.name }}</td>
           </tr>
           <tr>
             <th>保険者番号</th>
-            <td>{{ care_receiver.insurer_number }}</td>
+            <td>{{ careReceiver.insurer_number }}</td>
           </tr>
           <tr>
             <th>被保険者番号</th>
-            <td>{{ care_receiver.insured_number }}</td>
+            <td>{{ careReceiver.insured_number }}</td>
           </tr>
         </table>
         <fieldset class="fieldset">
@@ -46,11 +46,11 @@
           <table class="visit-datetime-tbl">
             <tr>
               <th>日付</th>
-              <td>{{ $dayjs(care_receiver.visit_datetime.date).format('YYYY/MM/DD (ddd)') }}</td>
+              <td>{{ $dayjs(careReceiver.visit_datetime.date).format('YYYY/MM/DD (ddd)') }}</td>
             </tr>
             <tr>
               <th>時間</th>
-              <td>{{ $dayjs(care_receiver.visit_datetime.time).format('HH:mm') }}</td>
+              <td>{{ $dayjs(careReceiver.visit_datetime.time).format('HH:mm') }}</td>
             </tr>
           </table>
         </fieldset>
@@ -61,15 +61,10 @@
 
 <script>
 export default {
-  data: function () {
-    return {
-      care_receiver: null,
+  props: {
+    careReceiver: {
+      type: Object
     }
-  },
-  methods: {
-  },
-  created() {
-    this.care_receiver = this.$route.query.care_receiver;
   }
 };
 </script>

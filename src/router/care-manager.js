@@ -1,6 +1,6 @@
 import CareManagerLoginView from '../views/CareManager/LoginView.vue'
 import CareManagerRegistrationView from '../views/CareManager/RegistrationView.vue'
-import CareManagerRegistrationCompleteView from '../views/CareManager/RegistrationCompleteView.vue'
+import CareManagerRegistrationCompletionView from '../views/CareManager/RegistrationCompletionView.vue'
 import CareManagerRegistrationConfirmationView from '../views/CareManager/RegistrationConfirmationView.vue'
 import CareManagerUpdateView from '../views/CareManager/UpdateView.vue'
 import CareManagerUpdateConfirmationView from '../views/CareManager/UpdateConfirmationView.vue'
@@ -23,9 +23,9 @@ export default {
     },
     {
       path: '/care-manager/registration/complete',
-      name: 'CareManagerRegistrationComplete',
-      component: CareManagerRegistrationCompleteView,
-      meta: { requiresAuth: false },
+      name: 'CareManagerRegistrationCompletion',
+      component: CareManagerRegistrationCompletionView,
+      meta: { requiresAuth: true },
     },
     {
       path: '/care-manager/update',

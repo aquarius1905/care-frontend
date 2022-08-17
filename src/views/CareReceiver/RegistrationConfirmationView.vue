@@ -170,7 +170,7 @@ export default {
         .then(response => {
           if (response.status === 201) {
             this.$router.push({
-              name: 'CareReceiverRegistrationComplete'
+              name: 'CareReceiverRegistrationCompletion'
             });
           }
         })
