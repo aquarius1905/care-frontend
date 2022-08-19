@@ -10,7 +10,7 @@ export default {
   components: { CompletionMessage },
   data: function () {
     return {
-      msg: "被介護者、及びキーパーソンの登録が完了しました"
+      msg: "ケアマネージャー登録情報の更新が完了しました"
     }
   }
 };

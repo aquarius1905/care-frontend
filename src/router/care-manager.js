@@ -4,7 +4,7 @@ import CareManagerRegistrationCompletionView from '../views/CareManager/Registra
 import CareManagerRegistrationConfirmationView from '../views/CareManager/RegistrationConfirmationView.vue'
 import CareManagerUpdateView from '../views/CareManager/UpdateView.vue'
 import CareManagerUpdateConfirmationView from '../views/CareManager/UpdateConfirmationView.vue'
-import CareManagerUpdateCompleteView from '../views/CareManager/UpdateCompleteView.vue'
+import CareManagerUpdateCompletionView from '../views/CareManager/UpdateCompletionView.vue'
 import CareManagerVisitDateTimeView from '../views/CareManager/VisitDateTimeView.vue'
 
 export default {
@@ -41,8 +41,8 @@ export default {
     },
     {
       path: '/care-manager/update/complete',
-      name: 'CareManagerUpdateComplete',
-      component: CareManagerUpdateCompleteView,
+      name: 'CareManagerUpdateCompletion',
+      component: CareManagerUpdateCompletionView,
       meta: { requiresAuth: true },
     },
     {

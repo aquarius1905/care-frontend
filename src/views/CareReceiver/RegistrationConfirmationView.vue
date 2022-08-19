@@ -203,11 +203,6 @@ export default {
   box-sizing: border-box;
   margin-bottom: 20px;
 }
-.register-btn-wrap {
-  display: flex;
-  justify-content: center;
-  text-align: center;
-}
 .back-btn {
   width: 120px;
   background-color: #7E57C2;

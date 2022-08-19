@@ -1,6 +1,5 @@
 <template>
   <div id="sidebar">
-    <h1 class="main-ttl ttl" @click="backtoHome">Care</h1>
     <nav class="nav" v-show="isCareManagerURL">
       <h2 class="menu-ttl">ケアマネージャー</h2>
       <div>
@@ -13,9 +12,6 @@
           </li>
           <li>
             <button class="btn-link" @click="showCareManagerUpdatePage">登録情報確認・変更</button>
-          </li>
-          <li>
-            <button class="btn-link" @click="logoutCareManager">ログアウト</button>
           </li>
         </ul>
         <ul class="acd-content" v-else>
@@ -34,9 +30,6 @@
         <ul class="acd-content" v-if="this.$store.getters.isKeyPersonLoggedIn">
           <li>
             <router-link class="link" to="/key-person/dashboard">ダッシュボード</router-link>
-          </li>
-          <li>
-            <button class="btn-link" @click="logoutKeyPerson">ログアウト</button>
           </li>
         </ul>
         <ul class="acd-content" v-else>
@@ -65,11 +58,6 @@ export default {
     }
   },
   methods: {
-    backtoHome() {
-      this.$router.push({
-        name: 'Home'
-      });
-    },
     showCareManagerRegistrationPage() {
       this.$router.push({
         name: 'CareManagerRegistration',
@@ -88,42 +76,6 @@ export default {
         query: { care_receiver: null, key_person: null }
       });
     },
-    logoutCareManager() {
-      axios.defaults.headers.common['Authorization']
-        = 'Bearer ' + this.$store.getters.getCareManagerAccessToken;
-      axios
-        .post(`${process.env.VUE_APP_API_ORIGIN}/care-managers/logout`)
-        .then(response => {
-          if (response.status === 200) {
-            axios.defaults.headers.common['Authorization'] = null;
-            this.$store.dispatch('logoutCareManager');
-            this.$router.push({
-              name: 'CareManagerLogin'
-            });
-          }
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    },
-    logoutKeyPerson() {
-      axios.defaults.headers.common['Authorization']
-        = 'Bearer ' + this.$store.getters.getKeyPersonAccessToken;
-      axios
-        .post(`${process.env.VUE_APP_API_ORIGIN}/key-persons/logout`)
-        .then(response => {
-          if (response.status === 200) {
-            axios.defaults.headers.common['Authorization'] = null;
-            this.$store.dispatch('logoutKeyPerson');
-            this.$router.push({
-              name: 'KeyPersonLogin'
-            });
-          }
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    },
     showCareReceiverDeitalPage() {
     },
     displayCareReceiverRegistrationPage() {
@@ -135,15 +87,7 @@ export default {
 
 <style>
 #sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 210px;
-}
-.main-ttl {
-  padding: 15px;
-  user-select: none;
-  cursor: pointer;
 }
 .nav {
   background: #1A237E;

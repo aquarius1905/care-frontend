@@ -16,6 +16,9 @@
 </template>
 
 <style scoped>
+#home {
+  margin: 50px auto 0;
+}
 .ttl {
   text-align: center;
   padding: 0;

@@ -101,11 +101,6 @@ export default {
 .confirm-tbl th {
   width: 40%;
 }
-.register-btn-wrap {
-  display: flex;
-  justify-content: center;
-  text-align: center;
-}
 .bk-btn {
   width: 120px;
   background-color: #7E57C2;

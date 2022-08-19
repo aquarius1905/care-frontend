@@ -66,7 +66,7 @@ export default {
               axios.defaults.headers.common['Authorization'] = null;
               this.$store.dispatch('setCareManager', this.care_manager);
               this.$router.push({
-                name: 'CareManagerUpdateComplete'
+                name: 'CareManagerUpdateCompletion'
               });
             }
           })
@@ -92,11 +92,6 @@ export default {
 <style scoped>
 .confirm-tbl th {
   width: 40%;
-}
-.register-btn-wrap {
-  display: flex;
-  justify-content: center;
-  text-align: center;
 }
 .bk-btn {
   width: 120px;

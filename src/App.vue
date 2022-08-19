@@ -1,21 +1,20 @@
 <template>
   <div id="app">
-    <SideBar v-show="isShowSidebar"></SideBar>
-    <router-view class="router-view"/>
+    <Header v-show="isShow"></Header>
+    <div class="flex">
+      <SideBar v-show="isShow"></SideBar>
+      <router-view class="router-view" />
+    </div>
   </div>
 </template>
 
 <script>
 import SideBar from "./components/SideBar";
+import Header from "./components/Header";
 export default {
-  components: { SideBar },
-  data() {
-    return {
-      show_sidebar: false,
-    }
-  },
+  components: { Header, SideBar },
   computed: {
-    isShowSidebar: function () {
+    isShow: function () {
       return this.$route.path !== '/';
     }
   }
@@ -26,10 +25,7 @@ export default {
 @import "./css/reset.css";
 @import "./css/common.css";
 
-#app {
-  display: flex;
-}
 .router-view {
-  margin: 50px auto 0;
+  margin: 0 auto;
 }
 </style>

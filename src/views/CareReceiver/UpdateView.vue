@@ -55,7 +55,7 @@
           <div class="form-item">
             <validation-provider v-slot="{ errors }" rules="required|numeric|length:7">
               <label class="form-item-lbl" for="post_code">郵便番号</label>
-              <div class="post-code-wrap">
+              <div class="flex">
                 <input type="text" id="post_code" class="input" v-model="care_receiver.post_code" placeholder="1050004"
                   @blur="fetchAddress" required>
               </div>
@@ -262,8 +262,5 @@ export default {
 }
 .keyperson-fieldset {
   padding: 20px;
-}
-.post-code-wrap {
-  display: flex;
 }
 </style>

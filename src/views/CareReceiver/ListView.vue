@@ -4,6 +4,9 @@
     <table class="tbl box-shadow">
       <thead>
         <tr>
+          <th class="checkbox-width">
+            <input type="checkbox" class="all-checkbox" @click="allChecked($event)">
+          </th>
           <th>No</th>
           <th>氏名</th>
           <th>フリガナ</th>
@@ -13,11 +16,13 @@
           <th>訪問日時</th>
           <th>詳細</th>
           <th>更新</th>
-          <th>削除</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(care_receiver, index) in care_receivers" :key="care_receiver.id">
+          <td>
+            <input type="checkbox" class="checkbox" v-model="checked_care_receiver_ids" :value=care_receiver.id>
+          </td>
           <td>{{ index + 1 }}</td>
           <td>{{ care_receiver.name }}</td>
           <td>{{ care_receiver.name_furigana }}</td>
@@ -27,10 +32,12 @@
           <td><button class="btn list-btn" @click="showVisitDateTimeView(care_receiver)">訪問日時</button></td>
           <td><button class="btn list-btn" @click="showDetailView(care_receiver)">詳細</button></td>
           <td><button class="btn list-btn" @click="updateCareReceiver(care_receiver)">更新</button></td>
-          <td><button class="btn list-btn" @click="deleteCareReceiver(care_receiver.id)">削除</button></td>
         </tr>
       </tbody>
     </table>
+    <div class="list-btn-wrap">
+      <button class="btn" @click="deleteCareReceivers">一括削除</button>
+    </div>
   </div>
 </template>
 
@@ -39,7 +46,8 @@ import axios from "axios";
 export default {
   data: function () {
     return {
-      care_receivers: null
+      care_receivers: null,
+      checked_care_receiver_ids: []
     }
   },
   methods: {
@@ -50,6 +58,23 @@ export default {
         }
       });
       this.care_receivers = data.data;
+    },
+    allChecked(event) {
+      let check_boxes = document.getElementsByClassName('checkbox');
+      let action_flg = event.target.checked;
+
+      for (let i = 0; i < check_boxes.length; i++) {
+        const check_box = check_boxes[i];
+        check_box.checked = action_flg;
+        const care_receiver_id = Number(check_box.value);
+        if (action_flg) {
+          this.checked_care_receiver_ids.push(care_receiver_id);
+        } else {
+          this.checked_care_receiver_ids.splice(
+            this.checked_care_receiver_ids.indexOf(care_receiver_id), 1
+          );
+        }
+      }
     },
     showVisitDateTimeView(care_receiver) {
       const registered_flg = care_receiver.visit_datetime !== null;
@@ -71,19 +96,20 @@ export default {
         query: { care_receiver: care_receiver }
       });
     },
-    async deleteCareReceiver(care_receiver_id) {
+    async deleteCareReceivers() {
       if (confirm("削除しますか？")) {
-        const response = await axios.delete(`${process.env.VUE_APP_API_ORIGIN}/care-receivers/` + care_receiver_id
-        , {
-          headers: {
-            Authorization: `Bearer ${this.$store.getters.getCareManagerAccessToken}`,
-          }
-          });
+        axios.defaults.headers.common['Authorization'] =
+          'Bearer ' + this.$store.getters.getCareManagerAccessToken;
+        const response = await axios.post(
+          `${process.env.VUE_APP_API_ORIGIN}/care-receivers/batch-delete`,
+          this.checked_care_receiver_ids
+        );
         if (response.status === 200) {
           this.getCareReceivers();
         } else {
           alert("削除に失敗しました");
         }
+        axios.defaults.headers.common['Authorization'] = null;
       }
     }
   },
@@ -131,5 +157,12 @@ export default {
 .list-btn {
   width: auto;
   padding: 5px 10px;
+}
+.all-checkbox,
+.checkbox {
+  transform: scale(1.5);
+}
+.checkbox-width {
+  width: 6%;
 }
 </style>

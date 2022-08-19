@@ -47,19 +47,32 @@ export default {
     }
   },
   methods: {
-    login() {
-      axios
-        .post(`${process.env.VUE_APP_API_ORIGIN}/care-managers/login`, this.login_data)
-        .then(response => {
-          if (response.status === 200) {
-            this.$store.dispatch('loginCareManager', response.data.access_token);
-            this.$router.push({ name: 'CareReceiverList' });
-          }
-        })
-        .catch(error => {
-          this.login_error = error.response.data.login_error
-        });
-    }
+    async login() {
+      // axios
+      //   .post(`${process.env.VUE_APP_API_ORIGIN}/care-managers/login`, this.login_data)
+      //   .then(response => {
+      //     if (response.status === 200) {
+      //       this.$store.dispatch('loginCareManager', response.data.access_token);
+      //       this.$router.push({ name: 'CareReceiverList' });
+
+      //       this.fetchCareManagerInfo();
+      //     }
+      //   })
+      //   .catch(error => {
+      //     this.login_error = error.response.data.login_error
+      //   });
+      try {
+        const { data } = await axios.post(
+          `${process.env.VUE_APP_API_ORIGIN}/care-managers/login`,
+          this.login_data
+        );
+        const login_data = { access_token: data.access_token, care_manager: data.care_manager }
+        await this.$store.dispatch('loginCareManager', login_data);
+        this.$router.push({ name: 'CareReceiverList' });
+      } catch (error) {
+        this.login_error = error.response.data.login_error;
+      }
+    },
   }
 }
 </script>

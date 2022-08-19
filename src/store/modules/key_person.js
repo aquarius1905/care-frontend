@@ -1,5 +1,6 @@
 const state = {
   keyPersonAccessToken: null,
+  keyPerson: null
 };
 const getters = {
   getKeyPersonAccessToken(state) {
@@ -8,6 +9,9 @@ const getters = {
   isKeyPersonLoggedIn(state) {
     return state.keyPersonAccessToken !== null
   },
+  getKeyPersonName(state) {
+    return state.keyPerson.name;
+  }
 };
 const mutations = {
   login(state, payload) {

@@ -24,7 +24,7 @@ export default {
       path: '/care-receiver/registration/complete',
       name: 'CareReceiverRegistrationCompletion',
       component: CareReceiverRegistrationCompletionView,
-      meta: { requiresAuth: true },
+      meta: { requiresAuth: false },
     },
     {
       path: '/care-receiver/update',

@@ -86,9 +86,6 @@ export default {
 </script>
 
 <style scoped>
-.detail {
-  display: flex;
-}
 .tbl {
   table-layout: fixed;
   width: 100%;

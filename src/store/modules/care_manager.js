@@ -22,6 +22,9 @@ const getters = {
   getCareManager(state) {
     return state.careManager;
   },
+  getCareManagerName(state) {
+    return state.careManager.name;
+  },
   hasCareManager(state) {
     return state.careManager !== null;
   },
@@ -40,7 +43,8 @@ const mutations = {
     state.careManager = payload;
   },
   login(state, payload) {
-    state.careManagerAccessToken = payload;
+    state.careManagerAccessToken = payload.access_token;
+    state.careManager = payload.care_manager;
   },
   logout(state) {
     state.careManagerAccessToken = null;
