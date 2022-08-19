@@ -2,7 +2,7 @@
   <div id="header">
     <h1 class="main-ttl ttl" @click="backtoHome">Care</h1>
     <div class="logout-wrap" v-show="isLoggedIn">
-      <label class="name-lbl">{{ logged_in_name }}</label>
+      <label class="name-lbl">{{ loggedInName }}</label>
       <button class="btn logout-btn" @click="logout">ログアウト</button>
     </div>
   </div>
@@ -11,15 +11,25 @@
 <script>
 import axios from "axios";
 export default {
-  computed: {
-    isLoggedIn: function() {
-      return this.$store.getters.isCareManagerLoggedIn ||
-        this.$store.getters.isKeyPersonLoggedIn;
-    }
-  },
   data() {
     return {
-      logged_in_name: ''
+      is_caremanager_loggedin: false,
+      is_keyperson_loggedin: false
+    }
+  },
+  computed: {
+    isLoggedIn: function () {
+      this.is_caremanager_loggedin = this.$store.getters.isCareManagerLoggedIn;
+      this.is_keyperson_loggedin = this.$store.getters.isKeyPersonLoggedIn;
+      return this.is_caremanager_loggedin || this.is_caremanager_loggedin;
+    },
+    loggedInName: function () {
+      if (this.is_caremanager_loggedin) {
+        return this.$store.getters.getCareManagerName + ' (ケアマネージャー)';
+      } else if (this.is_keyperson_loggedin) {
+        return this.$store.getters.getKeyPersonName + ' (キーパーソン)';
+      }
+      return '';
     }
   },
   methods: {
@@ -64,14 +74,6 @@ export default {
       }
     }
   },
-  mounted() {
-    if (this.$store.getters.isCareManagerLoggedIn) {
-      this.logged_in_name = this.$store.getters.getCareManagerName + ' (ケアマネージャー)'
-    } else if (this.$store.getters.isKeyPersonLoggedIn) {
-      this.logged_in_name = this.$store.getters.get
-    }
-    
-  }
 }
 </script>
 
@@ -83,7 +85,7 @@ export default {
   height: 40px;
   padding: 10px 20px;
 }
-logout .main-ttl {
+.main-ttl {
   user-select: none;
   cursor: pointer;
 }
