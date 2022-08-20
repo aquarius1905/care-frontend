@@ -1,43 +1,57 @@
 <template>
   <div id="home">
-    <div class="btn-wrap box-shadow">
+    <div class="home-btn-box box-shadow">
       <h1 class="ttl">Care</h1>
-      <div class="home-link-wrap">
-        <router-link class="home-link" to="/care-manager/login">ケアマネージャーの方はこちら</router-link>
-      </div>
-      <div>
-        <router-link class="home-link" to="/key-person/login">被介護者、キーパーソンの方はこちら</router-link>
-      </div>
-      <div>
-        <router-link class="home-link" to="/care-giving-office/login">介護事業者の方はこちら</router-link>
-      </div>
+        <button class="btn home-btn" @click="showCareManagerLoginPage()">
+        ケアマネージャーの方はこちら
+        </button>
+        <button class="btn home-btn" @click="showKeyPersonLoginPage()">
+        被介護者、キーパーソンの方はこちら
+        </button>
+        <button class="btn home-btn" @click="showHomeCareServiceProviderLoginPage()">
+        介護事業者の方はこちら
+        </button>
     </div>
   </div>
 </template>
 
-<style scoped>
-#home {
-  margin: 50px auto 0;
+<script>
+export default {
+  methods: {
+    async showCareManagerLoginPage() {
+      await this.$store.dispatch('setCareManagerFlg');
+      this.$router.push({
+        name: 'CareManagerLogin'
+      });
+    },
+    async showKeyPersonLoginPage() {
+      await this.$store.dispatch('setKeyPersonFlg');
+      this.$router.push({
+        name: 'KeyPersonLogin'
+      });
+    },
+    async showHomeCareServiceProviderLoginPage() {
+      await this.$store.dispatch('setHomeCareServiceProviderFlg');
+    }
+  }
 }
+</script>
+<style scoped>
 .ttl {
   text-align: center;
   padding: 0;
   margin-bottom: 20px;
   font-size: 36px;
 }
-.btn-wrap {
+.home-btn-box {
   width: 400px;
   margin: 0 auto;
   padding: 40px;
   background-color: #fff;
   border-radius: 6px;
 }
-.home-link-wrap {
-  width: 100%;
-}
-.home-link {
+.home-btn {
   display: inline-block;
-  text-decoration: none;
   color: #fff;
   background-color: #1A237E;
   font-size: 18px;

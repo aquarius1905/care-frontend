@@ -93,9 +93,4 @@ export default {
 .confirm-tbl th {
   width: 40%;
 }
-.bk-btn {
-  width: 120px;
-  background-color: #7E57C2;
-  margin-right: 30px;
-}
 </style>

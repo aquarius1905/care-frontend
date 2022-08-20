@@ -1,7 +1,6 @@
 <template>
   <div id="sidebar">
-    <nav class="nav" v-show="isCareManagerURL">
-      <h2 class="menu-ttl">ケアマネージャー</h2>
+    <nav class="nav" v-show="isCareManagerPage">
       <div>
         <ul class="acd-content" v-if="this.$store.getters.isCareManagerLoggedIn">
           <li>
@@ -24,8 +23,7 @@
         </ul>
       </div>
     </nav>
-    <nav class="nav" v-show="isKeyPersonURL">
-      <h2 class="menu-ttl">キーパーソン</h2>
+    <nav class="nav" v-show="isKeyPersonPage">
       <div>
         <ul class="acd-content" v-if="this.$store.getters.isKeyPersonLoggedIn">
           <li>
@@ -43,19 +41,14 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   computed: {
-    isCareManagerURL: function () {
-      const path = this.$route.path
-      return path.includes('care-manager') || path.includes('care-receiver');
+    isCareManagerPage: function () {
+      return this.$store.getters.isCareManager;
     },
-    isKeyPersonURL: function () {
-      return this.$route.path.includes('key-person');
+    isKeyPersonPage: function () {
+      return this.$store.getters.isKeyPerson;
     },
-    isCareReceiverURL: function () {
-      return this.$route.path.includes('care-receiver');
-    }
   },
   methods: {
     showCareManagerRegistrationPage() {
@@ -73,7 +66,7 @@ export default {
     showCareReceiverRegistrationPage() {
       this.$router.push({
         name: 'CareReceiverRegistration',
-        query: { care_receiver: null, key_person: null }
+        query: { care_receiver: null }
       });
     },
     showCareReceiverDeitalPage() {
@@ -85,19 +78,18 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #sidebar {
   width: 210px;
+  height: 100%;
+  top: 0px;
+  transform: translateX(0%);
+  box-shadow: 2px 0 4px 1px #888;
 }
 .nav {
   background: #1A237E;
   width: 100%;
   height: 100vh;
-}
-.menu-ttl {
-  color: #fff;
-  padding: 20px 0 0 20px;
-  font-size: 16px;
 }
 .acd-lbl {
   display: block;

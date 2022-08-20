@@ -3,7 +3,9 @@
     <Header v-show="isShow"></Header>
     <div class="flex">
       <SideBar v-show="isShow"></SideBar>
-      <router-view class="router-view" />
+      <main class="main">
+        <router-view class="router-view" />
+      </main>
     </div>
   </div>
 </template>
@@ -25,7 +27,15 @@ export default {
 @import "./css/reset.css";
 @import "./css/common.css";
 
+#app {
+  overflow: hidden;
+}
+.main {
+  overflow-y: scroll;
+  width: 100%;
+  height: calc(100vh - 60px);
+}
 .router-view {
-  margin: 0 auto;
+  margin: 50px auto 0;
 }
 </style>

@@ -84,7 +84,6 @@ export default {
       });
     },
     showDetailView(care_receiver) {
-      console.log(care_receiver);
       this.$router.push({
         name: 'CareReceiverDetail',
         query: { care_receiver: care_receiver }

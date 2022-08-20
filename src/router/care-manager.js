@@ -25,7 +25,7 @@ export default {
       path: '/care-manager/registration/complete',
       name: 'CareManagerRegistrationCompletion',
       component: CareManagerRegistrationCompletionView,
-      meta: { requiresAuth: true },
+      meta: { requiresAuth: false },
     },
     {
       path: '/care-manager/update',

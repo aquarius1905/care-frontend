@@ -66,9 +66,9 @@ export default {
     },
     async logout() {
       if (confirm('ログアウトしますか？')) {
-        if (this.$store.getters.isCareManagerLoggedIn) {
+        if (this.is_caremanager_loggedin) {
           await this.logoutCareManager();
-        } else if (this.$store.getters.isKeyPersonLoggedIn) {
+        } else if (this.is_keyperson_loggedin) {
           await this.logoutKeyPerson();
         }
       }
@@ -82,8 +82,13 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 40px;
+  z-index: 1000;
+  height: 60px;
   padding: 10px 20px;
+  box-shadow: 0 1px 5px 0 #888;
+  background-color: #fff;
+  position: relative;
+  box-sizing: border-box;
 }
 .main-ttl {
   user-select: none;
@@ -97,6 +102,7 @@ export default {
   margin-right: 20px;
 }
 .logout-btn {
-  width: 130px;
+  width: 120px;
+  font-size: 16px;
 }
 </style>

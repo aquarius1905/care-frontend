@@ -77,8 +77,6 @@ export default {
       care_receiver: null,
     }
   },
-  methods: {
-  },
   created() {
     this.care_receiver = this.$route.query.care_receiver
   }

@@ -1,6 +1,6 @@
 <template>
   <div id="care-manager-registration">
-    <div class="form confirm-form box-shadow">
+    <div class="form box-shadow">
       <h2 class="form-ttl">ケアマネージャー 登録</h2>
       <ValidationObserver v-slot="{ invalid }">
         <div class="form-content">
@@ -87,7 +87,7 @@
           </div>
         </div>
         <div class="form-btn-wrap">
-          <button class="btn" @click="confirmRegistration()" :disabled="invalid">更新内容確認</button>
+          <button class="btn" @click="confirmRegistration()" :disabled="invalid">登録内容確認</button>
         </div>
       </ValidationObserver>
     </div>
@@ -125,9 +125,8 @@ export default {
       }
       this.support_offices = this.$store.getters.getSupportOffices;
     },
-    initialize() {
-      this.getSupportOffices();
-      
+    async initialize() {
+      await this.getSupportOffices();
       if (this.$route.query.care_manager === null) {
         this.care_manager.home_care_support_office = this.support_offices[0];
       } else {

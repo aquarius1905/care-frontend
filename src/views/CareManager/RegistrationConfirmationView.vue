@@ -75,7 +75,6 @@ export default {
       }
     },
     makeCareManagerData() {
-      console.log(this.care_manager);
       this.care_manager['home_care_support_office_id'] = this.care_manager['home_care_support_office']['id'];
       this.care_manager['name']
         = this.care_manager['last_name'] + '　' + this.care_manager['first_name'];

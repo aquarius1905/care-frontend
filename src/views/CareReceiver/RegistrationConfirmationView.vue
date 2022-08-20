@@ -91,7 +91,7 @@ export default {
   methods: {
     back() {
       this.$router.push({
-        name: 'CareReceiverRegistration',
+        name: 'KeyPersonRegistration',
         query: {
           care_receiver: this.care_receiver,
           key_person: this.key_person
