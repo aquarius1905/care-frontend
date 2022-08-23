@@ -1,4 +1,4 @@
-import axios from 'axios'
+import { api } from '@/http-common';
 
 const state = {
   careLevels: null,
@@ -23,7 +23,7 @@ const mutations = {
 };
 const actions = {
   async fetchCareLevels(context) {
-    const { data } = await axios.get(`${process.env.VUE_APP_API_ORIGIN}/care-levels`);
+    const { data } = await api.get('/care-levels');
     context.commit('setCareLevels', data.data);
   }
 };

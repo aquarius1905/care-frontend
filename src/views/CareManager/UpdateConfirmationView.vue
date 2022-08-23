@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import { careManagerApi } from "@/http-common"
 export default {
   data: function () {
     return {
@@ -53,26 +53,10 @@ export default {
         query: { care_manager: this.care_manager }
       });
     },
-    update() {
+    async update() {
       if (confirm('更新しますか？')) {
         this.makeCareManagerData();
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.getters.getCareManagerAccessToken;
-        axios
-          .put(
-            `${process.env.VUE_APP_API_ORIGIN}/care-managers/${this.care_manager.id}`, this.care_manager
-          )
-          .then(response => {
-            if (response.status === 200) {
-              axios.defaults.headers.common['Authorization'] = null;
-              this.$store.dispatch('setCareManager', this.care_manager);
-              this.$router.push({
-                name: 'CareManagerUpdateCompletion'
-              });
-            }
-          })
-          .catch(error => {
-            console.log(error);
-          })
+        await this.updateCareManagerData();
       }
     },
     makeCareManagerData() {
@@ -81,6 +65,25 @@ export default {
         = this.care_manager['last_name'] + '　' + this.care_manager['first_name'];
       this.care_manager['name_furigana']
         = this.care_manager['last_name_furigana'] + '　' + this.care_manager['first_name_furigana'];
+    },
+    async updateCareManagerData() {
+      try {
+        careManagerApi.defaults.headers.common['Authorization']
+          = 'Bearer ' + this.$store.getters.getCareManagerAccessToken;
+        const response = await careManagerApi.put(
+          `/care-managers/${this.care_manager.id}`, this.care_manager
+        );
+
+        if (response.status === 200) {
+          this.$store.dispatch('setCareManager', this.care_manager);
+          this.$router.push({
+            name: 'CareManagerUpdateCompletion'
+          });
+      }
+      } catch (error) {
+        console.log(error);
+      }
+
     }
   },
   created() {

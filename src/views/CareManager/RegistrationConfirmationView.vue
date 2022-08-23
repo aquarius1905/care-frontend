@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import { careManagerApi } from "@/http-common";
 export default {
   data: function () {
     return {
@@ -57,21 +57,23 @@ export default {
         query: { care_manager: this.care_manager }
       });
     },
-    register() {
+    async register() {
       if (confirm('登録しますか？')) {
         this.makeCareManagerData();
-        axios
-          .post(`${process.env.VUE_APP_API_ORIGIN}/care-managers`, this.care_manager)
-          .then(response => {
-            if (response.status === 201) {
-              this.$router.push({
-                name: 'CareManagerRegistrationCompletion'
-              });
-            }
-          })
-          .catch(error => {
-            console.log(error);
+
+        try {
+          careManagerApi.defaults.headers.common['Authorization']
+            = 'Bearer ' + this.$store.getters.getCareManagerAccessToken;
+          const { data } = await careManagerApi.post(
+            '', this.care_manager
+          );
+
+          this.$router.push({
+            name: 'CareManagerRegistrationCompletion'
           });
+        } catch (error) {
+          console.log(error);
+        }
       }
     },
     makeCareManagerData() {

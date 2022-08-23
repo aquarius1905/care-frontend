@@ -1,20 +1,23 @@
 <template>
   <div id="detail">
-    <CareReceiverDetail :care-receiver="care_receiver"></CareReceiverDetail>
+    <CareReceiverDetail></CareReceiverDetail>
+    <DetailMenu class="detail-menu"></DetailMenu>
   </div>
 </template>
 
 <script>
 import CareReceiverDetail from "@/components/CareReceiverDetail";
+import DetailMenu from "@/components/DetailMenu";
 export default {
-  components: { CareReceiverDetail },
-  data: function () {
-    return {
-      care_receiver: null
-    }
-  },
-  created() {
-    this.care_receiver = this.$route.query.care_receiver;
-  }
+  components: { CareReceiverDetail, DetailMenu },
 };
 </script>
+<style>
+#detail {
+  display: flex;
+  justify-content: center;
+}
+.detail-menu {
+  margin: 20px 0 0 50px;
+}
+</style>

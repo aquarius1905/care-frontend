@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import { api } from "@/http-common";
 import CareReceiverDetail from "@/components/CareReceiverDetail";
 export default {
   components: { CareReceiverDetail },
@@ -19,16 +19,16 @@ export default {
   },
   methods: {
     async getCareReceivers() {
-      const { data } = await axios.get(`${process.env.VUE_APP_API_ORIGIN}/care-receivers`, {
-        headers: {
-          Authorization: `Bearer ${this.$store.getters.getKeyPersonAccessToken}`,
-        }
-      });
-      this.care_receivers = data.data;
+      api.defaults.headers.common['Authorization']
+        = 'Bearer ' + this.$store.getters.getKeyPersonAccessToken;
+      const response = await api.get('/care-receivers');
+      if (response.status === 200) {
+        this.care_receivers = response.data.data;
+      }
     },
   },
-  created() {
-    this.getCareReceivers();
+  async created() {
+    await this.getCareReceivers();
   }
 };
 </script>

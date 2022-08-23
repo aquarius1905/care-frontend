@@ -94,9 +94,9 @@ export default {
         }
       });
     },
-    update() {
+    async update() {
       if (confirm('更新しますか？')) {
-        this.updateKeyPerson();
+        await this.updateKeyPerson();
       }
     },
     makeCareReceiverData(key_person_id) {
@@ -134,24 +134,19 @@ export default {
 
       return registration_data;
     },
-    updateKeyPerson() {
+    async updateKeyPerson() {
       const key_person = this.makeKeyPersonData();
-      axios
-        .post(`${process.env.VUE_APP_API_ORIGIN}/key-persons/${this.key_person.id}`,
-          key_person,
-          {
-            headers: {
-              Authorization: `Bearer ${this.$store.getters.getKeyPersonToken}`,
-            }
-          })
-        .then(response => {
-          if (response.status === 201) {
-            this.updateCareReceiver(response.data.key_person_id);
-          }
-        })
-        .catch(error => {
+
+      keyPersonApi.defaults.headers.common['Authorization']
+        = 'Bearer ' + this.$store.getters.getKeyPersonAccessToken;
+      const response = await keyPersonApi.put(
+        `/${this.key_person.id}`, key_person
+      );
+      if (response.status === 201) {
+        await this.updateCareReceiver(response.data.key_person_id);
+      } else {
           console.log(error);
-        });
+      }
     },
     updateCareReceiver(key_person_id) {
       const care_receiver = this.makeCareReceiverData(key_person_id);

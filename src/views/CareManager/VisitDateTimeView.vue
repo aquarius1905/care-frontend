@@ -26,8 +26,9 @@
           </div>
         </div>
         <div class="form-btn-wrap form-confirm-btn-wrap">
-          <button class="btn register-btn" @click="update" :disabled="invalid" v-if="registered_flg">更新</button>
-          <button class="btn update-btn" @click="register" :disabled="invalid" v-else>登録</button>
+          <button class="btn register-btn" @click="register" :disabled="invalid">
+          {{ registered_flg ? "更新" : "登録" }}
+          </button>
         </div>
       </validation-observer>
     </div>
@@ -35,12 +36,13 @@
 </template>
 
 <script>
-import axios from "axios";
 import dayjs from 'dayjs';
+import { careManagerApi } from '@/http-common'
 export default {
   data() {
     return {
       care_receiver: null,
+      visit_datetime_id: 0,
       visit_datetime: {
         care_receiver_id: null,
         date: null,
@@ -48,26 +50,21 @@ export default {
       },
       times: [],
       tomorrow: null,
-      registered_flg: false
+      registered_flg: false,
     }
   },
   methods: {
     initialize() {
-      this.care_receiver = this.$route.query.care_receiver;
+      this.care_receiver = this.$store.getters.getCurrentCareReceiver;
       this.visit_datetime.care_receiver_id = this.care_receiver.id;
-      this.registered_flg = this.$route.query.registered_flg;
-
+      this.registered_flg = this.care_receiver.visit_datetime !== null;
+      if (this.registered_flg) {
+        this.visit_datetime_id = this.care_receiver.visit_datetime.id;
+      }
+      
       this.setTomorrow();
       this.setTimes();
-
-      const visit_datetime = this.care_receiver.visit_datetime;
-      if (visit_datetime) {
-        this.visit_datetime.date = dayjs(visit_datetime.date).format('YYYY-MM-DD');
-        this.visit_datetime.time = dayjs(visit_datetime.time).format('HH:mm');
-      } else {
-        this.visit_datetime.date = this.tomorrow;
-        this.visit_datetime.time = '14:00';
-      }
+      this.setVisitDateTime();
     },
     setTomorrow() {
       const today = new Date();
@@ -81,30 +78,46 @@ export default {
         this.times.push(h + ':' + '30');
       }
     },
-    async register() {
-      if (confirm("訪問日時を登録しますか？")) {
-        axios.defaults.headers.common['Authorization']
-          = 'Bearer ' + this.$store.getters.getCareManagerAccessToken;
-        const response = await axios.post(
-          `${process.env.VUE_APP_API_ORIGIN}/care-managers/visit`,
-          this.visit_datetime
-        );
-        
-        if (response.status === 201) {
-          axios.defaults.headers.common['Authorization'] = null;
-          this.care_receiver.visit_datetime = this.visit_datetime;
-          this.$router.push({
-              name: 'CareReceiverDetail',
-              query: { care_receiver: this.care_receiver }
-            });
-        }
+    setVisitDateTime() {
+      if (this.registered_flg) {
+        const visit_datetime = this.care_receiver.visit_datetime;
+        this.visit_datetime.date = dayjs(visit_datetime.date).format('YYYY-MM-DD');
+        this.visit_datetime.time = dayjs(visit_datetime.time).format('HH:mm');
+      } else {
+        this.visit_datetime.date = this.tomorrow;
+        this.visit_datetime.time = '14:00';
       }
     },
-    update() {
-      if (confirm("訪問日時を登録しますか？")) {
-        console.log("更新");
+    async register() {
+      const msg = this.registered_flg ?
+      "訪問日時を更新しますか？" : "訪問日時を登録しますか？"
+      if (!confirm(msg)) {
+        return;
       }
-    }
+
+      const response = null;
+      careManagerApi.defaults.headers.common['Authorization']
+        = 'Bearer ' + this.$store.getters.getCareManagerAccessToken;
+      if (this.registered_flg) {
+        response = await careManagerApi.put(
+          `/visit/${this.visit_datetime_id}`,
+          this.visit_datetime
+        );
+      } else {
+        response = await careManagerApi.post(
+          'visit',
+          this.visit_datetime
+        );
+      }
+
+      if (response.status === 201) {
+        this.care_receiver.visit_datetime = this.visit_datetime;
+        await this.$store.dispatch('setCurrentCareReceiver', this.care_receiver);
+        this.$router.push({
+            name: 'CareReceiverDetail'
+          });
+      }
+    },
   },
   created() {
     this.initialize();

@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import { keyPersonApi } from "@/http-common";
 export default {
   data() {
     return {
@@ -48,18 +48,19 @@ export default {
     }
   },
   methods: {
-    login() {
-      axios
-        .post(`${process.env.VUE_APP_API_ORIGIN}/key-persons/login`, this.login_data)
-        .then(response => {
-          if (response.status === 200) {
-            this.$store.dispatch('loginKeyPerson', response.data.access_token);
-            this.$router.push({ name: 'KeyPersonDashboard' });
-          }
-        })
-        .catch(error => {
+    async login() {
+      try {
+        const response = await keyPersonApi.post(
+          '/login', this.login_data
+        );
+
+        if (response.status === 200) {
+          this.$store.dispatch('loginKeyPerson', response.data.access_token);
+          this.$router.push({ name: 'KeyPersonDashboard' });
+        }
+      } catch (error) {
           this.login_error = error.response.data.login_error
-        });
+      }
     }
   }
 }

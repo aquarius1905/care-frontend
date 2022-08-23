@@ -9,24 +9,16 @@
 </template>
 
 <script>
-import axios from "axios";
+import { careManagerApi, keyPersonApi } from "@/http-common"
 export default {
-  data() {
-    return {
-      is_caremanager_loggedin: false,
-      is_keyperson_loggedin: false
-    }
-  },
   computed: {
     isLoggedIn: function () {
-      this.is_caremanager_loggedin = this.$store.getters.isCareManagerLoggedIn;
-      this.is_keyperson_loggedin = this.$store.getters.isKeyPersonLoggedIn;
-      return this.is_caremanager_loggedin || this.is_caremanager_loggedin;
+      return this.$store.getters.isCareManagerLoggedIn || this.$store.getters.isKeyPersonLoggedIn;
     },
     loggedInName: function () {
-      if (this.is_caremanager_loggedin) {
+      if (this.$store.getters.isCareManagerLoggedIn) {
         return this.$store.getters.getCareManagerName + ' (ケアマネージャー)';
-      } else if (this.is_keyperson_loggedin) {
+      } else if (this.$store.getters.isKeyPersonLoggedIn) {
         return this.$store.getters.getKeyPersonName + ' (キーパーソン)';
       }
       return '';
@@ -39,37 +31,41 @@ export default {
       });
     },
     async logoutCareManager() {
-      axios.defaults.headers.common['Authorization']
-        = 'Bearer ' + this.$store.getters.getCareManagerAccessToken;
-      const response = await axios.post(`${process.env.VUE_APP_API_ORIGIN}/care-managers/logout`);
-
-      if (response.status === 200) {
-        axios.defaults.headers.common['Authorization'] = null;
-        await this.$store.dispatch('logoutCareManager');
-        this.$router.push({ name: 'CareManagerLogin' });
-      } else {
+      try {
+        careManagerApi.defaults.headers.common['Authorization']
+          = 'Bearer ' + this.$store.getters.getCareManagerAccessToken;
+        const response = await careManagerApi.post('/logout');
+          
+        if (response.status === 200) {
+          this.$store.dispatch('logoutCareManager');
+          this.$router.push({ name: 'CareManagerLogin' });
+        }
+      } catch (error) {
         console.log(error);
+        alert("ログアウトに失敗しました");
       }
     },
     async logoutKeyPerson() {
-      axios.defaults.headers.common['Authorization']
-        = 'Bearer ' + this.$store.getters.getKeyPersonAccessToken;
-      const response = await axios.post(`${process.env.VUE_APP_API_ORIGIN}/key-persons/logout`);
+      try {
+        keyPersonApi.defaults.headers.common['Authorization']
+          = 'Bearer ' + this.$store.getters.getKeyPersonAccessToken;
+        const response = await keyPersonApi.post('/logout');
 
-      if (response.status === 200) {
-        axios.defaults.headers.common['Authorization'] = null;
-        await this.$store.dispatch('logoutKeyPerson');
-        this.$router.push({ name: 'KeyPersonLogin' });
-      } else {
+        if (response.status === 200) {
+          await this.$store.dispatch('logoutKeyPerson');
+          this.$router.push({ name: 'KeyPersonLogin' });
+        }
+      } catch (error) {
         console.log(error);
+        alert("ログアウトに失敗しました");
       }
     },
-    async logout() {
+    logout() {
       if (confirm('ログアウトしますか？')) {
-        if (this.is_caremanager_loggedin) {
-          await this.logoutCareManager();
-        } else if (this.is_keyperson_loggedin) {
-          await this.logoutKeyPerson();
+        if (this.$store.getters.isCareManagerLoggedIn) {
+          this.logoutCareManager();
+        } else if (this.$store.getters.isKeyPersonLoggedIn) {
+          this.logoutKeyPerson();
         }
       }
     }

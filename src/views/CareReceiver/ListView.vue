@@ -13,7 +13,6 @@
           <th>性別</th>
           <th>生年月日</th>
           <th>介護度</th>
-          <th>訪問日時</th>
           <th>詳細</th>
           <th>更新</th>
         </tr>
@@ -29,7 +28,6 @@
           <td>{{ care_receiver.gender === 1 ? "男" : "女" }}</td>
           <td>{{ $dayjs(care_receiver.birthday).format('YYYY/MM/DD') }}</td>
           <td>{{ care_receiver.care_level.name }}</td>
-          <td><button class="btn list-btn" @click="showVisitDateTimeView(care_receiver)">訪問日時</button></td>
           <td><button class="btn list-btn" @click="showDetailView(care_receiver)">詳細</button></td>
           <td><button class="btn list-btn" @click="updateCareReceiver(care_receiver)">更新</button></td>
         </tr>
@@ -42,22 +40,28 @@
 </template>
 
 <script>
-import axios from "axios";
+import { api } from '@/http-common';
 export default {
   data: function () {
     return {
-      care_receivers: null,
+      care_receivers: {},
       checked_care_receiver_ids: []
     }
   },
   methods: {
     async getCareReceivers() {
-      const { data } = await axios.get(`${process.env.VUE_APP_API_ORIGIN}/care-receivers`, {
-        headers: {
-          Authorization: `Bearer ${this.$store.getters.getCareManagerAccessToken}`,
+      try {
+        api.defaults.headers.common['Authorization']
+          = 'Bearer ' + this.$store.getters.getCareManagerAccessToken;
+        const response = await api.get('/care-receivers');
+
+        if (response.status === 200) {
+          this.care_receivers = response.data.data;
         }
-      });
-      this.care_receivers = data.data;
+      } catch (error) {
+        alert("データの取得に失敗しました");
+        console.log(error);
+      }
     },
     allChecked(event) {
       let check_boxes = document.getElementsByClassName('checkbox');
@@ -76,17 +80,10 @@ export default {
         }
       }
     },
-    showVisitDateTimeView(care_receiver) {
-      const registered_flg = care_receiver.visit_datetime !== null;
+    async showDetailView(care_receiver) {
+      await this.$store.dispatch('setCurrentCareReceiver', care_receiver);
       this.$router.push({
-        name: 'CareManagerVisitDateTime',
-        query: { care_receiver: care_receiver, registered_flg: registered_flg }
-      });
-    },
-    showDetailView(care_receiver) {
-      this.$router.push({
-        name: 'CareReceiverDetail',
-        query: { care_receiver: care_receiver }
+        name: 'CareReceiverDetail'
       });
     },
     updateCareReceiver(care_receiver) {
@@ -97,23 +94,21 @@ export default {
     },
     async deleteCareReceivers() {
       if (confirm("削除しますか？")) {
-        axios.defaults.headers.common['Authorization'] =
-          'Bearer ' + this.$store.getters.getCareManagerAccessToken;
-        const response = await axios.post(
-          `${process.env.VUE_APP_API_ORIGIN}/care-receivers/batch-delete`,
-          this.checked_care_receiver_ids
+        api.defaults.headers.common['Authorization']
+          = 'Bearer ' + this.$store.getters.getCareManagerAccessToken;
+        const response = await api.post(
+          '/care-receivers/batch-delete', this.checked_care_receiver_ids
         );
         if (response.status === 200) {
-          this.getCareReceivers();
+          await this.getCareReceivers();
         } else {
           alert("削除に失敗しました");
         }
-        axios.defaults.headers.common['Authorization'] = null;
       }
     }
   },
-  created() {
-    this.getCareReceivers();
+  async created() {
+    await this.getCareReceivers();
   }
 };
 </script>

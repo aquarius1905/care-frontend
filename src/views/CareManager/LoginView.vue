@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import { careManagerApi } from "@/http-common";
 export default {
   data() {
     return {
@@ -49,15 +49,17 @@ export default {
   methods: {
     async login() {
       try {
-        const { data } = await axios.post(
-          `${process.env.VUE_APP_API_ORIGIN}/care-managers/login`,
-          this.login_data
+        const response = await careManagerApi.post(
+          '/login', this.login_data
         );
-
-        const login_data = { access_token: data.access_token, care_manager: data.care_manager };
-        await this.$store.dispatch('loginCareManager', login_data);
-        
-        this.$router.push({ name: 'CareReceiverList' });
+        if (response.status === 200) {
+          const login_data = {
+            access_token: response.data.access_token,
+            care_manager: response.data.care_manager
+          };
+          await this.$store.dispatch('loginCareManager', login_data);
+          this.$router.push({ name: 'CareReceiverList' });
+        }
       } catch (error) {
         this.login_error = error.response.data.login_error;
       }

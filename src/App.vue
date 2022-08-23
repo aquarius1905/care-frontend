@@ -36,6 +36,6 @@ export default {
   height: calc(100vh - 60px);
 }
 .router-view {
-  margin: 50px auto 0;
+  margin: 50px auto;
 }
 </style>
