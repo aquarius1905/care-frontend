@@ -57,7 +57,10 @@ localize({
       insured_number: "被保険者番号",
       relationship: "続柄",
       visit_date: "訪問日",
-      visit_time: "時間"
+      visit_time: "時間",
+      office_name: "事業所名",
+      corporate_name: "法人名",
+      office_number: "事業所番号"
     },
    },
 });

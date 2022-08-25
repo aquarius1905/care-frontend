@@ -1,7 +1,6 @@
 <template>
-  <div class="detail">
+  <div id="care-receiver-detail">
     <div class="form box-shadow">
-      <h2 class="form-ttl">被介護者詳細情報</h2>
       <div class="detail-tbl-wrap">
         <table class="detail-tbl">
           <tr>
@@ -62,14 +61,12 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
-  data() {
-    return {
-      care_receiver: {}
-    }
+  computed: {
+    ...mapGetters({
+      care_receiver: 'getCurrentCareReceiver'
+    })
   },
-  created() {
-    this.care_receiver = this.$store.getters.getCurrentCareReceiver
-  }
 };
 </script>

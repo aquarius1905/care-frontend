@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="visit-datetime">
     <div class="form box-shadow">
       <h2 class="form-ttl">訪問日時{{ registered_flg ? "確認・変更": "登録" }}</h2>
       <validation-observer v-slot="{ invalid }">
@@ -32,16 +32,19 @@
         </div>
       </validation-observer>
     </div>
+    <DetailMenu class="detail-menu"></DetailMenu>
   </div>
 </template>
 
 <script>
 import dayjs from 'dayjs';
 import { careManagerApi } from '@/http-common'
+import DetailMenu from "@/components/DetailMenu";
+import { mapGetters } from 'vuex'
 export default {
+  components: { DetailMenu },
   data() {
     return {
-      care_receiver: null,
       visit_datetime_id: 0,
       visit_datetime: {
         care_receiver_id: null,
@@ -53,9 +56,16 @@ export default {
       registered_flg: false,
     }
   },
+  computed: {
+    ...mapGetters([
+      'getCareManagerAccessToken'
+    ]),
+    ...mapGetters({
+      care_receiver: 'getCurrentCareReceiver',
+    })
+  },
   methods: {
     initialize() {
-      this.care_receiver = this.$store.getters.getCurrentCareReceiver;
       this.visit_datetime.care_receiver_id = this.care_receiver.id;
       this.registered_flg = this.care_receiver.visit_datetime !== null;
       if (this.registered_flg) {
@@ -97,7 +107,7 @@ export default {
 
       const response = null;
       careManagerApi.defaults.headers.common['Authorization']
-        = 'Bearer ' + this.$store.getters.getCareManagerAccessToken;
+        = 'Bearer ' + this.getCareManagerAccessToken;
       if (this.registered_flg) {
         response = await careManagerApi.put(
           `/visit/${this.visit_datetime_id}`,
@@ -126,8 +136,13 @@ export default {
 </script>
 
 <style scoped>
+#visit-datetime {
+  display: flex;
+  justify-content: center;
+}
 .form {
   width: 500px;
+  margin: 0;
 }
 .time-select {
   font-size: 20px;

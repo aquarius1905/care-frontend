@@ -5,6 +5,9 @@ const getters = {
   getCurrentCareReceiver(state) {
     return state.currentCareReceiver;
   },
+  getCurrentCareReceiverName(state) {
+    return state.currentCareReceiver.name;
+  }
 };
 const mutations = {
   setCurrentCareReceiver(state, payload) {

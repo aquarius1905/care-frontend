@@ -1,7 +1,10 @@
 <template>
   <div id="detail">
-    <CareReceiverDetail></CareReceiverDetail>
-    <DetailMenu class="detail-menu"></DetailMenu>
+    <h2 class="page-ttl">被介護者詳細情報</h2>
+    <div class="detail-content">
+      <CareReceiverDetail></CareReceiverDetail>
+      <DetailMenu class="detail-menu"></DetailMenu>
+    </div>
   </div>
 </template>
 
@@ -13,11 +16,8 @@ export default {
 };
 </script>
 <style>
-#detail {
+.detail-content {
   display: flex;
   justify-content: center;
-}
-.detail-menu {
-  margin: 20px 0 0 50px;
 }
 </style>

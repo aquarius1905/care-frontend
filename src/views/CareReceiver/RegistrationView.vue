@@ -1,7 +1,7 @@
 <template>
   <div>
+    <h2 class="page-ttl">被介護者 登録</h2>
     <div class="form box-shadow">
-      <h2 class="form-ttl">被介護者 登録</h2>
       <validation-observer v-slot="{ invalid }">
         <div class="form-content">
           <div class="form-item">
@@ -131,13 +131,11 @@
 
 <script>
 import axios from "axios";
+import { mapGetters } from 'vuex'
 const jsonpAdapter = require('axios-jsonp')
 export default {
   data() {
     return {
-      support_offices: null,
-      needed_support_levels: null,
-      needed_care_levels: null,
       care_receiver: {
         last_name: null,
         first_name: null,
@@ -156,6 +154,15 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapGetters([
+      'hasCareLevels'
+    ]),
+    ...mapGetters({
+      needed_support_levels: 'getNeededSupportLevels',
+      needed_care_levels: 'getNeededCareLevels',
+    })
+  },
   methods: {
     async fetchAddress() {
       const { data } = await axios
@@ -169,11 +176,9 @@ export default {
       });
     },
     async getCareLevels() {
-      if (!this.$store.getters.hasCareLevels) {
+      if (!this.hasCareLevels) {
         await this.$store.dispatch("fetchCareLevels");
       }
-      this.needed_support_levels = this.$store.getters.getNeededSupportLevels;
-      this.needed_care_levels = this.$store.getters.getNeededCareLevels;
 
       if (this.care_receiver.care_level.id === 0) {
         this.care_receiver.care_level.id = this.needed_support_levels[0].id;

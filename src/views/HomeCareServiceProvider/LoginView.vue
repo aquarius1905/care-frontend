@@ -10,7 +10,7 @@ export default {
   components: { Login },
   data() {
     return {
-      form_ttl: 'キーパーソン'
+      form_ttl: '介護事業者'
     }
   }
 }

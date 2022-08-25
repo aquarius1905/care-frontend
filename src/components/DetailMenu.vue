@@ -5,10 +5,22 @@
       <div>
         <ul class="detail-menu-content">
           <li>
-            <button class="btn-link" @click="showVisitDateTimeView()">訪問日時</button>
+            <router-link class="router-link" :to="{ name: 'CareReceiverDetail'}">
+              被介護者詳細情報
+            </router-link>
+          </li>
+          <li>
+            <router-link class="router-link" :to="{ name: 'CareManagerVisitDateTime'}">
+              訪問日時
+            </router-link>
           </li>
           <li>
             <button class="btn-link">居宅サービス計画書</button>
+          </li>
+          <li>
+            <router-link class="router-link" :to="{ name: 'CareReceiverWeeklyServiceSchedule'}">
+              週間サービス計画表
+            </router-link>
           </li>
           <li>
             <button class="btn-link">サービス利用票</button>
@@ -19,30 +31,10 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      care_receiver: {}
-    }
-  },
-  methods: {
-    showVisitDateTimeView() {
-      this.$router.push({
-        name: 'CareManagerVisitDateTime'
-      });
-    }
-  },
-  created() {
-    this.care_receiver = this.$store.getters.getCurrentCareReceiver
-  }
-};
-</script>
-
 <style scoped>
 #detail-menu {
   width: 210px;
-  height: 500px;
+  height: 300px;
   box-shadow: 2px 0 4px 1px #888;
   border-radius: 6px;
   background: #fff;
@@ -54,6 +46,16 @@ export default {
 .nav {
   width: 100%;
   height: auto;
+}
+.router-link {
+  display: inline-block;
+  text-decoration: none;
+  color: #000;
+  font-size: 16px;
+  width: 100%;
+  line-height: 40px;
+  height: 40px;
+  padding-left: 20px;
 }
 .btn-link {
   border: none;

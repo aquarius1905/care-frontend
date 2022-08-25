@@ -4,7 +4,7 @@
     <div class="flex">
       <SideBar v-show="isShow"></SideBar>
       <main class="main">
-        <router-view class="router-view" />
+        <router-view/>
       </main>
     </div>
   </div>
@@ -34,8 +34,5 @@ export default {
   overflow-y: scroll;
   width: 100%;
   height: calc(100vh - 60px);
-}
-.router-view {
-  margin: 50px auto;
 }
 </style>

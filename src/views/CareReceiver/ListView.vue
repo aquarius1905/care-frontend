@@ -1,5 +1,5 @@
 <template>
-  <div id="care-receiver-list">
+  <div id="care-receivers-list">
     <h2 class="page-ttl">担当被介護者一覧</h2>
     <table class="tbl box-shadow">
       <thead>
@@ -41,6 +41,7 @@
 
 <script>
 import { api } from '@/http-common';
+import { mapGetters } from 'vuex'
 export default {
   data: function () {
     return {
@@ -48,11 +49,14 @@ export default {
       checked_care_receiver_ids: []
     }
   },
+  computed: {
+    ...mapGetters([ 'getCareManagerAccessToken' ])
+  },
   methods: {
     async getCareReceivers() {
       try {
         api.defaults.headers.common['Authorization']
-          = 'Bearer ' + this.$store.getters.getCareManagerAccessToken;
+          = 'Bearer ' + this.getCareManagerAccessToken;
         const response = await api.get('/care-receivers');
 
         if (response.status === 200) {
@@ -95,7 +99,7 @@ export default {
     async deleteCareReceivers() {
       if (confirm("削除しますか？")) {
         api.defaults.headers.common['Authorization']
-          = 'Bearer ' + this.$store.getters.getCareManagerAccessToken;
+          = 'Bearer ' + this.getCareManagerAccessToken;
         const response = await api.post(
           '/care-receivers/batch-delete', this.checked_care_receiver_ids
         );
@@ -115,10 +119,10 @@ export default {
 
 <style scoped>
 #care-receiver-list {
-  width: 1000px;
+  margin: 0 auto;
 }
 .tbl {
-  width: 100%;
+  width: 90%;
   margin: 0 auto;
   border-radius: 6px;
 }

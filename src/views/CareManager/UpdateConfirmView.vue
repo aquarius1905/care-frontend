@@ -1,5 +1,5 @@
 <template>
-  <div class="care-manager-update-confirmation">
+  <div class="care-manager-update-confirm">
     <div class="form confirm-form box-shadow">
       <h2 class="form-ttl">ケアマネージャー更新内容確認</h2>
       <div class="confirm-content">
@@ -40,11 +40,15 @@
 
 <script>
 import { careManagerApi } from "@/http-common"
+import { mapGetters } from 'vuex'
 export default {
   data: function () {
     return {
       care_manager: null
     }
+  },
+  computed: {
+    ...mapGetters([ 'getCareManagerAccessToken' ])
   },
   methods: {
     back() {
@@ -69,7 +73,7 @@ export default {
     async updateCareManagerData() {
       try {
         careManagerApi.defaults.headers.common['Authorization']
-          = 'Bearer ' + this.$store.getters.getCareManagerAccessToken;
+          = 'Bearer ' + this.getCareManagerAccessToken;
         const response = await careManagerApi.put(
           `/care-managers/${this.care_manager.id}`, this.care_manager
         );

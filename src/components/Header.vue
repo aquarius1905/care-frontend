@@ -1,7 +1,7 @@
 <template>
   <div id="header">
     <h1 class="main-ttl ttl" @click="backtoHome">Care</h1>
-    <div class="logout-wrap" v-show="isLoggedIn">
+    <div class="logout-wrap" v-show="this.isCareManagerLoggedIn || this.isKeyPersonLoggedIn">
       <label class="name-lbl">{{ loggedInName }}</label>
       <button class="btn logout-btn" @click="logout">ログアウト</button>
     </div>
@@ -10,16 +10,22 @@
 
 <script>
 import { careManagerApi, keyPersonApi } from "@/http-common"
+import { mapGetters } from 'vuex'
 export default {
   computed: {
-    isLoggedIn: function () {
-      return this.$store.getters.isCareManagerLoggedIn || this.$store.getters.isKeyPersonLoggedIn;
-    },
+    ...mapGetters([
+      'isCareManagerLoggedIn',
+      'isKeyPersonLoggedIn',
+      'getCareManagerName',
+      'getKeyPersonName',
+      'getCareManagerAccessToken',
+      'getKeyPersonAccessToken'
+    ]),
     loggedInName: function () {
-      if (this.$store.getters.isCareManagerLoggedIn) {
-        return this.$store.getters.getCareManagerName + ' (ケアマネージャー)';
-      } else if (this.$store.getters.isKeyPersonLoggedIn) {
-        return this.$store.getters.getKeyPersonName + ' (キーパーソン)';
+      if (this.isCareManagerLoggedIn) {
+        return this.getCareManagerName + ' (ケアマネージャー)';
+      } else if (this.isKeyPersonLoggedIn) {
+        return this.getKeyPersonName + ' (キーパーソン)';
       }
       return '';
     }
@@ -33,7 +39,7 @@ export default {
     async logoutCareManager() {
       try {
         careManagerApi.defaults.headers.common['Authorization']
-          = 'Bearer ' + this.$store.getters.getCareManagerAccessToken;
+          = 'Bearer ' + this.getCareManagerAccessToken;
         const response = await careManagerApi.post('/logout');
           
         if (response.status === 200) {
@@ -48,7 +54,7 @@ export default {
     async logoutKeyPerson() {
       try {
         keyPersonApi.defaults.headers.common['Authorization']
-          = 'Bearer ' + this.$store.getters.getKeyPersonAccessToken;
+          = 'Bearer ' + this.getKeyPersonAccessToken;
         const response = await keyPersonApi.post('/logout');
 
         if (response.status === 200) {
@@ -62,9 +68,9 @@ export default {
     },
     logout() {
       if (confirm('ログアウトしますか？')) {
-        if (this.$store.getters.isCareManagerLoggedIn) {
+        if (this.isCareManagerLoggedIn) {
           this.logoutCareManager();
-        } else if (this.$store.getters.isKeyPersonLoggedIn) {
+        } else if (this.isKeyPersonLoggedIn) {
           this.logoutKeyPerson();
         }
       }

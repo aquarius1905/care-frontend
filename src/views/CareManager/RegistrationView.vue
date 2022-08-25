@@ -1,7 +1,7 @@
 <template>
   <div id="care-manager-registration">
+    <h2 class="page-ttl">ケアマネージャー 登録</h2>
     <div class="form box-shadow">
-      <h2 class="form-ttl">ケアマネージャー 登録</h2>
       <ValidationObserver v-slot="{ invalid }">
         <div class="form-content">
           <div class="form-item">
@@ -95,10 +95,10 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 export default {
   data() {
     return {
-      support_offices: null,
       care_manager: {
         last_name: null,
         first_name: null,
@@ -112,21 +112,22 @@ export default {
       },
     }
   },
+  computed: {
+    ...mapGetters({
+      support_offices: 'getSupportOffices'
+    })
+  },
   methods: {
     confirmRegistration() {
       this.$router.push({
-        name: 'CareManagerRegistrationConfirmation',
+        name: 'CareManagerRegistrationConfirm',
         query: { care_manager: this.care_manager }
       });
     },
-    async getSupportOffices() {
-      if (!this.$store.getters.hasSupportOffices) {
-        await this.$store.dispatch('fetchSupportOffices');
-      }
-      this.support_offices = this.$store.getters.getSupportOffices;
-    },
+    ...mapActions(['fetchSupportOffices']),
     async initialize() {
-      await this.getSupportOffices();
+      await this.fetchSupportOffices();
+      this.support_offices = this.getSupportOffices;
       if (this.$route.query.care_manager === null) {
         this.care_manager.home_care_support_office = this.support_offices[0];
       } else {
@@ -134,8 +135,8 @@ export default {
       }
     }
   },
-  created() {
-    this.initialize();
+  async created() {
+    await this.initialize();
   }
 }
 </script>

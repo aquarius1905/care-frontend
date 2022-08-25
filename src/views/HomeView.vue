@@ -18,20 +18,23 @@
 <script>
 export default {
   methods: {
-    async showCareManagerLoginPage() {
-      await this.$store.dispatch('setCareManagerFlg');
+    showCareManagerLoginPage() {
+      this.$store.dispatch('setCareManagerFlg');
       this.$router.push({
         name: 'CareManagerLogin'
       });
     },
-    async showKeyPersonLoginPage() {
-      await this.$store.dispatch('setKeyPersonFlg');
+    showKeyPersonLoginPage() {
+      this.$store.dispatch('setKeyPersonFlg');
       this.$router.push({
         name: 'KeyPersonLogin'
       });
     },
-    async showHomeCareServiceProviderLoginPage() {
-      await this.$store.dispatch('setHomeCareServiceProviderFlg');
+    showHomeCareServiceProviderLoginPage() {
+      this.$store.dispatch('setHomeCareServiceProviderFlg');
+      this.$router.push({
+        name: 'HomeCareServiceProviderLogin'
+      });
     }
   }
 }
@@ -45,7 +48,7 @@ export default {
 }
 .home-btn-box {
   width: 400px;
-  margin: 0 auto;
+  margin: 50px auto 0;
   padding: 40px;
   background-color: #fff;
   border-radius: 6px;

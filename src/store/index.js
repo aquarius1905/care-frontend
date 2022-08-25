@@ -5,6 +5,8 @@ import CareLevels from "./modules/care_level"
 import CareManager from "./modules/care_manager"
 import CareReceiver from "./modules/care_receiver"
 import Common from "./modules/common"
+import HomeCareServiceProvider from "./modules/home_care_service_provider"
+import HomeCareService from "./modules/home_care_service"
 import KeyPerson from "./modules/key_person"
 
 Vue.use(Vuex)
@@ -15,6 +17,8 @@ export default new Vuex.Store({
     CareManager,
     CareReceiver,
     Common,
+    HomeCareServiceProvider,
+    HomeCareService,
     KeyPerson
   },
   plugins: [CreatePersistedState(

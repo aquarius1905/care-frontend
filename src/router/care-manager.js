@@ -1,9 +1,9 @@
 import CareManagerLoginView from '../views/CareManager/LoginView.vue'
 import CareManagerRegistrationView from '../views/CareManager/RegistrationView.vue'
 import CareManagerRegistrationCompletionView from '../views/CareManager/RegistrationCompletionView.vue'
-import CareManagerRegistrationConfirmationView from '../views/CareManager/RegistrationConfirmationView.vue'
+import CareManagerRegistrationConfirmationView from '../views/CareManager/RegistrationConfirmView.vue'
 import CareManagerUpdateView from '../views/CareManager/UpdateView.vue'
-import CareManagerUpdateConfirmationView from '../views/CareManager/UpdateConfirmationView.vue'
+import CareManagerUpdateConfirmationView from '../views/CareManager/UpdateConfirmView.vue'
 import CareManagerUpdateCompletionView from '../views/CareManager/UpdateCompletionView.vue'
 import CareManagerVisitDateTimeView from '../views/CareManager/VisitDateTimeView.vue'
 

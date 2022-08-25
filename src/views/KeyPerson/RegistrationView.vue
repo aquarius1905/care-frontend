@@ -1,7 +1,7 @@
 <template>
   <div>
+    <h2 class="main-ttl">キーパーソン 登録</h2>
     <div class="form box-shadow">
-      <h2 class="form-ttl">キーパーソン 登録</h2>
       <validation-observer v-slot="{ invalid }">
         <div class="form-content">
           <div class="form-item">
@@ -106,7 +106,7 @@ export default {
   methods: {
     confirmRegistration() {
       this.$router.push({
-        name: 'CareReceiverRegistrationConfirmation',
+        name: 'CareReceiverRegistrationConfirm',
         query: { care_receiver: this.care_receiver, key_person: this.key_person }
       });
     },

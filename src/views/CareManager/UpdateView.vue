@@ -1,7 +1,7 @@
 <template>
   <div id="care-manager-registration">
+    <h2 class="page-ttl">登録情報確認・更新</h2>
     <div class="form box-shadow">
-      <h2 class="form-ttl">ケアマネージャー登録情報確認・更新</h2>
       <ValidationObserver v-slot="{ invalid }">
         <div class="form-content">
           <div class="form-item">
@@ -88,33 +88,35 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
-  data() {
-    return {
-      support_offices: null,
-      care_manager: null,
-    }
+  computed: {
+    ...mapGetters([
+      'hasSupportOffices',
+      'hasCareManager'
+    ]),
+    ...mapGetters({
+      support_offices: 'getSupportOffices',
+      care_manager: 'getCareManager'
+    })
   },
   methods: {
     confirmUpdate() {
       this.$router.push({
-        name: 'CareManagerUpdateConfirmation',
+        name: 'CareManagerUpdateConfirm',
         query: { care_manager: this.care_manager }
       });
     },
     async getSupportOffices() {
-      if (!this.$store.getters.hasSupportOffices) {
+      if (!this.hasSupportOffices) {
         await this.$store.dispatch('fetchSupportOffices');
       }
-      
-      this.support_offices = this.$store.getters.getSupportOffices;
     },
     async getCareManagerInfo() {
-      if (!this.$store.getters.hasCareManager) {
+      if (!this.hasCareManager) {
         await this.$store.dispatch("fetchCareManagerInfo");
       }
 
-      this.care_manager = this.$store.getters.getCareManager;
       this.splitName();
     },
     splitName() {

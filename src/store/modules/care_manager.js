@@ -1,4 +1,4 @@
-import axios from 'axios'
+import { api, careManagerApi } from '@/http-common'
 
 const state = {
   supportOffices: null,
@@ -10,7 +10,7 @@ const getters = {
   getSupportOffices(state) {
     return state.supportOffices;
   },
-  hasSupportOffices() {
+  hasSupportOffices(state) {
     return state.supportOffices !== null;
   },
   getCareManagerAccessToken(state) {
@@ -54,14 +54,14 @@ const mutations = {
 };
 const actions = {
   async fetchSupportOffices(context) {
-    const { data } = await axios
-      .get(`${process.env.VUE_APP_API_ORIGIN}/home-care-support-offices`);
-    
-    context.commit('setSupportOffices', data.data);
+    if (context.state.supportOffices === null) {
+      const { data } = await api.get('/home-care-support-offices');
+      context.commit('setSupportOffices', data.data);
+    }
   },
   async fetchCareManagerInfo(context) {
-    const { data } = await axios
-      .get(`${process.env.VUE_APP_API_ORIGIN}/care-managers/me`,
+    const { data } = await careManagerApi
+      .get('/me',
         {
           headers: {
             Authorization: `Bearer ${context.getters.getCareManagerAccessToken}`,

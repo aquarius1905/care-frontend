@@ -1,8 +1,8 @@
 <template>
   <div id="sidebar">
-    <nav class="nav" v-show="this.$store.getters.isCareManager">
+    <nav class="nav" v-show="this.isCareManager">
       <div>
-        <ul class="menu-content" v-if="this.$store.getters.isCareManagerLoggedIn">
+        <ul class="menu-content" v-if="this.isCareManagerLoggedIn">
           <li>
             <router-link class="link" to="/care-receiver/list">被介護者一覧</router-link>
           </li>
@@ -15,7 +15,9 @@
         </ul>
         <ul class="menu-content" v-else>
           <li>
-            <button class="btn-link" @click="showCareManagerRegistrationPage">登録</button>
+            <button class="btn-link" @click="showCareManagerRegistrationPage">
+            新規登録
+            </button>
           </li>
           <li>
             <router-link class="link" to="/care-manager/login">ログイン</router-link>
@@ -23,16 +25,37 @@
         </ul>
       </div>
     </nav>
-    <nav class="nav" v-show="this.$store.getters.isKeyPerson">
+    <nav class="nav" 
+      v-show="this.isKeyPerson && this.isKeyPersonLoggedIn">
       <div>
-        <ul class="menu-content" v-if="this.$store.getters.isKeyPersonLoggedIn">
+        <ul class="menu-content">
           <li>
             <router-link class="link" to="/key-person/dashboard">ダッシュボード</router-link>
           </li>
         </ul>
+      </div>
+    </nav>
+    <nav class="nav" v-show="this.isHomeCareServiceProvider">
+      <div>
+        <ul class="menu-content" v-if="this.isHomeCareServiceProviderLoggedIn">
+          <li>
+            <router-link class="link" to="/care-receiver/list">利用者一覧</router-link>
+          </li>
+          <li>
+            <button class="btn-link" @click="showCareReceiverRegistrationPage">利用者登録</button>
+          </li>
+          <li>
+            <button class="btn-link" @click="showCareManagerUpdatePage">登録情報確認・変更</button>
+          </li>
+        </ul>
         <ul class="menu-content" v-else>
           <li>
-            <router-link class="link" to="/key-person/login">ログイン</router-link>
+            <button class="btn-link" @click="showHomeCareServiceProviderRegistrationPage">
+            新規登録
+            </button>
+          </li>
+          <li>
+            <router-link class="link" to="/home-care-service-provider/login">ログイン</router-link>
           </li>
         </ul>
       </div>
@@ -41,7 +64,18 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
+  computed: {
+    ...mapGetters([
+      'isCareManager',
+      'isKeyPerson',
+      'isHomeCareServiceProvider',
+      'isCareManagerLoggedIn',
+      'isKeyPersonLoggedIn',
+      'isHomeCareServiceProviderLoggedIn'
+    ])
+  },
   methods: {
     showCareManagerRegistrationPage() {
       this.$router.push({
@@ -61,14 +95,11 @@ export default {
         query: { care_receiver: null }
       });
     },
-    showVisitDateTimeView(care_receiver) {
-      const registered_flg = care_receiver.visit_datetime !== null;
+    showHomeCareServiceProviderRegistrationPage() {
       this.$router.push({
-        name: 'CareManagerVisitDateTime',
-        query: { care_receiver: care_receiver, registered_flg: registered_flg }
+        name: 'HomeCareServiceProviderRegistration',
+        query: { home_care_service_provider: null }
       });
-    },
-    displayCareReceiverRegistrationPage() {
     },
   },
 }

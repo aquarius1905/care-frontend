@@ -1,5 +1,5 @@
 <template>
-  <div class="care-manager-registration-confirmation">
+  <div class="care-manager-registration-confirm">
     <div class="form box-shadow">
       <h2 class="form-ttl">被介護者・キーパーソン 更新確認</h2>
       <div class="confirm-content">
@@ -77,12 +77,19 @@
 
 <script>
 import axios from "axios";
+import { mapGetters } from 'vuex'
 export default {
   data: function () {
     return {
       care_receiver: null,
       key_person: null,
     }
+  },
+  computed: {
+    ...mapGetters([
+      'getKeyPersonAccessToken',
+      'getCareManagerAccessToken'
+    ])
   },
   methods: {
     back() {
@@ -138,7 +145,7 @@ export default {
       const key_person = this.makeKeyPersonData();
 
       keyPersonApi.defaults.headers.common['Authorization']
-        = 'Bearer ' + this.$store.getters.getKeyPersonAccessToken;
+        = 'Bearer ' + this.getKeyPersonAccessToken;
       const response = await keyPersonApi.put(
         `/${this.key_person.id}`, key_person
       );
@@ -155,7 +162,7 @@ export default {
           care_receiver,
           {
             headers: {
-              Authorization: `Bearer ${this.$store.getters.getCareManagerAccessToken}`,
+              Authorization: `Bearer ${this.getCareManagerAccessToken}`,
             }
           })
         .then(response => {

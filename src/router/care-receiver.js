@@ -1,10 +1,11 @@
 import CareReceiverRegistrationView from '../views/CareReceiver/RegistrationView.vue'
-import CareReceiverRegistrationConfirmationView from '../views/CareReceiver/RegistrationConfirmationView.vue'
+import CareReceiverRegistrationConfirmationView from '../views/CareReceiver/RegistrationConfirmView.vue'
 import CareReceiverRegistrationCompletionView from '../views/CareReceiver/RegistrationCompletionView.vue'
 import CareReceiverUpdateView from '../views/CareReceiver/UpdateView.vue'
-import CareReceiverUpdateConfirmationView from '../views/CareReceiver/UpdateConfirmationView.vue'
+import CareReceiverUpdateConfirmationView from '../views/CareReceiver/UpdateConfirmView.vue'
 import CareReceiverListView from '../views/CareReceiver/ListView.vue'
 import CareReceiverDetailView from '../views/CareReceiver/DetailView.vue'
+import CareReceiverWeeklyServiceScheduleView from '../views/CareReceiver/WeeklyServiceScheduleView.vue'
 
 export default {
   routes: [
@@ -48,6 +49,12 @@ export default {
       path: '/care-receiver/detail',
       name: 'CareReceiverDetail',
       component: CareReceiverDetailView,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/care-receiver/weekly-service-schedule',
+      name: 'CareReceiverWeeklyServiceSchedule',
+      component: CareReceiverWeeklyServiceScheduleView,
       meta: { requiresAuth: true },
     },
   ]
