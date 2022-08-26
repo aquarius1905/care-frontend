@@ -68,14 +68,17 @@ export default {
         try {
           careManagerApi.defaults.headers.common['Authorization']
             = 'Bearer ' + this.getCareManagerAccessToken;
-          const { data } = await careManagerApi.post(
+          const response = await careManagerApi.post(
             '', this.care_manager
           );
 
-          this.$router.push({
-            name: 'CareManagerRegistrationCompletion'
-          });
+          if (response.status === 201) {
+            this.$router.push({
+              name: 'CareManagerRegistrationCompletion'
+            });
+          }
         } catch (error) {
+          alert('登録に失敗しました');
           console.log(error);
         }
       }

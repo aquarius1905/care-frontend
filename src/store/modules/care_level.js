@@ -23,6 +23,7 @@ const mutations = {
 };
 const actions = {
   async fetchCareLevels(context) {
+    console.log("fetchCareLevels");
     const { data } = await api.get('/care-levels');
     context.commit('setCareLevels', data.data);
   }

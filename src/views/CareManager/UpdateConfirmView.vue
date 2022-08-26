@@ -85,6 +85,7 @@ export default {
           });
       }
       } catch (error) {
+        alert("更新に失敗しました");
         console.log(error);
       }
 

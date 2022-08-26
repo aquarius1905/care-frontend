@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
+import axios from './plugins'
 import router from './router'
 import store from './store'
 import dayjs from 'dayjs'
@@ -77,5 +78,6 @@ Vue.prototype.$dayjs = dayjs;
 new Vue({
   router,
   store,
+  axios,
   render: h => h(App)
 }).$mount('#app')

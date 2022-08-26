@@ -10,7 +10,7 @@
 
 <script>
 import { careManagerApi, keyPersonApi } from "@/http-common"
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   computed: {
     ...mapGetters([
@@ -31,6 +31,10 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'resetCareManagerData',
+      'resetKeyPersonData'
+    ]),
     backtoHome() {
       this.$router.push({
         name: 'Home'
@@ -43,7 +47,7 @@ export default {
         const response = await careManagerApi.post('/logout');
           
         if (response.status === 200) {
-          this.$store.dispatch('logoutCareManager');
+          this.resetCareManagerData();
           this.$router.push({ name: 'CareManagerLogin' });
         }
       } catch (error) {
@@ -58,7 +62,7 @@ export default {
         const response = await keyPersonApi.post('/logout');
 
         if (response.status === 200) {
-          await this.$store.dispatch('logoutKeyPerson');
+          this.resetKeyPersonData();
           this.$router.push({ name: 'KeyPersonLogin' });
         }
       } catch (error) {
@@ -66,12 +70,12 @@ export default {
         alert("ログアウトに失敗しました");
       }
     },
-    logout() {
+    async logout() {
       if (confirm('ログアウトしますか？')) {
         if (this.isCareManagerLoggedIn) {
-          this.logoutCareManager();
+          await this.logoutCareManager();
         } else if (this.isKeyPersonLoggedIn) {
-          this.logoutKeyPerson();
+          await this.logoutKeyPerson();
         }
       }
     }

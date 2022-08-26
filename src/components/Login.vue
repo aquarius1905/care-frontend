@@ -37,7 +37,7 @@
 
 <script>
 import { careManagerApi, keyPersonApi } from "@/http-common";
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   props: {
     formTitle: {
@@ -61,6 +61,10 @@ export default {
     ])
   },
   methods: {
+    ...mapActions([
+      'setLoggedInCareManagerData',
+      'setLoggedInKeyPersonData'
+    ]),
     async login() {
         if (this.isCareManager) {
           await this.loginCareManager();
@@ -81,7 +85,7 @@ export default {
             access_token: response.data.access_token,
             care_manager: response.data.care_manager
           };
-          this.$store.dispatch('loginCareManager', login_data);
+          this.setLoggedInCareManagerData(login_data);
           this.$router.push({ name: 'CareReceiverList' });
         }
       } catch (error) {
@@ -93,9 +97,13 @@ export default {
         const response = await keyPersonApi.post(
           '/login', this.login_data
         );
-
+        const login_data = {
+          access_token: response.data.access_token,
+          key_person: response.data.key_person
+        };
+          
         if (response.status === 200) {
-          this.$store.dispatch('loginKeyPerson', response.data.access_token);
+          this.setLoggedInKeyPersonData(login_data);
           this.$router.push({ name: 'KeyPersonDashboard' });
         }
       } catch (error) {

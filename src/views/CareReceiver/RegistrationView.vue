@@ -99,8 +99,8 @@
           <div class="form-item">
             <fieldset class="fieldset">
               <legend class="form-item-lbl legend-lbl">介護度</legend>
-              <div class="care_level_wrap">
-                <ul class="care_level_lst">
+              <div class="care-level-wrap">
+                <ul class="care-level-lst">
                   <li v-for="needed_support_level in needed_support_levels" :key="needed_support_level.id">
                     <input type="radio" name="care_level" :id="needed_support_level.name" :value="needed_support_level"
                       v-model="care_receiver.care_level">
@@ -109,8 +109,8 @@
                   </li>
                 </ul>
               </div>
-              <div class="care_level_wrap">
-                <ul class="care_level_lst">
+              <div class="care-level-wrap">
+                <ul class="care-level-lst">
                   <li v-for="needed_care_level in needed_care_levels" :key="needed_care_level.id">
                     <input type="radio" name="care_level" :id="needed_care_level.name" :value="needed_care_level"
                       v-model="care_receiver.care_level">
@@ -130,12 +130,13 @@
 </template>
 
 <script>
-import axios from "axios";
-import { mapGetters } from 'vuex'
-const jsonpAdapter = require('axios-jsonp')
+import plugin from '@/plugins'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   data() {
     return {
+      needed_support_levels: null,
+      needed_care_levels: null,
       care_receiver: {
         last_name: null,
         first_name: null,
@@ -156,18 +157,16 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'hasCareLevels'
+      'hasCareLevels',
+      'getNeededSupportLevels',
+      'getNeededCareLevels'
     ]),
-    ...mapGetters({
-      needed_support_levels: 'getNeededSupportLevels',
-      needed_care_levels: 'getNeededCareLevels',
-    })
   },
   methods: {
+    ...mapActions([ 'fetchCareLevels' ]),
     async fetchAddress() {
-      const { data } = await axios
-        .get(`https://api.zipaddress.net/?zipcode=${this.care_receiver.post_code}`, { adapter: jsonpAdapter });
-      this.care_receiver.address = data.fullAddress;
+      this.care_receiver.address = await
+        plugin.fetchAddress(this.care_receiver.post_code);
     },
     next() {
       this.$router.push({
@@ -177,8 +176,11 @@ export default {
     },
     async getCareLevels() {
       if (!this.hasCareLevels) {
-        await this.$store.dispatch("fetchCareLevels");
+        await this.fetchCareLevels();
       }
+
+      this.needed_support_levels = this.getNeededSupportLevels;
+      this.needed_care_levels = this.getNeededCareLevels;
 
       if (this.care_receiver.care_level.id === 0) {
         this.care_receiver.care_level.id = this.needed_support_levels[0].id;
@@ -195,21 +197,11 @@ export default {
 }
 </script>
 <style scoped>
-.care_level_wrap {
-  margin-bottom: 20px
-}
-.care_level_lst {
-  list-style: none;
-  display: flex;
-}
 .gender-lbl {
   display: inline-block;
   margin-right: 20px;
 }
-.care-level-lbl {
-  display: inline-block;
-  margin-right: 10px;
-}
+
 .keyperson-fieldset {
   padding: 20px;
 }

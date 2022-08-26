@@ -42,14 +42,15 @@ const mutations = {
   setCareManager(state, payload) {
     state.careManager = payload;
   },
-  login(state, payload) {
+  setLoggedInCareManagerData(state, payload) {
     state.careManagerAccessToken = payload.access_token;
     state.careManager = payload.care_manager;
   },
-  logout(state) {
+  resetCareManagerData(state) {
     state.careManagerAccessToken = null;
     state.careManager = null;
     state.supportOffices = null;
+    console.log("resetCareManagerData");
   },
 };
 const actions = {
@@ -71,11 +72,11 @@ const actions = {
       context.commit('setCareManager', data.care_manager);
     }
   },
-  loginCareManager(context, payload) {
-    context.commit('login', payload);
+  setLoggedInCareManagerData(context, payload) {
+    context.commit('setLoggedInCareManagerData', payload);
   },
-  logoutCareManager(context) {
-    context.commit('logout');
+  resetCareManagerData(context) {
+    context.commit('resetCareManagerData');
   },
   setCareManager(context, payload) {
     context.commit('setCareManager', payload);

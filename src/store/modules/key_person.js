@@ -11,22 +11,26 @@ const getters = {
   },
   getKeyPersonName(state) {
     return state.keyPerson.name;
+  },
+  getCareReceiversWithKeyPerson(state) {
+    return state.keyPerson.care_receivers;
   }
 };
 const mutations = {
-  login(state, payload) {
-    state.keyPersonAccessToken = payload;
+  setLoggedInKeyPersonData(state, payload) {
+    state.keyPersonAccessToken = payload.access_token;
+    state.keyPerson = payload.key_person;
   },
-  logout(state) {
+  resetKeyPersonData(state) {
     state.keyPersonAccessToken = null;
   },
 };
 const actions = {
-  loginKeyPerson(context, payload) {
-    context.commit('login', payload);
+  setLoggedInKeyPersonData(context, payload) {
+    context.commit('setLoggedInKeyPersonData', payload);
   },
-  logoutKeyPerson(context) {
-    context.commit('logout');
+  resetKeyPersonData(context) {
+    context.commit('resetKeyPersonData');
   }
 };
 

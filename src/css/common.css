@@ -258,3 +258,18 @@ body {
 .detail-menu {
   margin: 20px 0 0 50px;
 }
+
+/* 介護度 */
+.care-level-wrap {
+  margin-bottom: 20px
+}
+
+.care-level-lst {
+  list-style: none;
+  display: flex;
+}
+
+.care-level-lbl {
+  display: inline-block;
+  margin-right: 10px;
+}

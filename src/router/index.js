@@ -9,19 +9,12 @@ import HomeCareServiceProviderRoutes from './home-care-service-provider.js'
 Vue.use(VueRouter)
 
 import HomeView from '../views/HomeView.vue'
-import CareGivingOfficeLoginView from '../views/CareGivingOfficeLoginView.vue'
 
 const routes = [
   {
     path: '/',
     name: 'Home',
     component: HomeView,
-    meta: { requiresAuth: false },
-  },
-  {
-    path: '/care-giving-office/login',
-    name: 'CareGivingOfficeLogin',
-    component: CareGivingOfficeLoginView,
     meta: { requiresAuth: false },
   },
   ...CareManagerRoutes.routes,
