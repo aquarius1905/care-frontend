@@ -1,7 +1,7 @@
 import { api } from '@/http-common'
 
 const state = {
-  homeCareServices: {},
+  homeCareServices: null,
 };
 const getters = {
   getHomeCareServices(state) {
@@ -15,12 +15,12 @@ const mutations = {
   setHomeCareServices(state, payload) {
     state.homeCareServices = null;
     state.homeCareServices = payload;
-    console.log(typeof(state.homeCareServices));
   },
 };
 const actions = {
   async fetchHomeCareServices(context) {
     const { data } = await api.get('/home-care-services');
+    console.log(data);
     context.commit('setHomeCareServices', data.data);
   },
 };

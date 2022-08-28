@@ -72,7 +72,7 @@ body {
   color: #333;
 }
 
-.form-item-label-required {
+.required-label {
   border-radius: 6px;
   margin-left: 8px;
   padding: 8px 0;
@@ -167,13 +167,15 @@ body {
 .input,
 .name-input,
 .select {
+  display: inline-block;
   border: 1px solid #ddd;
   background-color: #eee;
   border-radius: 6px;
   padding: 0 10px;
   font-size: 18px;
-  height: 48px;
-  width: 96%;
+  height: 45px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .name-input {
@@ -269,7 +271,7 @@ body {
   display: flex;
 }
 
-.care-level-lbl {
+.radio-btn-lbl{
   display: inline-block;
   margin-right: 10px;
 }

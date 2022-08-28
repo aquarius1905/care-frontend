@@ -8,7 +8,7 @@
             <validation-provider v-slot="{ errors }" rules="required|max:255">
               <label for="office_name" class="form-item-lbl">
                 事業所名
-                <span class="form-item-label-required">必須</span>
+                <span class="required-label">必須</span>
               </label>
               <input type="text" id="office_name" class="input" 
               v-model="home_care_service_provider.office_name" name="事業所名"
@@ -20,7 +20,7 @@
             <validation-provider v-slot="{ errors }" rules="required|max:255">
               <label for="corporate_name" class="form-item-lbl">
                 法人名
-                <span class="form-item-label-required">必須</span>
+                <span class="required-label">必須</span>
               </label>
               <input type="text" id="corporate_name" class="input"
                 v-model="home_care_service_provider.corporate_name"
@@ -32,7 +32,7 @@
             <validation-provider v-slot="{ errors }" rules="required|numeric|length:10">
               <label class="form-item-lbl" for="office_number">
                 事業所番号
-                <span class="form-item-label-required">必須</span>
+                <span class="required-label">必須</span>
               </label>
               <input type="text" id="office_number" class="input" v-model="home_care_service_provider.office_number"
                 placeholder="1370300000" required>
@@ -43,7 +43,7 @@
             <validation-provider v-slot="{ errors }" rules="required|numeric|length:7">
               <label class="form-item-lbl" for="post_code">
                 郵便番号
-                <span class="form-item-label-required">必須</span>
+                <span class="required-label">必須</span>
               </label>
               <div class="flex">
                 <input type="text" id="post_code" class="input" v-model="home_care_service_provider.post_code" placeholder="1050004"
@@ -56,7 +56,7 @@
             <validation-provider v-slot="{ errors }" rules="required|max:255">
               <label class="form-item-lbl" for="address">
                 住所
-                <span class="form-item-label-required">必須</span>
+                <span class="required-label">必須</span>
               </label>
               <input type="text" id="address" class="input" v-model="home_care_service_provider.address" placeholder="東京都港区新橋3-4-5"
                 required>
@@ -67,7 +67,7 @@
             <validation-provider v-slot="{ errors }" rules="required|numeric|min:10|max:11">
               <label class="form-item-lbl" for="tel">
                 電話番号
-                <span class="form-item-label-required">必須</span>
+                <span class="required-label">必須</span>
               </label>
               <input type="text" id="tel" class="input" v-model="home_care_service_provider.tel" placeholder="0312345678" required>
               <div class="error">{{ errors[0] }}</div>
@@ -85,7 +85,7 @@
             <validation-provider v-slot="{ errors }" rules="required|email">
               <label class="form-item-lbl" for="email">
                 メールアドレス
-                <span class="form-item-label-required">必須</span>
+                <span class="required-label">必須</span>
               </label>
               <input type="email" id="email" class="input" 
               v-model="home_care_service_provider.email"
@@ -97,7 +97,7 @@
               <validation-provider v-slot="{ errors }" rules="required|password_rule">
                 <label class="form-item-lbl" for="password">
                   パスワード
-                  <span class="form-item-label-required">必須</span>
+                  <span class="required-label">必須</span>
                 </label>
                 <input type="password" id="password" class="input" 
                 v-model="home_care_service_provider.password" required>

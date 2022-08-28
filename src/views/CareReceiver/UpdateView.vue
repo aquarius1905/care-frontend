@@ -94,7 +94,7 @@
                   <li v-for="needed_support_level in needed_support_levels" :key="needed_support_level.id">
                     <input type="radio" name="care_level" :id="needed_support_level.name" :value="needed_support_level"
                       v-model="care_receiver.care_level">
-                    <label class="care-level-lbl" :for="needed_support_level.name">{{ needed_support_level.name
+                    <label class="radio-btn-lbl" :for="needed_support_level.name">{{ needed_support_level.name
                     }}</label>
                   </li>
                 </ul>
@@ -104,7 +104,7 @@
                   <li v-for="needed_care_level in needed_care_levels" :key="needed_care_level.id">
                     <input type="radio" name="care_level" :id="needed_care_level.name" :value="needed_care_level"
                       v-model="care_receiver.care_level">
-                    <label class="care-level-lbl" :for="needed_care_level.name">{{ needed_care_level.name }}</label>
+                    <label class="radio-btn-lbl" :for="needed_care_level.name">{{ needed_care_level.name }}</label>
                   </li>
                 </ul>
               </div>
