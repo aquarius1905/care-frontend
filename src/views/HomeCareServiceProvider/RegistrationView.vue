@@ -29,6 +29,22 @@
             </validation-provider>
           </div>
           <div class="form-item">
+            <validation-provider v-slot="{ errors }" rules="required">
+              <label class="form-item-lbl" for="service_type">
+                サービス種別
+                <span class="form-item-label-required">必須</span>
+              </label>
+              <select id="service_type" class="select"
+              v-model="home_care_service_provider.service_type">
+                <option v-for="service_type in home_care_services" 
+                :key="service_type.id" :value="service_type">
+                  {{ service_type.name }}
+                </option>
+              </select>
+              <div class="error">{{ errors[0] }}</div>
+            </validation-provider>
+          </div>
+          <div class="form-item">
             <validation-provider v-slot="{ errors }" rules="required|numeric|length:10">
               <label class="form-item-lbl" for="office_number">
                 事業所番号
@@ -114,18 +130,22 @@
 </template>
 
 <script>
-import axios from "axios";
-const jsonpAdapter = require('axios-jsonp')
-import { mapGetters } from 'vuex'
+import plugin from '@/plugins'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   computed: {
-    ...mapGetters['hasHomeCareServices']
+    ...mapGetters([
+    'hasHomeCareServices',
+    'getHomeCareServices'
+    ])
   },
   data() {
-    return {
+  return {
+      home_care_services: null,
       home_care_service_provider: {
         office_name: null,
         corporate_name: null,
+        service_type: null,
         office_number: null,
         post_code: null,
         address: null,
@@ -137,10 +157,10 @@ export default {
     }
   },
   methods: {
+    ...mapActions([ 'fetchHomeCareServices' ]),
     async fetchAddress() {
-      const { data } = await axios
-        .get(`https://api.zipaddress.net/?zipcode=${this.care_receiver.post_code}`, { adapter: jsonpAdapter });
-      this.home_care_service_provider.address = data.fullAddress;
+      this.home_care_service_provider.address
+        = plugin.fetchAddress(this.care_receiver.post_code);
     },
     confirmRegistration() {
       this.$router.push({
@@ -150,17 +170,23 @@ export default {
         }
       });
     },
-    setHomeCareServiceProvider() {
-      if (this.$route.query.home_care_service_provider !== null) {
-        this.home_care_service_provider = this.$route.query.home_care_service_provider
+    async initialize() {
+      if (!this.hasHomeCareServices) {
+        await this.fetchHomeCareServices();
+      }
+      this.home_care_services = this.getHomeCareServices;
+
+      if (this.$route.query.home_care_service_provider === null) {
+        this.home_care_service_provider.service_type
+          = this.home_care_services[0];
+      } else {
+        this.home_care_service_provider
+          = this.$route.query.home_care_service_provider
       }
     }
   },
-  created() {
-    this.setHomeCareServiceProvider();
-    if (!this.hasHomeCareServices) {
-      this.$store.dispatch("setHomeCareServices");
-    }
+  async created() {
+    await this.initialize();
   }
 }
 </script>

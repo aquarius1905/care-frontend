@@ -50,7 +50,6 @@ const mutations = {
     state.careManagerAccessToken = null;
     state.careManager = null;
     state.supportOffices = null;
-    console.log("resetCareManagerData");
   },
 };
 const actions = {

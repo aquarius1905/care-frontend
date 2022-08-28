@@ -6,23 +6,23 @@
         <div class="login-form-content">
           <div class="form-item">
             <label class="form-item-lbl" for="email">メールアドレス</label>
-            <ValidationProvider v-slot="{ errors }" rules="required|email">
+            <validation-provider v-slot="{ errors }" rules="required|email">
               <div class="form-item-input">
                 <input type="email" id="email" class="input" v-model="login_data.email" placeholder="test@sample.com"
                   required>
               </div>
               <div class="error">{{ errors[0] }}</div>
-            </ValidationProvider>
+            </validation-provider>
           </div>
           <div class="form-item">
             <label class="form-item-lbl" for="password">パスワード</label>
-            <ValidationProvider v-slot="{ errors }" rules="required">
+            <validation-provider v-slot="{ errors }" rules="required">
               <div class="form-item-input">
                 <input type="password" id="password" class="input" v-model="login_data.password" required>
               </div>
               <div class="error">{{ errors[0] }}</div>
               <div class="error">{{ login_error }}</div>
-            </ValidationProvider>
+            </validation-provider>
           </div>
         </div>
         <div class="form-btn-wrap">

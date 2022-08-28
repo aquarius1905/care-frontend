@@ -160,12 +160,12 @@
                 </validation-provider>
               </div>
               <div class="form-item">
-                <ValidationProvider v-slot="{ errors }" rules="required|email">
+                <validation-provider v-slot="{ errors }" rules="required|email">
                   <label class="form-item-lbl" for="email">メールアドレス</label>
                   <input type="email" id="email" class="input" v-model="key_person.email"
                     placeholder="taro_yamada@sample.com" required>
                   <div class="error">{{ errors[0] }}</div>
-                </ValidationProvider>
+                </validation-provider>
               </div>
               <div class="form-item">
                 <validation-provider v-slot="{ errors }" rules="required|numeric|min:10|max:11">

@@ -13,7 +13,7 @@ import CareReceiverDetail from "@/components/CareReceiverDetail";
 export default {
   components: { CareReceiverDetail },
   computed: {
-    ...mapGetters({
+    ...mapGetters({ 
       care_receivers: 'getCareReceiversWithKeyPerson',
     })
   },
