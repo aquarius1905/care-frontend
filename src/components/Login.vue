@@ -24,6 +24,7 @@
               <div class="error">{{ login_error }}</div>
             </validation-provider>
           </div>
+          <router-link :to="`${forgotPasswordLink}`">パスワードを忘れた方はこちら</router-link>
         </div>
         <div class="form-btn-wrap">
           <button class="btn login-btn" 
@@ -41,6 +42,9 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   props: {
     formTitle: {
+      type: String
+    },
+    forgotPasswordLink: {
       type: String
     }
   },

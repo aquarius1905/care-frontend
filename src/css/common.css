@@ -213,18 +213,21 @@ body {
   height: 70px;
 }
 
-.login-form-content {
-  padding: 30px 20px 20px;
-}
-
-.login-form {
+.login-form,
+.forgot-password-form {
   background-color: #fff;
   width: 400px;
   margin: 50px auto 0;
   border-radius: 6px;
 }
 
-.login-btn {
+.login-form-content,
+.forgot-password-form-content {
+  padding: 30px 20px 20px;
+}
+
+.login-btn,
+.send-mail-btn {
   width: 120px;
 }
 
