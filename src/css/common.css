@@ -182,13 +182,9 @@ body {
   width: 85%;
 }
 
-.select {
-  width: 100%;
-}
-
 .fieldset {
   border: 1px solid #555;
-  padding: 20px 10px 0;
+  padding: 20px 10px 0; 
   width: 100%;
   box-sizing: border-box;
   margin-bottom: 20px;

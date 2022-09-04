@@ -28,8 +28,12 @@
           <td>{{ care_receiver.gender === 1 ? "男" : "女" }}</td>
           <td>{{ $dayjs(care_receiver.birthday).format('YYYY/MM/DD') }}</td>
           <td>{{ care_receiver.care_level.name }}</td>
-          <td><button class="btn list-btn" @click="showDetailView(care_receiver)">詳細</button></td>
-          <td><button class="btn list-btn" @click="updateCareReceiver(care_receiver)">更新</button></td>
+          <td>
+            <button class="btn list-btn" @click="showDetailView(care_receiver)">詳細</button>
+          </td>
+          <td>
+            <button class="btn list-btn" @click="updateCareReceiver(care_receiver)">更新</button>
+          </td>
         </tr>
       </tbody>
     </table>

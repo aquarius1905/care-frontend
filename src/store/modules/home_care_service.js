@@ -7,8 +7,8 @@ const getters = {
   getHomeCareServices(state) {
     return state.homeCareServices;
   },
-  hasHomeCareServices(state) {
-    return state.homeCareServices !== null;
+  emptyHomeCareServices(state) {
+    return state.homeCareServices === null;
   }
 };
 const mutations = {
@@ -20,7 +20,6 @@ const mutations = {
 const actions = {
   async fetchHomeCareServices(context) {
     const { data } = await api.get('/home-care-services');
-    console.log(data);
     context.commit('setHomeCareServices', data.data);
   },
 };
