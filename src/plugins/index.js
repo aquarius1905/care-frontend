@@ -7,7 +7,8 @@ export default {
       .get(
         `https://api.zipaddress.net/?zipcode=${post_code}`,
         { adapter: jsonpAdapter }
-      );
+    );
+    console.log(data.fullAddress);
     return data.fullAddress;
   }
 }

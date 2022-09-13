@@ -61,7 +61,7 @@ export default {
     ...mapGetters([
       'isCareManager',
       'isKeyPerson',
-      'isHomeCareServiceProvider'
+      'isNursingCareOffice'
     ])
   },
   methods: {
@@ -74,7 +74,7 @@ export default {
           await this.loginCareManager();
         } else if (this.isKeyPerson) {
           await this.loginKeyPerson();
-        } else if (this.isHomeCareServiceProvider) {
+        } else if (this.isNursingCareOffice) {
           await this.loginHomeCareServiceProvider();
         }
     },

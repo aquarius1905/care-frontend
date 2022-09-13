@@ -8,8 +8,8 @@
         <button class="btn home-btn" @click="showKeyPersonLoginPage()">
         被介護者、キーパーソンの方はこちら
         </button>
-        <button class="btn home-btn" @click="showHomeCareServiceProviderLoginPage()">
-        介護事業者の方はこちら
+        <button class="btn home-btn" @click="showNursingCareOfficeLoginPage()">
+        介護事業所の方はこちら
         </button>
     </div>
   </div>
@@ -30,10 +30,10 @@ export default {
         name: 'KeyPersonLogin'
       });
     },
-    showHomeCareServiceProviderLoginPage() {
-      this.$store.dispatch('setHomeCareServiceProviderFlg');
+    showNursingCareOfficeLoginPage() {
+      this.$store.dispatch('setNursingCareOfficeFlg');
       this.$router.push({
-        name: 'HomeCareServiceProviderLogin'
+        name: 'NursingCareOfficeLogin'
       });
     }
   }

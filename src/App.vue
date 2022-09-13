@@ -11,10 +11,11 @@
 </template>
 
 <script>
-import SideBar from "./components/SideBar";
 import Header from "./components/Header";
+import SideBar from "./components/SideBar";
+import Footer from "./components/Footer";
 export default {
-  components: { Header, SideBar },
+  components: { Header, SideBar, Footer },
   computed: {
     isShow: function () {
       return this.$route.path !== '/';

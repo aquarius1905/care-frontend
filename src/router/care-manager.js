@@ -11,19 +11,19 @@ import CareManagerForgotPasswordView from '../views/CareManager/ForgotPassword.v
 export default {
   routes: [
     {
-      path: '/care-manager/registration',
+      path: '/care-manager/register',
       name: 'CareManagerRegistration',
       component: CareManagerRegistrationView,
       meta: { requiresAuth: false } 
     },
     {
-      path: '/care-manager/registration/confirm',
+      path: '/care-manager/register/confirm',
       name: 'CareManagerRegistrationConfirmation',
       component: CareManagerRegistrationConfirmationView,
       meta: { requiresAuth: false },
     },
     {
-      path: '/care-manager/registration/complete',
+      path: '/care-manager/register/complete',
       name: 'CareManagerRegistrationCompletion',
       component: CareManagerRegistrationCompletionView,
       meta: { requiresAuth: false },

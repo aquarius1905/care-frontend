@@ -4,7 +4,7 @@ import store from '../store/index';
 import CareManagerRoutes from './care-manager.js'
 import CareReceiverRoutes from './care-receiver.js'
 import KeyPsersonRoutes from './key-person.js'
-import HomeCareServiceProviderRoutes from './home-care-service-provider.js'
+import NursingCareOfficeRoutes from './nursing-care-office.js'
 
 Vue.use(VueRouter)
 
@@ -20,7 +20,7 @@ const routes = [
   ...CareManagerRoutes.routes,
   ...CareReceiverRoutes.routes,
   ...KeyPsersonRoutes.routes,
-  ...HomeCareServiceProviderRoutes.routes
+  ...NursingCareOfficeRoutes.routes
 ]
 
 const router = new VueRouter({

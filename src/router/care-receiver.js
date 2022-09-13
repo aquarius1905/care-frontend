@@ -10,19 +10,19 @@ import CareReceiverWeeklyServiceScheduleView from '../views/CareReceiver/WeeklyS
 export default {
   routes: [
     {
-      path: '/care-receiver/registration',
+      path: '/care-receiver/register',
       name: 'CareReceiverRegistration',
       component: CareReceiverRegistrationView,
       meta: { requiresAuth: true },
     },
     {
-      path: '/care-receiver/registration/confirm',
+      path: '/care-receiver/register/confirm',
       name: 'CareReceiverRegistrationConfirmation',
       component: CareReceiverRegistrationConfirmationView,
       meta: { requiresAuth: true },
     },
     {
-      path: '/care-receiver/registration/complete',
+      path: '/care-receiver/register/complete',
       name: 'CareReceiverRegistrationCompletion',
       component: CareReceiverRegistrationCompletionView,
       meta: { requiresAuth: false },

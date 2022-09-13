@@ -35,9 +35,9 @@
         </ul>
       </div>
     </nav>
-    <nav class="nav" v-show="this.isHomeCareServiceProvider">
+    <nav class="nav" v-show="this.isNursingCareOffice">
       <div>
-        <ul class="menu-content" v-if="this.isHomeCareServiceProviderLoggedIn">
+        <ul class="menu-content" v-if="this.isNursingCareOfficeLoggedIn">
           <li>
             <router-link class="link" to="/care-receiver/list">利用者一覧</router-link>
           </li>
@@ -50,7 +50,7 @@
         </ul>
         <ul class="menu-content" v-else>
           <li>
-            <button class="btn-link" @click="showHomeCareServiceProviderRegistrationPage">
+            <button class="btn-link" @click="showNursingCareOfficeRegistrationPage">
             新規登録
             </button>
           </li>
@@ -70,10 +70,10 @@ export default {
     ...mapGetters([
       'isCareManager',
       'isKeyPerson',
-      'isHomeCareServiceProvider',
+      'isNursingCareOffice',
       'isCareManagerLoggedIn',
       'isKeyPersonLoggedIn',
-      'isHomeCareServiceProviderLoggedIn'
+      'isNursingCareOfficeLoggedIn'
     ])
   },
   methods: {
@@ -95,10 +95,10 @@ export default {
         query: { care_receiver: null }
       });
     },
-    showHomeCareServiceProviderRegistrationPage() {
+    showNursingCareOfficeRegistrationPage() {
       this.$router.push({
-        name: 'HomeCareServiceProviderRegistration',
-        query: { home_care_service_provider: null }
+        name: 'NursingCareOfficeRegistration',
+        query: { nursing_care_office: null }
       });
     },
   },

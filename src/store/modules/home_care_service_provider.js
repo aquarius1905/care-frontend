@@ -6,7 +6,7 @@ const getters = {
   getHomeCareServiceProviderAccessToken(state) {
     return state.homeCareServiceProviderAccessToken;
   },
-  isHomeCareServiceProviderLoggedIn(state) {
+  isNursingCareOfficeLoggedIn(state) {
     return state.homeCareServiceProviderAccessToken !== null
   }
 };
