@@ -19,9 +19,9 @@ for (rule in originalRules) {
 
 //パスワードのカスタムルール
 extend('password_rule', {
-  message: "パスワードは半角英小文字、半角英大文字、半角数字をそれぞれ1種類以上含む12文字以上100文字以下で入力してください",  
+  message: "パスワードは半角英数字(A~Z,a~z,0~9)最低1文字ずつ含めた8文字以上24文字以下で入力してください",  
   validate(value) {
-    if (value.match(/^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])[a-zA-Z0-9]{12,100}$/)) {
+    if (value.match(/^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])[a-zA-Z0-9]{8,24}$/)) {
       return true;
     }
   }

@@ -31,26 +31,16 @@
           </div>
           <div class="form-item">
             <validation-provider v-slot="{ errors }" rules="required">
-              <fieldset class="fieldset">
-                <legend class="form-item-lbl legend-lbl">
-                  サービス種別
-                  <span class="required-label">必須</span>
-                </legend>
-                <ul class="home-care-service-lst">
-                  <li v-for="home_care_service in home_care_services" 
-                  :key="home_care_service.id" class="home-care-service">
-                    <input type="checkbox" 
-                    class="checkbox"
-                    name="service_type" 
-                    :id="home_care_service.name" 
-                    :value="home_care_service"
-                    v-model="nursing_care_office.service_types">
-                    <label class="checkbox-lbl" :for="home_care_service.name">{{ home_care_service.name
-                      }}</label>
-                  </li>
-                </ul>
+             <label class="form-item-lbl" for="survice_type">
+                サービス種別
+                <span class="required-label">必須</span>
+              </label>
+              <select id="survice_type" class="select" v-model="nursing_care_office.service_type">
+                <option v-for="home_care_service in home_care_services" :key="home_care_service.id" :value="home_care_service">
+                  {{ home_care_service.name }}
+                </option>
+              </select>
               <div class="error">{{ errors[0] }}</div>
-              </fieldset>
             </validation-provider>
           </div>
           <div class="form-item">
@@ -59,7 +49,7 @@
                 事業所番号
                 <span class="required-label">必須</span>
               </label>
-              <input type="text" id="office_number" class="input" v-model="nursing_care_office.office_number"
+              <input type="text" id="office_number" class="input" v-model="nursing_care_office.office_number" size="10" maxlength="10"
                 placeholder="1370300000" required>
               <div class="error">{{ errors[0] }}</div>
             </validation-provider>
@@ -85,16 +75,6 @@
               </label>
               <input type="text" id="address" class="input" v-model="nursing_care_office.address" placeholder="東京都港区新橋3-4-5"
                 required>
-              <div class="error">{{ errors[0] }}</div>
-            </validation-provider>
-          </div>
-          <div class="form-item">
-            <validation-provider v-slot="{ errors }" rules="required|numeric|min:10|max:11">
-              <label class="form-item-lbl" for="tel">
-                電話番号
-                <span class="required-label">必須</span>
-              </label>
-              <input type="text" id="tel" class="input" v-model="nursing_care_office.tel" placeholder="0312345678" required>
               <div class="error">{{ errors[0] }}</div>
             </validation-provider>
           </div>
@@ -187,17 +167,27 @@
               <div class="error">{{ errors[0] }}</div>
             </validation-provider>
           </div>
-            <div class="form-item">
-              <validation-provider v-slot="{ errors }" rules="required|password_rule">
-                <label class="form-item-lbl" for="password">
-                  パスワード
-                  <span class="required-label">必須</span>
-                </label>
-                <input type="password" id="password" class="input" 
-                v-model="nursing_care_office.password" required>
-                <div class="error">{{ errors[0] }}</div>
-              </validation-provider>
-            </div>
+          <div class="form-item">
+            <validation-provider v-slot="{ errors }" rules="required|numeric|min:10|max:11">
+              <label class="form-item-lbl" for="tel">
+                電話番号
+                <span class="required-label">必須</span>
+              </label>
+              <input type="text" id="tel" class="input" v-model="nursing_care_office.tel" placeholder="0312345678" required>
+              <div class="error">{{ errors[0] }}</div>
+            </validation-provider>
+          </div>
+          <div class="form-item">
+            <validation-provider v-slot="{ errors }" rules="required|password_rule">
+              <label class="form-item-lbl" for="password">
+                パスワード
+                <span class="required-label">必須</span>
+              </label>
+              <input type="password" id="password" class="input" 
+              v-model="nursing_care_office.password" required>
+              <div class="error">{{ errors[0] }}</div>
+            </validation-provider>
+          </div>
         </div>
         <button class="btn confirm__btn" @click="confirmRegistration" :disabled="invalid">
           登録内容確認
@@ -223,7 +213,7 @@ export default {
       nursing_care_office: {
         office_name: null,
         corporate_name: null,
-        service_types: [],
+        service_type: null,
         office_number: null,
         post_code: null,
         address: null,
