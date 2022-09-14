@@ -1,11 +1,11 @@
-import CareReceiverRegistrationView from '../views/CareReceiver/RegistrationView.vue'
-import CareReceiverRegistrationConfirmationView from '../views/CareReceiver/RegistrationConfirmView.vue'
-import CareReceiverRegistrationCompletionView from '../views/CareReceiver/RegistrationCompletionView.vue'
-import CareReceiverUpdateView from '../views/CareReceiver/UpdateView.vue'
-import CareReceiverUpdateConfirmationView from '../views/CareReceiver/UpdateConfirmView.vue'
-import CareReceiverListView from '../views/CareReceiver/ListView.vue'
-import CareReceiverDetailView from '../views/CareReceiver/DetailView.vue'
-import CareReceiverWeeklyServiceScheduleView from '../views/CareReceiver/WeeklyServiceScheduleView.vue'
+import CareReceiverRegistrationView from '@/views/CareReceiver/RegistrationView.vue'
+import CareReceiverRegistrationConfirmationView from '@/views/CareReceiver/RegistrationConfirmView.vue'
+import CareReceiverRegistrationCompletionView from '@/views/CareReceiver/RegistrationCompletionView.vue'
+import CareReceiverUpdateView from '@/views/CareReceiver/UpdateView.vue'
+import CareReceiverUpdateConfirmationView from '@/views/CareReceiver/UpdateConfirmView.vue'
+import CareReceiverListView from '@/views/CareReceiver/ListView.vue'
+import CareReceiverDetailView from '@/views/CareReceiver/DetailView.vue'
+import CareReceiverWeeklyServiceScheduleView from '@/views/CareReceiver/WeeklyServiceScheduleView.vue'
 
 export default {
   routes: [

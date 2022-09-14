@@ -19,9 +19,9 @@ for (rule in originalRules) {
 
 //パスワードのカスタムルール
 extend('password_rule', {
-  message: "パスワードは半角英数字(A~Z,a~z,0~9)最低1文字ずつ含めた8文字以上24文字以下で入力してください",  
+  message: "パスワードは半角英数字(A~Z,a~z,0~9)をそれぞれ最低1文字含めた8～64文字で入力してください",  
   validate(value) {
-    if (value.match(/^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])[a-zA-Z0-9]{8,24}$/)) {
+    if (value.match(/^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])[a-zA-Z0-9]{8,64}$/)) {
       return true;
     }
   }
@@ -51,6 +51,7 @@ localize({
       email: "メールアドレス",
       tel: "電話番号",
       password: "パスワード",
+      password_confirmation: "パスワード",
       post_code: "郵便番号",
       address: "住所",
       birthday: "生年月日",

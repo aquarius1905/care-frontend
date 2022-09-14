@@ -1,6 +1,6 @@
 <template>
-  <div class="register">
-    <h2 class="register__ttl">居宅介護事業所 登録</h2>
+  <div class="registration">
+    <h2 class="registration__ttl">居宅介護事業所 登録</h2>
     <div class="registration___form">
       <validation-observer v-slot="{ invalid }">
         <div class="form__info box-shadow">
@@ -36,8 +36,8 @@
                 <span class="required-label">必須</span>
               </label>
               <select id="survice_type" class="select" v-model="nursing_care_office.service_type">
-                <option v-for="home_care_service in home_care_services" :key="home_care_service.id" :value="home_care_service">
-                  {{ home_care_service.name }}
+                <option v-for="service_type in service_types" :key="service_type.id" :value="service_type">
+                  {{ service_type.name }}
                 </option>
               </select>
               <div class="error">{{ errors[0] }}</div>
@@ -178,13 +178,23 @@
             </validation-provider>
           </div>
           <div class="form-item">
-            <validation-provider v-slot="{ errors }" rules="required|password_rule">
+            <validation-provider v-slot="{ errors }" rules="required|password_rule" vid="password">
               <label class="form-item-lbl" for="password">
-                パスワード
+                パスワード（半角英数字(A~Z,a~z,0~9)を最低1文字含む8～64文字）
                 <span class="required-label">必須</span>
               </label>
-              <input type="password" id="password" class="input" 
-              v-model="nursing_care_office.password" required>
+              <input type="password" id="password" class="input" v-model="nursing_care_office.password" required>
+              <div class="error">{{ errors[0] }}</div>
+            </validation-provider>
+          </div>
+          <div class="form-item">
+            <validation-provider v-slot="{ errors }" rules="required|confirmed:password">
+              <label class="form-item-lbl" for="password_confirmation">
+                パスワード（確認用）
+                <span class="required-label">必須</span>
+              </label>
+              <input type="password" id="password_confirmation" class="input" 
+              v-model="nursing_care_office.password_confirmation" required>
               <div class="error">{{ errors[0] }}</div>
             </validation-provider>
           </div>
@@ -203,13 +213,13 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   computed: {
     ...mapGetters([
-    'emptyHomeCareServices',
-    'getHomeCareServices'
+    'emptyServiceTypes',
+    'getServiceTypes'
     ])
   },
   data() {
   return {
-      home_care_services: null,
+      service_types: null,
       nursing_care_office: {
         office_name: null,
         corporate_name: null,
@@ -223,12 +233,13 @@ export default {
         last_name_furigana: null,
         first_name_furigana: null,
         email: null,
-        password: null
+        password: null,
+        password_confirmation: null
       },
     }
   },
   methods: {
-    ...mapActions([ 'fetchHomeCareServices' ]),
+    ...mapActions([ 'fetchServiceTypes' ]),
     async fetchAddress() {
       this.nursing_care_office.address
         = await plugin.fetchAddress(
@@ -244,14 +255,14 @@ export default {
       });
     },
     async initialize() {
-      if (this.emptyHomeCareServices) {
-        await this.fetchHomeCareServices();
+      if (this.emptyServiceTypes) {
+        await this.fetchServiceTypes();
       }
-      this.home_care_services = this.getHomeCareServices;
+      this.service_types = this.getServiceTypes;
 
       if (this.$route.query.nursing_care_office === null) {
         this.nursing_care_office.service_type
-          = this.home_care_services[0];
+          = this.service_types[0];
       } else {
         this.nursing_care_office
           = this.$route.query.nursing_care_office
@@ -264,43 +275,11 @@ export default {
 }
 </script>
 <style scoped>
-.register {
-  margin: 20px auto 50px;
-  width: 700px;
-}
-.register__ttl {
-  color: #1A237E;
-  font-size: 22px;
-  user-select: none;
-}
-.form__info {
-  background-color: #fff;
-  margin-top: 20px;
-  padding: 20px;
-  border-radius: 6px;
-}
-.form__ttl {
-  font-size: 20px;
-  margin-bottom: 20px;
-}
-
 .confirm__btn {
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 20px auto 0;
   border: none;
-}
-.home-care-service-lst{
-  list-style:none;
-}
-.home-care-service {
-  margin-bottom: 10px;
-}
-.checkbox {
-  transform: scale(1.2);
-}
-.checkbox-lbl {
-  margin-left: 10px;
 }
 </style>

@@ -7,7 +7,7 @@ import CareReceiver from "./modules/care_receiver"
 import Common from "./modules/common"
 import DayOfWeek from "./modules/day_of_week"
 import HomeCareServiceProvider from "./modules/home_care_service_provider"
-import HomeCareService from "./modules/home_care_service"
+import HomeCareService from "./modules/service_type"
 import KeyPerson from "./modules/key_person"
 
 Vue.use(Vuex)

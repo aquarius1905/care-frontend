@@ -3,7 +3,7 @@
     <div class="form confirm-form box-shadow">
       <h2 class="form-ttl">ケアマネージャー登録内容確認</h2>
       <div class="confirm-content">
-        <table class="confirm-tbl">
+        <table class="confirmation__tbl">
           <tr>
             <th>氏名</th>
             <td>{{ care_manager.last_name }}&emsp;{{ care_manager.first_name }}</td>
@@ -34,7 +34,7 @@
           </tr>
         </table>
         <div class="register-btn-wrap">
-          <button class="bk-btn btn" @click="back">戻る</button>
+          <button class="bk__btn btn" @click="back">戻る</button>
           <button class="btn" @click="register">登録</button>
         </div>
       </div>
@@ -84,7 +84,8 @@ export default {
       }
     },
     makeCareManagerData() {
-      this.care_manager['home_care_support_office_id'] = this.care_manager['home_care_support_office']['id'];
+      this.care_manager['home_care_support_office_id']
+        = this.care_manager['home_care_support_office']['id'];
       this.care_manager['name']
         = this.care_manager['last_name'] + '　' + this.care_manager['first_name'];
       this.care_manager['name_furigana']
@@ -104,14 +105,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.confirm-tbl th {
-  width: 40%;
-}
-.bk-btn {
-  width: 120px;
-  background-color: #7E57C2;
-  margin-right: 30px;
-}
-</style>

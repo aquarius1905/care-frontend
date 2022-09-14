@@ -122,7 +122,7 @@
           </div>
         </div>
         <div class="form-btn-wrap form-confirm-btn-wrap">
-          <button class="btn next-btn" @click="next()" :disabled="invalid">次へ</button>
+          <button class="btn next__btn" @click="next()" :disabled="invalid">次へ</button>
         </div>
       </validation-observer>
     </div>

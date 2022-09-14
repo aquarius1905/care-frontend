@@ -1,9 +1,36 @@
 <template>
-  <div class="care-manager-registration-confirm">
-    <div class="form confirm-form box-shadow">
-      <h2 class="form-ttl">居宅介護事業所　登録内容確認</h2>
-      <div class="confirm-content">
-        <table class="confirm-tbl">
+  <div class="confirmation">
+    <h2 class="confirmation__ttl">介護事業所　登録内容確認</h2>
+      <div class="confirmation__content box-shadow">
+        <h3 class="confirmation__sub-ttl">事業所情報</h3>
+        <table class="confirmation__tbl">
+          <tr>
+            <th>事業所名</th>
+            <td>{{ nursing_care_office.office_name }}</td>
+          </tr>
+          <tr>
+            <th>法人名</th>
+            <td>{{ nursing_care_office.corporate_name }}</td>
+          </tr>
+          <tr>
+            <th>サービス種別</th>
+            <td>{{ nursing_care_office.service_type.name }}</td>
+          </tr>
+          <tr>
+            <th>事業所番号</th>
+            <td>{{ nursing_care_office.office_number }}</td>
+          </tr>
+          <tr>
+            <th>郵便番号</th>
+            <td>〒 {{ nursing_care_office.post_code }}</td>
+          </tr>
+          <tr>
+            <th>住所</th>
+            <td>{{ nursing_care_office.address }}</td>
+          </tr>
+        </table>
+        <h3 class="confirmation__sub-ttl">担当者情報</h3>
+        <table class="confirmation__tbl">
           <tr>
             <th>氏名</th>
             <td>{{ nursing_care_office.last_name }}&emsp;{{ nursing_care_office.first_name }}</td>
@@ -22,15 +49,14 @@
           </tr>
           <tr>
             <th>パスワード</th>
-            <td>************</td>
+            <td>**********</td>
           </tr>
         </table>
-        <div class="register-btn-wrap">
-          <button class="bk-btn btn" @click="back">戻る</button>
-          <button class="btn" @click="register">登録</button>
-        </div>
       </div>
-    </div>
+      <div class="btn__wrap">
+        <button class="bk__btn btn" @click="back">戻る</button>
+        <button class="btn" @click="register">登録</button>
+      </div>
   </div>
 </template>
 
@@ -54,19 +80,19 @@ export default {
         this.makeNursingCareOfficeData();
 
         try {
+          console.log(this.nursing_care_office);
           const response = await api.post(
-            '/home-care-service-provider/register',
+            '/nursing-care-offices',
             this.nursing_care_office
           );
 
           if (response.status === 201) {
             this.$router.push({
-              name: 'CareManagerRegistrationCompletion'
+              name: 'NursingCareOfficeRegistrationCompletion'
             });
           }
         } catch (error) {
           alert('登録に失敗しました');
-          console.log(error);
         }
       }
     },
@@ -75,13 +101,8 @@ export default {
         = this.nursing_care_office['last_name'] + '　' + this.nursing_care_office['first_name'];
       this.nursing_care_office['name_furigana']
         = this.nursing_care_office['last_name_furigana'] + '　' + this.nursing_care_office['first_name_furigana'];
-      
-      [
-        'last_name',
-        'first_name',
-        'last_name_furigana',
-        'first_name_furigana',
-      ].forEach(e => delete this.nursing_care_office[e]);
+      this.nursing_care_office['service_type_id']
+        = this.nursing_care_office['service_type']['id'];
     }
   },
   created() {
@@ -90,14 +111,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.confirm-tbl th {
-  width: 40%;
-}
-.bk-btn {
-  width: 120px;
-  background-color: #7E57C2;
-  margin-right: 30px;
-}
-</style>

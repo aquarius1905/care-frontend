@@ -121,12 +121,16 @@ body {
 }
 
 .register-btn-wrap,
+.btn__wrap,
 .list-btn-wrap {
   display: flex;
   justify-content: center;
   text-align: center;
 }
 
+.btn__wrap {
+  margin-top: 20px;
+}
 .list-btn-wrap {
   margin-top: 30px;
 }
@@ -150,16 +154,7 @@ body {
   background: #777;
 }
 
-.bk-btn {
-  width: 120px;
-  background-color: #7E57C2;
-  margin-right: 30px;
-}
-
-.next-btn {
-  width: 120px;
-}
-
+.next__btn,
 .register-btn,
 .update-btn {
   width: 100px;
@@ -195,7 +190,7 @@ body {
   font-weight: bold;
 }
 
-.confirm-tbl,
+.confirmation__tbl,
 .detail-tbl,
 .visit-datetime-tbl {
   width: 100%;
@@ -203,11 +198,6 @@ body {
 
 .detail-tbl {
   table-layout: fixed;
-}
-
-.confirm-tbl th {
-  text-align: left;
-  height: 70px;
 }
 
 .login-form,
@@ -234,7 +224,7 @@ body {
   height: 400px;
   display: grid;
   place-items: center;
-  margin: 0 auto;
+  margin: 50px auto 0;
   border-radius: 6px;
   font-size: 26px;
   text-align: center;
@@ -259,6 +249,50 @@ body {
 
 .detail-menu {
   margin: 20px 0 0 50px;
+}
+
+/* 登録画面・確認画面 */
+.registration,
+.confirmation {
+  margin: 20px auto 50px;
+  width: 700px;
+}
+
+.registration__ttl,
+.confirmation__ttl {
+  color: #1A237E;
+  font-size: 22px;
+}
+
+.form__info,
+.confirmation__content {
+  background-color: #fff;
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 6px;
+}
+
+.form__ttl {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.confirmation__sub-ttl {
+  font-size: 20px;
+  margin-bottom: 40px;
+}
+
+.confirmation__tbl th {
+  width: 40%;
+  font-weight: 500;
+  text-align: left;
+  height: 60px;
+}
+
+.bk__btn {
+  width: 120px;
+  background-color: #7E57C2;
+  margin-right: 30px;
 }
 
 /* 介護度 */

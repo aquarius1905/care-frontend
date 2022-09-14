@@ -112,8 +112,8 @@ export default {
     ...mapGetters([
       'emptyDayOfWeeks',
       'getDayOfWeeks',
-      'emptyHomeCareServices',
-      'getHomeCareServices'
+      'emptyServiceTypes',
+      'getServiceTypes'
     ]),
     ...mapGetters({
       care_receiver_name: 'getCurrentCareReceiverName'
@@ -122,7 +122,7 @@ export default {
   methods: {
     ...mapActions([
       'fetchDayOfWeeks',
-      'fetchHomeCareServices'
+      'fetchServiceTypes'
     ]),
     async setDayOfWeeks() {
       if (this.emptyDayOfWeeks) {
@@ -132,11 +132,11 @@ export default {
       this.day_of_weeks = this.getDayOfWeeks;
     },
     async setCareServiceTypes() {
-      if (this.emptyHomeCareServices) {
-        await this.fetchHomeCareServices();
+      if (this.emptyServiceTypes) {
+        await this.fetchServiceTypes();
       }
 
-      this.home_care_services = this.getHomeCareServices;
+      this.home_care_services = this.getServiceTypes;
     },
     deleteRow(index) {
 
