@@ -38,7 +38,7 @@
 
 <script>
 import dayjs from 'dayjs';
-import { careManagerApi } from '@/http-common'
+import { api } from '@/http-common'
 import DetailMenu from "@/components/DetailMenu";
 import { mapGetters } from 'vuex'
 export default {
@@ -106,16 +106,16 @@ export default {
       }
 
       const response = null;
-      careManagerApi.defaults.headers.common['Authorization']
+      api.defaults.headers.common['Authorization']
         = 'Bearer ' + this.getCareManagerAccessToken;
       if (this.registered_flg) {
-        response = await careManagerApi.put(
-          `/visit/${this.visit_datetime_id}`,
+        response = await api.put(
+          `/care-managers/visit/${this.visit_datetime_id}`,
           this.visit_datetime
         );
       } else {
-        response = await careManagerApi.post(
-          'visit',
+        response = await api.post(
+          '/care-managers/visit',
           this.visit_datetime
         );
       }

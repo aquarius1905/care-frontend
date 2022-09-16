@@ -12,6 +12,9 @@ export default {
     return {
       form_ttl: 'キーパーソン'
     }
+  },
+  created() {
+    this.$store.dispatch('setKeyPersonFlg');
   }
 }
 </script>

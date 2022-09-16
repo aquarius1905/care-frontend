@@ -1,0 +1,8 @@
+<template>
+  <div class="dashboard">
+    <h1>ダッシュボード</h1>
+  </div>
+</template>
+
+<script>
+</script>

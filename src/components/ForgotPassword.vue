@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { careManagerApi } from "@/http-common";
+import { api } from "@/http-common";
 export default {
   props: {
     formTitle: {
@@ -40,8 +40,8 @@ export default {
   },
   methods: {
     async sendEmail() {
-      const response = await careManagerApi.post(
-        '/forgot-password', this.email
+      const response = await api.post(
+        '/care-managers/forgot-password', this.email
       );
     }
   }

@@ -12,6 +12,9 @@ export default {
     return {
       form_ttl: '介護事業者'
     }
+  },
+  created() {
+    this.$store.dispatch('setNursingCareOfficeFlg');
   }
 }
 </script>

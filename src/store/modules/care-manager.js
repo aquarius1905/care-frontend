@@ -1,4 +1,4 @@
-import { api, careManagerApi } from '@/http-common'
+import { api } from '@/http-common'
 
 const state = {
   supportOffices: null,
@@ -42,11 +42,11 @@ const mutations = {
   setCareManager(state, payload) {
     state.careManager = payload;
   },
-  setLoggedInCareManagerData(state, payload) {
+  setLoggedInCareManager(state, payload) {
     state.careManagerAccessToken = payload.access_token;
     state.careManager = payload.care_manager;
   },
-  resetCareManagerData(state) {
+  resetCareManager(state) {
     state.careManagerAccessToken = null;
     state.careManager = null;
     state.supportOffices = null;
@@ -60,8 +60,7 @@ const actions = {
     }
   },
   async fetchCareManagerInfo(context) {
-    const { data } = await careManagerApi
-      .get('/me',
+    const { data } = await api.get('/care-managers/me',
         {
           headers: {
             Authorization: `Bearer ${context.getters.getCareManagerAccessToken}`,
@@ -71,11 +70,11 @@ const actions = {
       context.commit('setCareManager', data.care_manager);
     }
   },
-  setLoggedInCareManagerData(context, payload) {
-    context.commit('setLoggedInCareManagerData', payload);
+  setLoggedInCareManager(context, payload) {
+    context.commit('setLoggedInCareManager', payload);
   },
-  resetCareManagerData(context) {
-    context.commit('resetCareManagerData');
+  resetCareManager(context) {
+    context.commit('resetCareManager');
   },
   setCareManager(context, payload) {
     context.commit('setCareManager', payload);

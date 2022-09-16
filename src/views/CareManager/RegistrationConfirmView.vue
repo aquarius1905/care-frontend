@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { careManagerApi } from "@/http-common";
+import { api } from "@/http-common";
 import { mapGetters } from 'vuex'
 export default {
   data: function () {
@@ -66,10 +66,10 @@ export default {
         this.makeCareManagerData();
 
         try {
-          careManagerApi.defaults.headers.common['Authorization']
+          api.defaults.headers.common['Authorization']
             = 'Bearer ' + this.getCareManagerAccessToken;
-          const response = await careManagerApi.post(
-            '', this.care_manager
+          const response = await api.post(
+            '/care-managers', this.care_manager
           );
 
           if (response.status === 201) {

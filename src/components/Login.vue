@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { careManagerApi, keyPersonApi } from "@/http-common";
+import { api } from "@/http-common";
 import { mapGetters, mapActions } from 'vuex'
 export default {
   props: {
@@ -66,8 +66,9 @@ export default {
   },
   methods: {
     ...mapActions([
-      'setLoggedInCareManagerData',
-      'setLoggedInKeyPersonData'
+      'setLoggedInCareManager',
+      'setLoggedInKeyPerson',
+      'setLoggedInNursingCareOffice'
     ]),
     async login() {
         if (this.isCareManager) {
@@ -75,13 +76,13 @@ export default {
         } else if (this.isKeyPerson) {
           await this.loginKeyPerson();
         } else if (this.isNursingCareOffice) {
-          await this.loginHomeCareServiceProvider();
+          await this.loginNursingCareOffice();
         }
     },
     async loginCareManager() {
       try {
-        const response = await careManagerApi.post(
-          '/login', this.login_data
+        const response = await api.post(
+          '/care-managers/login', this.login_data
         );
         
         if (response.status === 200) {
@@ -89,7 +90,7 @@ export default {
             access_token: response.data.access_token,
             care_manager: response.data.care_manager
           };
-          this.setLoggedInCareManagerData(login_data);
+          this.setLoggedInCareManager(login_data);
           this.$router.push({ name: 'CareReceiverList' });
         }
       } catch (error) {
@@ -98,8 +99,8 @@ export default {
     },
     async loginKeyPerson() {
       try {
-        const response = await keyPersonApi.post(
-          '/login', this.login_data
+        const response = await api.post(
+          '/key-persons/login', this.login_data
         );
         const login_data = {
           access_token: response.data.access_token,
@@ -107,15 +108,30 @@ export default {
         };
           
         if (response.status === 200) {
-          this.setLoggedInKeyPersonData(login_data);
+          this.setLoggedInKeyPerson(login_data);
           this.$router.push({ name: 'KeyPersonDashboard' });
         }
       } catch (error) {
           this.login_error = error.response.data.login_error
       }
     },
-    async loginHomeCareServiceProvider() {
-
+    async loginNursingCareOffice() {
+      try {
+        const response = await api.post(
+          '/nursing-care-offices/login', this.login_data
+        );
+        const login_data = {
+          access_token: response.data.access_token,
+          nursing_care_office: response.data.nursing_care_office
+        };
+        
+        if (response.status === 200) {
+          this.setLoggedInNursingCareOffice(login_data);
+          this.$router.push({ name: 'NursingCareOfficeDashboard' });
+        }
+      } catch (error) {
+          this.login_error = error.response.data.login_error
+      }
     },
   }
 }

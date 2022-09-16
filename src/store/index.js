@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import CreatePersistedState from 'vuex-persistedstate'
-import CareLevels from "./modules/care_level"
-import CareManager from "./modules/care_manager"
-import CareReceiver from "./modules/care_receiver"
+import CareLevels from "./modules/care-level"
+import CareManager from "./modules/care-manager"
+import CareReceiver from "./modules/care-receiver"
 import Common from "./modules/common"
-import DayOfWeek from "./modules/day_of_week"
-import HomeCareServiceProvider from "./modules/home_care_service_provider"
-import HomeCareService from "./modules/service_type"
-import KeyPerson from "./modules/key_person"
+import DayOfWeek from "./modules/day-of-week"
+import NursingCareOffice from "./modules/nursing-care-office"
+import ServiceType from "./modules/service-type"
+import KeyPerson from "./modules/key-person"
 
 Vue.use(Vuex)
 
@@ -19,9 +19,9 @@ export default new Vuex.Store({
     CareReceiver,
     Common,
     DayOfWeek,
-    HomeCareServiceProvider,
-    HomeCareService,
-    KeyPerson
+    KeyPerson,
+    NursingCareOffice,
+    ServiceType
   },
   plugins: [CreatePersistedState(
     { // ストレージのキーを指定

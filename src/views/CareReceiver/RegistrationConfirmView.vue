@@ -81,7 +81,6 @@
 
 <script>
 import axios from "axios";
-import { careManagerApi } from "@/http-common";
 import { mapGetters } from 'vuex'
 export default {
   data: function () {

@@ -17,20 +17,21 @@ const getters = {
   }
 };
 const mutations = {
-  setLoggedInKeyPersonData(state, payload) {
+  setLoggedInKeyPerson(state, payload) {
     state.keyPersonAccessToken = payload.access_token;
     state.keyPerson = payload.key_person;
   },
-  resetKeyPersonData(state) {
+  resetKeyPerson(state) {
     state.keyPersonAccessToken = null;
+    state.keyPerson = null;
   },
 };
 const actions = {
-  setLoggedInKeyPersonData(context, payload) {
-    context.commit('setLoggedInKeyPersonData', payload);
+  setLoggedInKeyPerson(context, payload) {
+    context.commit('setLoggedInKeyPerson', payload);
   },
-  resetKeyPersonData(context) {
-    context.commit('resetKeyPersonData');
+  resetKeyPerson(context) {
+    context.commit('resetKeyPerson');
   }
 };
 

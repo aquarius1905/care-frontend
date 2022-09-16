@@ -16,6 +16,9 @@ export default {
       form_ttl: 'ケアマネージャー',
       forgot_password_link: '/care-manager/forgot-password'
     }
+  },
+  created() {
+    this.$store.dispatch('setCareManagerFlg');
   }
 }
 </script>

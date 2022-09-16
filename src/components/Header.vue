@@ -9,31 +9,36 @@
 </template>
 
 <script>
-import { careManagerApi, keyPersonApi } from "@/http-common"
+import { api } from "@/http-common"
 import { mapGetters, mapActions } from 'vuex'
 export default {
   computed: {
     ...mapGetters([
       'isCareManagerLoggedIn',
       'isKeyPersonLoggedIn',
+      'isNursingCareOfficeLoggedIn',
       'getCareManagerName',
       'getKeyPersonName',
+      'getContactPersonNameOfNursingCareOffice',
       'getCareManagerAccessToken',
-      'getKeyPersonAccessToken'
+      'getKeyPersonAccessToken',
+      'getNursingCareOfficeAccessToken',
     ]),
     loggedInName: function () {
       if (this.isCareManagerLoggedIn) {
-        return this.getCareManagerName + ' (ケアマネージャー)';
+        return this.getCareManagerName;
       } else if (this.isKeyPersonLoggedIn) {
-        return this.getKeyPersonName + ' (キーパーソン)';
+        return this.getKeyPersonName;
+      } else if (this.isNursingCareOfficeLoggedIn) {
+        return this.getContactPersonNameOfNursingCareOffice;
       }
-      return '';
     }
   },
   methods: {
     ...mapActions([
-      'resetCareManagerData',
-      'resetKeyPersonData'
+      'resetCareManager',
+      'resetKeyPerson',
+      'resetNursingCareOffice'
     ]),
     backtoHome() {
       this.$router.push({
@@ -42,12 +47,12 @@ export default {
     },
     async logoutCareManager() {
       try {
-        careManagerApi.defaults.headers.common['Authorization']
+        api.defaults.headers.common['Authorization']
           = 'Bearer ' + this.getCareManagerAccessToken;
-        const response = await careManagerApi.post('/logout');
+        const response = await api.post('/care-managers/logout');
           
         if (response.status === 200) {
-          this.resetCareManagerData();
+          this.resetCareManager();
           this.$router.push({ name: 'CareManagerLogin' });
         }
       } catch (error) {
@@ -57,13 +62,28 @@ export default {
     },
     async logoutKeyPerson() {
       try {
-        keyPersonApi.defaults.headers.common['Authorization']
+        api.defaults.headers.common['Authorization']
           = 'Bearer ' + this.getKeyPersonAccessToken;
-        const response = await keyPersonApi.post('/logout');
+        const response = await api.post('/key-persons/logout');
 
         if (response.status === 200) {
-          this.resetKeyPersonData();
+          this.resetKeyPerson();
           this.$router.push({ name: 'KeyPersonLogin' });
+        }
+      } catch (error) {
+        console.log(error);
+        alert("ログアウトに失敗しました");
+      }
+    },
+    async logoutNursingCareOffice() {
+      try {
+        api.defaults.headers.common['Authorization']
+          = 'Bearer ' + this.getNursingCareOfficeAccessToken;
+        const response = await api.post('/nursing-care-office/logout');
+
+        if (response.status === 200) {
+          this.resetNursingCareOffice();
+          this.$router.push({ name: 'NursingCareOfficeLogin' });
         }
       } catch (error) {
         console.log(error);
@@ -76,6 +96,8 @@ export default {
           await this.logoutCareManager();
         } else if (this.isKeyPersonLoggedIn) {
           await this.logoutKeyPerson();
+        } else if (this.isNursingCareOfficeLoggedIn) {
+          await this.logoutNursingCareOffice();
         }
       }
     }

@@ -2,6 +2,7 @@ import NursingCareOfficeLoginView from '@/views/NursingCareOffice/LoginView.vue'
 import NursingCareOfficeRegistrationView from '@/views/NursingCareOffice/RegistrationView.vue'
 import NursingCareOfficeRegistrationConfirmView from '@/views/NursingCareOffice/RegistrationConfirmView.vue'
 import NursingCareOfficeRegistrationCompletionView from '@/views/Common/RegistrationCompletionView.vue'
+import NursingCareOfficeDashboardView from '@/views/NursingCareOffice/DashboardView.vue'
 
 export default {
   routes: [
@@ -28,6 +29,12 @@ export default {
       name: 'NursingCareOfficeRegistrationCompletion',
       component: NursingCareOfficeRegistrationCompletionView,
       meta: { requiresAuth: false } 
+    },
+    {
+      path: '/nursing-care-office/dashboard',
+      name: 'NursingCareOfficeDashboard',
+      component: NursingCareOfficeDashboardView,
+      meta: { requiresAuth: true } 
     },
   ]
 }
