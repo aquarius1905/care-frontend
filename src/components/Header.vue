@@ -1,7 +1,8 @@
 <template>
   <div id="header">
     <h1 class="main-ttl ttl" @click="backtoHome">Care</h1>
-    <div class="logout-wrap" v-show="this.isCareManagerLoggedIn || this.isKeyPersonLoggedIn">
+    <div class="logout-wrap" 
+    v-show="this.isCareManagerLoggedIn || this.isKeyPersonLoggedIn || this.isNursingCareOfficeLoggedIn">
       <label class="name-lbl">{{ loggedInName }}</label>
       <button class="btn logout-btn" @click="logout">ログアウト</button>
     </div>
@@ -79,7 +80,7 @@ export default {
       try {
         api.defaults.headers.common['Authorization']
           = 'Bearer ' + this.getNursingCareOfficeAccessToken;
-        const response = await api.post('/nursing-care-office/logout');
+        const response = await api.post('/nursing-care-offices/logout');
 
         if (response.status === 200) {
           this.resetNursingCareOffice();
