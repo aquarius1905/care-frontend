@@ -39,13 +39,7 @@
       <div>
         <ul class="menu-content" v-if="this.isNursingCareOfficeLoggedIn">
           <li>
-            <router-link class="link" to="/care-receiver/list">利用者一覧</router-link>
-          </li>
-          <li>
-            <button class="btn-link" @click="showCareReceiverRegistrationPage">利用者登録</button>
-          </li>
-          <li>
-            <button class="btn-link" @click="showCareManagerUpdatePage">登録情報確認・変更</button>
+            <router-link class="link" to="/nursing-care-office/dashboard">ダッシュボード</router-link>
           </li>
         </ul>
         <ul class="menu-content" v-else>
@@ -55,7 +49,7 @@
             </button>
           </li>
           <li>
-            <router-link class="link" to="/home-care-service-provider/login">ログイン</router-link>
+            <router-link class="link" to="/nursing-care-office/login">ログイン</router-link>
           </li>
         </ul>
       </div>

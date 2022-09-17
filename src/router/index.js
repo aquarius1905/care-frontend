@@ -31,7 +31,10 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (store.getters.isCareManagerLoggedIn) {
+    if (
+      store.getters.isCareManagerLoggedIn ||
+      store.getters.isNursingCareOfficeLoggedIn ||
+      store.getters.isKeyPersonLoggedIn) {
       next()
     } else {
       next('/care-manager/login')

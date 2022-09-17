@@ -120,6 +120,7 @@ export default {
         const response = await api.post(
           '/nursing-care-offices/login', this.login_data
         );
+        console.log(response);
         const login_data = {
           access_token: response.data.access_token,
           nursing_care_office: response.data.nursing_care_office

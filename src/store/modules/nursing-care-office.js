@@ -25,7 +25,7 @@ const mutations = {
 };
 const actions = {
   setLoggedInNursingCareOffice(context, payload) {
-    context.commit('login', payload);
+    context.commit('setLoggedInNursingCareOffice', payload);
   },
   resetNursingCareOffice(context) {
     context.commit('resetNursingCareOffice');
