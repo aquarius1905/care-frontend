@@ -10,7 +10,7 @@ export default {
   components: { TextMessage },
   data: function () {
     return {
-      msg: "被介護者、及びキーパーソンの登録が完了しました"
+      msg: "メールが認証されていません"
     }
   }
 };

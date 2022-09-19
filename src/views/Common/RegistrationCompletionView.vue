@@ -1,13 +1,13 @@
 <template>
   <div>
-    <CompletionMessage :msg="msg"></CompletionMessage>
+    <TextMessage :msg="msg"></TextMessage>
   </div>
 </template>
 
 <script>
-import CompletionMessage from "@/components/CompletionMessage";
+import TextMessage from "@/components/TextMessage";
 export default {
-  components: { CompletionMessage },
+  components: { TextMessage },
   data: function () {
     return {
       msg: "登録が完了しました\n\nご登録頂いたメールアドレス宛てに\nメールを送信しましたので\n認証をお願い致します"

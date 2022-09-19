@@ -1,13 +1,13 @@
 <template>
   <div>
-    <CompletionMessage :msg="msg"></CompletionMessage>
+    <TextMessage :msg="msg"></TextMessage>
   </div>
 </template>
 
 <script>
-import CompletionMessage from "@/components/CompletionMessage";
+import TextMessage from "@/components/TextMessage";
 export default {
-  components: { CompletionMessage },
+  components: { TextMessage },
   data: function () {
     return {
       msg: "ケアマネージャー登録情報の更新が完了しました"

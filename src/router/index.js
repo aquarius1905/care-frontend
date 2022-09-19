@@ -3,22 +3,19 @@ import VueRouter from 'vue-router'
 import store from '../store/index';
 import CareManagerRoutes from './care-manager.js'
 import CareReceiverRoutes from './care-receiver.js'
+import CommonRoutes from './common.js'
+import EmailRoutes from './email.js'
 import KeyPsersonRoutes from './key-person.js'
 import NursingCareOfficeRoutes from './nursing-care-office.js'
 
 Vue.use(VueRouter)
 
-import HomeView from '../views/HomeView.vue'
-
 const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: HomeView,
-    meta: { requiresAuth: false },
-  },
+
   ...CareManagerRoutes.routes,
   ...CareReceiverRoutes.routes,
+  ...CommonRoutes.routes,
+  ...EmailRoutes.routes,
   ...KeyPsersonRoutes.routes,
   ...NursingCareOfficeRoutes.routes
 ]

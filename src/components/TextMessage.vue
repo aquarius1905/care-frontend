@@ -1,5 +1,5 @@
 <template>
-  <div id="completion-msg">
+  <div id="txt-msg">
     <div class="msg-box box-shadow">
       <p class="msg">{{ msg }}</p>
     </div>
@@ -15,8 +15,9 @@ export default {
   }
 };
 </script>
+
 <style>
-.msg {
+.txt-msg {
   white-space: pre-wrap;
 }
 </style>
