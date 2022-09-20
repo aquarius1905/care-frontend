@@ -2,7 +2,7 @@
   <div>
     <div class="forgot-password-form box-shadow">
       <h2 class="form-ttl">{{ 'パスワード再設定' + formTitle }}</h2>
-      <ValidationObserver ref="obs" v-slot="ObserverProps">
+      <validation-observer ref="obs" v-slot="ObserverProps">
         <div class="forgot-password-form-content">
           <div class="form-item">
             <label class="form-item-lbl" for="email">メールアドレス</label>
@@ -20,7 +20,7 @@
           :disabled="ObserverProps.invalid || !ObserverProps.validated"
           @click="sendEmail">メール送信</button>
         </div>
-      </ValidationObserver>
+      </validation-observer>
     </div>
   </div>
 </template>

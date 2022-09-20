@@ -69,7 +69,7 @@ localize({
 });
 
 Vue.component('ValidationProvider', ValidationProvider);
-Vue.component('ValidationObserver', ValidationObserver);
+Vue.component('validation-observer', ValidationObserver);
 
 Vue.config.productionTip = false
 

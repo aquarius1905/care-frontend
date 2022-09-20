@@ -1,9 +1,9 @@
 <template>
-  <div id="care-manager-registration">
-    <h2 class="page-ttl">ケアマネージャー 登録</h2>
-    <div class="form box-shadow">
-      <ValidationObserver v-slot="{ invalid }">
-        <div class="form-content">
+  <div class="registration">
+    <h2 class="registration__ttl">ケアマネージャー 登録</h2>
+    <div class="registration__form">
+      <validation-observer v-slot="{ invalid }">
+        <div class="form__info box-shadow">
           <div class="form-item">
             <div class="form-item-wrap">
               <div class="form-item-name-wrap">
@@ -116,7 +116,7 @@
         <div class="form-btn-wrap">
           <button class="btn" @click="confirmRegistration()" :disabled="invalid">登録内容確認</button>
         </div>
-      </ValidationObserver>
+      </validation-observer>
     </div>
   </div>
 </template>

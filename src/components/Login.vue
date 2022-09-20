@@ -2,7 +2,7 @@
   <div>
     <div class="login-form box-shadow">
       <h2 class="form-ttl">{{ formTitle + ' ログイン' }}</h2>
-      <ValidationObserver ref="obs" v-slot="ObserverProps">
+      <validation-observer ref="obs" v-slot="ObserverProps">
         <div class="login-form-content">
           <div class="form-item">
             <label class="form-item-lbl" for="email">メールアドレス</label>
@@ -31,7 +31,7 @@
           :disabled="ObserverProps.invalid || !ObserverProps.validated"
           @click="login">ログイン</button>
         </div>
-      </ValidationObserver>
+      </validation-observer>
     </div>
   </div>
 </template>

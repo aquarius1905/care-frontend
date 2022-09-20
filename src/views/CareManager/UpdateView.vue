@@ -2,7 +2,7 @@
   <div id="care-manager-registration">
     <h2 class="page-ttl">登録情報確認・更新</h2>
     <div class="form box-shadow">
-      <ValidationObserver v-slot="{ invalid }">
+      <validation-observer v-slot="{ invalid }">
         <div class="form-content">
           <div class="form-item">
             <div class="form-item-wrap">
@@ -82,7 +82,7 @@
         <div class="form-btn-wrap">
           <button class="btn" @click="confirmUpdate()" :disabled="invalid">更新内容確認</button>
         </div>
-      </ValidationObserver>
+      </validation-observer>
     </div>
   </div>
 </template>

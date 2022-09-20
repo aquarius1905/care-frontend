@@ -1,10 +1,10 @@
 <template>
   <div class="registration">
-    <h2 class="registration__ttl">居宅介護事業所 登録</h2>
+    <h2 class="registration__ttl">介護事業所 登録</h2>
     <div class="registration___form">
       <validation-observer v-slot="{ invalid }">
         <div class="form__info box-shadow">
-          <h3 class="form__ttl">事業者情報</h3>
+          <h3 class="form__ttl">事業所情報</h3>
           <div class="form-item">
             <validation-provider v-slot="{ errors }" rules="required|max:255">
               <label for="office_name" class="form-item-lbl">
@@ -79,7 +79,8 @@
             </validation-provider>
           </div>
         </div>
-        <div class="form__info box-shadow">
+        <div class="form__info box-shadow" 
+          v-show="nursing_care_office.service_type.id !== home_care_support_id">
           <h3 class="form__ttl">担当者情報</h3>
           <div class="form-item">
             <div class="form-item-wrap">
@@ -210,15 +211,19 @@
 <script>
 import plugin from '@/plugins'
 import { mapGetters, mapActions } from 'vuex'
+import constant from '@/const'
 export default {
   computed: {
     ...mapGetters([
     'emptyServiceTypes',
     'getServiceTypes'
-    ])
+    ]),
+    home_care_support_id() {
+      return constant.HOME_CARE_SUPPORT_ID;
+    }
   },
   data() {
-  return {
+    return {
       service_types: null,
       nursing_care_office: {
         office_name: null,
