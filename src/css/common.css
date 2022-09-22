@@ -277,6 +277,11 @@ body {
   margin-bottom: 20px;
 }
 
+.radio__lbl {
+  display: inline-block;
+  margin-right: 20px;
+}
+
 .confirmation__sub-ttl {
   font-size: 20px;
   margin-bottom: 40px;
@@ -287,6 +292,14 @@ body {
   font-weight: 500;
   text-align: left;
   height: 60px;
+}
+
+.confirm__btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto 0;
+  border: none;
 }
 
 .bk__btn {

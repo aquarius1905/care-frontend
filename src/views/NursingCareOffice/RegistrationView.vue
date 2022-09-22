@@ -79,8 +79,7 @@
             </validation-provider>
           </div>
         </div>
-        <div class="form__info box-shadow" 
-          v-show="nursing_care_office.service_type.id !== home_care_support_id">
+        <div class="form__info box-shadow">
           <h3 class="form__ttl">担当者情報</h3>
           <div class="form-item">
             <div class="form-item-wrap">
@@ -211,16 +210,12 @@
 <script>
 import plugin from '@/plugins'
 import { mapGetters, mapActions } from 'vuex'
-import constant from '@/const'
 export default {
   computed: {
     ...mapGetters([
     'emptyServiceTypes',
     'getServiceTypes'
     ]),
-    home_care_support_id() {
-      return constant.HOME_CARE_SUPPORT_ID;
-    }
   },
   data() {
     return {
@@ -279,12 +274,3 @@ export default {
   }
 }
 </script>
-<style scoped>
-.confirm__btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 20px auto 0;
-  border: none;
-}
-</style>

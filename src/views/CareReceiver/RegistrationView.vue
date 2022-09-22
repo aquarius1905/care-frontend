@@ -48,9 +48,9 @@
             <validation-provider v-slot="{ errors }" rules="required">
               <label class="form-item-lbl" for="gender">性別</label>
               <input type="radio" name="gender" id="male" value="1" v-model="care_receiver.gender">
-              <label for="male" class="gender-lbl">男</label>
+              <label for="male" class="radio__lbl">男</label>
               <input type="radio" name="gender" id="female" value="2" v-model="care_receiver.gender">
-              <label for="female" class="gender-lbl">女</label>
+              <label for="female" class="radio__lbl">女</label>
               <div class="error">{{ errors[0] }}</div>
             </validation-provider>
           </div>
@@ -197,11 +197,6 @@ export default {
 }
 </script>
 <style scoped>
-.gender-lbl {
-  display: inline-block;
-  margin-right: 20px;
-}
-
 .keyperson-fieldset {
   padding: 20px;
 }

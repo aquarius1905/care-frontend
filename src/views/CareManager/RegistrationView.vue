@@ -4,6 +4,7 @@
     <div class="registration__form">
       <validation-observer v-slot="{ invalid }">
         <div class="form__info box-shadow">
+          <h3 class="form__ttl">ケアマネージャー情報</h3>
           <div class="form-item">
             <div class="form-item-wrap">
               <div class="form-item-name-wrap">
@@ -68,20 +69,6 @@
             </validation-provider>
           </div>
           <div class="form-item">
-            <validation-provider v-slot="{ errors }" rules="required">
-              <label class="form-item-lbl" for="suport_office">
-                所属居宅介護支援事業所
-                <span class="required-label">必須</span>
-              </label>
-              <select id="suport_office" class="select" v-model="care_manager.home_care_support_office">
-                <option v-for="support_office in support_offices" :key="support_office.id" :value="support_office">
-                  {{ support_office.name }}
-                </option>
-              </select>
-              <div class="error">{{ errors[0] }}</div>
-            </validation-provider>
-          </div>
-          <div class="form-item">
             <validation-provider v-slot="{ errors }" rules="required|email">
               <label class="form-item-lbl" for="email">
                 メールアドレス
@@ -113,9 +100,30 @@
             </validation-provider>
           </div>
         </div>
-        <div class="form-btn-wrap">
-          <button class="btn" @click="confirmRegistration()" :disabled="invalid">登録内容確認</button>
+        <div class="form__info box-shadow">
+          <h3 class="form__ttl">居宅介護支援事業所</h3>
+          <div class="form-item">
+            <input type="radio" name="home_care_support" id="new" value="new">
+            <label for="new" class="radio__lbl">新規</label>
+            <input type="radio" name="home_care_support" id="existing" value="existing">
+            <label for="existing" class="radio__lbl">既存</label>
+          </div>
+          <div class="form-item">
+            <validation-provider v-slot="{ errors }" rules="required">
+              <label class="form-item-lbl" for="suport_office">
+                所属居宅介護支援事業所
+                <span class="required-label">必須</span>
+              </label>
+              <select id="suport_office" class="select" v-model="care_manager.home_care_support_office">
+                <option v-for="support_office in support_offices" :key="support_office.id" :value="support_office">
+                  {{ support_office.name }}
+                </option>
+              </select>
+              <div class="error">{{ errors[0] }}</div>
+            </validation-provider>
+          </div>
         </div>
+        <button class="btn confirm__btn" @click="confirmRegistration" :disabled="invalid">登録内容確認</button>
       </validation-observer>
     </div>
   </div>
