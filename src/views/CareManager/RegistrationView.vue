@@ -4,6 +4,70 @@
     <div class="registration__form">
       <validation-observer v-slot="{ invalid }">
         <div class="form__info box-shadow">
+          <h3 class="form__ttl">居宅介護支援事業所情報</h3>
+          <div class="form-item">
+          </div>
+          <div class="form-item">
+            <validation-provider v-slot="{ errors }" rules="required|max:255">
+              <label for="office_name" class="form-item-lbl">
+                事業所名
+                <span class="required-label">必須</span>
+              </label>
+              <input type="text" id="office_name" class="input" 
+              v-model="care_manager.office_name" name="事業所名"
+                placeholder="居宅介護支援事業所 新橋">
+              <div class="error">{{ errors[0] }}</div>
+            </validation-provider>
+          </div>
+          <div class="form-item">
+            <validation-provider v-slot="{ errors }" rules="required|max:255">
+              <label for="corporate_name" class="form-item-lbl">
+                法人名
+                <span class="required-label">必須</span>
+              </label>
+              <input type="text" id="corporate_name" class="input"
+                v-model="care_manager.corporate_name"
+                placeholder="社会福祉法人 港福祉会" required>
+              <div class="error">{{ errors[0] }}</div>
+            </validation-provider>
+          </div>
+          <div class="form-item">
+            <validation-provider v-slot="{ errors }" rules="required|numeric|length:10">
+              <label class="form-item-lbl" for="office_number">
+                事業所番号
+                <span class="required-label">必須</span>
+              </label>
+              <input type="text" id="office_number" class="input" v-model="care_manager.office_number" size="10" maxlength="10"
+                placeholder="1370300000" required>
+              <div class="error">{{ errors[0] }}</div>
+            </validation-provider>
+          </div>
+          <div class="form-item">
+            <validation-provider v-slot="{ errors }" rules="required|numeric|length:7">
+              <label class="form-item-lbl" for="office_postcode">
+                郵便番号
+                <span class="required-label">必須</span>
+              </label>
+              <div class="flex">
+                <input type="text" id="post_code" class="input" v-model="care_manager.post_code" placeholder="1050004"
+                  @blur="fetchAddress" required>
+              </div>
+              <div class="error">{{ errors[0] }}</div>
+            </validation-provider>
+          </div>
+          <div class="form-item">
+            <validation-provider v-slot="{ errors }" rules="required|max:255">
+              <label class="form-item-lbl" for="address">
+                住所
+                <span class="required-label">必須</span>
+              </label>
+              <input type="text" id="address" class="input" v-model="care_manager.office_address" placeholder="東京都港区新橋3-4-5"
+                required>
+              <div class="error">{{ errors[0] }}</div>
+            </validation-provider>
+          </div>
+        </div>
+        <div class="form__info box-shadow">
           <h3 class="form__ttl">ケアマネージャー情報</h3>
           <div class="form-item">
             <div class="form-item-wrap">
@@ -100,29 +164,6 @@
             </validation-provider>
           </div>
         </div>
-        <div class="form__info box-shadow">
-          <h3 class="form__ttl">居宅介護支援事業所</h3>
-          <div class="form-item">
-            <input type="radio" name="home_care_support" id="new" value="new">
-            <label for="new" class="radio__lbl">新規</label>
-            <input type="radio" name="home_care_support" id="existing" value="existing">
-            <label for="existing" class="radio__lbl">既存</label>
-          </div>
-          <div class="form-item">
-            <validation-provider v-slot="{ errors }" rules="required">
-              <label class="form-item-lbl" for="suport_office">
-                所属居宅介護支援事業所
-                <span class="required-label">必須</span>
-              </label>
-              <select id="suport_office" class="select" v-model="care_manager.home_care_support_office">
-                <option v-for="support_office in support_offices" :key="support_office.id" :value="support_office">
-                  {{ support_office.name }}
-                </option>
-              </select>
-              <div class="error">{{ errors[0] }}</div>
-            </validation-provider>
-          </div>
-        </div>
         <button class="btn confirm__btn" @click="confirmRegistration" :disabled="invalid">登録内容確認</button>
       </validation-observer>
     </div>
@@ -130,11 +171,9 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
 export default {
   data() {
     return {
-      support_offices: null,
       care_manager: {
         last_name: null,
         first_name: null,
@@ -144,14 +183,14 @@ export default {
         registration_number: null,
         email: null,
         tel: null,
-        password: null
+        password: null,
+        office_name: null,
+        corporate_name: null,
+        office_number: null,
+        office_postcode: null,
+        office_address: null
       },
     }
-  },
-  computed: {
-    ...mapGetters([
-      'getSupportOffices'
-    ])
   },
   methods: {
     confirmRegistration() {
@@ -160,19 +199,6 @@ export default {
         query: { care_manager: this.care_manager }
       });
     },
-    ...mapActions(['fetchSupportOffices']),
-    async initialize() {
-      await this.fetchSupportOffices();
-      this.support_offices = this.getSupportOffices;
-      if (this.$route.query.care_manager === null) {
-        this.care_manager.home_care_support_office = this.support_offices[0];
-      } else {
-        this.care_manager = this.$route.query.care_manager
-      }
-    }
   },
-  async created() {
-    await this.initialize();
-  }
 }
 </script>

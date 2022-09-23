@@ -1,6 +1,6 @@
 <template>
   <div class="confirmation">
-    <h2 class="confirmation__ttl">介護事業所　登録内容確認</h2>
+    <h2 class="confirmation__ttl">介護事業所 登録内容確認</h2>
       <div class="confirmation__content box-shadow">
         <h3 class="confirmation__sub-ttl">事業所情報</h3>
         <table class="confirmation__tbl">
@@ -29,31 +29,29 @@
             <td>{{ nursing_care_office.address }}</td>
           </tr>
         </table>
-        <div v-show="nursing_care_office.service_type.id !== home_care_support_id">
-          <h3 class="confirmation__sub-ttl">担当者情報</h3>
-          <table class="confirmation__tbl">
-            <tr>
-              <th>氏名</th>
-              <td>{{ nursing_care_office.last_name }}&emsp;{{ nursing_care_office.first_name }}</td>
-            </tr>
-            <tr>
-              <th>フリガナ</th>
-              <td>{{ nursing_care_office.last_name_furigana }}&emsp;{{ nursing_care_office.first_name_furigana }}</td>
-            </tr>
-            <tr>
-              <th>メールアドレス</th>
-              <td>{{ nursing_care_office.email }}</td>
-            </tr>
-            <tr>
-              <th>電話番号</th>
-              <td>{{ nursing_care_office.tel }}</td>
-            </tr>
-            <tr>
-              <th>パスワード</th>
-              <td>**********</td>
-            </tr>
-          </table>
-        </div>
+        <h3 class="confirmation__sub-ttl">担当者情報</h3>
+        <table class="confirmation__tbl">
+          <tr>
+            <th>氏名</th>
+            <td>{{ nursing_care_office.last_name }}&emsp;{{ nursing_care_office.first_name }}</td>
+          </tr>
+          <tr>
+            <th>フリガナ</th>
+            <td>{{ nursing_care_office.last_name_furigana }}&emsp;{{ nursing_care_office.first_name_furigana }}</td>
+          </tr>
+          <tr>
+            <th>メールアドレス</th>
+            <td>{{ nursing_care_office.email }}</td>
+          </tr>
+          <tr>
+            <th>電話番号</th>
+            <td>{{ nursing_care_office.tel }}</td>
+          </tr>
+          <tr>
+            <th>パスワード</th>
+            <td>**********</td>
+          </tr>
+        </table>
       </div>
       <div class="btn__wrap">
         <button class="bk__btn btn" @click="back">戻る</button>
@@ -69,11 +67,6 @@ export default {
   data: function () {
     return {
       nursing_care_office: null
-    }
-  },
-  computed: {
-    home_care_support_id() {
-      return constant.HOME_CARE_SUPPORT_ID;
     }
   },
   methods: {
