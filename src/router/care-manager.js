@@ -1,9 +1,9 @@
 import CareManagerLoginView from '@/views/CareManager/LoginView.vue'
 import CareManagerRegistrationView from '@/views/CareManager/RegistrationView.vue'
 import CareManagerRegistrationCompletionView from '@/views/Common/RegistrationCompletionView.vue'
-import CareManagerRegistrationConfirmationView from '@/views/CareManager/RegistrationConfirmView.vue'
+import CareManagerRegistrationConfirmView from '@/views/CareManager/RegistrationConfirmView.vue'
 import CareManagerUpdateView from '@/views/CareManager/UpdateView.vue'
-import CareManagerUpdateConfirmationView from '@/views/CareManager/UpdateConfirmView.vue'
+import CareManagerUpdateConfirmView from '@/views/CareManager/UpdateConfirmView.vue'
 import CareManagerUpdateCompletionView from '@/views/CareManager/UpdateCompletionView.vue'
 import CareManagerVisitDateTimeView from '@/views/CareManager/VisitDateTimeView.vue'
 import CareManagerForgotPasswordView from '@/views/CareManager/ForgotPassword.vue'
@@ -18,8 +18,8 @@ export default {
     },
     {
       path: '/care-manager/register/confirm',
-      name: 'CareManagerRegistrationConfirmation',
-      component: CareManagerRegistrationConfirmationView,
+      name: 'CareManagerRegistrationConfirm',
+      component: CareManagerRegistrationConfirmView,
       meta: { requiresAuth: false },
     },
     {
@@ -36,8 +36,8 @@ export default {
     },
     {
       path: '/care-manager/update/confirm',
-      name: 'CareManagerUpdateConfirmation',
-      component: CareManagerUpdateConfirmationView,
+      name: 'CareManagerUpdateConfirm',
+      component: CareManagerUpdateConfirmView,
       meta: { requiresAuth: true },
     },
     {

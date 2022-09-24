@@ -17,10 +17,6 @@
             <td>{{ care_manager.registration_number }}</td>
           </tr>
           <tr>
-            <th>所属居宅介護支援事業所</th>
-            <td>{{ care_manager.home_care_support_office.name }}</td>
-          </tr>
-          <tr>
             <th>メールアドレス</th>
             <td>{{ care_manager.email }}</td>
           </tr>
@@ -64,7 +60,6 @@ export default {
       }
     },
     makeCareManagerData() {
-      this.care_manager['home_care_support_office_id'] = this.care_manager['home_care_support_office']['id'];
       this.care_manager['name']
         = this.care_manager['last_name'] + '　' + this.care_manager['first_name'];
       this.care_manager['name_furigana']

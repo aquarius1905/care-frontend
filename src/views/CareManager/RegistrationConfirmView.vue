@@ -1,7 +1,7 @@
 <template>
   <div class="confirmation">
     <h2 class="confirmation__ttl">ケアマネージャー 登録内容確認</h2>
-    <div class="confirmation__contentform box-shadow">
+    <div class="confirmation__content box-shadow">
       <h3 class="confirmation__sub-ttl">事業所情報</h3>
       <table class="confirmation__tbl">
         <tr>
@@ -40,10 +40,6 @@
           <td>{{ care_manager.registration_number }}</td>
         </tr>
         <tr>
-          <th>所属居宅介護支援事業所</th>
-          <td>{{ care_manager.home_care_support_office.name }}</td>
-        </tr>
-        <tr>
           <th>メールアドレス</th>
           <td>{{ care_manager.email }}</td>
         </tr>
@@ -56,25 +52,21 @@
           <td>************</td>
         </tr>
       </table>
-      <div class="register-btn-wrap">
-        <button class="bk__btn btn" @click="back">戻る</button>
-        <button class="btn" @click="register">登録</button>
-      </div>
+    </div>
+    <div class="btn__wrap">
+      <button class="bk__btn btn" @click="back">戻る</button>
+      <button class="btn" @click="register">登録</button>
     </div>
   </div>
 </template>
 
 <script>
 import { api } from "@/http-common";
-import { mapGetters } from 'vuex'
 export default {
   data: function () {
     return {
       care_manager: null
     }
-  },
-  computed: {
-    ...mapGetters([ 'getCareManagerAccessToken' ])
   },
   methods: {
     back() {
@@ -88,8 +80,6 @@ export default {
         this.makeCareManagerData();
 
         try {
-          api.defaults.headers.common['Authorization']
-            = 'Bearer ' + this.getCareManagerAccessToken;
           const response = await api.post(
             '/care-managers', this.care_manager
           );
@@ -106,8 +96,6 @@ export default {
       }
     },
     makeCareManagerData() {
-      this.care_manager['home_care_support_office_id']
-        = this.care_manager['home_care_support_office']['id'];
       this.care_manager['name']
         = this.care_manager['last_name'] + '　' + this.care_manager['first_name'];
       this.care_manager['name_furigana']

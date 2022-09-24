@@ -49,7 +49,7 @@
                 <span class="required-label">必須</span>
               </label>
               <div class="flex">
-                <input type="text" id="post_code" class="input" v-model="care_manager.post_code" placeholder="1050004"
+                <input type="text" id="post_code" class="input" v-model="care_manager.office_postcode" placeholder="1050004"
                   @blur="fetchAddress" required>
               </div>
               <div class="error">{{ errors[0] }}</div>
@@ -156,10 +156,20 @@
           <div class="form-item">
             <validation-provider v-slot="{ errors }" rules="required|password_rule">
               <label class="form-item-lbl" for="password">
-                パスワード
+                パスワード（半角英数字(A~Z,a~z,0~9)を最低1文字含む8～64文字）
                 <span class="required-label">必須</span>
               </label>
               <input type="password" id="password" class="input" v-model="care_manager.password" required>
+              <div class="error">{{ errors[0] }}</div>
+            </validation-provider>
+          </div>
+          <div class="form-item">
+            <validation-provider v-slot="{ errors }" rules="required|confirmed:password" vid="password">
+              <label class="form-item-lbl" for="password_confirmation">
+                パスワード（確認用）
+                <span class="required-label">必須</span>
+              </label>
+              <input type="password" id="password_confirmation" class="input" v-model="care_manager.password_confirmation" required>
               <div class="error">{{ errors[0] }}</div>
             </validation-provider>
           </div>
@@ -171,6 +181,7 @@
 </template>
 
 <script>
+import plugin from '@/plugins'
 export default {
   data() {
     return {
@@ -179,11 +190,11 @@ export default {
         first_name: null,
         last_name_furigana: null,
         first_name_furigana: null,
-        home_care_support_office: null,
         registration_number: null,
         email: null,
         tel: null,
         password: null,
+        password_confirmation: null,
         office_name: null,
         corporate_name: null,
         office_number: null,
@@ -193,6 +204,12 @@ export default {
     }
   },
   methods: {
+    async fetchAddress() {
+      this.care_manager.office_address
+          = await plugin.fetchAddress(
+            this.care_manager.office_postcode
+          );
+    },
     confirmRegistration() {
       this.$router.push({
         name: 'CareManagerRegistrationConfirm',
@@ -200,5 +217,11 @@ export default {
       });
     },
   },
+  created() {
+    if (this.$route.query.care_manager !== null) {
+      this.care_manager
+        = this.$route.query.care_manager
+    }
+  }
 }
 </script>

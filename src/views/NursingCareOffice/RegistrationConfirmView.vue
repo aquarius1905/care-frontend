@@ -1,68 +1,67 @@
 <template>
   <div class="confirmation">
     <h2 class="confirmation__ttl">介護事業所 登録内容確認</h2>
-      <div class="confirmation__content box-shadow">
-        <h3 class="confirmation__sub-ttl">事業所情報</h3>
-        <table class="confirmation__tbl">
-          <tr>
-            <th>事業所名</th>
-            <td>{{ nursing_care_office.office_name }}</td>
-          </tr>
-          <tr>
-            <th>法人名</th>
-            <td>{{ nursing_care_office.corporate_name }}</td>
-          </tr>
-          <tr>
-            <th>サービス種別</th>
-            <td>{{ nursing_care_office.service_type.name }}</td>
-          </tr>
-          <tr>
-            <th>事業所番号</th>
-            <td>{{ nursing_care_office.office_number }}</td>
-          </tr>
-          <tr>
-            <th>郵便番号</th>
-            <td>〒 {{ nursing_care_office.post_code }}</td>
-          </tr>
-          <tr>
-            <th>住所</th>
-            <td>{{ nursing_care_office.address }}</td>
-          </tr>
-        </table>
-        <h3 class="confirmation__sub-ttl">担当者情報</h3>
-        <table class="confirmation__tbl">
-          <tr>
-            <th>氏名</th>
-            <td>{{ nursing_care_office.last_name }}&emsp;{{ nursing_care_office.first_name }}</td>
-          </tr>
-          <tr>
-            <th>フリガナ</th>
-            <td>{{ nursing_care_office.last_name_furigana }}&emsp;{{ nursing_care_office.first_name_furigana }}</td>
-          </tr>
-          <tr>
-            <th>メールアドレス</th>
-            <td>{{ nursing_care_office.email }}</td>
-          </tr>
-          <tr>
-            <th>電話番号</th>
-            <td>{{ nursing_care_office.tel }}</td>
-          </tr>
-          <tr>
-            <th>パスワード</th>
-            <td>**********</td>
-          </tr>
-        </table>
-      </div>
-      <div class="btn__wrap">
-        <button class="bk__btn btn" @click="back">戻る</button>
-        <button class="btn" @click="register">登録</button>
-      </div>
+    <div class="confirmation__content box-shadow">
+      <h3 class="confirmation__sub-ttl">事業所情報</h3>
+      <table class="confirmation__tbl">
+        <tr>
+          <th>事業所名</th>
+          <td>{{ nursing_care_office.office_name }}</td>
+        </tr>
+        <tr>
+          <th>法人名</th>
+          <td>{{ nursing_care_office.corporate_name }}</td>
+        </tr>
+        <tr>
+          <th>サービス種別</th>
+          <td>{{ nursing_care_office.service_type.name }}</td>
+        </tr>
+        <tr>
+          <th>事業所番号</th>
+          <td>{{ nursing_care_office.office_number }}</td>
+        </tr>
+        <tr>
+          <th>郵便番号</th>
+          <td>〒 {{ nursing_care_office.post_code }}</td>
+        </tr>
+        <tr>
+          <th>住所</th>
+          <td>{{ nursing_care_office.address }}</td>
+        </tr>
+      </table>
+      <h3 class="confirmation__sub-ttl">担当者情報</h3>
+      <table class="confirmation__tbl">
+        <tr>
+          <th>氏名</th>
+          <td>{{ nursing_care_office.last_name }}&emsp;{{ nursing_care_office.first_name }}</td>
+        </tr>
+        <tr>
+          <th>フリガナ</th>
+          <td>{{ nursing_care_office.last_name_furigana }}&emsp;{{ nursing_care_office.first_name_furigana }}</td>
+        </tr>
+        <tr>
+          <th>メールアドレス</th>
+          <td>{{ nursing_care_office.email }}</td>
+        </tr>
+        <tr>
+          <th>電話番号</th>
+          <td>{{ nursing_care_office.tel }}</td>
+        </tr>
+        <tr>
+          <th>パスワード</th>
+          <td>**********</td>
+        </tr>
+      </table>
+    </div>
+    <div class="btn__wrap">
+      <button class="bk__btn btn" @click="back">戻る</button>
+      <button class="btn" @click="register">登録</button>
+    </div>
   </div>
 </template>
 
 <script>
 import { api } from "@/http-common";
-import constant from '@/const'
 export default {
   data: function () {
     return {

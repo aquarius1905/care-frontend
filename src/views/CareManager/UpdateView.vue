@@ -53,17 +53,6 @@
             </validation-provider>
           </div>
           <div class="form-item">
-            <validation-provider v-slot="{ errors }" rules="required">
-              <label class="form-item-lbl" for="suport_office">所属居宅介護支援事業所</label>
-              <select id="suport_office" class="select" v-model="care_manager.home_care_support_office">
-                <option v-for="support_office in support_offices" :key="support_office.id" :value="support_office">
-                  {{ support_office.name }}
-                </option>
-              </select>
-              <div class="error">{{ errors[0] }}</div>
-            </validation-provider>
-          </div>
-          <div class="form-item">
             <validation-provider v-slot="{ errors }" rules="required|email">
               <label class="form-item-lbl" for="email">メールアドレス</label>
               <input type="email" id="email" class="input" v-model="care_manager.email"

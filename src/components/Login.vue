@@ -72,7 +72,7 @@ export default {
     ]),
     async login() {
         if (this.isCareManager) {
-          console.log("isCareManager");
+          await this.loginCareManager();
         } else if (this.isKeyPerson) {
           await this.loginKeyPerson();
         } else if (this.isNursingCareOffice) {
