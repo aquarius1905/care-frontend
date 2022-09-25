@@ -200,7 +200,6 @@ body {
   table-layout: fixed;
 }
 
-.login-form,
 .forgot-password-form {
   background-color: #fff;
   width: 400px;
@@ -208,7 +207,6 @@ body {
   border-radius: 6px;
 }
 
-.login-form-content,
 .forgot-password-form-content {
   padding: 30px 20px 20px;
 }

@@ -67,8 +67,13 @@ export default {
           this.care_receivers = response.data.data;
         }
       } catch (error) {
-        alert("データの取得に失敗しました");
-        console.log(error);
+        if (error.response.status === 403) {
+          this.$router.push({
+            name: 'EmailUnverified'
+          });
+        } else {
+          alert("データの取得に失敗しました");
+        }
       }
     },
     allChecked(event) {

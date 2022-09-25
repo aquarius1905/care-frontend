@@ -80,7 +80,6 @@ export default {
         this.makeNursingCareOfficeData();
 
         try {
-          console.log(this.nursing_care_office);
           const response = await api.post(
             '/nursing-care-offices',
             this.nursing_care_office
@@ -111,3 +110,11 @@ export default {
   }
 };
 </script>
+<style scoped>
+.confirmation__tbl th {
+  width: 30%;
+  font-weight: 500;
+  text-align: left;
+  height: 60px;
+}
+</style>

@@ -4,7 +4,7 @@
       <div>
         <ul class="menu-content" v-if="this.isCareManagerLoggedIn">
           <li>
-            <router-link class="link" to="/care-receiver/list">被介護者一覧</router-link>
+            <router-link class="link" to="/care-manager/dashboard">ダッシュボード</router-link>
           </li>
           <li>
             <button class="btn-link" @click="showCareReceiverRegistrationPage">被介護者登録</button>

@@ -90,8 +90,8 @@ export default {
             });
           }
         } catch (error) {
-          alert('登録に失敗しました');
           console.log(error);
+          alert('登録に失敗しました');
         }
       }
     },

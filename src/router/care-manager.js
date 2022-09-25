@@ -7,6 +7,7 @@ import CareManagerUpdateConfirmView from '@/views/CareManager/UpdateConfirmView.
 import CareManagerUpdateCompletionView from '@/views/CareManager/UpdateCompletionView.vue'
 import CareManagerVisitDateTimeView from '@/views/CareManager/VisitDateTimeView.vue'
 import CareManagerForgotPasswordView from '@/views/CareManager/ForgotPassword.vue'
+import CareManagerDashboardView from '@/views/CareManager/DashboardView.vue'
 
 export default {
   routes: [
@@ -44,6 +45,12 @@ export default {
       path: '/care-manager/update/complete',
       name: 'CareManagerUpdateCompletion',
       component: CareManagerUpdateCompletionView,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/care-manager/dashboard',
+      name: 'CareManagerDashboard',
+      component: CareManagerDashboardView,
       meta: { requiresAuth: true },
     },
     {

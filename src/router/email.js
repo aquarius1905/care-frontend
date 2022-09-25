@@ -19,6 +19,7 @@ export default {
     },
     {
       path: '/email/unverified',
+      name: 'EmailUnverified',
       component: EmailUnverifiedView
     },
   ]

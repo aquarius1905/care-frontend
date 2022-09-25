@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div class="login-form box-shadow">
+    <div class="login__form box-shadow">
       <h2 class="form-ttl">{{ formTitle + ' ログイン' }}</h2>
       <validation-observer ref="obs" v-slot="ObserverProps">
-        <div class="login-form-content">
+        <div class="login__form-content">
           <div class="form-item">
             <label class="form-item-lbl" for="email">メールアドレス</label>
             <validation-provider v-slot="{ errors }" rules="required|email">
@@ -79,22 +79,23 @@ export default {
           await this.loginNursingCareOffice();
         }
     },
-    async loginCareManager() {
+    async loginCareManager() {;
       try {
         const response = await api.post(
           '/care-managers/login', this.login_data
         );
-        
+        console.log(response.status);
         if (response.status === 200) {
           const login_data = {
             access_token: response.data.access_token,
             care_manager: response.data.care_manager
           };
           this.setLoggedInCareManager(login_data);
-          this.$router.push({ name: 'CareReceiverList' });
+          this.$router.push({ name: 'CareManagerDashboard' });
         }
       } catch (error) {
-        this.login_error = error.response.data.login_error;
+        console.log(error.response.status);
+        this.showError(error.response.status);
       }
     },
     async loginKeyPerson() {
@@ -112,7 +113,7 @@ export default {
           this.$router.push({ name: 'KeyPersonDashboard' });
         }
       } catch (error) {
-          this.login_error = error.response.data.login_error
+        this.showError(error.response.status);
       }
     },
     async loginNursingCareOffice() {
@@ -130,9 +131,31 @@ export default {
           this.$router.push({ name: 'NursingCareOfficeDashboard' });
         }
       } catch (error) {
-          this.login_error = error.response.data.login_error
+        this.showError(error.response.status);
       }
     },
+    showError(error_status) {
+      switch (error_status) {
+        case 401:
+          this.login_error = error.response.data.login_error;
+          break;
+        case 403:
+          this.$router.push({ name: 'EmailUnverified' });
+          break;
+      }
+    }
   }
 }
 </script>
+
+<style scoped>
+.login__form {
+  background-color: #fff;
+  width: 500px;
+  margin: 50px auto 0;
+  border-radius: 6px;
+}
+.login__form-content {
+  padding: 30px 20px 20px;
+}
+</style>
