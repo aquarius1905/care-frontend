@@ -3,7 +3,7 @@
     <div class="form confirm-form box-shadow">
       <h2 class="form-ttl">ケアマネージャー更新内容確認</h2>
       <div class="confirm-content">
-        <table class="confirm-tbl">
+        <table class="confirmation__tbl">
           <tr>
             <th>氏名</th>
             <td>{{ care_manager.last_name }}&emsp;{{ care_manager.first_name }}</td>
@@ -91,9 +91,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.confirm-tbl th {
-  width: 40%;
-}
-</style>

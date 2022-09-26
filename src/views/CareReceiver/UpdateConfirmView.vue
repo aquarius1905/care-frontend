@@ -3,7 +3,7 @@
     <div class="form box-shadow">
       <h2 class="form-ttl">被介護者・キーパーソン 更新確認</h2>
       <div class="confirm-content">
-        <table class="confirm-tbl">
+        <table class="confirmation__tbl">
           <tr>
             <th>氏名</th>
             <td>{{ care_receiver.last_name }}&emsp;{{ care_receiver.first_name }}</td>
@@ -43,7 +43,7 @@
         </table>
         <fieldset class="confirm-fieldset">
           <legend class="legend">キーパーソン</legend>
-          <table class="confirm-tbl">
+          <table class="confirmation__tbl">
             <tr>
               <th>氏名</th>
               <td>{{ key_person.last_name }}&emsp;{{ key_person.first_name }}</td>
@@ -66,8 +66,8 @@
             </tr>
           </table>
         </fieldset>
-        <div class="register-btn-wrap">
-          <button class="back-btn btn" @click="back">戻る</button>
+        <div class="btn__wrap">
+          <button class="bk__btn btn" @click="back">戻る</button>
           <button class="btn" @click="update">更新</button>
         </div>
       </div>
@@ -185,13 +185,13 @@ export default {
 </script>
 
 <style scoped>
-.confirm-tbl {
+.confirmation__tbl {
   table-layout: fixed;
 }
-.confirm-tbl th {
+.confirmation__tbl th {
   width: 30%;
 }
-.confirm-tbl td {
+.confirmation__tbl td {
   width: 90%;
 }
 .confirm-fieldset {
@@ -200,10 +200,5 @@ export default {
   width: 100%;
   box-sizing: border-box;
   margin-bottom: 20px;
-}
-.back-btn {
-  width: 120px;
-  background-color: #7E57C2;
-  margin-right: 30px;
 }
 </style>

@@ -12,14 +12,14 @@ body {
 ::placeholder {
   color: #c0c0c0;
 }
-  
+
 .box-shadow {
   box-shadow: 2px 2px 4px 1px #888;
 }
 
 .form-ttl {
   color: #fff;
-  background-color: #1A237E;
+  background-color: #1a237e;
   padding: 20px;
   font-size: 20px;
   font-weight: normal;
@@ -28,13 +28,13 @@ body {
 }
 
 .ttl {
-  color: #1A237E;
+  color: #1a237e;
   font-weight: bold;
   font-size: 30px;
 }
 
 .page-ttl {
-  color: #1A237E;
+  color: #1a237e;
   padding: 20px;
   font-size: 22px;
   user-select: none;
@@ -59,12 +59,12 @@ body {
   box-sizing: border-box;
 }
 
-.form-item {
+.form__item {
   width: 100%;
   margin-bottom: 25px;
 }
 
-.form-item-lbl {
+.form__item-lbl {
   display: block;
   align-items: center;
   font-weight: 500;
@@ -72,7 +72,7 @@ body {
   color: #333;
 }
 
-.required-label {
+.required-lbl {
   border-radius: 6px;
   margin-left: 8px;
   padding: 7px 0;
@@ -89,15 +89,15 @@ body {
   padding: 0 10px;
 }
 
-.form-item:last-child {
+.form__item:last-child {
   margin-bottom: 0;
 }
 
-.form-item-name-wrap {
+.form__item-name-wrap {
   width: 100%;
 }
 
-.form-item-wrap {
+.form__item-wrap {
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -137,7 +137,7 @@ body {
 
 .btn {
   color: #f5f5f5;
-  background-color: #1A237E;
+  background-color: #1a237e;
   border: none;
   padding: 5px 0;
   width: 150px;
@@ -180,7 +180,7 @@ body {
 
 .fieldset {
   border: 1px solid #555;
-  padding: 15px 10px 10px; 
+  padding: 15px 10px 10px;
   width: 100%;
   box-sizing: border-box;
   margin-bottom: 20px;
@@ -238,14 +238,16 @@ body {
 
 /* 登録画面・確認画面 */
 .registration,
-.confirmation {
+.confirmation,
+.update {
   margin: 20px auto 50px;
   width: 700px;
 }
 
 .registration__ttl,
-.confirmation__ttl {
-  color: #1A237E;
+.confirmation__ttl,
+.update__ttl {
+  color: #1a237e;
   font-size: 22px;
 }
 
@@ -289,13 +291,13 @@ body {
 
 .bk__btn {
   width: 120px;
-  background-color: #7E57C2;
+  background-color: #7e57c2;
   margin-right: 30px;
 }
 
 /* 介護度 */
 .care-level-wrap {
-  margin-bottom: 20px
+  margin-bottom: 20px;
 }
 
 .care-level-lst {
@@ -303,7 +305,7 @@ body {
   display: flex;
 }
 
-.radio-btn-lbl{
+.radio-btn-lbl {
   display: inline-block;
   margin-right: 10px;
 }

@@ -4,10 +4,10 @@
       <h2 class="form-ttl">{{ 'パスワード再設定' + formTitle }}</h2>
       <validation-observer ref="obs" v-slot="ObserverProps">
         <div class="forgot-password-form-content">
-          <div class="form-item">
-            <label class="form-item-lbl" for="email">メールアドレス</label>
+          <div class="form__item">
+            <label class="form__item-lbl" for="email">メールアドレス</label>
             <validation-provider v-slot="{ errors }" rules="required|email">
-              <div class="form-item-input">
+              <div class="form__item-input">
                 <input type="email" id="email" class="input" v-model="email" placeholder="test@sample.com"
                   required>
               </div>

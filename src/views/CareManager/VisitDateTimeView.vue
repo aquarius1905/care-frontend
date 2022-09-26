@@ -4,20 +4,20 @@
       <h2 class="form-ttl">訪問日時{{ registered_flg ? "確認・変更": "登録" }}</h2>
       <validation-observer v-slot="{ invalid }">
         <div class="form-content">
-          <div class="form-item">
-            <label class="form-item-lbl">氏名</label>
+          <div class="form__item">
+            <label class="form__item-lbl">氏名</label>
             <label class="">{{ care_receiver.name }}</label>
           </div>
-          <div class="form-item">
+          <div class="form__item">
             <validation-provider v-slot="{ errors }" rules="required">
-              <label class="form-item-lbl" for="visit_date">訪問日</label>
+              <label class="form__item-lbl" for="visit_date">訪問日</label>
               <input type="date" id="visit_date" class="input" v-model="visit_datetime.date" :min="tomorrow" required>
               <div class="error">{{ errors[0] }}</div>
             </validation-provider>
           </div>
-          <div class="form-item">
+          <div class="form__item">
             <validation-provider v-slot="{ errors }" rules="required">
-              <label class="form-item-lbl" for="visit_time">時間</label>
+              <label class="form__item-lbl" for="visit_time">時間</label>
               <select id="visit_time" class="select time-select" v-model="visit_datetime.time">
                 <option v-for="(time, index) of times" :value="time" :key="index">{{ time }}</option>
               </select>

@@ -113,8 +113,5 @@ export default {
 <style scoped>
 .confirmation__tbl th {
   width: 30%;
-  font-weight: 500;
-  text-align: left;
-  height: 60px;
 }
 </style>

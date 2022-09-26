@@ -1,22 +1,22 @@
 <template>
-  <div id="care-manager-registration">
-    <h2 class="page-ttl">登録情報確認・更新</h2>
-    <div class="form box-shadow">
+  <div class="update">
+    <h2 class="update__ttl">登録情報確認・更新</h2>
+    <div class="update__form">
       <validation-observer v-slot="{ invalid }">
-        <div class="form-content">
-          <div class="form-item">
-            <div class="form-item-wrap">
-              <div class="form-item-name-wrap">
+        <div class="form__info box-shadow">
+          <div class="form__item">
+            <div class="form__item-wrap">
+              <div class="form__item-name-wrap">
                 <validation-provider v-slot="{ errors }" rules="required|max:127">
-                  <label for="last_name" class="form-item-lbl">姓</label>
+                  <label for="last_name" class="form__item-lbl">姓</label>
                   <input type="text" id="last_name" class="name-input" v-model="care_manager.last_name" name="姓"
                     placeholder="山田" required>
                   <div class="error">{{ errors[0] }}</div>
                 </validation-provider>
               </div>
-              <div class="form-item-name-wrap">
+              <div class="form__item-name-wrap">
                 <validation-provider v-slot="{ errors }" rules="required|max:127">
-                  <label for="first_name" class="form-item-lbl">名</label>
+                  <label for="first_name" class="form__item-lbl">名</label>
                   <input type="text" id="first_name" class="name-input" v-model="care_manager.first_name" name="名"
                     placeholder="太郎" required>
                   <div class="error">{{ errors[0] }}</div>
@@ -24,19 +24,19 @@
               </div>
             </div>
           </div>
-          <div class="form-item">
-            <div class="form-item-wrap">
-              <div class="form-item-name-wrap">
+          <div class="form__item">
+            <div class="form__item-wrap">
+              <div class="form__item-name-wrap">
                 <validation-provider v-slot="{ errors }" rules="required|full_sized_katakana|max:127" name="セイ">
-                  <label for="last_name_furigana" class="form-item-lbl">セイ</label>
+                  <label for="last_name_furigana" class="form__item-lbl">セイ</label>
                   <input type="text" id="last_name_furigana" class="name-input"
                     v-model="care_manager.last_name_furigana" placeholder="ヤマダ" required>
                   <div class="error">{{ errors[0] }}</div>
                 </validation-provider>
               </div>
-              <div class="form-item-name-wrap">
+              <div class="form__item-name-wrap">
                 <validation-provider v-slot="{ errors }" rules="required|full_sized_katakana|max:127" name="メイ">
-                  <label for="first_name_furigana" class="form-item-lbl">メイ</label>
+                  <label for="first_name_furigana" class="form__item-lbl">メイ</label>
                   <input type="text" id="first_name_furigana" class="name-input"
                     v-model="care_manager.first_name_furigana" placeholder="タロウ" required>
                   <div class="error">{{ errors[0] }}</div>
@@ -44,33 +44,31 @@
               </div>
             </div>
           </div>
-          <div class="form-item">
+          <div class="form__item">
             <validation-provider v-slot="{ errors }" rules="required|length:8">
-              <label class="form-item-lbl" for="registration_number">介護支援専門員登録番号</label>
+              <label class="form__item-lbl" for="registration_number">介護支援専門員登録番号</label>
               <input type="text" id="registration_number" class="input" v-model="care_manager.registration_number"
                 placeholder="13000000" required>
               <div class="error">{{ errors[0] }}</div>
             </validation-provider>
           </div>
-          <div class="form-item">
+          <div class="form__item">
             <validation-provider v-slot="{ errors }" rules="required|email">
-              <label class="form-item-lbl" for="email">メールアドレス</label>
+              <label class="form__item-lbl" for="email">メールアドレス</label>
               <input type="email" id="email" class="input" v-model="care_manager.email"
                 placeholder="taro_yamada@sample.com" required>
               <div class="error">{{ errors[0] }}</div>
             </validation-provider>
           </div>
-          <div class="form-item">
+          <div class="form__item">
             <validation-provider v-slot="{ errors }" rules="required|min:10|max:11">
-              <label class="form-item-lbl" for="tel">電話番号</label>
+              <label class="form__item-lbl" for="tel">電話番号</label>
               <input type="text" id="tel" class="input" v-model="care_manager.tel" placeholder="09012345678" required>
               <div class="error">{{ errors[0] }}</div>
             </validation-provider>
           </div>
         </div>
-        <div class="form-btn-wrap">
-          <button class="btn" @click="confirmUpdate()" :disabled="invalid">更新内容確認</button>
-        </div>
+        <button class="btn confirm__btn" @click="confirmUpdate" :disabled="invalid">更新内容確認</button>
       </validation-observer>
     </div>
   </div>
@@ -96,11 +94,6 @@ export default {
         query: { care_manager: this.care_manager }
       });
     },
-    async getSupportOffices() {
-      if (!this.hasSupportOffices) {
-        await this.$store.dispatch('fetchSupportOffices');
-      }
-    },
     async getCareManagerInfo() {
       if (!this.hasCareManager) {
         await this.$store.dispatch("fetchCareManagerInfo");
@@ -118,7 +111,6 @@ export default {
       this.care_manager.first_name_furigana = care_manager_name_furigana_arr[1];
     },
     initialize() {
-      this.getSupportOffices();
       if (this.$route.query.care_manager === null) {
         this.getCareManagerInfo();
       } else {

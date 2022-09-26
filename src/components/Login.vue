@@ -4,20 +4,20 @@
       <h2 class="form-ttl">{{ formTitle + ' ログイン' }}</h2>
       <validation-observer ref="obs" v-slot="ObserverProps">
         <div class="login__form-content">
-          <div class="form-item">
-            <label class="form-item-lbl" for="email">メールアドレス</label>
+          <div class="form__item">
+            <label class="form__item-lbl" for="email">メールアドレス</label>
             <validation-provider v-slot="{ errors }" rules="required|email">
-              <div class="form-item-input">
+              <div class="form__item-input">
                 <input type="email" id="email" class="input" v-model="login_data.email" placeholder="test@sample.com"
                   required>
               </div>
               <div class="error">{{ errors[0] }}</div>
             </validation-provider>
           </div>
-          <div class="form-item">
-            <label class="form-item-lbl" for="password">パスワード</label>
+          <div class="form__item">
+            <label class="form__item-lbl" for="password">パスワード</label>
             <validation-provider v-slot="{ errors }" rules="required">
-              <div class="form-item-input">
+              <div class="form__item-input">
                 <input type="password" id="password" class="input" v-model="login_data.password" required>
               </div>
               <div class="error">{{ errors[0] }}</div>
@@ -84,7 +84,7 @@ export default {
         const response = await api.post(
           '/care-managers/login', this.login_data
         );
-        console.log(response.status);
+        
         if (response.status === 200) {
           const login_data = {
             access_token: response.data.access_token,
@@ -94,8 +94,7 @@ export default {
           this.$router.push({ name: 'CareManagerDashboard' });
         }
       } catch (error) {
-        console.log(error.response.status);
-        this.showError(error.response.status);
+        this.showError(error);
       }
     },
     async loginKeyPerson() {
@@ -113,7 +112,7 @@ export default {
           this.$router.push({ name: 'KeyPersonDashboard' });
         }
       } catch (error) {
-        this.showError(error.response.status);
+        this.showError(error);
       }
     },
     async loginNursingCareOffice() {
@@ -131,11 +130,11 @@ export default {
           this.$router.push({ name: 'NursingCareOfficeDashboard' });
         }
       } catch (error) {
-        this.showError(error.response.status);
+        this.showError(error);
       }
     },
-    showError(error_status) {
-      switch (error_status) {
+    showError(error) {
+      switch (error.response.status) {
         case 401:
           this.login_error = error.response.data.login_error;
           break;

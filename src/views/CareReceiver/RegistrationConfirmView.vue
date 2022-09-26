@@ -1,9 +1,9 @@
 <template>
-  <div class="care-manager-registration-confirm">
-    <div class="form box-shadow">
-      <h2 class="form-ttl">被介護者 登録確認</h2>
-      <div class="confirm-content">
-        <table class="confirm-tbl">
+  <div class="confirmation">
+    <h2 class="confirmation__ttl">被介護者 登録内容確認</h2>
+    <div class="confirmation__content box-shadow">
+      <h3 class="confirmation__sub-ttl">被介護者情報</h3>
+      <table class="confirmation__tbl">
           <tr>
             <th>氏名</th>
             <td>{{ care_receiver.last_name }}&emsp;{{ care_receiver.first_name }}</td>
@@ -41,52 +41,48 @@
             <td>{{ care_receiver.insured_number }}</td>
           </tr>
         </table>
-        <fieldset class="confirm-fieldset">
-          <legend class="legend">キーパーソン</legend>
-          <table class="confirm-tbl">
-            <tr>
-              <th>氏名</th>
-              <td>{{ key_person.last_name }}&emsp;{{ key_person.first_name }}</td>
-            </tr>
-            <tr>
-              <th>フリガナ</th>
-              <td>{{ key_person.last_name_furigana }}&emsp;{{ key_person.first_name_furigana }}</td>
-            </tr>
-            <tr>
-              <th>続柄</th>
-              <td>{{ key_person.relationship }}</td>
-            </tr>
-            <tr>
-              <th>メールアドレス</th>
-              <td>{{ key_person.email }}</td>
-            </tr>
-            <tr>
-              <th>電話番号</th>
-              <td>{{ key_person.tel }}</td>
-            </tr>
-            <tr>
-              <th>パスワード</th>
-              <td>************</td>
-            </tr>
-          </table>
-        </fieldset>
-        <div class="register-btn-wrap">
-          <button class="back-btn btn" @click="back">戻る</button>
+        <h3 class="confirmation__sub-ttl">キーパーソン情報</h3>
+        <table class="confirmation__tbl">
+          <tr>
+            <th>氏名</th>
+            <td>{{ care_receiver.keyperson_lastname }}&emsp;{{ care_receiver.keyperson_firstname }}</td>
+          </tr>
+          <tr>
+            <th>フリガナ</th>
+            <td>{{ care_receiver.keyperson_lastname_furigana }}&emsp;{{ care_receiver.keyperson_firstname_furigana }}</td>
+          </tr>
+          <tr>
+            <th>続柄</th>
+            <td>{{ care_receiver.keyerson_relationship }}</td>
+          </tr>
+          <tr>
+            <th>メールアドレス</th>
+            <td>{{ care_receiver.email }}</td>
+          </tr>
+          <tr>
+            <th>電話番号</th>
+            <td>{{ care_receiver.tel }}</td>
+          </tr>
+          <tr>
+            <th>パスワード</th>
+            <td>************</td>
+          </tr>
+        </table>
+        <div class="btn__wrap">
+          <button class="bk__btn btn" @click="back">戻る</button>
           <button class="btn" @click="register">登録</button>
         </div>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
+import { api } from "@/http-common";
 import { mapGetters } from 'vuex'
 export default {
   data: function () {
     return {
       care_receiver: null,
-      key_person: null
     }
   },
   computed: {
@@ -95,16 +91,29 @@ export default {
   methods: {
     back() {
       this.$router.push({
-        name: 'KeyPersonRegistration',
+        name: 'CareReceiverRegistration',
         query: {
-          care_receiver: this.care_receiver,
-          key_person: this.key_person
+          care_receiver: this.care_receiver
         }
       });
     },
-    register() {
+    async register() {
       if (confirm('登録しますか？')) {
-        this.registerKeyPerson();
+        this.makeCareReceiverData();
+        try {
+          const response = await api.post(
+            '/care-receivers', this.care_receiver
+          );
+
+          if (response.status === 201) {
+            this.$router.push({
+              name: 'CareReceiverRegistrationCompletion'
+            });
+          }
+        } catch (error) {
+          console.log(error);
+          alert('登録に失敗しました');
+        }
       }
     },
     makeCareReceiverData(key_person_id) {
@@ -115,101 +124,19 @@ export default {
         = registration_data.last_name_furigana + '　' + registration_data.first_name_furigana;
       registration_data.care_level_id = registration_data.care_level.id;
       registration_data.key_person_id = key_person_id;
-
-      [
-        'last_name',
-        'first_name',
-        'last_name_furigana',
-        'first_name_furigana',
-        'care_level'
-      ].forEach(e => delete registration_data[e]);
-
-      return registration_data;
-    },
-    makeKeyPersonData() {
-      let registration_data = this.key_person;
-      registration_data.name
-        = registration_data.last_name + '　' + registration_data.first_name;
-      registration_data.name_furigana
-        = registration_data.last_name_furigana + '　' + registration_data.first_name_furigana;
-
-      [
-        'last_name',
-        'first_name',
-        'last_name_furigana',
-        'first_name_furigana'
-      ].forEach(e => delete registration_data[e]);
-
-      return registration_data;
-    },
-    registerKeyPerson() {
-      const key_person = this.makeKeyPersonData();
-      axios
-        .post(`${process.env.VUE_APP_API_ORIGIN}/key-persons`,
-          key_person,
-          {
-            headers: {
-              Authorization: `Bearer ${this.getCareManagerAccessToken}`,
-            }
-          })
-        .then(response => {
-          if (response.status === 201) {
-            this.registerCareReceiver(response.data.key_person_id);
-          }
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    },
-    registerCareReceiver(key_person_id) {
-      const care_receiver = this.makeCareReceiverData(key_person_id);
-      axios
-        .post(`${process.env.VUE_APP_API_ORIGIN}/care-receivers`,
-          care_receiver,
-          {
-            headers: {
-              Authorization: `Bearer ${this.getCareManagerAccessToken}`,
-            }
-          })
-        .then(response => {
-          if (response.status === 201) {
-            this.$router.push({
-              name: 'CareReceiverRegistrationCompletion'
-            });
-          }
-        })
-        .catch(error => {
-          console.log(error);
-        });
     },
   },
   created() {
     this.care_receiver = this.$route.query.care_receiver
-    this.key_person = this.$route.query.key_person;
   }
 };
 </script>
 
 <style scoped>
-.confirm-tbl {
-  table-layout: fixed;
-}
-.confirm-tbl th {
+.confirmation__tbl th {
   width: 30%;
 }
-.confirm-tbl td {
+.confirmation__tbl td {
   width: 90%;
-}
-.confirm-fieldset {
-  border: 1px solid #555;
-  padding: 20px 10px 0;
-  width: 100%;
-  box-sizing: border-box;
-  margin-bottom: 20px;
-}
-.back-btn {
-  width: 120px;
-  background-color: #7E57C2;
-  margin-right: 30px;
 }
 </style>
