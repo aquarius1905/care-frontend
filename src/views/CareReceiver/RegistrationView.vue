@@ -103,7 +103,7 @@
             </validation-provider>
           </div>
           <div class="form__item">
-            <validation-provider v-slot="{ errors }" rules="required|numeric|min:6|max:8">
+            <validation-provider v-slot="{ errors }" rules="required|numeric|insurer_number" name="保険者番号">
               <label class="form__item-lbl" for="insurer_number">
                 保険者番号
                 <span class="required-lbl">必須</span>
@@ -114,13 +114,13 @@
             </validation-provider>
           </div>
           <div class="form__item">
-            <validation-provider v-slot="{ errors }" rules="required|numeric|length:11">
+            <validation-provider v-slot="{ errors }" rules="required|numeric|length:10">
               <label class="form__item-lbl" for="insured_number">
-                被保険者番号
+                介護保険 被保険者番号
                 <span class="required-lbl">必須</span>
               </label>
               <input type="text" id="insured_number" class="input" v-model="care_receiver.insured_number"
-                placeholder="12345678901" required>
+                placeholder="1234567890" required>
               <div class="error">{{ errors[0] }}</div>
             </validation-provider>
           </div>
@@ -328,8 +328,8 @@ export default {
     },
     confirmRegistration() {
       this.$router.push({
-        name: 'CareManagerRegistrationConfirm',
-        query: { care_manager: this.care_manager }
+        name: 'CareReceiverRegistrationConfirm',
+        query: { care_receiver: this.care_receiver }
       });
     },
   },
