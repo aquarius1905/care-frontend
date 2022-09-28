@@ -121,8 +121,7 @@ body {
 }
 
 .register-btn-wrap,
-.btn__wrap,
-.list-btn-wrap {
+.btn__wrap {
   display: flex;
   justify-content: center;
   text-align: center;
@@ -130,9 +129,6 @@ body {
 
 .btn__wrap {
   margin-top: 20px;
-}
-.list-btn-wrap {
-  margin-top: 30px;
 }
 
 .btn {
@@ -281,7 +277,8 @@ body {
   height: 60px;
 }
 
-.confirm__btn {
+.confirm__btn,
+.all-delete__btn {
   display: flex;
   justify-content: center;
   align-items: center;

@@ -29,17 +29,15 @@
           <td>{{ $dayjs(care_receiver.birthday).format('YYYY/MM/DD') }}</td>
           <td>{{ care_receiver.care_level.name }}</td>
           <td>
-            <button class="btn list-btn" @click="showDetailView(care_receiver)">詳細</button>
+            <button class="btn delete__btn" @click="showDetailView(care_receiver)">詳細</button>
           </td>
           <td>
-            <button class="btn list-btn" @click="updateCareReceiver(care_receiver)">更新</button>
+            <button class="btn update__btn" @click="updateCareReceiver(care_receiver)">更新</button>
           </td>
         </tr>
       </tbody>
     </table>
-    <div class="list-btn-wrap">
-      <button class="btn" @click="deleteCareReceivers">一括削除</button>
-    </div>
+    <button class="btn all-delete__btn" @click="deleteCareReceivers">一括削除</button>
   </div>
 </template>
 
@@ -161,7 +159,8 @@ export default {
 .tbl td {
   color: #555;
 }
-.list-btn {
+.delete__btn,
+.update__btn {
   width: auto;
   padding: 5px 10px;
 }
