@@ -1,6 +1,6 @@
 <template>
   <div id="detail">
-    <h2 class="page-ttl">被介護者詳細情報</h2>
+    <h2 class="page__ttl">被介護者詳細情報</h2>
     <div class="detail-content">
       <CareReceiverDetail></CareReceiverDetail>
       <DetailMenu class="detail-menu"></DetailMenu>

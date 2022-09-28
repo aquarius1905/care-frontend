@@ -340,9 +340,3 @@ export default {
     this.getCareLevels();
   }
 }
-</script>
-<style scoped>
-.keyperson-fieldset {
-  padding: 20px;
-}
-</style>

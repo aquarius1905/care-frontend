@@ -1,12 +1,12 @@
 <template>
   <div id="weekly-schedule">
-    <div class="page-header">
-      <h2 class="page-ttl">週間サービス計画表</h2>
+    <div class="page__header">
+      <h2 class="page__ttl">週間サービス計画表</h2>
       <p>{{ care_receiver_name }}&emsp;様</p>
     </div>
-    <div class="page-content">
+    <div class="page__content">
       <div>
-        <table class="weekly-service-tbl box-shadow">
+        <table class="weekly-service__tbl box-shadow">
           <thead>
             <tr>
               <th rowspan="2">曜日</th>
@@ -23,21 +23,21 @@
           <tbody>
             <tr v-for="(schedule, index) in schedules" :key="index">
               <td>
-                <select class="tbl-select">
+                <select class="tbl__select">
                   <option v-for="day_of_week in day_of_weeks" :key="day_of_week.id" :value="day_of_week">
                     {{ day_of_week.name }}
                   </option>
                 </select>
               </td>
               <td>
-                <select class="tbl-select">
+                <select class="tbl__select">
                   <option v-for="home_care_service in home_care_services" :key="home_care_service.id" :value="home_care_service">
                     {{ home_care_service.name }}
                   </option>
                 </select>
               </td>
               <td>
-                <input type="text" class="tbl-text" v-model="schedule.care_home_name">
+                <input type="text" class="tbl__text" v-model="schedule.care_home_name">
               </td>
               <td>
                 <vue-timepicker 
@@ -64,13 +64,14 @@
                 </vue-timepicker>
               </td>
               <td>
-                <button class="btn delete-btn" @click="deleteRow(index)">
+                <button class="btn delete__btn" @click="deleteRow(index)">
                   削除
                 </button>
               </td>
             </tr>
           </tbody>
         </table>
+        <button class="btn add-row__btn" @click="addRow">行追加</button>
       </div>
       <detail-menu class="detail-menu"></detail-menu>
     </div>
@@ -104,8 +105,6 @@ export default {
           },
         }
       ],
-      
-
     }
   },
   computed: {
@@ -139,7 +138,9 @@ export default {
       this.home_care_services = this.getServiceTypes;
     },
     deleteRow(index) {
-
+    },
+    addRow() {
+      
     }
   },
   async created() {
@@ -149,44 +150,58 @@ export default {
 };
 </script>
 <style scoped>
-.page-content {
+.page__content {
   display: flex;
   justify-content: center;
 }
-.page-header {
+.page__header {
   display: flex;
   align-items: center;
   padding: 20px;
 }
-.page-ttl {
+.page__ttl {
   padding: 0;
   margin-right: 40px;
 }
-.weekly-service-tbl {
+.weekly-service__tbl {
   border-collapse: collapse;
+  border-radius: 6px;
 }
-.weekly-service-tbl thead {
+.weekly-service__tbl thead {
   background-color: #1A237E;
   color: #f5f5f5
 }
-.weekly-service-tbl tbody {
+.weekly-service__tbl tbody {
   background-color: #fff;
 }
-.weekly-service-tbl th {
+.weekly-service__tbl th {
   padding: 8px 0;
   vertical-align: middle;
 }
 
-.weekly-service-tbl td {
+.weekly-service__tbl tr:first-child th:first-child {
+  border-top-left-radius: 6px;
+}
+.weekly-service__tbl tr:first-child th:last-child {
+  border-top-right-radius: 6px;
+}
+
+.weekly-service__tbl tr:last-child td {
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.weekly-service__tbl td {
   padding: 5px 10px;
 }
-.tbl-select,
-.tbl-text {
+
+.tbl__select,
+.tbl__text {
   font-size: 16px;
   padding: 5px;
 }
 
-.delete-btn {
+.delete__btn {
   width: 60px;
 }
 
@@ -206,5 +221,13 @@ td >>> .vue__time-picker .dropdown ul li:not([disabled]).active,
 td >>>.vue__time-picker .dropdown ul li:not([disabled]).active:focus,
 td >>>.vue__time-picker .dropdown ul li:not([disabled]).active:hover {
   background: #1A237E;
+}
+.add-row__btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto 0;
+  border: none;
+  width: 100px;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="page-ttl">被介護者・キーパーソン 更新</h2>
+    <h2 class="page__ttl">被介護者・キーパーソン 更新</h2>
     <div class="form box-shadow">
       <validation-observer v-slot="{ invalid }">
         <div class="form-content">

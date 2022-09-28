@@ -1,6 +1,6 @@
 <template>
   <div id="care-receivers-list">
-    <h2 class="page-ttl">担当被介護者一覧</h2>
+    <h2 class="page__ttl">担当被介護者一覧</h2>
     <table class="tbl box-shadow">
       <thead>
         <tr>
