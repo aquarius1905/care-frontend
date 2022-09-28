@@ -14,7 +14,7 @@
         </tr>
         <tr>
           <th>性別</th>
-          <td>{{ care_receiver.gender === 1 ? "男" : "女" }}</td>
+          <td>{{ care_receiver.gender === 0 ? "男" : "女" }}</td>
         </tr>
         <tr>
           <th>生年月日</th>

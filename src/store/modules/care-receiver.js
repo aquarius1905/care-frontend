@@ -30,7 +30,7 @@ const mutations = {
   },
   setLoggedInCareReceiver(state, payload) {
     state.careReceiverAccessToken = payload.access_token;
-    state.careReceiver = payload.key_person;
+    state.careReceiver = payload.care_receiver;
   },
   resetCareReceiver(state) {
     state.careReceiverAccessToken = null;

@@ -98,7 +98,7 @@ export default {
       if (!this.hasCareManager) {
         await this.$store.dispatch("fetchCareManagerInfo");
       }
-
+      
       this.splitName();
     },
     splitName() {

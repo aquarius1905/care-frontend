@@ -65,7 +65,7 @@ export default {
       try {
         api.defaults.headers.common['Authorization']
           = 'Bearer ' + this.getCareReceiverAccessToken;
-        const response = await api.post('/key-persons/logout');
+        const response = await api.post('/care-receivers/logout');
 
         if (response.status === 200) {
           this.resetCareReceiver();

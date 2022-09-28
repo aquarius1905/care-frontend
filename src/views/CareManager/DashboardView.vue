@@ -25,7 +25,7 @@
           <td>{{ index + 1 }}</td>
           <td>{{ care_receiver.name }}</td>
           <td>{{ care_receiver.name_furigana }}</td>
-          <td>{{ care_receiver.gender === 1 ? "男" : "女" }}</td>
+          <td>{{ care_receiver.gender === 0 ? "男" : "女" }}</td>
           <td>{{ $dayjs(care_receiver.birthday).format('YYYY/MM/DD') }}</td>
           <td>{{ care_receiver.care_level.name }}</td>
           <td>

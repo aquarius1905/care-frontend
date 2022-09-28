@@ -46,7 +46,7 @@
           </div>
           <div class="form__item">
             <label class="form__item-lbl">性別</label>
-            <label>{{ care_receiver.gender === 1 ? "男" : "女" }}</label>
+            <label>{{ care_receiver.gender === 0 ? "男" : "女" }}</label>
           </div>
           <div class="form__item">
             <label class="form__item-lbl" for="birthday">生年月日</label>

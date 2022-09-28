@@ -14,7 +14,7 @@
           </tr>
           <tr>
             <th>性別</th>
-            <td>{{ care_receiver.gender === 1 ? "男" : "女" }}</td>
+            <td>{{ care_receiver.gender === 0 ? "男" : "女" }}</td>
           </tr>
           <tr>
             <th>生年月日</th>
@@ -76,13 +76,11 @@
 </template>
 
 <script>
-import axios from "axios";
 import { mapGetters } from 'vuex'
 export default {
   data: function () {
     return {
-      care_receiver: null,
-      key_person: null,
+      care_receiver: null
     }
   },
   computed: {
@@ -96,8 +94,7 @@ export default {
       this.$router.push({
         name: 'CareReceiverUpdate',
         query: {
-          care_receiver: this.care_receiver,
-          key_person: this.key_person
+          care_receiver: this.care_receiver
         }
       });
     },
@@ -115,14 +112,6 @@ export default {
       registration_data.care_level_id = registration_data.care_level.id;
       registration_data.key_person_id = key_person_id;
 
-      [
-        'last_name',
-        'first_name',
-        'last_name_furigana',
-        'first_name_furigana',
-        'care_level'
-      ].forEach(e => delete registration_data[e]);
-
       return registration_data;
     },
     makeKeyPersonData() {
@@ -131,13 +120,6 @@ export default {
         = registration_data.last_name + '　' + registration_data.first_name;
       registration_data.name_furigana
         = registration_data.last_name_furigana + '　' + registration_data.first_name_furigana;
-
-      [
-        'last_name',
-        'first_name',
-        'last_name_furigana',
-        'first_name_furigana'
-      ].forEach(e => delete registration_data[e]);
 
       return registration_data;
     },
@@ -179,7 +161,6 @@ export default {
   },
   created() {
     this.care_receiver = this.$route.query.care_receiver
-    this.key_person = this.$route.query.key_person;
   }
 };
 </script>

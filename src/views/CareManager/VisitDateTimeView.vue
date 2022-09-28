@@ -1,5 +1,5 @@
 <template>
-  <div id="visit-datetime">
+  <div class="visit-datetime">
     <div class="form box-shadow">
       <h2 class="form-ttl">訪問日時{{ registered_flg ? "確認・変更": "登録" }}</h2>
       <validation-observer v-slot="{ invalid }">
@@ -136,7 +136,7 @@ export default {
 </script>
 
 <style scoped>
-#visit-datetime {
+.visit-datetime {
   display: flex;
   justify-content: center;
 }
