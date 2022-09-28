@@ -2,7 +2,7 @@
   <div id="header">
     <h1 class="main-ttl ttl" @click="backtoHome">Care</h1>
     <div class="logout-wrap" 
-    v-show="this.isCareManagerLoggedIn || this.isKeyPersonLoggedIn || this.isNursingCareOfficeLoggedIn">
+    v-show="this.isCareManagerLoggedIn || this.isCareReceiverLoggedIn || this.isNursingCareOfficeLoggedIn">
       <label class="name-lbl">{{ loggedInName }}</label>
       <button class="btn logout-btn" @click="logout">ログアウト</button>
     </div>
@@ -16,20 +16,20 @@ export default {
   computed: {
     ...mapGetters([
       'isCareManagerLoggedIn',
-      'isKeyPersonLoggedIn',
+      'isCareReceiverLoggedIn',
       'isNursingCareOfficeLoggedIn',
       'getCareManagerName',
-      'getKeyPersonName',
+      'getCareReceiverName',
       'getContactPersonNameOfNursingCareOffice',
       'getCareManagerAccessToken',
-      'getKeyPersonAccessToken',
+      'getCareReceiverAccessToken',
       'getNursingCareOfficeAccessToken',
     ]),
     loggedInName: function () {
       if (this.isCareManagerLoggedIn) {
         return this.getCareManagerName;
-      } else if (this.isKeyPersonLoggedIn) {
-        return this.getKeyPersonName;
+      } else if (this.isCareReceiverLoggedIn) {
+        return this.getCareReceiverName;
       } else if (this.isNursingCareOfficeLoggedIn) {
         return this.getContactPersonNameOfNursingCareOffice;
       }
@@ -38,7 +38,7 @@ export default {
   methods: {
     ...mapActions([
       'resetCareManager',
-      'resetKeyPerson',
+      'resetCareReceiver',
       'resetNursingCareOffice'
     ]),
     backtoHome() {
@@ -61,15 +61,15 @@ export default {
         alert("ログアウトに失敗しました");
       }
     },
-    async logoutKeyPerson() {
+    async logoutCareReceiver() {
       try {
         api.defaults.headers.common['Authorization']
-          = 'Bearer ' + this.getKeyPersonAccessToken;
+          = 'Bearer ' + this.getCareReceiverAccessToken;
         const response = await api.post('/key-persons/logout');
 
         if (response.status === 200) {
-          this.resetKeyPerson();
-          this.$router.push({ name: 'KeyPersonLogin' });
+          this.resetCareReceiver();
+          this.$router.push({ name: 'CareReceiverLogin' });
         }
       } catch (error) {
         console.log(error);
@@ -95,8 +95,8 @@ export default {
       if (confirm('ログアウトしますか？')) {
         if (this.isCareManagerLoggedIn) {
           await this.logoutCareManager();
-        } else if (this.isKeyPersonLoggedIn) {
-          await this.logoutKeyPerson();
+        } else if (this.isCareReceiverLoggedIn) {
+          await this.logoutCareReceiver();
         } else if (this.isNursingCareOfficeLoggedIn) {
           await this.logoutNursingCareOffice();
         }

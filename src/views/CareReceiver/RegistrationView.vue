@@ -63,9 +63,9 @@
                 性別
                 <span class="required-lbl">必須</span>
               </label>
-              <input type="radio" name="gender" id="male" value="1" v-model="care_receiver.gender">
+              <input type="radio" name="gender" id="male" value="0" v-model="care_receiver.gender">
               <label for="male" class="radio__lbl">男</label>
-              <input type="radio" name="gender" id="female" value="2" v-model="care_receiver.gender">
+              <input type="radio" name="gender" id="female" value="1" v-model="care_receiver.gender">
               <label for="female" class="radio__lbl">女</label>
               <div class="error">{{ errors[0] }}</div>
             </validation-provider>
@@ -210,7 +210,7 @@
                 続柄
                 <span class="required-lbl">必須</span>
               </label>
-              <input type="text" id="relationship" class="input" v-model="care_receiver.keyperson_relationship" placeholder="妻" required>
+              <input type="text" id="relationship" class="input" v-model="care_receiver.relationship" placeholder="妻" required>
               <div class="error">{{ errors[0] }}</div>
             </validation-provider>
           </div>
@@ -276,7 +276,7 @@ export default {
         first_name: null,
         last_name_furigana: null,
         first_name_furigana: null,
-        gender: 1,
+        gender: 0,
         birthday: "1940-01-01",
         post_code: null,
         address: null,
@@ -290,7 +290,7 @@ export default {
         keyperson_firstname: null,
         keyperson_lastname_furigana: null,
         keyperson_firstname_furigana: null,
-        keyperson_relationship: null,
+        relationship: null,
         email: null,
         tel: null,
         password: null,

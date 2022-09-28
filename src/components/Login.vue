@@ -60,21 +60,21 @@ export default {
   computed: {
     ...mapGetters([
       'isCareManager',
-      'isKeyPerson',
+      'isCareReceiver',
       'isNursingCareOffice'
     ])
   },
   methods: {
     ...mapActions([
       'setLoggedInCareManager',
-      'setLoggedInKeyPerson',
+      'setLoggedInCareReceiver',
       'setLoggedInNursingCareOffice'
     ]),
     async login() {
         if (this.isCareManager) {
           await this.loginCareManager();
-        } else if (this.isKeyPerson) {
-          await this.loginKeyPerson();
+        } else if (this.isCareReceiver) {
+          await this.loginCareReceiver();
         } else if (this.isNursingCareOffice) {
           await this.loginNursingCareOffice();
         }
@@ -97,19 +97,19 @@ export default {
         this.showError(error);
       }
     },
-    async loginKeyPerson() {
+    async loginCareReceiver() {
       try {
         const response = await api.post(
-          '/key-persons/login', this.login_data
+          '/care-receivers/login', this.login_data
         );
         const login_data = {
           access_token: response.data.access_token,
-          key_person: response.data.key_person
+          care_receiver: response.data.care_receiver
         };
           
         if (response.status === 200) {
-          this.setLoggedInKeyPerson(login_data);
-          this.$router.push({ name: 'KeyPersonDashboard' });
+          this.setLoggedInCareReceiver(login_data);
+          this.$router.push({ name: 'CareReceiverDashboard' });
         }
       } catch (error) {
         this.showError(error);

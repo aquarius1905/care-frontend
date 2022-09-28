@@ -53,7 +53,7 @@
         </tr>
         <tr>
           <th>続柄</th>
-          <td>{{ care_receiver.keyperson_relationship }}</td>
+          <td>{{ care_receiver.relationship }}</td>
         </tr>
         <tr>
           <th>メールアドレス</th>
@@ -101,6 +101,8 @@ export default {
       if (confirm('登録しますか？')) {
         this.makeCareReceiverData();
         try {
+          api.defaults.headers.common['Authorization']
+            = 'Bearer ' + this.getCareManagerAccessToken;
           const response = await api.post(
             '/care-receivers', this.care_receiver
           );
@@ -122,6 +124,10 @@ export default {
       this.care_receiver.name_furigana
         = this.care_receiver.last_name_furigana + '　' + this.care_receiver.first_name_furigana;
       this.care_receiver.care_level_id = this.care_receiver.care_level.id;
+      this.care_receiver.keyperson_name
+        = this.care_receiver.keyperson_lastname + '　' + this.care_receiver.keyperson_firstname;
+      this.care_receiver.keyperson_name_furigana
+        = this.care_receiver.keyperson_lastname_furigana + '　' + this.care_receiver.keyperson_firstname_furigana;
     },
   },
   created() {

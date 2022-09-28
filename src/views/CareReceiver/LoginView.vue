@@ -10,11 +10,11 @@ export default {
   components: { Login },
   data() {
     return {
-      form_ttl: 'キーパーソン'
+      form_ttl: '被介護者・キーパーソン'
     }
   },
   created() {
-    this.$store.dispatch('setKeyPersonFlg');
+    this.$store.dispatch('setCareReceiverFlg');
   }
 }
 </script>

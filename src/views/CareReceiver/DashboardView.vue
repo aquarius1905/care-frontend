@@ -5,9 +5,9 @@
 </template>
 
 <script>
-  export default {
+export default {
   created() {
-    console.log("NursingCareOfficeDashboard");
-  } 
-}
+    console.log("CareReceiverDashboard");
+  }
+};
 </script>

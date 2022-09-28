@@ -5,7 +5,7 @@
         <button class="btn home-btn" @click="showCareManagerLoginPage()">
         ケアマネージャーの方はこちら
         </button>
-        <button class="btn home-btn" @click="showKeyPersonLoginPage()">
+        <button class="btn home-btn" @click="showCareReceiverLoginPage()">
         被介護者、キーパーソンの方はこちら
         </button>
         <button class="btn home-btn" @click="showNursingCareOfficeLoginPage()">
@@ -24,10 +24,10 @@ export default {
         name: 'CareManagerLogin'
       });
     },
-    showKeyPersonLoginPage() {
-      this.$store.dispatch('setKeyPersonFlg');
+    showCareReceiverLoginPage() {
+      this.$store.dispatch('setCareReceiverFlg');
       this.$router.push({
-        name: 'KeyPersonLogin'
+        name: 'CareReceiverLogin'
       });
     },
     showNursingCareOfficeLoginPage() {

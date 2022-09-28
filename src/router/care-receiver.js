@@ -5,6 +5,8 @@ import CareReceiverUpdateView from '@/views/CareReceiver/UpdateView.vue'
 import CareReceiverUpdateConfirmView from '@/views/CareReceiver/UpdateConfirmView.vue'
 import CareReceiverDetailView from '@/views/CareReceiver/DetailView.vue'
 import CareReceiverWeeklyServiceScheduleView from '@/views/CareReceiver/WeeklyServiceScheduleView.vue'
+import CareReceiverLoginView from '../views/CareReceiver/LoginView.vue'
+import CareReceiverDashboardView from '../views/CareReceiver/DashboardView.vue'
 
 export default {
   routes: [
@@ -50,5 +52,17 @@ export default {
       component: CareReceiverWeeklyServiceScheduleView,
       meta: { requiresAuth: true },
     },
+    {
+      path: '/care-receiver/login',
+      name: 'CareReceiverLogin',
+      component: CareReceiverLoginView,
+      meta: { requiresAuth: false },
+    },
+    {
+      path: '/care-receiver/dashboard',
+      name: 'CareReceiverDashboard',
+      component: CareReceiverDashboardView,
+      meta: { requiresAuth: true },
+    }
   ]
 }

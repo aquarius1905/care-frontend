@@ -5,18 +5,15 @@ import CareManagerRoutes from './care-manager.js'
 import CareReceiverRoutes from './care-receiver.js'
 import CommonRoutes from './common.js'
 import EmailRoutes from './email.js'
-import KeyPsersonRoutes from './key-person.js'
 import NursingCareOfficeRoutes from './nursing-care-office.js'
 
 Vue.use(VueRouter)
 
 const routes = [
-
   ...CareManagerRoutes.routes,
   ...CareReceiverRoutes.routes,
   ...CommonRoutes.routes,
   ...EmailRoutes.routes,
-  ...KeyPsersonRoutes.routes,
   ...NursingCareOfficeRoutes.routes
 ]
 
@@ -31,7 +28,7 @@ router.beforeEach((to, from, next) => {
     if (
       store.getters.isCareManagerLoggedIn ||
       store.getters.isNursingCareOfficeLoggedIn ||
-      store.getters.isKeyPersonLoggedIn) {
+      store.getters.isCareReceiverLoggedIn) {
       next()
     } else {
       next('/care-manager/login')

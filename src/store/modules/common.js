@@ -1,14 +1,14 @@
 const state = {
   careManagerFlg: false,
-  keyPersonFlg: false,
+  careReceiverFlg: false,
   nursingCareOfficeFlg: false
 };
 const getters = {
   isCareManager(state) {
     return state.careManagerFlg;
   },
-  isKeyPerson(state) {
-    return state.keyPersonFlg;
+  isCareReceiver(state) {
+    return state.careReceiverFlg;
   },
   isNursingCareOffice(state) {
     return state.nursingCareOfficeFlg;
@@ -17,17 +17,17 @@ const getters = {
 const mutations = {
   setCareManagerFlg(state) {
     state.careManagerFlg = true;
-    state.keyPersonFlg = false;
+    state.careReceiverFlg = false;
     state.nursingCareOfficeFlg = false;
   },
-  setKeyPersonFlg(state) {
+  setCareReceiverFlg(state) {
     state.careManagerFlg = false;
-    state.keyPersonFlg = true;
+    state.careReceiverFlg = true;
     state.nursingCareOfficeFlg = false;
   },
   setNursingCareOfficeFlg(state) {
     state.careManagerFlg = false;
-    state.keyPersonFlg = false;
+    state.careReceiverFlg = false;
     state.nursingCareOfficeFlg = true;
   },
 };
@@ -35,8 +35,8 @@ const actions = {
   setCareManagerFlg(context) {
     context.commit('setCareManagerFlg');
   },
-  setKeyPersonFlg(context, payload) {
-    context.commit('setKeyPersonFlg');
+  setCareReceiverFlg(context, payload) {
+    context.commit('setCareReceiverFlg');
   },
   setNursingCareOfficeFlg(context) {
     context.commit('setNursingCareOfficeFlg');

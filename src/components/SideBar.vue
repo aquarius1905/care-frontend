@@ -26,7 +26,7 @@
       </div>
     </nav>
     <nav class="nav" 
-      v-show="this.isKeyPerson && this.isKeyPersonLoggedIn">
+      v-show="this.isCareReceiver && this.isCareReceiverLoggedIn">
       <div>
         <ul class="menu-content">
           <li>
@@ -63,10 +63,10 @@ export default {
   computed: {
     ...mapGetters([
       'isCareManager',
-      'isKeyPerson',
+      'isCareReceiver',
       'isNursingCareOffice',
       'isCareManagerLoggedIn',
-      'isKeyPersonLoggedIn',
+      'isCareReceiverLoggedIn',
       'isNursingCareOfficeLoggedIn'
     ])
   },

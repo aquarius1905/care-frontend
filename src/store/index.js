@@ -8,7 +8,6 @@ import Common from "./modules/common"
 import DayOfWeek from "./modules/day-of-week"
 import NursingCareOffice from "./modules/nursing-care-office"
 import ServiceType from "./modules/service-type"
-import KeyPerson from "./modules/key-person"
 
 Vue.use(Vuex)
 
@@ -19,7 +18,6 @@ export default new Vuex.Store({
     CareReceiver,
     Common,
     DayOfWeek,
-    KeyPerson,
     NursingCareOffice,
     ServiceType
   },
