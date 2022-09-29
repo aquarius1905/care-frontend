@@ -30,14 +30,18 @@
                 </select>
               </td>
               <td>
-                <select class="tbl__select">
-                  <option v-for="home_care_service in home_care_services" :key="home_care_service.id" :value="home_care_service">
-                    {{ home_care_service.name }}
+                <select class="tbl__select" @change="changeServiceType">
+                  <option v-for="service_type in service_types" :key="service_type.id" :value="service_type.id">
+                    {{ service_type.name }}
                   </option>
                 </select>
               </td>
               <td>
-                <input type="text" class="tbl__text" v-model="schedule.care_home_name">
+                <select class="tbl__select">
+                  <option v-for="nursing_care_office in nursing_care_offices" :key="nursing_care_office.id" :value="nursing_care_office.id">
+                    {{ nursing_care_office.office_name }}
+                  </option>
+                </select>
               </td>
               <td>
                 <vue-timepicker 
@@ -90,7 +94,8 @@ export default {
   data() {
     return {
       day_of_weeks: null,
-      home_care_services: null,
+      service_types: null,
+      nursing_care_offices: null,
       schedules: [
         { day_of_week: "月曜日",
           service_type: "",
@@ -109,9 +114,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'emptyDayOfWeeks',
       'getDayOfWeeks',
-      'emptyServiceTypes',
       'getServiceTypes'
     ]),
     ...mapGetters({
@@ -120,22 +123,19 @@ export default {
   },
   methods: {
     ...mapActions([
-      'fetchDayOfWeeks',
-      'fetchServiceTypes'
+      'fetchDayofweeksAndServicetypes',
     ]),
-    async setDayOfWeeks() {
-      if (this.emptyDayOfWeeks) {
-        await this.fetchDayOfWeeks();
-      }
+    async setDayofweeksAndServicetypes() {
+      await this.fetchDayofweeksAndServicetypes();
 
       this.day_of_weeks = this.getDayOfWeeks;
+      this.service_types = this.getServiceTypes;
     },
-    async setCareServiceTypes() {
-      if (this.emptyServiceTypes) {
-        await this.fetchServiceTypes();
-      }
-
-      this.home_care_services = this.getServiceTypes;
+    changeServiceType(e) {
+      this.nursing_care_offices = this.service_types.filter(
+        service_type => service_type.id == e.target.value
+      );
+      console.log(this.nursing_care_offices);
     },
     deleteRow(index) {
     },
@@ -144,8 +144,7 @@ export default {
     }
   },
   async created() {
-    await this.setDayOfWeeks();
-    await this.setCareServiceTypes();
+    await this.setDayofweeksAndServicetypes();
   }
 };
 </script>

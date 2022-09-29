@@ -5,9 +5,8 @@ import CareLevels from "./modules/care-level"
 import CareManager from "./modules/care-manager"
 import CareReceiver from "./modules/care-receiver"
 import Common from "./modules/common"
-import DayOfWeek from "./modules/day-of-week"
+import WeeklyServiceSchedule from "./modules/weekly-service-schedule"
 import NursingCareOffice from "./modules/nursing-care-office"
-import ServiceType from "./modules/service-type"
 
 Vue.use(Vuex)
 
@@ -17,9 +16,8 @@ export default new Vuex.Store({
     CareManager,
     CareReceiver,
     Common,
-    DayOfWeek,
+    WeeklyServiceSchedule,
     NursingCareOffice,
-    ServiceType
   },
   plugins: [CreatePersistedState(
     { // ストレージのキーを指定
