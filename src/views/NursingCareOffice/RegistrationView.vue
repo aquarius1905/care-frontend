@@ -9,7 +9,7 @@
             <validation-provider v-slot="{ errors }" rules="required|max:255">
               <label for="office_name" class="form__item-lbl">
                 事業所名
-                <span class="required-lbl">必須</span>
+                <span class="required__lbl">必須</span>
               </label>
               <input type="text" id="office_name" class="input" 
               v-model="nursing_care_office.office_name" name="事業所名"
@@ -21,7 +21,7 @@
             <validation-provider v-slot="{ errors }" rules="required|max:255">
               <label for="corporate_name" class="form__item-lbl">
                 法人名
-                <span class="required-lbl">必須</span>
+                <span class="required__lbl">必須</span>
               </label>
               <input type="text" id="corporate_name" class="input"
                 v-model="nursing_care_office.corporate_name"
@@ -33,7 +33,7 @@
             <validation-provider v-slot="{ errors }" rules="required">
              <label class="form__item-lbl" for="survice_type">
                 サービス種別
-                <span class="required-lbl">必須</span>
+                <span class="required__lbl">必須</span>
               </label>
               <select id="survice_type" class="select" v-model="nursing_care_office.service_type">
                 <option v-for="service_type in service_types" :key="service_type.id" :value="service_type">
@@ -47,7 +47,7 @@
             <validation-provider v-slot="{ errors }" rules="required|numeric|length:10">
               <label class="form__item-lbl" for="office_number">
                 事業所番号
-                <span class="required-lbl">必須</span>
+                <span class="required__lbl">必須</span>
               </label>
               <input type="text" id="office_number" class="input" v-model="nursing_care_office.office_number" size="10" maxlength="10"
                 placeholder="1370300000" required>
@@ -58,7 +58,7 @@
             <validation-provider v-slot="{ errors }" rules="required|numeric|length:7">
               <label class="form__item-lbl" for="post_code">
                 郵便番号
-                <span class="required-lbl">必須</span>
+                <span class="required__lbl">必須</span>
               </label>
               <input type="text" id="post_code" class="input" v-model="nursing_care_office.post_code" placeholder="1050004"
                 @blur="fetchAddress" required>
@@ -69,7 +69,7 @@
             <validation-provider v-slot="{ errors }" rules="required|max:255">
               <label class="form__item-lbl" for="address">
                 住所
-                <span class="required-lbl">必須</span>
+                <span class="required__lbl">必須</span>
               </label>
               <input type="text" id="address" class="input" v-model="nursing_care_office.address" placeholder="東京都港区新橋3-4-5"
                 required>
@@ -85,7 +85,7 @@
                 <validation-provider v-slot="{ errors }" rules="required|max:127">
                   <label for="last_name" class="form__item-lbl">
                     姓
-                    <span class="required-lbl">必須</span>
+                    <span class="required__lbl">必須</span>
                   </label>
                   <input
                     type="text"
@@ -102,7 +102,7 @@
                 <validation-provider v-slot="{ errors }" rules="required|max:127">
                   <label for="first_name" class="form__item-lbl">
                     名
-                    <span class="required-lbl">必須</span>
+                    <span class="required__lbl">必須</span>
                   </label>
                   <input
                     type="text"
@@ -123,7 +123,7 @@
                 <validation-provider v-slot="{ errors }" rules="required|full_sized_katakana|max:127" name="セイ">
                   <label for="last_name_furigana" class="form__item-lbl">
                     セイ
-                    <span class="required-lbl">必須</span>
+                    <span class="required__lbl">必須</span>
                   </label>
                   <input
                     type="text"
@@ -139,7 +139,7 @@
                 <validation-provider v-slot="{ errors }" rules="required|full_sized_katakana|max:127" name="メイ">
                   <label for="first_name_furigana" class="form__item-lbl">
                     メイ
-                    <span class="required-lbl">必須</span>
+                    <span class="required__lbl">必須</span>
                   </label>
                   <input
                     type="text" 
@@ -157,7 +157,7 @@
             <validation-provider v-slot="{ errors }" rules="required|email">
               <label class="form__item-lbl" for="email">
                 メールアドレス
-                <span class="required-lbl">必須</span>
+                <span class="required__lbl">必須</span>
               </label>
               <input type="email" id="email" class="input" 
               v-model="nursing_care_office.email"
@@ -169,7 +169,7 @@
             <validation-provider v-slot="{ errors }" rules="required|numeric|min:10|max:11">
               <label class="form__item-lbl" for="tel">
                 電話番号
-                <span class="required-lbl">必須</span>
+                <span class="required__lbl">必須</span>
               </label>
               <input type="text" id="tel" class="input" v-model="nursing_care_office.tel" placeholder="0312345678" required>
               <div class="error">{{ errors[0] }}</div>
@@ -179,7 +179,7 @@
             <validation-provider v-slot="{ errors }" rules="required|password_rule" vid="password">
               <label class="form__item-lbl" for="password">
                 パスワード（半角英数字(A~Z,a~z,0~9)を最低1文字含む8～64文字）
-                <span class="required-lbl">必須</span>
+                <span class="required__lbl">必須</span>
               </label>
               <input type="password" id="password" class="input" v-model="nursing_care_office.password" required>
               <div class="error">{{ errors[0] }}</div>
@@ -189,7 +189,7 @@
             <validation-provider v-slot="{ errors }" rules="required|confirmed:password">
               <label class="form__item-lbl" for="password_confirmation">
                 パスワード（確認用）
-                <span class="required-lbl">必須</span>
+                <span class="required__lbl">必須</span>
               </label>
               <input type="password" id="password_confirmation" class="input" 
               v-model="nursing_care_office.password_confirmation" required>

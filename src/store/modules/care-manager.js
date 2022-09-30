@@ -1,18 +1,11 @@
 import { api } from '@/http-common'
 
 const state = {
-  supportOffices: null,
   careManagerAccessToken: null,
   careManager: null,
   visitTimes: null
 };
 const getters = {
-  getSupportOffices(state) {
-    return state.supportOffices;
-  },
-  hasSupportOffices(state) {
-    return state.supportOffices !== null;
-  },
   getCareManagerAccessToken(state) {
     return state.careManagerAccessToken;
   },
@@ -36,9 +29,6 @@ const getters = {
   }
 };
 const mutations = {
-  setSupportOffices(state, payload) {
-    state.supportOffices = payload;
-  },
   setCareManager(state, payload) {
     state.careManager = payload;
   },
@@ -53,12 +43,6 @@ const mutations = {
   },
 };
 const actions = {
-  async fetchSupportOffices(context) {
-    if (context.state.supportOffices === null) {
-      const { data } = await api.get('/home-care-support-offices');
-      context.commit('setSupportOffices', data.data);
-    }
-  },
   async fetchCareManagerInfo(context) {
     const { data } = await api.get('/care-managers/me',
         {

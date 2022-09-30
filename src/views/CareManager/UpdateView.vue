@@ -79,11 +79,9 @@ import { mapGetters } from 'vuex'
 export default {
   computed: {
     ...mapGetters([
-      'hasSupportOffices',
       'hasCareManager'
     ]),
     ...mapGetters({
-      support_offices: 'getSupportOffices',
       care_manager: 'getCareManager'
     })
   },
