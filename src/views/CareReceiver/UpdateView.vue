@@ -200,7 +200,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'hasCareLevels',
+      'emptyCareLevels',
       'getNeededSupportLevels',
       'getNeededCareLevels',
     ])
@@ -218,15 +218,15 @@ export default {
       });
     },
     async getCareLevels() {
-      if (!this.hasCareLevels) {
+      if (this.emptyCareLevels) {
         await this.fetchCareLevels();
       }
 
       this.needed_support_levels = this.getNeededSupportLevels;
-      this.needed_care_levels = this.getNeededCareLevels;
+      this.needed_care_levels = this.getNeededCarseLevels;
     },
-    initialize() {
-      this.getCareLevels();
+    async initialize() {
+      await this.getCareLevels();
       
       this.care_receiver = this.$route.query.care_receiver;
       const care_receiver_name_arr = this.care_receiver.name.split(/\u3000/);
@@ -249,8 +249,8 @@ export default {
       this.care_receiver.birthday = dayjs(this.care_receiver.birthday).format('YYYY-MM-DD');
     }
   },
-  created() {
-    this.initialize();
+  async created() {
+    await this.initialize();
   }
 }
 </script>

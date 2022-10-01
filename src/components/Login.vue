@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="login__form box-shadow">
-      <h2 class="form-ttl">{{ formTitle + ' ログイン' }}</h2>
-      <validation-observer ref="obs" v-slot="ObserverProps">
+      <h2 class="login__form-ttl">{{ formTitle + ' ログイン' }}</h2>
+      <validation-observer v-slot="{ invalid }">
         <div class="login__form-content">
           <div class="form__item">
             <label class="form__item-lbl" for="email">メールアドレス</label>
@@ -27,9 +27,9 @@
           <router-link :to="`${forgotPasswordLink}`">パスワードを忘れた方はこちら</router-link>
         </div>
         <div class="form-btn-wrap">
-          <button class="btn login-btn" 
-          :disabled="ObserverProps.invalid || !ObserverProps.validated"
-          @click="login">ログイン</button>
+          <button class="btn login-btn" :disabled="invalid" @click="login">
+            ログイン
+          </button>
         </div>
       </validation-observer>
     </div>
@@ -153,6 +153,15 @@ export default {
   width: 500px;
   margin: 50px auto 0;
   border-radius: 6px;
+}
+.login__form-ttl {
+  color: #fff;
+  background-color: #1a237e;
+  padding: 20px;
+  font-size: 20px;
+  font-weight: normal;
+  border-radius: 6px 6px 0 0;
+  user-select: none;
 }
 .login__form-content {
   padding: 30px 20px 20px;

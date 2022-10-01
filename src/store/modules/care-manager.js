@@ -3,7 +3,8 @@ import { api } from '@/http-common'
 const state = {
   careManagerAccessToken: null,
   careManager: null,
-  visitTimes: null
+  visitTimes: null,
+  detailFlg: false,
 };
 const getters = {
   getCareManagerAccessToken(state) {
@@ -18,14 +19,17 @@ const getters = {
   getCareManagerName(state) {
     return state.careManager.name;
   },
-  hasCareManager(state) {
-    return state.careManager !== null;
+  emptyCareManager(state) {
+    return state.careManager === null;
   },
   getVisitTimes(state) {
     return state.visitTimes;
   },
   hasVisitTimes(state) {
     return state.visitTimes !== null;
+  },
+  isDetail(state) {
+    return state.detailFlg;
   }
 };
 const mutations = {
@@ -41,6 +45,9 @@ const mutations = {
     state.careManager = null;
     state.supportOffices = null;
   },
+  setDetailFlg(state, payload) {
+    state.detailFlg = payload;
+  }
 };
 const actions = {
   async fetchCareManagerInfo(context) {
@@ -62,6 +69,9 @@ const actions = {
   },
   setCareManager(context, payload) {
     context.commit('setCareManager', payload);
+  },
+  setDetailFlg(context, payload) {
+    context.commit('setDetailFlg', payload);
   }
 };
 

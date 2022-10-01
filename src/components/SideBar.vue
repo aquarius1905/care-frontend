@@ -2,20 +2,44 @@
   <div id="sidebar">
     <nav class="nav" v-show="this.isCareManager">
       <div>
-        <ul class="menu-content" v-if="this.isCareManagerLoggedIn">
+        <ul class="menu__content" v-if="this.isCareManagerLoggedIn">
           <li>
             <router-link class="link" to="/care-manager/dashboard">ダッシュボード</router-link>
           </li>
           <li>
-            <button class="btn-link" @click="showCareReceiverRegistrationPage">被介護者登録</button>
+            <button class="btn__link" @click="showCareReceiverRegistrationPage">被介護者登録</button>
           </li>
           <li>
-            <button class="btn-link" @click="showCareManagerUpdatePage">登録情報確認・変更</button>
+            <button class="btn__link" @click="showCareManagerUpdatePage">登録情報確認・変更</button>
           </li>
+          <ul class="menu__content" v-if="this.isCareManagerLoggedIn && this.isDetail">
+            <h2 class="menu__ttl">詳細メニュー</h2>
+            <li>
+              <router-link class="link" :to="{ name: 'CareReceiverDetail'}">
+                被介護者詳細情報
+              </router-link>
+            </li>
+            <li>
+              <router-link class="link" :to="{ name: 'CareManagerVisitDateTime'}">
+                訪問日時
+              </router-link>
+            </li>
+            <li>
+              <button class="btn__link">居宅サービス計画書</button>
+            </li>
+            <li>
+              <router-link class="link" :to="{ name: 'CareReceiverWeeklyServiceSchedule'}">
+                週間サービス計画表
+              </router-link>
+            </li>
+            <li>
+              <button class="btn__link">サービス利用票</button>
+            </li>
+          </ul>
         </ul>
-        <ul class="menu-content" v-else>
+        <ul class="menu__content" v-else>
           <li>
-            <button class="btn-link" @click="showCareManagerRegistrationPage">
+            <button class="btn__link" @click="showCareManagerRegistrationPage">
             新規登録
             </button>
           </li>
@@ -28,7 +52,7 @@
     <nav class="nav" 
       v-show="this.isCareReceiver && this.isCareReceiverLoggedIn">
       <div>
-        <ul class="menu-content">
+        <ul class="menu__content">
           <li>
             <router-link class="link" to="/key-person/dashboard">ダッシュボード</router-link>
           </li>
@@ -37,14 +61,14 @@
     </nav>
     <nav class="nav" v-show="this.isNursingCareOffice">
       <div>
-        <ul class="menu-content" v-if="this.isNursingCareOfficeLoggedIn">
+        <ul class="menu__content" v-if="this.isNursingCareOfficeLoggedIn">
           <li>
             <router-link class="link" to="/nursing-care-office/dashboard">ダッシュボード</router-link>
           </li>
         </ul>
-        <ul class="menu-content" v-else>
+        <ul class="menu__content" v-else>
           <li>
-            <button class="btn-link" @click="showNursingCareOfficeRegistrationPage">
+            <button class="btn__link" @click="showNursingCareOfficeRegistrationPage">
             新規登録
             </button>
           </li>
@@ -67,7 +91,8 @@ export default {
       'isNursingCareOffice',
       'isCareManagerLoggedIn',
       'isCareReceiverLoggedIn',
-      'isNursingCareOfficeLoggedIn'
+      'isNursingCareOfficeLoggedIn',
+      'isDetail'
     ])
   },
   methods: {
@@ -131,12 +156,12 @@ export default {
 	right: 15px;
 	transform: rotate(135deg);
 }
-.menu-content {
+.menu__content {
   padding: 10px 0;
 	margin-bottom: 10px;
 	overflow: hidden;
 }
-.toggle:checked +.acd-lbl +.menu-content { /*開閉時*/
+.toggle:checked +.acd-lbl +.menu__content { /*開閉時*/
   height: auto;
   padding: 10px 20px;
   transition: all .3s;
@@ -154,7 +179,7 @@ export default {
   height: 40px;
   padding-left: 20px;
 }
-.btn-link {
+.btn__link {
   border: none;
   font-size: 14px;
   cursor: pointer;
@@ -167,7 +192,12 @@ export default {
   height: 40px;
 }
 .link:hover,
-.btn-link:hover {
+.btn__link:hover {
   background-color: #212c9e;
+}
+.menu__ttl {
+  color: #fff;
+  padding: 20px;
+  font-size: 16px;
 }
 </style>

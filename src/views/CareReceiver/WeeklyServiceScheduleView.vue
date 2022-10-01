@@ -6,75 +6,75 @@
     </div>
     <div class="page__content">
       <div class="registration__form box-shadow">
-        <validation-observer>
-          <h3 class="form__ttl">サービス登録</h3>
-          <div class="form__item">
-            <validation-provider v-slot="{ errors }" rules="required">
-              <label for="day_of_week" class="form__item-lbl">
-                曜日
-                <span class="required__lbl">必須</span>
-              </label>
-              <select id="day_of_week" class="select"
-                v-model="weekly_service_schedule.day_of_week_id">
-                <option v-for="day_of_week in day_of_weeks" :key="day_of_week.id" :value="day_of_week.id">
-                  {{ day_of_week.name }}
-                </option>
-              </select>
-              <div class="error">{{ errors[0] }}</div>
-            </validation-provider>
-          </div>
-          <div class="form__item">
-            <validation-provider v-slot="{ errors }" rules="required">
-              <label for="service_type" class="form__item-lbl">
-                サービス名
-                <span class="required__lbl">必須</span>
-              </label>
-              <select id="service_type" class="select"
-                v-model="weekly_service_schedule.service_type_id">
-                <option v-for="service_type in service_types" :key="service_type.id" :value="service_type.id">
-                  {{ service_type.name }}
-                </option>
-              </select>
-              <div class="error">{{ errors[0] }}</div>
-            </validation-provider>
-          </div>
-          <div class="form__item">
-            <validation-provider v-slot="{ errors }" rules="required">
-              <label for="service_type" class="form__item-lbl">
-                施設名
-                <span class="required__lbl">必須</span>
-              </label>
-              <select id="service_type" class="select"
-                v-model="weekly_service_schedule.nursing_care_office_id">
-                <option v-for="nursing_care_office in nursing_care_offices" :key="nursing_care_office.id" :value="nursing_care_office.id">
-                  {{ sernursing_care_officevice_type.name }}
-                </option>
-              </select>
-              <div class="error">{{ errors[0] }}</div>
-            </validation-provider>
-          </div>
-          <div class="form__item">
-            <validation-provider v-slot="{ errors }" rules="required">
-              <label class="form__item-lbl">
-                サービス提供時間
-                <span class="required__lbl">必須</span>
-              </label>
-              <vue-timepicker 
-                name="starting_time" 
-                id="timepicker" 
-                v-model="weekly_service_schedule.starting_time" 
-                format="HH:mm"
-                minute-interval="10" hour-label="時" minute-label="分" hide-clear-button>
-              </vue-timepicker>
-              ～
-              <vue-timepicker name="ending_time" id="timepicker" v-model="weekly_service_schedule.ending_time" format="HH:mm" minute-interval="10"
-                hour-label="時" minute-label="分" hide-clear-button>
-              </vue-timepicker>
-              <div class="error">{{ errors[0] }}</div>
-            </validation-provider>
-          </div>
-        </validation-observer>
-        <button class="btn registration__btn" @click="register">登録</button>
+        <h3 class="form__ttl">サービス登録</h3>
+        <div class="form__content">
+          <validation-observer ref="obs" v-slot="{ invalid }">
+            <div class="form__item">
+              <validation-provider v-slot="{ errors }" rules="required">
+                <label for="day_of_week" class="form__item-lbl">
+                  曜日
+                  <span class="required__lbl">必須</span>
+                </label>
+                <select id="day_of_week" class="select" v-model="weekly_service_schedule.day_of_week_id">
+                  <option v-for="day_of_week in day_of_weeks" :key="day_of_week.id" :value="day_of_week.id">
+                    {{ day_of_week.name }}
+                  </option>
+                </select>
+                <div class="error">{{ errors[0] }}</div>
+              </validation-provider>
+            </div>
+            <div class="form__item">
+              <validation-provider v-slot="{ errors }" rules="required">
+                <label for="service_type" class="form__item-lbl">
+                  サービス種別
+                  <span class="required__lbl">必須</span>
+                </label>
+                <select id="service_type" class="select" 
+                v-model="weekly_service_schedule.service_type_id"
+                @change="changeServiceType">
+                  <option v-for="service_type in service_types" :key="service_type.id" :value="service_type.id">
+                    {{ service_type.name }}
+                  </option>
+                </select>
+                <div class="error">{{ errors[0] }}</div>
+              </validation-provider>
+            </div>
+            <div class="form__item">
+              <validation-provider v-slot="{ errors }" rules="required">
+                <label for="service_type" class="form__item-lbl">
+                  施設名
+                  <span class="required__lbl">必須</span>
+                </label>
+                <select id="service_type" class="select" v-model="weekly_service_schedule.nursing_care_office_id" required>
+                  <option v-for="nursing_care_office in nursing_care_offices"    :key="nursing_care_office.id"
+                  :value="nursing_care_office.id">
+                    {{ nursing_care_office.office_name }}
+                  </option>
+                </select>
+                <div class="error">{{ errors[0] }}</div>
+              </validation-provider>
+            </div>
+            <div class="form__item">
+              <validation-provider v-slot="{ errors }" rules="required">
+                <label class="form__item-lbl">
+                  サービス提供時間
+                  <span class="required__lbl">必須</span>
+                </label>
+                <vue-timepicker name="starting_time" id="timepicker" v-model="weekly_service_schedule.starting_time"
+                  format="HH:mm" minute-interval="10" hour-label="時" minute-label="分" hide-clear-button>
+                </vue-timepicker>
+                ～
+                <vue-timepicker name="ending_time" id="timepicker" v-model="weekly_service_schedule.ending_time" format="HH:mm"
+                  minute-interval="10" hour-label="時" minute-label="分" hide-clear-button>
+                </vue-timepicker>
+                <div class="error">{{ errors[0] }}</div>
+              </validation-provider>
+            </div>
+            <button class="btn registration__btn" @click="registerSchedule" :disabled="invalid">
+              登録
+            </button>
+          </validation-observer>
+        </div>
       </div>
       <div>
         <table class="weekly-service__tbl box-shadow">
@@ -92,7 +92,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(schedule, index) in schedules" :key="index">
+            <tr v-for="(schedule, index) in weekly_service_schedules" :key="index">
               <td>
               </td>
               <td>
@@ -104,26 +104,24 @@
               <td>
               </td>
               <td>
-                <button class="btn delete__btn" @click="deleteRow(index)">
-                  削除
-                </button>
+              <button class="btn delete__btn" @click="deleteSchedule(index)">
+                削除
+              </button>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-      <detail-menu class="detail-menu"></detail-menu>
     </div>
   </div>
 </template>
 
 <script>
+import { api } from "@/http-common";
 import VueTimepicker from 'vue2-timepicker/src/vue-timepicker.vue'
 import { mapGetters, mapActions } from 'vuex'
-import DetailMenu from "@/components/DetailMenu";
 export default {
   components: {
-    'detail-menu': DetailMenu,
     'vue-timepicker': VueTimepicker,
   },
   data() {
@@ -144,6 +142,7 @@ export default {
       day_of_weeks: null,
       service_types: null,
       nursing_care_offices: null,
+      weekly_service_schedules: null
     }
   },
   computed: {
@@ -164,18 +163,40 @@ export default {
 
       this.day_of_weeks = this.getDayOfWeeks;
       this.service_types = this.getServiceTypes;
+      this.changeServiceType();
     },
-    changeServiceType(e) {
-      this.nursing_care_offices = this.service_types.filter(
-        service_type => service_type.id == e.target.value
+    changeServiceType() {
+      const selected_service = this.service_types.filter(
+        service_type => service_type.id === this.weekly_service_schedule.service_type_id
       );
-      console.log(this.nursing_care_offices);
+
+      this.nursing_care_offices
+        = selected_service[0].nursing_care_offices;
+
+      if (this.nursing_care_offices.length > 0) {
+        this.weekly_service_schedule.nursing_care_office_id
+          = this.nursing_care_offices[0].id;
+      }
     },
-    deleteRow(index) {
+    async registerSchedule() {
+      if (!confirm("登録しますか？")) {
+        return;
+      }
+      try {
+        api.defaults.headers.common['Authorization']
+          = 'Bearer ' + this.getCareManagerAccessToken;
+        const response = await api.post(
+          '/weekly-service-schedules', this.weekly_service_schedule
+        );
+        if (response.status === 201) {
+          
+        }
+      } catch (error) {
+        
+      }
     },
-    addRow() {
-      
-    }
+    deleteSchedule(index) {
+    },
   },
   async created() {
     await this.setDayofweeksAndServicetypes();
@@ -183,6 +204,11 @@ export default {
 };
 </script>
 <style scoped>
+.page__content {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
 .page__header {
   display: flex;
   align-items: center;
@@ -195,14 +221,19 @@ export default {
 .registration__form {
   background-color: #fff;
   width: 500px;
-  margin: 0 auto;
+  border-radius: 6px;
+}
+.form__ttl {
+  font-weight: normal;
+  color: #fff;
+  background-color: #1A237E;
   padding: 20px;
+  border-radius: 6px 6px 0 0;
 }
 .weekly-service__tbl {
   border-collapse: collapse;
   border-radius: 6px;
-  margin: 30px auto 0;
-  width: 900px;
+  width: 600px;
 }
 .weekly-service__tbl thead {
   background-color: #1A237E;
@@ -252,6 +283,9 @@ export default {
 .vue__time-picker .dropdown ul li:not([disabled]).active:focus,
 .vue__time-picker .dropdown ul li:not([disabled]).active:hover {
   background: #1A237E;
+}
+.form__content {
+  padding: 0 20px 20px;
 }
 .registration__btn {
   display: flex;

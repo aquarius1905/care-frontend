@@ -75,17 +75,21 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   computed: {
     ...mapGetters([
-      'hasCareManager'
+      'emptyCareManager'
     ]),
     ...mapGetters({
       care_manager: 'getCareManager'
     })
   },
   methods: {
+    ...mapActions([
+      'fetchCareManagerInfo',
+      'setDetailFlg'
+    ]),
     confirmUpdate() {
       this.$router.push({
         name: 'CareManagerUpdateConfirm',
@@ -93,11 +97,9 @@ export default {
       });
     },
     async getCareManagerInfo() {
-      if (!this.hasCareManager) {
-        await this.$store.dispatch("fetchCareManagerInfo");
+      if (!this.emptyCareManager) {
+        await this.fetchCareManagerInfo;
       }
-      
-      this.splitName();
     },
     splitName() {
       const care_manager_name_arr = this.care_manager.name.split(/\u3000/);
@@ -108,16 +110,20 @@ export default {
       this.care_manager.last_name_furigana = care_manager_name_furigana_arr[0];
       this.care_manager.first_name_furigana = care_manager_name_furigana_arr[1];
     },
-    initialize() {
+    async initialize() {
+      this.setDetailFlg(false);
+
       if (this.$route.query.care_manager === null) {
-        this.getCareManagerInfo();
+        await this.getCareManagerInfo();
       } else {
         this.care_manager = this.$route.query.care_manager
       }
+      
+      this.splitName();
     }
   },
-  created() {
-    this.initialize();
+  async created() {
+    await this.initialize();
   }
 }
 </script>

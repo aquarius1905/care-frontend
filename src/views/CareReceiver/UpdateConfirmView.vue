@@ -1,7 +1,7 @@
 <template>
   <div class="care-manager-registration-confirm">
     <div class="form box-shadow">
-      <h2 class="form-ttl">被介護者・キーパーソン 更新確認</h2>
+      <h2 class="form__ttl">被介護者・キーパーソン 更新確認</h2>
       <div class="confirm-content">
         <table class="confirmation__tbl">
           <tr>

@@ -43,7 +43,7 @@
 
 <script>
 import { api } from '@/http-common';
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   data: function () {
     return {
@@ -55,6 +55,10 @@ export default {
     ...mapGetters([ 'getCareManagerAccessToken' ])
   },
   methods: {
+    ...mapActions([
+      'setCurrentCareReceiver',
+      'setDetailFlg'
+    ]),
     async getCareReceivers() {
       try {
         api.defaults.headers.common['Authorization']
@@ -91,8 +95,9 @@ export default {
         }
       }
     },
-    async showDetailView(care_receiver) {
-      await this.$store.dispatch('setCurrentCareReceiver', care_receiver);
+    showDetailView(care_receiver) {
+      this.setCurrentCareReceiver(care_receiver);
+
       this.$router.push({
         name: 'CareReceiverDetail'
       });
@@ -120,6 +125,7 @@ export default {
   },
   async created() {
     await this.getCareReceivers();
+    this.setDetailFlg(false);
   }
 };
 </script>

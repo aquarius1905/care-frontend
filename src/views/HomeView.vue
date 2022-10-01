@@ -16,22 +16,28 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   methods: {
+    ...mapActions([
+      'setCareManagerFlg',
+      'setCareReceiverFlg',
+      'setNursingCareOfficeFlg'
+    ]),
     showCareManagerLoginPage() {
-      this.$store.dispatch('setCareManagerFlg');
+      this.setCareManagerFlg;
       this.$router.push({
         name: 'CareManagerLogin'
       });
     },
     showCareReceiverLoginPage() {
-      this.$store.dispatch('setCareReceiverFlg');
+      this.setCareReceiverFlg;
       this.$router.push({
         name: 'CareReceiverLogin'
       });
     },
     showNursingCareOfficeLoginPage() {
-      this.$store.dispatch('setNursingCareOfficeFlg');
+      this.setNursingCareOfficeFlg;
       this.$router.push({
         name: 'NursingCareOfficeLogin'
       });

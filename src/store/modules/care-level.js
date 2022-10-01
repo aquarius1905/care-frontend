@@ -12,13 +12,14 @@ const getters = {
     const care_levels = state.careLevels;
     return care_levels.slice(2);
   },
-  hasCareLevels(state) {
-    return state.careLevels !== null;
+  emptyCareLevels(state) {
+    return state.careLevels === null;
   },
 };
 const mutations = {
   setCareLevels(state, payload) {
     state.careLevels = payload;
+    console.log(state.careLevels);
   },
 };
 const actions = {

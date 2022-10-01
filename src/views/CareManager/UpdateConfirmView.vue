@@ -1,7 +1,7 @@
 <template>
   <div class="care-manager-update-confirm">
     <div class="form confirm-form box-shadow">
-      <h2 class="form-ttl">ケアマネージャー更新内容確認</h2>
+      <h2 class="form__ttl">ケアマネージャー更新内容確認</h2>
       <div class="confirm-content">
         <table class="confirmation__tbl">
           <tr>
@@ -36,7 +36,7 @@
 
 <script>
 import { api } from "@/http-common"
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   data: function () {
     return {
@@ -47,6 +47,9 @@ export default {
     ...mapGetters([ 'getCareManagerAccessToken' ])
   },
   methods: {
+    ...mapActions([
+      'setCareManager',
+    ]),
     back() {
       this.$router.push({
         name: 'CareManagerUpdate',
@@ -74,7 +77,7 @@ export default {
         );
 
         if (response.status === 200) {
-          this.$store.dispatch('setCareManager', this.care_manager);
+          this.setCareManager(this.care_manager);
           this.$router.push({
             name: 'CareManagerUpdateCompletion'
           });

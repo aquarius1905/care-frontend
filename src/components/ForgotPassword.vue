@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="forgot-password-form box-shadow">
-      <h2 class="form-ttl">{{ 'パスワード再設定' + formTitle }}</h2>
+      <h2 class="form__ttl">{{ 'パスワード再設定' + formTitle }}</h2>
       <validation-observer ref="obs" v-slot="ObserverProps">
         <div class="forgot-password-form-content">
           <div class="form__item">

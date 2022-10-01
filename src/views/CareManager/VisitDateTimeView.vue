@@ -1,7 +1,7 @@
 <template>
   <div class="visit-datetime">
     <div class="form box-shadow">
-      <h2 class="form-ttl">訪問日時{{ registered_flg ? "確認・変更": "登録" }}</h2>
+      <h2 class="form__ttl">訪問日時{{ registered_flg ? "確認・変更": "登録" }}</h2>
       <validation-observer v-slot="{ invalid }">
         <div class="form-content">
           <div class="form__item">
@@ -32,17 +32,14 @@
         </div>
       </validation-observer>
     </div>
-    <DetailMenu class="detail-menu"></DetailMenu>
   </div>
 </template>
 
 <script>
 import dayjs from 'dayjs';
 import { api } from '@/http-common'
-import DetailMenu from "@/components/DetailMenu";
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 export default {
-  components: { DetailMenu },
   data() {
     return {
       visit_datetime_id: 0,
@@ -65,7 +62,12 @@ export default {
     })
   },
   methods: {
+    ...mapActions([
+      'setDetailFlg'
+    ]),
     initialize() {
+      this.setDetailFlg(true);
+
       this.visit_datetime.care_receiver_id = this.care_receiver.id;
       this.registered_flg = this.care_receiver.visit_datetime !== null;
       if (this.registered_flg) {
