@@ -1,4 +1,4 @@
-import CareReceiverRegistrationView from '@/views/CareReceiver/RegistrationView.vue'
+  import CareReceiverRegistrationView from '@/views/CareReceiver/RegistrationView.vue'
 import CareReceiverRegistrationConfirmView from '@/views/CareReceiver/RegistrationConfirmView.vue'
 import CareReceiverRegistrationCompletionView from '@/views/CareReceiver/RegistrationCompletionView.vue'
 import CareReceiverUpdateView from '@/views/CareReceiver/UpdateView.vue'

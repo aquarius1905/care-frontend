@@ -45,7 +45,7 @@
           <table class="visit-datetime-tbl">
             <tr>
               <th>日付</th>
-              <td v-if="care_receiver.visit_datetime">{{ $dayjs(care_receiver.visit_datetime.date).format('YYYY/MM/DD (ddd)') }}</td>
+              <td v-if="care_receiver.visit_datetime">{{ $dayjs(care_receiver.visit_datetime.date).format('YYYY/MM/DD (ddd)') }}</td> 
               <td v-else>未定</td>
             </tr>
             <tr>

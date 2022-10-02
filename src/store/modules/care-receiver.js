@@ -7,6 +7,9 @@ const getters = {
   getCurrentCareReceiver(state) {
     return state.currentCareReceiver;
   },
+  getCurrentCareReceiverId(state) {
+    return state.currentCareReceiver.id;
+  },
   getCurrentCareReceiverName(state) {
     return state.currentCareReceiver.name;
   },
