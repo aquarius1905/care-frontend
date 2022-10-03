@@ -1,5 +1,4 @@
-import { api } from '@/http-common';
-import store from '../index';
+import { careManagerAuthApi } from "@/plugins/axios";
 
 const state = {
   dayOfWeeks: null,
@@ -25,9 +24,7 @@ const mutations = {
 };
 const actions = {
   async fetchDayofweeksAndServicetypes(context) {
-    api.defaults.headers.common['Authorization']
-      = 'Bearer ' + store.getters.getCareManagerAccessToken;
-    const { data } = await api.get('/dayofweeks-and-servicetypes');
+    const { data } = await careManagerAuthApi.get('/dayofweeks-and-servicetypes');
     context.commit('setDayOfWeeks', data.day_of_weeks);
     context.commit('setServiceTypes', data.service_types);
   },

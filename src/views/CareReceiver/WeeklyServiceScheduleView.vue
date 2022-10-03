@@ -149,27 +149,31 @@ export default {
       'fetchDayofweeksAndServicetypes',
     ]),
     async initialize() {
+      this.setCurrentCareReceiverId();
       await this.getWeeklyServiceSchedule();
       await this.setDayofweeksAndServicetypes();
       this.changeServiceType();
-      this.setLoggedInCareManagerId();
-    },
-    async setDayofweeksAndServicetypes() {
-      await this.fetchDayofweeksAndServicetypes();
-
-      this.day_of_weeks = this.getDayOfWeeks;
-      this.service_types = this.getServiceTypes;
     },
     async getWeeklyServiceSchedule() {
       try {
+        const params = {
+          care_receiver_id: this.weekly_service_schedule.care_receiver_id
+        }
         const { data } = await careManagerAuthApi.get(
-          '/weekly-service-schedules'
+          '/weekly-service-schedules',
+          { params }
         );
         this.weekly_service_schedules = data.data;
       } catch (error) {
         alert('データの取得に失敗しました');
         console.log(error);
       }
+    },
+    async setDayofweeksAndServicetypes() {
+      await this.fetchDayofweeksAndServicetypes();
+
+      this.day_of_weeks = this.getDayOfWeeks;
+      this.service_types = this.getServiceTypes;
     },
     changeServiceType() {
       const selected_service = this.service_types.filter(
@@ -184,7 +188,7 @@ export default {
           = this.nursing_care_offices[0].id;
       }
     },
-    setLoggedInCareManagerId() {
+    setCurrentCareReceiverId() {
       this.weekly_service_schedule.care_receiver_id
         = this.getCurrentCareReceiverId;
     },
@@ -194,7 +198,6 @@ export default {
       }
 
       try {
-        console.log(this.weekly_service_schedule);
         const { data } = await careManagerAuthApi.post(
           '/weekly-service-schedules', this.weekly_service_schedule
         );

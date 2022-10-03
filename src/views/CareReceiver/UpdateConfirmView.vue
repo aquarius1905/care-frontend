@@ -76,7 +76,8 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from 'vuex';
+import { careManagerAuthApi } from "@/plugins/axios";
 export default {
   data: function () {
     return {
@@ -86,7 +87,6 @@ export default {
   computed: {
     ...mapGetters([
       'getKeyPersonAccessToken',
-      'getCareManagerAccessToken'
     ])
   },
   methods: {
@@ -137,26 +137,22 @@ export default {
           console.log(error);
       }
     },
-    updateCareReceiver(key_person_id) {
-      const care_receiver = this.makeCareReceiverData(key_person_id);
-      axios
-        .post(`${process.env.VUE_APP_API_ORIGIN}/care-receivers/${this.care_receiver.id}`,
-          care_receiver,
-          {
-            headers: {
-              Authorization: `Bearer ${this.getCareManagerAccessToken}`,
-            }
-          })
-        .then(response => {
-          if (response.status === 201) {
-            this.$router.push({
-              name: 'CareReceiverUpdateComplete'
-            });
-          }
-        })
-        .catch(error => {
-          console.log(error);
-        });
+    async updateCareReceiver() {
+      const care_receiver = this.makeCareReceiverData();
+      try {
+        const response = careManagerAuthApi.post(
+          '/care-receivers/' + this.care_receiver.id,
+          care_receiver
+        );
+        if (response.status === 201) {
+          this.$router.push({
+            name: 'CareReceiverUpdateComplete'
+          });
+        }
+      } catch (error) {
+        console.log(error);
+        alert("更新に失敗しました");
+      }
     },
   },
   created() {

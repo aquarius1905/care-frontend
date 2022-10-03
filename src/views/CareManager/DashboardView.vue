@@ -42,17 +42,14 @@
 </template>
 
 <script>
-import { api } from '@/http-common';
-import { mapGetters, mapActions } from 'vuex'
+import { careManagerAuthApi } from "@/plugins/axios";
+import { mapActions } from 'vuex'
 export default {
   data: function () {
     return {
       care_receivers: {},
       checked_care_receiver_ids: []
     }
-  },
-  computed: {
-    ...mapGetters([ 'getCareManagerAccessToken' ])
   },
   methods: {
     ...mapActions([
@@ -61,9 +58,7 @@ export default {
     ]),
     async getCareReceivers() {
       try {
-        api.defaults.headers.common['Authorization']
-          = 'Bearer ' + this.getCareManagerAccessToken;
-        const response = await api.get('/care-receivers');
+        const response = await careManagerAuthApi.get('/care-receivers');
 
         if (response.status === 200) {
           this.care_receivers = response.data.data;
@@ -110,10 +105,9 @@ export default {
     },
     async deleteCareReceivers() {
       if (confirm("削除しますか？")) {
-        api.defaults.headers.common['Authorization']
-          = 'Bearer ' + this.getCareManagerAccessToken;
-        const response = await api.post(
-          '/care-receivers/batch-delete', this.checked_care_receiver_ids
+        const response = await careManagerAuthApi.post(
+          '/care-receivers/batch-delete',
+          this.checked_care_receiver_ids
         );
         if (response.status === 200) {
           await this.getCareReceivers();

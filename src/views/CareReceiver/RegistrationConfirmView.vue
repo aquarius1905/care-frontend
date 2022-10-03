@@ -77,16 +77,12 @@
 </template>
 
 <script>
-import { api } from "@/http-common";
-import { mapGetters } from 'vuex'
+import { careManagerAuthApi } from "@/plugins/axios";
 export default {
   data: function () {
     return {
       care_receiver: null,
     }
-  },
-  computed: {
-    ...mapGetters([ 'getCareManagerAccessToken' ])
   },
   methods: {
     back() {
@@ -101,9 +97,7 @@ export default {
       if (confirm('登録しますか？')) {
         this.makeCareReceiverData();
         try {
-          api.defaults.headers.common['Authorization']
-            = 'Bearer ' + this.getCareManagerAccessToken;
-          const response = await api.post(
+          const response = await careManagerAuthApi.post(
             '/care-receivers', this.care_receiver
           );
 

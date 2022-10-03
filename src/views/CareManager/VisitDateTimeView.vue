@@ -37,7 +37,7 @@
 
 <script>
 import dayjs from 'dayjs';
-import { api } from '@/http-common'
+import { careManagerAuthApi } from "@/plugins/axios";
 import { mapGetters, mapActions } from 'vuex'
 export default {
   data() {
@@ -54,9 +54,6 @@ export default {
     }
   },
   computed: {
-    ...mapGetters([
-      'getCareManagerAccessToken'
-    ]),
     ...mapGetters({
       care_receiver: 'getCurrentCareReceiver',
     })
@@ -108,15 +105,13 @@ export default {
       }
 
       const response = null;
-      api.defaults.headers.common['Authorization']
-        = 'Bearer ' + this.getCareManagerAccessToken;
       if (this.registered_flg) {
-        response = await api.put(
+        response = await careManagerAuthApi.put(
           `/care-managers/visit/${this.visit_datetime_id}`,
           this.visit_datetime
         );
       } else {
-        response = await api.post(
+        response = await careManagerAuthApi.post(
           '/care-managers/visit',
           this.visit_datetime
         );

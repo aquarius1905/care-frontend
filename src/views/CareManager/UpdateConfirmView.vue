@@ -35,16 +35,13 @@
 </template>
 
 <script>
-import { api } from "@/http-common"
-import { mapGetters, mapActions } from 'vuex'
+import { careManagerAuthApi } from "@/plugins/axios";
+import { mapActions } from 'vuex'
 export default {
   data: function () {
     return {
       care_manager: null
     }
-  },
-  computed: {
-    ...mapGetters([ 'getCareManagerAccessToken' ])
   },
   methods: {
     ...mapActions([
@@ -70,9 +67,7 @@ export default {
     },
     async updateCareManagerData() {
       try {
-        api.defaults.headers.common['Authorization']
-          = 'Bearer ' + this.getCareManagerAccessToken;
-        const response = await api.put(
+        const response = await careManagerAuthApi.put(
           `/care-managers/${this.care_manager.id}`, this.care_manager
         );
 
