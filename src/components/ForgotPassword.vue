@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { api } from "@/http-common";
+import { api } from "@/plugins/axios";
 export default {
   props: {
     formTitle: {

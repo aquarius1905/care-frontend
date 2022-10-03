@@ -1,7 +1,7 @@
 const state = {
   currentCareReceiver: null,
   careReceiverAccessToken: null,
-  careReceiver: null
+  loggedInCareReceiver: null
 };
 const getters = {
   getCurrentCareReceiver(state) {
@@ -19,12 +19,15 @@ const getters = {
   isCareReceiverLoggedIn(state) {
     return state.careReceiverAccessToken !== null
   },
-  getCareReceiverName(state) {
-    return state.careReceiver.name;
+  getLoggedInCareReceiver(state) {
+    return state.loggedInCareReceiver;
   },
-  getCareReceiversWithCareReceiver(state) {
-    return state.careReceiver.care_receivers;
-  }
+  getLoggedInCareReceiverName(state) {
+    return state.loggedInCareReceiver.name;
+  },
+  getLoggedInKeyPersonName(state) {
+    return state.loggedInCareReceiver.keyperson_name;
+  },
 };
 const mutations = {
   setCurrentCareReceiver(state, payload) {
@@ -33,11 +36,11 @@ const mutations = {
   },
   setLoggedInCareReceiver(state, payload) {
     state.careReceiverAccessToken = payload.access_token;
-    state.careReceiver = payload.care_receiver;
+    state.loggedInCareReceiver = payload.care_receiver;
   },
   resetCareReceiver(state) {
     state.careReceiverAccessToken = null;
-    state.careReceiver = null;
+    state.loggedInCareReceiver = null;
   },
 };
 const actions = {

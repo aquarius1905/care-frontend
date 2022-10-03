@@ -1,4 +1,4 @@
-import { api } from '@/http-common';
+import { api } from "@/plugins/axios";
 
 const state = {
   careLevels: null,

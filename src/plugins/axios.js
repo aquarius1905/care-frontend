@@ -18,7 +18,30 @@ careManagerAuthApi.interceptors.request.use(config => {
   return config;
 });
 
+const careReceiverAuthApi = axios.create({
+  baseURL: 'http://127.0.0.1:8000/api'
+});
+
+careReceiverAuthApi.interceptors.request.use(config => {
+  config.headers = {
+    'Authorization': 'Bearer ' + store.getters.getCareReceiverAccessToken
+  }
+  return config;
+});
+
+const nursingCareOfficeAuthApi = axios.create({
+  baseURL: 'http://127.0.0.1:8000/api'
+});
+
+nursingCareOfficeAuthApi.interceptors.request.use(config => {
+  config.headers = {
+    'Authorization': 'Bearer ' + store.getters.getNursingCareOfficeAccessToken
+  }
+  return config;
+});
 export {
   api,
-  careManagerAuthApi
+  careManagerAuthApi,
+  careReceiverAuthApi,
+  nursingCareOfficeAuthApi
 };

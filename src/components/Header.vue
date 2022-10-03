@@ -1,16 +1,26 @@
 <template>
   <div id="header">
-    <h1 class="main-ttl ttl" @click="backtoHome">Care</h1>
-    <div class="logout-wrap" 
+    <h1 class="main__ttl ttl" @click="backtoHome">Care</h1>
+    <div class="logout__wrap" 
     v-show="this.isCareManagerLoggedIn || this.isCareReceiverLoggedIn || this.isNursingCareOfficeLoggedIn">
-      <label class="name-lbl">{{ loggedInName }}</label>
-      <button class="btn logout-btn" @click="logout">ログアウト</button>
+      <div v-if="this.isCareReceiverLoggedIn">
+        <label class="name__lbl">
+          被介護者：{{ loggedInName }}
+        </label>
+        <label class="name__lbl">
+          キーパーソン：{{ keyperson_name }}
+        </label>
+      </div>
+      <div v-else>
+        <label class="name__lbl" >{{ loggedInName }}</label>
+      </div>
+      <button class="btn logout__btn" @click="logout">ログアウト</button>
     </div>
   </div>
 </template>
 
 <script>
-import { api } from "@/http-common"
+import { careManagerAuthApi, careReceiverAuthApi, nursingCareOfficeAuthApi } from "@/plugins/axios";
 import { mapGetters, mapActions } from 'vuex'
 export default {
   computed: {
@@ -18,22 +28,22 @@ export default {
       'isCareManagerLoggedIn',
       'isCareReceiverLoggedIn',
       'isNursingCareOfficeLoggedIn',
-      'getCareManagerName',
-      'getCareReceiverName',
+      'getLoggedInCareManagerName',
+      'getLoggedInCareReceiverName',
       'getContactPersonNameOfNursingCareOffice',
-      'getCareManagerAccessToken',
-      'getCareReceiverAccessToken',
-      'getNursingCareOfficeAccessToken',
     ]),
+    ...mapGetters({
+      keyperson_name: 'getLoggedInKeyPersonName'
+    }),
     loggedInName: function () {
       if (this.isCareManagerLoggedIn) {
-        return this.getCareManagerName;
+        return this.getLoggedInCareManagerName;
       } else if (this.isCareReceiverLoggedIn) {
-        return this.getCareReceiverName;
+        return this.getLoggedInCareReceiverName;
       } else if (this.isNursingCareOfficeLoggedIn) {
         return this.getContactPersonNameOfNursingCareOffice;
       }
-    }
+    },
   },
   methods: {
     ...mapActions([
@@ -48,10 +58,10 @@ export default {
     },
     async logoutCareManager() {
       try {
-        api.defaults.headers.common['Authorization']
-          = 'Bearer ' + this.getCareManagerAccessToken;
-        const response = await api.post('/care-managers/logout');
-          
+        const response = await careManagerAuthApi.post(
+          '/care-managers/logout'
+        );
+
         if (response.status === 200) {
           this.resetCareManager();
           this.$router.push({ name: 'CareManagerLogin' });
@@ -63,9 +73,9 @@ export default {
     },
     async logoutCareReceiver() {
       try {
-        api.defaults.headers.common['Authorization']
-          = 'Bearer ' + this.getCareReceiverAccessToken;
-        const response = await api.post('/care-receivers/logout');
+        const response = await careReceiverAuthApi.post(
+          '/care-receivers/logout'
+        );
 
         if (response.status === 200) {
           this.resetCareReceiver();
@@ -78,9 +88,9 @@ export default {
     },
     async logoutNursingCareOffice() {
       try {
-        api.defaults.headers.common['Authorization']
-          = 'Bearer ' + this.getNursingCareOfficeAccessToken;
-        const response = await api.post('/nursing-care-offices/logout');
+        const response = await nursingCareOfficeAuthApi.post(
+          '/nursing-care-offices/logout'
+        );
 
         if (response.status === 200) {
           this.resetNursingCareOffice();
@@ -119,18 +129,18 @@ export default {
   position: relative;
   box-sizing: border-box;
 }
-.main-ttl {
+.main__ttl {
   user-select: none;
   cursor: pointer;
 }
-.logout-wrap {
+.logout__wrap {
   display: flex;
   align-items: center;
 }
-.name-lbl {
+.name__lbl {
   margin-right: 20px;
 }
-.logout-btn {
+.logout__btn {
   width: 120px;
   font-size: 16px;
 }

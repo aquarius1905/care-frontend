@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { api } from "@/http-common";
+import { api } from "@/plugins/axios";
 import { mapGetters, mapActions } from 'vuex'
 export default {
   props: {

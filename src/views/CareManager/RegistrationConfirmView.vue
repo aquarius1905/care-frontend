@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import { api } from "@/http-common";
+import { api } from "@/plugins/axios";
 export default {
   data: function () {
     return {

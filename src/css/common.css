@@ -23,12 +23,22 @@ body {
   font-size: 30px;
 }
 
+.page__header {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
 .page__ttl {
   color: #1a237e;
   padding: 20px;
   font-size: 22px;
   user-select: none;
   text-align: center;
+}
+
+.page__content {
+  padding: 0 20px 20px;
 }
 
 .form {
@@ -283,16 +293,56 @@ body {
 }
 
 /* 介護度 */
-.care-level-wrap {
+.care-level__wrap {
   margin-bottom: 20px;
 }
 
-.care-level-lst {
+.care-level__lst {
   list-style: none;
   display: flex;
 }
 
-.radio-btn-lbl {
+.radio-btn__lbl {
   display: inline-block;
   margin-right: 10px;
+}
+
+/* 週間サービス計画表 */
+
+.weekly-service__tbl {
+  border-collapse: collapse;
+  border-radius: 6px;
+  width: 100%;
+}
+
+.weekly-service__tbl thead {
+  background-color: #1A237E;
+  color: #f5f5f5
+}
+
+.weekly-service__tbl tbody {
+  background-color: #fff;
+}
+
+.weekly-service__tbl th {
+  padding: 7px 0;
+  vertical-align: middle;
+}
+
+.weekly-service__tbl td {
+  text-align: center;
+  padding: 5px 10px;
+}
+
+.weekly-service__tbl tr:first-child th:first-child {
+  border-top-left-radius: 6px;
+}
+
+.weekly-service__tbl tr:first-child th:last-child {
+  border-top-right-radius: 6px;
+}
+
+.weekly-service__tbl tr:last-child td {
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
 }

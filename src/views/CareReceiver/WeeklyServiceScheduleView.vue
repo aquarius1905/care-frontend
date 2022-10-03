@@ -112,8 +112,8 @@
 
 <script>
 import { careManagerAuthApi } from "@/plugins/axios";
-import VueTimepicker from 'vue2-timepicker/src/vue-timepicker.vue'
-import { mapGetters, mapActions } from 'vuex'
+import VueTimepicker from 'vue2-timepicker/src/vue-timepicker.vue';
+import { mapGetters, mapActions } from 'vuex';
 export default {
   components: {
     'vue-timepicker': VueTimepicker,
@@ -165,8 +165,8 @@ export default {
         );
         this.weekly_service_schedules = data.data;
       } catch (error) {
-        alert('データの取得に失敗しました');
         console.log(error);
+        alert('週間サービス計画表のデータ取得に失敗しました');
       }
     },
     async setDayofweeksAndServicetypes() {
@@ -236,9 +236,6 @@ export default {
 .weekly-schedule {
   padding-bottom: 30px;
 }
-.page__content {
-  padding: 20px;
-}
 .page__header {
   display: flex;
   align-items: center;
@@ -260,41 +257,6 @@ export default {
   background-color: #1A237E;
   padding: 20px;
   border-radius: 6px 6px 0 0;
-}
-.weekly-service__tbl {
-  border-collapse: collapse;
-  border-radius: 6px;
-  width: 100%;
-}
-.weekly-service__tbl thead {
-  background-color: #1A237E;
-  color: #f5f5f5
-}
-.weekly-service__tbl tbody {
-  background-color: #fff;
-}
-.weekly-service__tbl td {
-  text-align: center;
-}
-.weekly-service__tbl th {
-  padding: 8px 0;
-  vertical-align: middle;
-}
-
-.weekly-service__tbl tr:first-child th:first-child {
-  border-top-left-radius: 6px;
-}
-.weekly-service__tbl tr:first-child th:last-child {
-  border-top-right-radius: 6px;
-}
-
-.weekly-service__tbl tr:last-child td {
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
-}
-
-.weekly-service__tbl td {
-  padding: 5px 10px;
 }
 
 .delete__btn {

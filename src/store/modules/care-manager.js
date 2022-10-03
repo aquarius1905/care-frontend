@@ -1,4 +1,4 @@
-import { api } from '@/http-common'
+import { api } from "@/plugins/axios";
 
 const state = {
   careManagerAccessToken: null,
@@ -16,7 +16,7 @@ const getters = {
   getCareManager(state) {
     return state.careManager;
   },
-  getCareManagerName(state) {
+  getLoggedInCareManagerName(state) {
     return state.careManager.name;
   },
   emptyCareManager(state) {
