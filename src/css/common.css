@@ -307,6 +307,38 @@ body {
   margin-right: 10px;
 }
 
+/* 週間サービス登録フォーム */
+/* サービスキャンセルフォーム */
+.registration__form,
+.cancel__form {
+  background-color: #fff;
+  width: 500px;
+  border-radius: 6px;
+  margin-bottom: 30px;
+}
+
+.registration__form-ttl,
+.cancel__form-ttl {
+  font-weight: normal;
+  color: #fff;
+  background-color: #1A237E;
+  padding: 20px;
+  border-radius: 6px 6px 0 0;
+}
+
+.form__content {
+  padding: 0 20px 20px;
+}
+
+.registration__btn,
+.cancel__btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto 0;
+  border: none;
+}
+
 /* 週間サービス計画表 */
 /* 月別スケジュール表 */
 

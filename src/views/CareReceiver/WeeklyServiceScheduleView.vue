@@ -6,7 +6,7 @@
     </div>
     <div class="page__content">
       <div class="registration__form box-shadow">
-        <h3 class="form__ttl">サービス登録</h3>
+        <h3 class="form__ttl registration__form-ttl">サービス登録</h3>
         <div class="form__content">
           <validation-observer ref="obs" v-slot="{ invalid }">
             <div class="form__item">
@@ -251,19 +251,6 @@ export default {
   padding: 0;
   margin-right: 40px;
 }
-.registration__form {
-  background-color: #fff;
-  width: 500px;
-  border-radius: 6px;
-  margin-bottom: 30px;
-}
-.form__ttl {
-  font-weight: normal;
-  color: #fff;
-  background-color: #1A237E;
-  padding: 20px;
-  border-radius: 6px 6px 0 0;
-}
 
 .delete__btn {
   width: 60px;
@@ -287,15 +274,7 @@ export default {
 .form__item >>> .vue__time-picker .dropdown ul li:not([disabled]).active:hover {
   background: #1A237E;
 }
-.form__content {
-  padding: 0 20px 20px;
-}
 .registration__btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 20px auto 0;
-  border: none;
   width: 100px;
 }
 </style>
