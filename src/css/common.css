@@ -308,41 +308,50 @@ body {
 }
 
 /* 週間サービス計画表 */
+/* 月別スケジュール表 */
 
-.weekly-service__tbl {
+.weekly-service-schedule__tbl,
+.monthly-schedule__tbl {
   border-collapse: collapse;
   border-radius: 6px;
   width: 100%;
 }
 
-.weekly-service__tbl thead {
-  background-color: #1A237E;
-  color: #f5f5f5
+.weekly-service-schedule__tbl thead,
+.monthly-schedule__tbl thead {
+  background-color: #1a237e;
+  color: #f5f5f5;
 }
 
-.weekly-service__tbl tbody {
+.weekly-service-schedule__tbl tbody,
+.monthly-schedule__tbl tbody {
   background-color: #fff;
 }
 
-.weekly-service__tbl th {
+.weekly-service-schedule__tbl th,
+.monthly-schedule__tbl th {
   padding: 7px 0;
   vertical-align: middle;
 }
 
-.weekly-service__tbl td {
+.weekly-service-schedule__tbl td,
+.monthly-schedule__tbl td {
   text-align: center;
   padding: 5px 10px;
 }
 
-.weekly-service__tbl tr:first-child th:first-child {
+.weekly-service-schedule__tbl tr:first-child th:first-child,
+.monthly-schedule__tbl tr:first-child th:first-child {
   border-top-left-radius: 6px;
 }
 
-.weekly-service__tbl tr:first-child th:last-child {
+.weekly-service-schedule__tbl tr:first-child th:last-child,
+.monthly-schedule__tbl tr:first-child th:last-child {
   border-top-right-radius: 6px;
 }
 
-.weekly-service__tbl tr:last-child td {
+.weekly-service-schedule__tbl tr:last-child td,
+.monthly-schedule__tbl tr:last-child td {
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
 }

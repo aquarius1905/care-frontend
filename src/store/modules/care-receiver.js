@@ -1,18 +1,11 @@
+import { careReceiverAuthApi } from "@/plugins/axios";
+
 const state = {
-  currentCareReceiver: null,
-  careReceiverAccessToken: null,
-  loggedInCareReceiver: null
+    careReceiverAccessToken: null,
+    loggedInCareReceiver: null,
+    weeklyServiceSchedules: null
 };
 const getters = {
-  getCurrentCareReceiver(state) {
-    return state.currentCareReceiver;
-  },
-  getCurrentCareReceiverId(state) {
-    return state.currentCareReceiver.id;
-  },
-  getCurrentCareReceiverName(state) {
-    return state.currentCareReceiver.name;
-  },
   getCareReceiverAccessToken(state) {
     return state.careReceiverAccessToken;
   },
@@ -28,12 +21,14 @@ const getters = {
   getLoggedInKeyPersonName(state) {
     return state.loggedInCareReceiver.keyperson_name;
   },
+  emptyWeeklyServiceSchedules(state) {
+    return state.weeklyServiceSchedules === null;
+  },
+  getWeeklyServiceSchedules(state) {
+    return state.weeklyServiceSchedules;
+  },
 };
 const mutations = {
-  setCurrentCareReceiver(state, payload) {
-    state.currentCareReceiver = null;
-    state.currentCareReceiver = payload;
-  },
   setLoggedInCareReceiver(state, payload) {
     state.careReceiverAccessToken = payload.access_token;
     state.loggedInCareReceiver = payload.care_receiver;
@@ -41,17 +36,35 @@ const mutations = {
   resetCareReceiver(state) {
     state.careReceiverAccessToken = null;
     state.loggedInCareReceiver = null;
+    state.weeklyServiceSchedules = null;
   },
+  setWeeklyServiceSchedules(state, payload) {
+    state.weeklyServiceSchedules = payload;
+  }
 };
 const actions = {
-  setCurrentCareReceiver(context, payload) {
-    context.commit('setCurrentCareReceiver', payload);
-  },
   setLoggedInCareReceiver(context, payload) {
     context.commit('setLoggedInCareReceiver', payload);
   },
   resetCareReceiver(context) {
     context.commit('resetCareReceiver');
+  },
+  async fetchWeeklyServiceSchedules(context, payload) {
+    try {
+      const params = {
+        care_receiver_id: payload
+      }
+      const { data } = await careReceiverAuthApi.get(
+        '/weekly-service-schedules',
+        { params }
+      );
+
+      context.commit('setWeeklyServiceSchedules', data.data);
+
+    } catch (error) {
+        console.log(error);
+        alert('週間サービス計画表のデータ取得に失敗しました');
+    }
   }
 };
 

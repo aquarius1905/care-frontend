@@ -54,7 +54,10 @@
       <div>
         <ul class="menu__content">
           <li>
-            <router-link class="link" to="/key-person/dashboard">ダッシュボード</router-link>
+            <router-link class="link" to="/care-receiver/dashboard">ダッシュボード</router-link>
+          </li>
+          <li>
+            <router-link class="link" to="/care-receiver/monthly-schedule">月別スケジュール</router-link>
           </li>
         </ul>
       </div>

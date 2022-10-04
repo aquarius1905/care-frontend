@@ -55,7 +55,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      care_receiver: 'getCurrentCareReceiver',
+      care_receiver: 'getSelectedCareReceiver',
     })
   },
   methods: {
@@ -119,7 +119,7 @@ export default {
 
       if (response.status === 201) {
         this.care_receiver.visit_datetime = this.visit_datetime;
-        await this.$store.dispatch('setCurrentCareReceiver', this.care_receiver);
+        await this.$store.dispatch('setSelectedCareReceiver', this.care_receiver);
         this.$router.push({
             name: 'CareReceiverDetail'
           });

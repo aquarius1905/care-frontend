@@ -45,7 +45,7 @@
 import { careManagerAuthApi } from "@/plugins/axios";
 import { mapActions } from 'vuex'
 export default {
-  data: function () {
+  data() {
     return {
       care_receivers: {},
       checked_care_receiver_ids: []
@@ -53,7 +53,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      'setCurrentCareReceiver',
+      'setSelectedCareReceiver',
       'setDetailFlg'
     ]),
     async getCareReceivers() {
@@ -91,7 +91,7 @@ export default {
       }
     },
     showDetailView(care_receiver) {
-      this.setCurrentCareReceiver(care_receiver);
+      this.setSelectedCareReceiver(care_receiver);
 
       this.$router.push({
         name: 'CareReceiverDetail'

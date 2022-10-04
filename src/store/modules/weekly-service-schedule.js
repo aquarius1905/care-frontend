@@ -11,6 +11,9 @@ const getters = {
   getServiceTypes(state) {
     return state.serviceTypes;
   },
+  emptyDayofweeksAndServicetypes(state) {
+    return state.dayOfWeeks === null && state.serviceTypes === null;
+  }
 };
 const mutations = {
   setDayOfWeeks(state, payload) {
@@ -24,12 +27,14 @@ const mutations = {
 };
 const actions = {
   async fetchDayofweeksAndServicetypes(context) {
-    const { data } = await careManagerAuthApi.get('/dayofweeks-and-servicetypes');
+    const { data } = await careManagerAuthApi.get(
+      '/dayofweeks-and-servicetypes'
+    );
     context.commit('setDayOfWeeks', data.day_of_weeks);
     context.commit('setServiceTypes', data.service_types);
-  },
+  }
 };
- 
+
 export default {
   state,
   getters,

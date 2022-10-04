@@ -5,6 +5,7 @@ const state = {
   careManager: null,
   visitTimes: null,
   detailFlg: false,
+  selectedCareReceiver: null
 };
 const getters = {
   getCareManagerAccessToken(state) {
@@ -30,7 +31,16 @@ const getters = {
   },
   isDetail(state) {
     return state.detailFlg;
-  }
+  },
+  getSelectedCareReceiver(state) {
+    return state.selectedCareReceiver;
+  },
+  getSelectedCareReceiverId(state) {
+    return state.selectedCareReceiver.id;
+  },
+  getSelectedCareReceiverName(state) {
+    return state.selectedCareReceiver.name;
+  },
 };
 const mutations = {
   setCareManager(state, payload) {
@@ -47,7 +57,11 @@ const mutations = {
   },
   setDetailFlg(state, payload) {
     state.detailFlg = payload;
-  }
+  },
+  setSelectedCareReceiver(state, payload) {
+    state.selectedCareReceiver = null;
+    state.selectedCareReceiver = payload;
+  },
 };
 const actions = {
   async fetchCareManagerInfo(context) {
@@ -72,7 +86,10 @@ const actions = {
   },
   setDetailFlg(context, payload) {
     context.commit('setDetailFlg', payload);
-  }
+  },
+  setSelectedCareReceiver(context, payload) {
+    context.commit('setSelectedCareReceiver', payload);
+  },
 };
 
 export default {

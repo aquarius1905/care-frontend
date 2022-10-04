@@ -65,7 +65,7 @@ import { mapGetters } from 'vuex'
 export default {
   computed: {
     ...mapGetters({
-      care_receiver: 'getCurrentCareReceiver'
+      care_receiver: 'getSelectedCareReceiver'
     })
   },
 };

@@ -1,14 +1,14 @@
 <template>
-  <div class="dashboard">
+  <div class="monthly-schedule">
     <div class="page__header">
-      <h2 class="page__ttl">ダッシュボード</h2>
+      <h2 class="page__ttl">月別スケジュール</h2>
     </div>
     <div class="page__content">
-      <table class="weekly-service-schedule__tbl box-shadow">
+      <h3 class="page__content-ttl">{{ this_year_and_month }}</h3>
+      <table class="monthly-schedule__tbl box-shadow">
         <thead>
           <tr>
-            <th rowspan="2">曜日</th>
-            <th rowspan="2">サービス名</th>
+            <th rowspan="2">日付</th>
             <th rowspan="2">施設名</th>
             <th colspan="2">サービス提供時間</th>
           </tr>
@@ -18,12 +18,17 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(schedule, index) in weekly_service_schedules" :key="index">
+          <tr v-for="(schedule, index) in monthly_schedules" :key="index">
             <td>{{ schedule.dayofweek.name }}</td>
             <td>{{ schedule.service_type.name }}</td>
             <td>{{ schedule.nursing_care_office.office_name }}</td>
             <td>{{ schedule.starting_time.substring(0, 5) }}</td>
             <td>{{ schedule.ending_time.substring(0, 5) }}</td>
+            <td>
+              <button class="btn delete__btn" @click="deleteSchedule(schedule.id, index)">
+                削除
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -32,11 +37,14 @@
 </template>
 
 <script>
+import dayjs from 'dayjs';
 import { mapGetters, mapActions } from 'vuex';
 export default {
   data() {
     return {
-      weekly_service_schedules: null
+      this_year_and_month: null,
+      weekly_service_schedules: null,
+      monthly_schedules: [],
     }
   },
   computed: {
@@ -53,33 +61,42 @@ export default {
       'fetchWeeklyServiceSchedules',
     ]),
     async initialize() {
+      this.setYearAndMonth();
+      await this.fetchWeeklyServiceSchedules();
+      this.makeMonthlySchedules();
+    },
+    setYearAndMonth() {
+      this.this_year_and_month
+        = dayjs().format('YYYY年MM月');
+    },
+    async fetchWeeklyServiceSchedules() {
       if (this.emptyWeeklyServiceSchedules) {
         await this.fetchWeeklyServiceSchedules(this.care_receiver.id);
       }
 
       this.weekly_service_schedules = this.getWeeklyServiceSchedules;
+    },
+    makeMonthlySchedules() {
+      
     }
   },
   async created() {
     await this.initialize();
   }
-};
-</script>
-
-<style scoped>
-.dashboard {
-  padding-bottom: 30px;
 }
-.page__header {
-  justify-content: space-between;
+</script>
+<style scoped>
+.monthly-schedule {
+  padding-bottom: 30px;
 }
 .page__ttl {
   padding: 0;
   margin-right: 40px;
 }
-
-.weekly-service-schedule__tbl td {
-  text-align: center;
-  padding: 15px 10px;
+.page__content-ttl {
+  margin-bottom: 20px;
+}
+.monthly-schedule__tbl {
+  width: 80%;
 }
 </style>

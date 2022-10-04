@@ -76,7 +76,7 @@
         </div>
       </div>
       <div>
-        <table class="weekly-service__tbl box-shadow">
+        <table class="weekly-service-schedule__tbl box-shadow">
           <thead>
             <tr>
               <th rowspan="2">曜日</th>
@@ -131,17 +131,18 @@ export default {
       day_of_weeks: null,
       service_types: null,
       nursing_care_offices: null,
-      weekly_service_schedules: []
+      weekly_service_schedules: null
     }
   },
   computed: {
     ...mapGetters([
+      'emptyDayofweeksAndServicetypes',
       'getDayOfWeeks',
       'getServiceTypes',
-      'getCurrentCareReceiverId',
+      'getSelectedCareReceiverId',
     ]),
     ...mapGetters({
-      care_receiver_name: 'getCurrentCareReceiverName'
+      care_receiver_name: 'getSelectedCareReceiverName'
     })
   },
   methods: {
@@ -150,11 +151,11 @@ export default {
     ]),
     async initialize() {
       this.setCurrentCareReceiverId();
-      await this.getWeeklyServiceSchedule();
+      await this.fetchWeeklyServiceSchedules();
       await this.setDayofweeksAndServicetypes();
       this.changeServiceType();
     },
-    async getWeeklyServiceSchedule() {
+    async fetchWeeklyServiceSchedules() {
       try {
         const params = {
           care_receiver_id: this.weekly_service_schedule.care_receiver_id
@@ -163,14 +164,18 @@ export default {
           '/weekly-service-schedules',
           { params }
         );
+
         this.weekly_service_schedules = data.data;
+
       } catch (error) {
         console.log(error);
         alert('週間サービス計画表のデータ取得に失敗しました');
       }
     },
     async setDayofweeksAndServicetypes() {
-      await this.fetchDayofweeksAndServicetypes();
+      if (this.emptyDayofweeksAndServicetypes) {
+        await this.fetchDayofweeksAndServicetypes();
+      }
 
       this.day_of_weeks = this.getDayOfWeeks;
       this.service_types = this.getServiceTypes;
@@ -190,7 +195,7 @@ export default {
     },
     setCurrentCareReceiverId() {
       this.weekly_service_schedule.care_receiver_id
-        = this.getCurrentCareReceiverId;
+        = this.getSelectedCareReceiverId;
     },
     async registerSchedule() {
       if (!confirm("登録しますか？")) {
@@ -199,7 +204,8 @@ export default {
 
       try {
         const { data } = await careManagerAuthApi.post(
-          '/weekly-service-schedules', this.weekly_service_schedule
+          '/weekly-service-schedules',
+          this.weekly_service_schedule
         );
 
         this.weekly_service_schedules.push(data.data);
