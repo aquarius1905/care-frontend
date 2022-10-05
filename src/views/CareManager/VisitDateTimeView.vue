@@ -1,9 +1,9 @@
 <template>
   <div class="visit-datetime">
-    <div class="form box-shadow">
+    <div class="visit-datetime__form box-shadow">
       <h2 class="form__ttl">訪問日時{{ registered_flg ? "確認・変更": "登録" }}</h2>
-      <validation-observer v-slot="{ invalid }">
-        <div class="form-content">
+        <validation-observer v-slot="{ invalid }">
+        <div class="form__content">
           <div class="form__item">
             <label class="form__item-lbl">氏名</label>
             <label class="">{{ care_receiver.name }}</label>
@@ -25,11 +25,9 @@
             </validation-provider>
           </div>
         </div>
-        <div class="form-btn-wrap form-confirm-btn-wrap">
-          <button class="btn register-btn" @click="register" :disabled="invalid">
+        <button class="btn register-btn" @click="register" :disabled="invalid">
           {{ registered_flg ? "更新" : "登録" }}
-          </button>
-        </div>
+        </button>
       </validation-observer>
     </div>
   </div>

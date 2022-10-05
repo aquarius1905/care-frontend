@@ -3,7 +3,6 @@ import CareManagerRegistrationView from '@/views/CareManager/RegistrationView.vu
 import CareManagerRegistrationCompletionView from '@/views/Common/RegistrationCompletionView.vue'
 import CareManagerRegistrationConfirmView from '@/views/CareManager/RegistrationConfirmView.vue'
 import CareManagerUpdateView from '@/views/CareManager/UpdateView.vue'
-import CareManagerUpdateConfirmView from '@/views/CareManager/UpdateConfirmView.vue'
 import CareManagerUpdateCompletionView from '@/views/CareManager/UpdateCompletionView.vue'
 import CareManagerVisitDateTimeView from '@/views/CareManager/VisitDateTimeView.vue'
 import CareManagerForgotPasswordView from '@/views/CareManager/ForgotPassword.vue'
@@ -33,12 +32,6 @@ export default {
       path: '/care-manager/update',
       name: 'CareManagerUpdate',
       component: CareManagerUpdateView,
-      meta: { requiresAuth: true },
-    },
-    {
-      path: '/care-manager/update/confirm',
-      name: 'CareManagerUpdateConfirm',
-      component: CareManagerUpdateConfirmView,
       meta: { requiresAuth: true },
     },
     {

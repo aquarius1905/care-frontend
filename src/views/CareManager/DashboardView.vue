@@ -43,7 +43,7 @@
 
 <script>
 import { careManagerAuthApi } from "@/plugins/axios";
-import { mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   data() {
     return {
@@ -51,8 +51,14 @@ export default {
       checked_care_receiver_ids: []
     }
   },
+  computed: {
+    ...mapGetters([
+      'emptyLoggedInCareManager'
+    ]),
+  },
   methods: {
     ...mapActions([
+      'fetchCareManagerData',
       'setSelectedCareReceiver',
       'setDetailFlg'
     ]),
@@ -115,9 +121,15 @@ export default {
           alert("削除に失敗しました");
         }
       }
+    },
+    async getLoggedInCareManagerData() {
+      if (this.emptyLoggedInCareManager) {
+        await this.fetchCareManagerData;
+      }
     }
   },
   async created() {
+    await this.getLoggedInCareManagerData();
     await this.getCareReceivers();
     this.setDetailFlg(false);
   }
@@ -159,11 +171,13 @@ export default {
 .tbl td {
   color: #555;
 }
+
 .delete__btn,
 .update__btn {
   width: auto;
   padding: 5px 10px;
 }
+
 .all-checkbox,
 .checkbox {
   transform: scale(1.5);

@@ -23,6 +23,11 @@
 import { careManagerAuthApi, careReceiverAuthApi, nursingCareOfficeAuthApi } from "@/plugins/axios";
 import { mapGetters, mapActions } from 'vuex'
 export default {
+  data() {
+    return {
+      loggedin_name: null
+    }
+  },
   computed: {
     ...mapGetters([
       'isCareManagerLoggedIn',
@@ -35,15 +40,6 @@ export default {
     ...mapGetters({
       keyperson_name: 'getLoggedInKeyPersonName'
     }),
-    loggedInName: function () {
-      if (this.isCareManagerLoggedIn) {
-        return this.getLoggedInCareManagerName;
-      } else if (this.isCareReceiverLoggedIn) {
-        return this.getLoggedInCareReceiverName;
-      } else if (this.isNursingCareOfficeLoggedIn) {
-        return this.getContactPersonNameOfNursingCareOffice;
-      }
-    },
   },
   methods: {
     ...mapActions([
@@ -113,6 +109,15 @@ export default {
       }
     }
   },
+  created() {
+    if (this.isCareManagerLoggedIn) {
+      this.loggedin_name = this.getLoggedInCareManagerName;
+    } else if (this.isCareReceiverLoggedIn) {
+      this.loggedin_name = this.getLoggedInCareReceiverName;
+    } else if (this.isNursingCareOfficeLoggedIn) {
+      this.loggedin_name = this.getContactPersonNameOfNursingCareOffice;
+    }
+  }
 }
 </script>
 

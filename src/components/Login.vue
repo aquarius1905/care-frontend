@@ -66,7 +66,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      'setLoggedInCareManager',
+      'setCareManagerAccessToken',
       'setLoggedInCareReceiver',
       'setLoggedInNursingCareOffice'
     ]),
@@ -86,11 +86,9 @@ export default {
         );
         
         if (response.status === 200) {
-          const login_data = {
-            access_token: response.data.access_token,
-            care_manager: response.data.care_manager
-          };
-          this.setLoggedInCareManager(login_data);
+          this.setCareManagerAccessToken(
+            response.data.access_token
+          );
           this.$router.push({ name: 'CareManagerDashboard' });
         }
       } catch (error) {
@@ -134,6 +132,7 @@ export default {
       }
     },
     showError(error) {
+      console.log(error);
       switch (error.response.status) {
         case 401:
           this.login_error = error.response.data.login_error;
@@ -146,24 +145,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.login__form {
-  background-color: #fff;
-  width: 500px;
-  margin: 50px auto 0;
-  border-radius: 6px;
-}
-.login__form-ttl {
-  color: #fff;
-  background-color: #1a237e;
-  padding: 20px;
-  font-size: 20px;
-  font-weight: normal;
-  border-radius: 6px 6px 0 0;
-  user-select: none;
-}
-.login__form-content {
-  padding: 30px 20px 20px;
-}
-</style>

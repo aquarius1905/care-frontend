@@ -1,8 +1,8 @@
-import { api } from "@/plugins/axios";
+import { careManagerAuthApi } from "@/plugins/axios";
 
 const state = {
   careManagerAccessToken: null,
-  careManager: null,
+  loggedInCareManager: null,
   visitTimes: null,
   detailFlg: false,
   selectedCareReceiver: null
@@ -14,14 +14,14 @@ const getters = {
   isCareManagerLoggedIn(state) {
     return state.careManagerAccessToken !== null
   },
-  getCareManager(state) {
-    return state.careManager;
+  getLoggedInCareManagerData(state) {
+    return state.loggedInCareManager;
   },
   getLoggedInCareManagerName(state) {
-    return state.careManager.name;
+    return state.loggedInCareManager.name;
   },
-  emptyCareManager(state) {
-    return state.careManager === null;
+  emptyLoggedInCareManager(state) {
+    return state.loggedInCareManager === null;
   },
   getVisitTimes(state) {
     return state.visitTimes;
@@ -43,46 +43,49 @@ const getters = {
   },
 };
 const mutations = {
-  setCareManager(state, payload) {
-    state.careManager = payload;
+  setLoggedInCareManagerData(state, payload) {
+    state.loggedInCareManager = payload;
+    console.log(state.loggedInCareManager);
   },
-  setLoggedInCareManager(state, payload) {
-    state.careManagerAccessToken = payload.access_token;
-    state.careManager = payload.care_manager;
+  setCareManagerAccessToken(state, payload) {
+    state.careManagerAccessToken = payload;
   },
   resetCareManager(state) {
     state.careManagerAccessToken = null;
-    state.careManager = null;
-    state.supportOffices = null;
+    state.loggedInCareManager = null;
+    state.visitTimes = null;
+    state.detailFlg = false;
+    state.selectedCareReceiver = null;
   },
   setDetailFlg(state, payload) {
     state.detailFlg = payload;
   },
   setSelectedCareReceiver(state, payload) {
-    state.selectedCareReceiver = null;
     state.selectedCareReceiver = payload;
   },
 };
 const actions = {
-  async fetchCareManagerInfo(context) {
-    const { data } = await api.get('/care-managers/me',
-        {
-          headers: {
-            Authorization: `Bearer ${context.getters.getCareManagerAccessToken}`,
-          }
-        });
-    if (data.result) {
-      context.commit('setCareManager', data.care_manager);
+  async fetchCareManagerData(context) {
+    try {
+      const { data } = await careManagerAuthApi.get(
+        '/care-managers/me'
+      );
+      console.log(data.data);
+      context.commit('setLoggedInCareManagerData', data.data);
+      
+    } catch (error) {
+      console.log(error);
+      alert('登録情報の取得に失敗しました');
     }
   },
-  setLoggedInCareManager(context, payload) {
-    context.commit('setLoggedInCareManager', payload);
+  setCareManagerAccessToken(context, payload) {
+    context.commit('setCareManagerAccessToken', payload);
   },
   resetCareManager(context) {
     context.commit('resetCareManager');
   },
-  setCareManager(context, payload) {
-    context.commit('setCareManager', payload);
+  setLoggedInCareManagerData(context, payload) {
+    context.commit('setLoggedInCareManagerData', payload);
   },
   setDetailFlg(context, payload) {
     context.commit('setDetailFlg', payload);

@@ -148,6 +148,7 @@ body {
 
 .btn:disabled {
   background: #777;
+  cursor: default;
 }
 
 .next__btn,
@@ -312,9 +313,12 @@ body {
 .registration__form,
 .cancel__form {
   background-color: #fff;
-  width: 500px;
   border-radius: 6px;
   margin-bottom: 30px;
+}
+
+.cance__form {
+  width: 500px;
 }
 
 .registration__form-ttl,
@@ -386,4 +390,30 @@ body {
 .monthly-schedule__tbl tr:last-child td {
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
+}
+
+/* ログインフォーム */
+/* 訪問日時設定フォーム */
+
+.login__form,
+.visit-datetime__form {
+  background-color: #fff;
+  width: 500px;
+  margin: 50px auto 0;
+  border-radius: 6px;
+}
+
+.login__form-ttl,
+.visit-datetime__form-ttl {
+  color: #fff;
+  background-color: #1a237e;
+  padding: 20px;
+  font-size: 20px;
+  font-weight: normal;
+  border-radius: 6px 6px 0 0;
+  user-select: none;
+}
+
+.login__form-content {
+  padding: 30px 20px 20px;
 }

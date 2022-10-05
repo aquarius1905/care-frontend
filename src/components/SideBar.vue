@@ -107,8 +107,7 @@ export default {
     },
     showCareManagerUpdatePage() {
       this.$router.push({
-        name: 'CareManagerUpdate',
-        query: { care_manager: null }
+        name: 'CareManagerUpdate'
       });
     },
     showCareReceiverRegistrationPage() {
