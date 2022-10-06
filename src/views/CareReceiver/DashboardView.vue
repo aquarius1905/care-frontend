@@ -3,7 +3,7 @@
     <div class="page__header">
       <h2 class="page__ttl">ダッシュボード</h2>
     </div>
-    <div class="page__content">
+    <div class="page-content">
       <table class="weekly-service-schedule__tbl box-shadow">
         <thead>
           <tr>

@@ -4,7 +4,7 @@
       <h2 class="page__ttl">週間サービス計画表</h2>
       <p>{{ care_receiver_name }}&emsp;様</p>
     </div>
-    <div class="page__content">
+    <div class="page-content">
       <div class="registration__form box-shadow">
         <h3 class="form__ttl registration__form-ttl">サービス登録</h3>
         <div class="form__content">
