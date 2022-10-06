@@ -16,8 +16,8 @@
                   <span class="required__lbl">必須</span>
                 </label>
                 <select id="day_of_week" class="select" v-model="weekly_service_schedule.dayofweek_id">
-                  <option v-for="day_of_week in day_of_weeks" :key="day_of_week.id" :value="day_of_week.id">
-                    {{ day_of_week.name }}
+                  <option v-for="(day_of_week, index) in day_of_weeks" :key="index" :value="index">
+                    {{ day_of_week }}
                   </option>
                 </select>
                 <div class="error">{{ errors[0] }}</div>
@@ -86,13 +86,13 @@
               <th rowspan="2"></th>
             </tr>
             <tr>
-              <th>開始時間</th>
-              <th>終了時間</th>
+              <th>開始</th>
+              <th>終了</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(schedule, index) in weekly_service_schedules" :key="index">
-              <td>{{ schedule.dayofweek.name }}</td>
+              <td>{{ day_of_weeks[schedule.dayofweek_id] }}</td>
               <td>{{ schedule.service_type.name }}</td>
               <td>{{ schedule.nursing_care_office.office_name }}</td>
               <td>{{ schedule.starting_time.substring(0, 5) }}</td>
@@ -122,7 +122,7 @@ export default {
     return {
       weekly_service_schedule: {
         care_receiver_id: 0,
-        dayofweek_id: 1,
+        dayofweek_id: 0,
         service_type_id: 1,
         nursing_care_office_id: 0,
         starting_time: '09:00',
@@ -136,7 +136,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'emptyDayofweeksAndServicetypes',
+      'emptyServiceTypes',
       'getDayOfWeeks',
       'getServiceTypes',
       'getSelectedCareReceiverId',
@@ -173,7 +173,7 @@ export default {
       }
     },
     async setDayofweeksAndServicetypes() {
-      if (this.emptyDayofweeksAndServicetypes) {
+      if (this.emptyServiceTypes) {
         await this.fetchDayofweeksAndServicetypes();
       }
 

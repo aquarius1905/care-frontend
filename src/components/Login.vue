@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { api } from "@/plugins/axios";
+import { api, careManagerAuthApi, careReceiverAuthApi } from "@/plugins/axios";
 import { mapGetters, mapActions } from 'vuex'
 export default {
   props: {
@@ -67,8 +67,10 @@ export default {
   methods: {
     ...mapActions([
       'setCareManagerAccessToken',
-      'setLoggedInCareReceiver',
-      'setLoggedInNursingCareOffice'
+      'setCareReceiverAccessToken',
+      'setNursingCareOfficeAccessToken',
+      'setLoggedInCareManagerData',
+      'setLoggedInCareReceiverData',
     ]),
     async login() {
         if (this.isCareManager) {
@@ -81,52 +83,70 @@ export default {
     },
     async loginCareManager() {;
       try {
-        const response = await api.post(
+        const { data } = await api.post(
           '/care-managers/login', this.login_data
         );
-        
-        if (response.status === 200) {
-          this.setCareManagerAccessToken(
-            response.data.access_token
-          );
-          this.$router.push({ name: 'CareManagerDashboard' });
-        }
+
+        this.setCareManagerAccessToken(data.token);
+        await this.postProcessCareManagerLogin();
+
       } catch (error) {
         this.showError(error);
+      }
+    },
+    async postProcessCareManagerLogin() {
+      try {
+        const { data } = await careManagerAuthApi.get(
+          '/care-managers/me'
+        );
+
+        this.setLoggedInCareManagerData(data.data);
+        this.$router.push({
+          name: 'CareManagerDashboard',
+        });
+
+      } catch (error) {
+        alert('登録情報の取得に失敗しました')
       }
     },
     async loginCareReceiver() {
       try {
-        const response = await api.post(
+        const { data } = await api.post(
           '/care-receivers/login', this.login_data
         );
-        const login_data = {
-          access_token: response.data.access_token,
-          care_receiver: response.data.care_receiver
-        };
-          
-        if (response.status === 200) {
-          this.setLoggedInCareReceiver(login_data);
-          this.$router.push({ name: 'CareReceiverDashboard' });
-        }
+
+        this.setCareReceiverAccessToken(data.token);
+        await this.postProcessCareReceiverLogin();
       } catch (error) {
         this.showError(error);
       }
     },
+    async postProcessCareReceiverLogin() {
+      try {
+        const { data } = await careReceiverAuthApi.get(
+          '/care-receivers/me'
+        );
+
+        this.setLoggedInCareReceiverData(data.data);
+        this.$router.push({
+          name: 'CareReceiverDashboard',
+        });
+
+      } catch (error) {
+        alert('登録情報の取得に失敗しました')
+      }
+    },
     async loginNursingCareOffice() {
       try {
-        const response = await api.post(
+        const { data } = await api.post(
           '/nursing-care-offices/login', this.login_data
         );
-        const login_data = {
-          access_token: response.data.access_token,
-          nursing_care_office: response.data.nursing_care_office
-        };
-        
-        if (response.status === 200) {
-          this.setLoggedInNursingCareOffice(login_data);
-          this.$router.push({ name: 'NursingCareOfficeDashboard' });
-        }
+        this.setNursingCareOfficeAccessToken(data.token);
+
+        this.$router.push({
+          name: 'NursingCareOfficeDashboard'
+        });
+
       } catch (error) {
         this.showError(error);
       }
@@ -135,7 +155,7 @@ export default {
       console.log(error);
       switch (error.response.status) {
         case 401:
-          this.login_error = error.response.data.login_error;
+          alert('メールアドレスとパスワードが一致しません');
           break;
         case 403:
           this.$router.push({ name: 'EmailUnverified' });

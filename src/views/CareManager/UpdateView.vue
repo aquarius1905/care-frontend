@@ -188,13 +188,11 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'emptyLoggedInCareManager',
       'getLoggedInCareManagerData'
     ]),
   },
   methods: {
     ...mapActions([
-      'fetchCareManagerData',
       'setDetailFlg'
     ]),
     async fetchAddress() {
@@ -233,18 +231,12 @@ export default {
         console.log(error);
       }
     },
-    async getLoggedInCareManager() {
-      if (this.emptyLoggedInCareManager) {
-        await this.fetchCareManagerData;
-      }
+    initializeCareManagerData() {
       this.care_manager = this.getLoggedInCareManagerData;
-      console.log(this.care_manager);
-    },
-    addPasswordAndConfirmation() {
+
       this.care_manager.password = null;
       this.care_manager.password_confirmation = null;
-    },
-    splitName() {
+
       const care_manager_name_arr = this.care_manager.name.split(/\u3000/);
       this.care_manager.last_name = care_manager_name_arr[0];
       this.care_manager.first_name = care_manager_name_arr[1];
@@ -253,15 +245,10 @@ export default {
       this.care_manager.last_name_furigana = care_manager_name_furigana_arr[0];
       this.care_manager.first_name_furigana = care_manager_name_furigana_arr[1];
     },
-    async initialize() {
-      this.setDetailFlg(false);
-      await this.getLoggedInCareManager();
-      this.addPasswordAndConfirmation();
-      this.splitName();
-    } 
   },
   async created() {
-    await this.initialize();
+    this.setDetailFlg(false);
+    this.initializeCareManagerData();
   }
 }
 </script>

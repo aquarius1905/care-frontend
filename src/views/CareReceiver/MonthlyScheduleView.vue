@@ -15,8 +15,8 @@
                 <th colspan="2">サービス提供時間</th>
               </tr>
               <tr>
-                <th>開始時間</th>
-                <th>終了時間</th>
+                <th>開始</th>
+                <th>終了</th>
               </tr>
             </thead>
             <tbody>

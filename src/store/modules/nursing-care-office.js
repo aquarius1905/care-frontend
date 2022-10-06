@@ -1,6 +1,6 @@
 const state = {
   nursingCareOfficeAccessToken: null,
-  nursingCareOffice: null
+  loggedInNursingCareOffice: null
 };
 const getters = {
   getNursingCareOfficeAccessToken(state) {
@@ -10,22 +10,27 @@ const getters = {
     return state.nursingCareOfficeAccessToken !== null
   },
   getContactPersonNameOfNursingCareOffice(state) {
-    return state.nursingCareOffice.name;
+    return state.loggedInNursingCareOffice.name;
   },
 };
 const mutations = {
-  setLoggedInNursingCareOffice(state, payload) {
-    state.nursingCareOfficeAccessToken = payload.access_token;
-    state.nursingCareOffice = payload.nursing_care_office;
+  setNursingCareOfficeAccessToken(state, payload) {
+    state.nursingCareOfficeAccessToken = payload;
+  },
+  setLoggedInNursingCareOfficeData(state, payload) {
+    state.loggedInNursingCareOffice = payload;
   },
   resetNursingCareOffice(state) {
     state.nursingCareOfficeAccessToken = null;
-    state.nursingCareOffice = null;
+    state.loggedInNursingCareOffice = null;
   },
 };
 const actions = {
-  setLoggedInNursingCareOffice(context, payload) {
-    context.commit('setLoggedInNursingCareOffice', payload);
+  setNursingCareOfficeAccessToken(context, payload) {
+    context.commit('setNursingCareOfficeAccessToken', payload);
+  },
+  setLoggedInNursingCareOfficeData(context, payload) {
+    context.commit('setLoggedInNursingCareOfficeData', payload);
   },
   resetNursingCareOffice(context) {
     context.commit('resetNursingCareOffice');

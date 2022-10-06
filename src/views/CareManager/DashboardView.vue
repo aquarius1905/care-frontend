@@ -43,18 +43,13 @@
 
 <script>
 import { careManagerAuthApi } from "@/plugins/axios";
-import { mapGetters, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 export default {
   data() {
     return {
       care_receivers: {},
       checked_care_receiver_ids: []
     }
-  },
-  computed: {
-    ...mapGetters([
-      'emptyLoggedInCareManager'
-    ]),
   },
   methods: {
     ...mapActions([
@@ -64,11 +59,9 @@ export default {
     ]),
     async getCareReceivers() {
       try {
-        const response = await careManagerAuthApi.get('/care-receivers');
+        const { data } = await careManagerAuthApi.get('/care-receivers');
 
-        if (response.status === 200) {
-          this.care_receivers = response.data.data;
-        }
+        this.care_receivers = data.data;
       } catch (error) {
         if (error.response.status === 403) {
           this.$router.push({
@@ -122,16 +115,10 @@ export default {
         }
       }
     },
-    async getLoggedInCareManagerData() {
-      if (this.emptyLoggedInCareManager) {
-        await this.fetchCareManagerData;
-      }
-    }
   },
   async created() {
-    await this.getLoggedInCareManagerData();
-    await this.getCareReceivers();
     this.setDetailFlg(false);
+    await this.getCareReceivers();
   }
 };
 </script>

@@ -1,7 +1,7 @@
 import { careManagerAuthApi } from "@/plugins/axios";
 
 const state = {
-  dayOfWeeks: null,
+  dayOfWeeks: ["日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日"],
   serviceTypes: null,
 };
 const getters = {
@@ -11,15 +11,11 @@ const getters = {
   getServiceTypes(state) {
     return state.serviceTypes;
   },
-  emptyDayofweeksAndServicetypes(state) {
-    return state.dayOfWeeks === null && state.serviceTypes === null;
+  emptyServiceTypes(state) {
+    return state.serviceTypes === null;
   }
 };
 const mutations = {
-  setDayOfWeeks(state, payload) {
-    state.dayOfWeeks = null;
-    state.dayOfWeeks = payload;
-  },
   setServiceTypes(state, payload) {
     state.serviceTypes = null;
     state.serviceTypes = payload;
@@ -28,9 +24,8 @@ const mutations = {
 const actions = {
   async fetchDayofweeksAndServicetypes(context) {
     const { data } = await careManagerAuthApi.get(
-      '/dayofweeks-and-servicetypes'
+      '/service-types'
     );
-    context.commit('setDayOfWeeks', data.day_of_weeks);
     context.commit('setServiceTypes', data.service_types);
   }
 };

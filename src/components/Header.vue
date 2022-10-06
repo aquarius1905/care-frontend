@@ -3,7 +3,7 @@
     <h1 class="main__ttl ttl" @click="backtoHome">Care</h1>
     <div class="logout__wrap" 
     v-show="this.isCareManagerLoggedIn || this.isCareReceiverLoggedIn || this.isNursingCareOfficeLoggedIn">
-      <div v-if="this.isCareReceiverLoggedIn">
+      <!-- <div v-if="this.isCareReceiverLoggedIn">
         <label class="name__lbl">
           被介護者：{{ loggedInName }}
         </label>
@@ -12,8 +12,8 @@
         </label>
       </div>
       <div v-else>
-        <label class="name__lbl" >{{ loggedInName }}</label>
-      </div>
+        <label class="name__lbl">{{ loggedInName }}</label>
+      </div> -->
       <button class="btn logout__btn" @click="logout">ログアウト</button>
     </div>
   </div>
@@ -37,9 +37,18 @@ export default {
       'getLoggedInCareReceiverName',
       'getContactPersonNameOfNursingCareOffice',
     ]),
-    ...mapGetters({
-      keyperson_name: 'getLoggedInKeyPersonName'
-    }),
+    // ...mapGetters({
+    //   keyperson_name: 'getLoggedInKeyPersonName'
+    // }),
+    // loggedInName: function () {
+    //   if (this.isCareManagerLoggedIn) {
+    //     return this.getLoggedInCareManagerName;
+    //   } else if (this.isCareReceiverLoggedIn) {
+    //     return this.getLoggedInCareReceiverName;
+    //   } else if (this.isNursingCareOfficeLoggedIn) {
+    //     return this.getContactPersonNameOfNursingCareOffice;
+    //   }
+    // },
   },
   methods: {
     ...mapActions([
@@ -107,17 +116,11 @@ export default {
           await this.logoutNursingCareOffice();
         }
       }
+    },
+    created() {
+      console.log('Header created');
     }
   },
-  created() {
-    if (this.isCareManagerLoggedIn) {
-      this.loggedin_name = this.getLoggedInCareManagerName;
-    } else if (this.isCareReceiverLoggedIn) {
-      this.loggedin_name = this.getLoggedInCareReceiverName;
-    } else if (this.isNursingCareOfficeLoggedIn) {
-      this.loggedin_name = this.getContactPersonNameOfNursingCareOffice;
-    }
-  }
 }
 </script>
 

@@ -13,13 +13,13 @@
             <th colspan="2">サービス提供時間</th>
           </tr>
           <tr>
-            <th>開始時間</th>
-            <th>終了時間</th>
+            <th>開始</th>
+            <th>終了</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(schedule, index) in weekly_service_schedules" :key="index">
-            <td>{{ schedule.dayofweek.name }}</td>
+            <td>{{ day_of_weeks[schedule.dayofweek_id] }}</td>
             <td>{{ schedule.service_type.name }}</td>
             <td>{{ schedule.nursing_care_office.office_name }}</td>
             <td>{{ schedule.starting_time.substring(0, 5) }}</td>
@@ -46,6 +46,7 @@ export default {
     ]),
     ...mapGetters({
       care_receiver: 'getLoggedInCareReceiver',
+      day_of_weeks: 'getDayOfWeeks'
     })
   },
   methods: {

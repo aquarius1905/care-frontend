@@ -18,6 +18,7 @@ const getters = {
     return state.loggedInCareManager;
   },
   getLoggedInCareManagerName(state) {
+    console.log('getLoggedInCareManagerName');
     return state.loggedInCareManager.name;
   },
   emptyLoggedInCareManager(state) {
@@ -45,10 +46,11 @@ const getters = {
 const mutations = {
   setLoggedInCareManagerData(state, payload) {
     state.loggedInCareManager = payload;
-    console.log(state.loggedInCareManager);
+    console.log('setLoggedInCareManagerData');
   },
   setCareManagerAccessToken(state, payload) {
     state.careManagerAccessToken = payload;
+    console.log('setCareManagerAccessToken');
   },
   resetCareManager(state) {
     state.careManagerAccessToken = null;
@@ -65,19 +67,6 @@ const mutations = {
   },
 };
 const actions = {
-  async fetchCareManagerData(context) {
-    try {
-      const { data } = await careManagerAuthApi.get(
-        '/care-managers/me'
-      );
-      console.log(data.data);
-      context.commit('setLoggedInCareManagerData', data.data);
-      
-    } catch (error) {
-      console.log(error);
-      alert('登録情報の取得に失敗しました');
-    }
-  },
   setCareManagerAccessToken(context, payload) {
     context.commit('setCareManagerAccessToken', payload);
   },

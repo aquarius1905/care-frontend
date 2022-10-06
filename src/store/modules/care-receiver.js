@@ -29,9 +29,11 @@ const getters = {
   },
 };
 const mutations = {
-  setLoggedInCareReceiver(state, payload) {
-    state.careReceiverAccessToken = payload.access_token;
-    state.loggedInCareReceiver = payload.care_receiver;
+  setCareReceiverAccessToken(state, payload) {
+    state.careReceiverAccessToken = payload;
+  },
+  setLoggedInCareReceiverData(state, payload) {
+    state.loggedInCareReceiver = payload;
   },
   resetCareReceiver(state) {
     state.careReceiverAccessToken = null;
@@ -43,8 +45,11 @@ const mutations = {
   }
 };
 const actions = {
-  setLoggedInCareReceiver(context, payload) {
-    context.commit('setLoggedInCareReceiver', payload);
+  setCareReceiverAccessToken(context, payload) {
+    context.commit('setCareReceiverAccessToken', payload);
+  },
+  setLoggedInCareReceiverData(context, payload) {
+    context.commit('setLoggedInCareReceiverData', payload);
   },
   resetCareReceiver(context) {
     context.commit('resetCareReceiver');

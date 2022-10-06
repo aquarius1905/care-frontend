@@ -19,7 +19,7 @@
             <validation-provider v-slot="{ errors }" rules="required">
               <label class="form__item-lbl" for="visit_time">時間</label>
               <select id="visit_time" class="select time-select" v-model="visit_datetime.time">
-                <option v-for="(time, index) of times" :value="time" :key="index">{{ time }}</option>
+                <option v-for="(time, index) in times" :value="time" :key="index">{{ time }}</option>
               </select>
               <div class="error">{{ errors[0] }}</div>
             </validation-provider>
