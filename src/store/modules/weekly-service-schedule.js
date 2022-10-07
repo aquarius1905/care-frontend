@@ -22,7 +22,7 @@ const mutations = {
   },
 };
 const actions = {
-  async fetchDayofweeksAndServicetypes(context) {
+  async fetchServicetypes(context) {
     const { data } = await careManagerAuthApi.get(
       '/service-types'
     );

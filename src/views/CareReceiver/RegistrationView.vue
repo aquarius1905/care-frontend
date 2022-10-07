@@ -85,8 +85,10 @@
               郵便番号
               <span class="required__lbl">必須</span>
             </label>
-            <input type="text" id="post_code" class="input" v-model="care_receiver.post_code" placeholder="1050004"
-              @blur="fetchAddress" required>
+            <div class="flex">
+              <input type="text" id="post_code" class="input" v-model="care_receiver.post_code" placeholder="1050004" required>
+              <button class="btn address-search__btn" @click="fetchAddress">住所検索</button>
+            </div>
             <div class="error">{{ errors[0] }}</div>
           </validation-provider>
         </div>

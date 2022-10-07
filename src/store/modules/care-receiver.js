@@ -18,8 +18,20 @@ const getters = {
   getLoggedInCareReceiverName(state) {
     return state.loggedInCareReceiver.name;
   },
+  hasLoggedInCareReceiverName(state) {
+    if (state.loggedInCareReceiver === null) {
+      return false;
+    }
+    return state.loggedInCareReceiver.name !== null
+  },
   getLoggedInKeyPersonName(state) {
     return state.loggedInCareReceiver.keyperson_name;
+  },
+  hasLoggedInKeyPersonName(state) {
+    if (state.loggedInCareReceiver === null) {
+      return false;
+    }
+    return state.loggedInCareReceiver.keyperson_name !== null
   },
   emptyWeeklyServiceSchedules(state) {
     return state.weeklyServiceSchedules === null;

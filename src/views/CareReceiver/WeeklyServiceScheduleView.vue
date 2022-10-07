@@ -45,7 +45,7 @@
                   <span class="required__lbl">必須</span>
                 </label>
                 <select id="service_type" class="select" 
-                v-model="weekly_service_schedule.service_type_id"
+                v-model="selected_service_type_id"
                 @change="changeServiceType">
                   <option v-for="service_type in service_types" :key="service_type.id" :value="service_type.id">
                     {{ service_type.name }}
@@ -93,7 +93,7 @@
           <tbody>
             <tr v-for="(schedule, index) in weekly_service_schedules" :key="index">
               <td>{{ day_of_weeks[schedule.dayofweek_id] }}</td>
-              <td>{{ schedule.service_type.name }}</td>
+              <td>{{ schedule.nursing_care_office.service_type.name }}</td>
               <td>{{ schedule.nursing_care_office.office_name }}</td>
               <td>{{ schedule.starting_time.substring(0, 5) }}</td>
               <td>{{ schedule.ending_time.substring(0, 5) }}</td>
@@ -131,7 +131,8 @@ export default {
       day_of_weeks: null,
       service_types: null,
       nursing_care_offices: null,
-      weekly_service_schedules: null
+      weekly_service_schedules: null,
+      selected_service_type_id: 1
     }
   },
   computed: {
@@ -147,7 +148,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      'fetchDayofweeksAndServicetypes',
+      'fetchServicetypes',
     ]),
     async initialize() {
       this.setCurrentCareReceiverId();
@@ -174,7 +175,7 @@ export default {
     },
     async setDayofweeksAndServicetypes() {
       if (this.emptyServiceTypes) {
-        await this.fetchDayofweeksAndServicetypes();
+        await this.fetchServicetypes();
       }
 
       this.day_of_weeks = this.getDayOfWeeks;
@@ -182,7 +183,7 @@ export default {
     },
     changeServiceType() {
       const selected_service = this.service_types.filter(
-        service_type => service_type.id === this.weekly_service_schedule.service_type_id
+        service_type => service_type.id === this.selected_service_type_id
       );
 
       this.nursing_care_offices

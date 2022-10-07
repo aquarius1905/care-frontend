@@ -3,17 +3,17 @@
     <h1 class="main__ttl ttl" @click="backtoHome">Care</h1>
     <div class="logout__wrap" 
     v-show="this.isCareManagerLoggedIn || this.isCareReceiverLoggedIn || this.isNursingCareOfficeLoggedIn">
-      <!-- <div v-if="this.isCareReceiverLoggedIn">
+      <div v-if="this.isCareReceiverLoggedIn">
         <label class="name__lbl">
           被介護者：{{ loggedInName }}
         </label>
         <label class="name__lbl">
-          キーパーソン：{{ keyperson_name }}
+          キーパーソン：{{ loggedInKeyPersonName }}
         </label>
       </div>
       <div v-else>
         <label class="name__lbl">{{ loggedInName }}</label>
-      </div> -->
+      </div>
       <button class="btn logout__btn" @click="logout">ログアウト</button>
     </div>
   </div>
@@ -35,20 +35,27 @@ export default {
       'isNursingCareOfficeLoggedIn',
       'getLoggedInCareManagerName',
       'getLoggedInCareReceiverName',
-      'getContactPersonNameOfNursingCareOffice',
+      'getLoggedInContactPersonName',
+      'getLoggedInKeyPersonName',
+      'hasLoggedInCareManagerName',
+      'hasLoggedInCareReceiverName',
+      'hasLoggedInContactPersonName',
+      'hasLoggedInKeyPersonName'
     ]),
-    // ...mapGetters({
-    //   keyperson_name: 'getLoggedInKeyPersonName'
-    // }),
-    // loggedInName: function () {
-    //   if (this.isCareManagerLoggedIn) {
-    //     return this.getLoggedInCareManagerName;
-    //   } else if (this.isCareReceiverLoggedIn) {
-    //     return this.getLoggedInCareReceiverName;
-    //   } else if (this.isNursingCareOfficeLoggedIn) {
-    //     return this.getContactPersonNameOfNursingCareOffice;
-    //   }
-    // },
+    loggedInKeyPersonName: function () {
+      if (this.isCareReceiverLoggedIn && this.hasLoggedInKeyPersonName) {
+        return this.getLoggedInKeyPersonName;
+      }
+    },
+    loggedInName: function () {
+      if (this.isCareManagerLoggedIn && this.hasLoggedInCareManagerName) {
+        return this.getLoggedInCareManagerName;
+      } else if (this.isCareReceiverLoggedIn && this.hasLoggedInCareReceiverName) {
+        return this.getLoggedInCareReceiverName;
+      } else if (this.isNursingCareOfficeLoggedIn && this.hasLoggedInContactPersonName) {
+        return this.getLoggedInContactPersonName;
+      }
+    },
   },
   methods: {
     ...mapActions([
@@ -117,9 +124,6 @@ export default {
         }
       }
     },
-    created() {
-      console.log('Header created');
-    }
   },
 }
 </script>

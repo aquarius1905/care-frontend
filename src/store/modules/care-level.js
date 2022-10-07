@@ -19,7 +19,6 @@ const getters = {
 const mutations = {
   setCareLevels(state, payload) {
     state.careLevels = payload;
-    console.log(state.careLevels);
   },
 };
 const actions = {

@@ -56,9 +56,6 @@
           <li>
             <router-link class="link" to="/care-receiver/dashboard">ダッシュボード</router-link>
           </li>
-          <li>
-            <router-link class="link" to="/care-receiver/monthly-schedule">月別スケジュール</router-link>
-          </li>
         </ul>
       </div>
     </nav>
@@ -67,6 +64,9 @@
         <ul class="menu__content" v-if="this.isNursingCareOfficeLoggedIn">
           <li>
             <router-link class="link" to="/nursing-care-office/dashboard">ダッシュボード</router-link>
+          </li>
+          <li>
+            <router-link class="link" to="/nursing-care-office/update">登録情報確認・変更</router-link>
           </li>
         </ul>
         <ul class="menu__content" v-else>

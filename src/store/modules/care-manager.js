@@ -18,11 +18,13 @@ const getters = {
     return state.loggedInCareManager;
   },
   getLoggedInCareManagerName(state) {
-    console.log('getLoggedInCareManagerName');
     return state.loggedInCareManager.name;
   },
-  emptyLoggedInCareManager(state) {
-    return state.loggedInCareManager === null;
+  hasLoggedInCareManagerName(state) {
+    if (state.loggedInCareManager === null) {
+      return false;
+    }
+    return state.loggedInCareManager.name !== null;
   },
   getVisitTimes(state) {
     return state.visitTimes;
@@ -46,11 +48,9 @@ const getters = {
 const mutations = {
   setLoggedInCareManagerData(state, payload) {
     state.loggedInCareManager = payload;
-    console.log('setLoggedInCareManagerData');
   },
   setCareManagerAccessToken(state, payload) {
     state.careManagerAccessToken = payload;
-    console.log('setCareManagerAccessToken');
   },
   resetCareManager(state) {
     state.careManagerAccessToken = null;

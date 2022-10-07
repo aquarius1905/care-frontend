@@ -293,6 +293,10 @@ body {
   margin-right: 30px;
 }
 
+.address-search__btn {
+  margin-left: 20px;
+}
+
 /* 介護度 */
 .care-level__wrap {
   margin-bottom: 20px;
@@ -343,47 +347,55 @@ body {
 /* 月別スケジュール表 */
 
 .weekly-service-schedule__tbl,
-.monthly-schedule__tbl {
+.monthly-schedule__tbl,
+.users-list__tbl {
   border-collapse: collapse;
   border-radius: 6px;
   width: 100%;
 }
 
 .weekly-service-schedule__tbl thead,
-.monthly-schedule__tbl thead {
+.monthly-schedule__tbl thead,
+.users-list__tbl thead {
   background-color: #1a237e;
   color: #f5f5f5;
 }
 
 .weekly-service-schedule__tbl tbody,
-.monthly-schedule__tbl tbody {
+.monthly-schedule__tbl tbody,
+.users-list__tbl tbody {
   background-color: #fff;
 }
 
 .weekly-service-schedule__tbl th,
-.monthly-schedule__tbl th {
+.monthly-schedule__tbl th,
+.users-list__tbl th {
   padding: 7px 0;
   vertical-align: middle;
 }
 
 .weekly-service-schedule__tbl td,
-.monthly-schedule__tbl td {
+.monthly-schedule__tbl td,
+.users-list__tbl td {
   text-align: center;
   padding: 5px 10px;
 }
 
 .weekly-service-schedule__tbl tr:first-child th:first-child,
-.monthly-schedule__tbl tr:first-child th:first-child {
+.monthly-schedule__tbl tr:first-child th:first-child,
+.users-list__tbl tr:first-child th:first-child {
   border-top-left-radius: 6px;
 }
 
 .weekly-service-schedule__tbl tr:first-child th:last-child,
-.monthly-schedule__tbl tr:first-child th:last-child {
+.monthly-schedule__tbl tr:first-child th:last-child,
+.users-list__tbl tr:first-child th:last-child {
   border-top-right-radius: 6px;
 }
 
 .weekly-service-schedule__tbl tr:last-child td,
-.monthly-schedule__tbl tr:last-child td {
+.monthly-schedule__tbl tr:last-child td,
+.users-list__tbl tr:last-child td {
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
 }

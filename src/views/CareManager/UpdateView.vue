@@ -209,7 +209,6 @@ export default {
     },
     makeSendData() {
       let send_data = this.care_manager;
-      console.log(send_data);
       delete send_data.id;
       return send_data;
     },
@@ -254,9 +253,6 @@ export default {
 </script>
 
 <style scoped>
-.address-search__btn {
-  margin-left: 20px;
-}
 .update__btn {
   display: flex;
   justify-content: center;

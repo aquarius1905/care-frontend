@@ -9,8 +9,17 @@ const getters = {
   isNursingCareOfficeLoggedIn(state) {
     return state.nursingCareOfficeAccessToken !== null
   },
-  getContactPersonNameOfNursingCareOffice(state) {
+  getLoggedInContactPersonName(state) {
     return state.loggedInNursingCareOffice.name;
+  },
+  hasLoggedInContactPersonName(state) {
+    if (state.loggedInNursingCareOffice === null) {
+      return false;
+    }
+    return state.loggedInNursingCareOffice.name !== null;
+  },
+  getLoggedInNursingCareOffice(state) {
+    return state.loggedInNursingCareOffice;
   },
 };
 const mutations = {

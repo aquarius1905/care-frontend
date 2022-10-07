@@ -61,7 +61,8 @@ export default {
     ...mapGetters([
       'isCareManager',
       'isCareReceiver',
-      'isNursingCareOffice'
+      'isNursingCareOffice',
+      'hasLoggedInCareManagerName'
     ])
   },
   methods: {
@@ -101,10 +102,10 @@ export default {
         );
 
         this.setLoggedInCareManagerData(data.data);
+
         this.$router.push({
           name: 'CareManagerDashboard',
         });
-
       } catch (error) {
         alert('登録情報の取得に失敗しました')
       }

@@ -1,27 +1,28 @@
-import NursingCareOfficeLoginView from '@/views/NursingCareOffice/LoginView.vue'
-import NursingCareOfficeRegistrationView from '@/views/NursingCareOffice/RegistrationView.vue'
-import NursingCareOfficeRegistrationConfirmView from '@/views/NursingCareOffice/RegistrationConfirmView.vue'
+import NursingCareOfficeLogin from '@/views/NursingCareOffice/Login.vue'
+import NursingCareOfficeRegistration from '@/views/NursingCareOffice/Registration.vue'
+import NursingCareOfficeRegistrationConfirm from '@/views/NursingCareOffice/RegistrationConfirm.vue'
 import NursingCareOfficeRegistrationCompletionView from '@/views/Common/RegistrationCompletionView.vue'
-import NursingCareOfficeDashboardView from '@/views/NursingCareOffice/DashboardView.vue'
+import NursingCareOfficeDashboard from '@/views/NursingCareOffice/Dashboard.vue'
+import NursingCareOfficeUpdate from '@/views/NursingCareOffice/Update.vue'
 
 export default {
   routes: [
     {
       path: '/nursing-care-office/login',
       name: 'NursingCareOfficeLogin',
-      component: NursingCareOfficeLoginView,
+      component: NursingCareOfficeLogin,
       meta: { requiresAuth: false } 
     },
     {
       path: '/nursing-care-office/register',
       name: 'NursingCareOfficeRegistration',
-      component: NursingCareOfficeRegistrationView,
+      component: NursingCareOfficeRegistration,
       meta: { requiresAuth: false } 
     },
     {
       path: '/nursing-care-office/register/confirm',
       name: 'NursingCareOfficeRegistrationConfirm',
-      component: NursingCareOfficeRegistrationConfirmView,
+      component: NursingCareOfficeRegistrationConfirm,
       meta: { requiresAuth: false } 
     },
     {
@@ -33,7 +34,13 @@ export default {
     {
       path: '/nursing-care-office/dashboard',
       name: 'NursingCareOfficeDashboard',
-      component: NursingCareOfficeDashboardView,
+      component: NursingCareOfficeDashboard,
+      meta: { requiresAuth: true } 
+    },
+    {
+      path: '/nursing-care-office/update',
+      name: 'NursingCareOfficeUpdate',
+      component: NursingCareOfficeUpdate,
       meta: { requiresAuth: true } 
     },
   ]
