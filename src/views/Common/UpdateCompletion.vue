@@ -10,7 +10,7 @@ export default {
   components: { TextMessage },
   data: function () {
     return {
-      msg: "ケアマネージャー登録情報の更新が完了しました"
+      msg: "登録情報の更新が完了しました\n\nメールアドレスを変更された場合、\nご登録頂いたメールアドレス宛てに\nメールを送信しましたので\n認証をお願い致します"
     }
   }
 };

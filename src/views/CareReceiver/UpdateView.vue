@@ -229,13 +229,13 @@ export default {
       await this.getCareLevels();
       
       this.care_receiver = this.$route.query.care_receiver;
-      const care_receiver_name_arr = this.care_receiver.name.split(/\u3000/);
-      this.care_receiver['last_name'] = care_receiver_name_arr[0];
-      this.care_receiver['first_name'] = care_receiver_name_arr[1];
+      const name_arr = this.care_receiver.name.split(/\u3000/);
+      this.care_receiver.last_name = name_arr[0];
+      this.care_receiver.first_name = name_arr[1];
 
-      const care_receiver_furigana_arr = this.care_receiver.name_furigana.split(/\u3000/);
-      this.care_receiver['last_name_furigana'] = care_receiver_furigana_arr[0];
-      this.care_receiver['first_name_furigana'] = care_receiver_furigana_arr[1];
+      const furigana_arr = this.care_receiver.name_furigana.split(/\u3000/);
+      this.care_receiver.last_name_furigana = furigana_arr[0];
+      this.care_receiver.first_name_furigana = furigana_arr[1];
 
       this.key_person = this.$route.query.care_receiver.key_person;
       const key_person_name_arr = this.key_person.name.split(/\u3000/);

@@ -2,7 +2,7 @@
 import CareReceiverRegistrationConfirmView from '@/views/CareReceiver/RegistrationConfirmView.vue'
 import CareReceiverRegistrationCompletionView from '@/views/CareReceiver/RegistrationCompletionView.vue'
 import CareReceiverUpdateView from '@/views/CareReceiver/UpdateView.vue'
-import CareReceiverUpdateConfirmView from '@/views/CareReceiver/UpdateConfirmView.vue'
+import CareReceiverUpdateCompletion from '@/views/Common/UpdateCompletion.vue'
 import CareReceiverDetailView from '@/views/CareReceiver/DetailView.vue'
 import CareReceiverWeeklyServiceScheduleView from '@/views/CareReceiver/WeeklyServiceScheduleView.vue'
 import CareReceiverLoginView from '../views/CareReceiver/LoginView.vue'
@@ -36,9 +36,9 @@ export default {
       meta: { requiresAuth: true },
     },
     {
-      path: '/care-receiver/update/confirm',
-      name: 'CareReceiverUpdateConfirmation',
-      component: CareReceiverUpdateConfirmView,
+      path: '/care-receiver/update/completion',
+      name: 'CareReceiverUpdateCompletion',
+      component: CareReceiverUpdateCompletion,
       meta: { requiresAuth: true },
     },
     {

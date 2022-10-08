@@ -1,9 +1,10 @@
 import NursingCareOfficeLogin from '@/views/NursingCareOffice/Login.vue'
 import NursingCareOfficeRegistration from '@/views/NursingCareOffice/Registration.vue'
 import NursingCareOfficeRegistrationConfirm from '@/views/NursingCareOffice/RegistrationConfirm.vue'
-import NursingCareOfficeRegistrationCompletionView from '@/views/Common/RegistrationCompletionView.vue'
+import NursingCareOfficeRegistrationCompletion from '@/views/Common/RegistrationCompletion.vue'
 import NursingCareOfficeDashboard from '@/views/NursingCareOffice/Dashboard.vue'
 import NursingCareOfficeUpdate from '@/views/NursingCareOffice/Update.vue'
+import NursingCareOfficeUpdateCompletion from '@/views/Common/UpdateCompletion.vue'
 
 export default {
   routes: [
@@ -28,7 +29,7 @@ export default {
     {
       path: '/nursing-care-office/register/complete',
       name: 'NursingCareOfficeRegistrationCompletion',
-      component: NursingCareOfficeRegistrationCompletionView,
+      component: NursingCareOfficeRegistrationCompletion,
       meta: { requiresAuth: false } 
     },
     {
@@ -41,6 +42,12 @@ export default {
       path: '/nursing-care-office/update',
       name: 'NursingCareOfficeUpdate',
       component: NursingCareOfficeUpdate,
+      meta: { requiresAuth: true } 
+    },
+    {
+      path: '/nursing-care-office/update/completion',
+      name: 'NursingCareOfficeUpdateCompletion',
+      component: NursingCareOfficeUpdateCompletion,
       meta: { requiresAuth: true } 
     },
   ]
