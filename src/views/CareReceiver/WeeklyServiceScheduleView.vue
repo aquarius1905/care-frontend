@@ -5,8 +5,8 @@
       <p>{{ care_receiver_name }}&emsp;様</p>
     </div>
     <div class="page-content">
-      <div class="registration__form box-shadow">
-        <h3 class="form__ttl registration__form-ttl">サービス登録</h3>
+      <div class="service-registration__form box-shadow">
+        <h3 class="form__ttl service-registration__form-ttl">サービス登録</h3>
         <div class="form__content">
           <validation-observer ref="obs" v-slot="{ invalid }">
             <div class="form__item">
@@ -137,9 +137,9 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'emptyServiceTypes',
+      'emptyServiceTypesWithNursingCareOffices',
       'getDayOfWeeks',
-      'getServiceTypes',
+      'getServiceTypesWithNursingCareOffices',
       'getSelectedCareReceiverId',
     ]),
     ...mapGetters({
@@ -148,7 +148,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      'fetchServicetypes',
+      'fetchServiceTypesWithNursingCareOffices',
     ]),
     async initialize() {
       this.setCurrentCareReceiverId();
@@ -167,19 +167,18 @@ export default {
         );
 
         this.weekly_service_schedules = data.data;
-
       } catch (error) {
         console.log(error);
         alert('週間サービス計画表のデータ取得に失敗しました');
       }
     },
     async setDayofweeksAndServicetypes() {
-      if (this.emptyServiceTypes) {
-        await this.fetchServicetypes();
+      if (this.emptyServiceTypesWithNursingCareOffices) {
+        await this.fetchServiceTypesWithNursingCareOffices();
       }
 
       this.day_of_weeks = this.getDayOfWeeks;
-      this.service_types = this.getServiceTypes;
+      this.service_types = this.getServiceTypesWithNursingCareOffices;
     },
     changeServiceType() {
       const selected_service = this.service_types.filter(
@@ -253,6 +252,9 @@ export default {
   margin-right: 40px;
 }
 
+.service-registration__form {
+  width: 600px;
+}
 .delete__btn {
   width: 60px;
 }

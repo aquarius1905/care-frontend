@@ -35,12 +35,12 @@ export default {
       'isNursingCareOfficeLoggedIn',
       'getLoggedInCareManagerName',
       'getLoggedInCareReceiverName',
-      'getLoggedInContactPersonName',
+      'getLoggedInNursingCareOfficeName',
       'getLoggedInKeyPersonName',
       'hasLoggedInCareManagerName',
       'hasLoggedInCareReceiverName',
-      'hasLoggedInContactPersonName',
-      'hasLoggedInKeyPersonName'
+      'hasLoggedInKeyPersonName',
+      'hasLoggedInNursingCareOfficeName',
     ]),
     loggedInKeyPersonName: function () {
       if (this.isCareReceiverLoggedIn && this.hasLoggedInKeyPersonName) {
@@ -52,8 +52,8 @@ export default {
         return this.getLoggedInCareManagerName;
       } else if (this.isCareReceiverLoggedIn && this.hasLoggedInCareReceiverName) {
         return this.getLoggedInCareReceiverName;
-      } else if (this.isNursingCareOfficeLoggedIn && this.hasLoggedInContactPersonName) {
-        return this.getLoggedInContactPersonName;
+      } else if (this.isNursingCareOfficeLoggedIn && this.hasLoggedInNursingCareOfficeName) {
+        return this.getLoggedInNursingCareOfficeName;
       }
     },
   },
@@ -64,8 +64,18 @@ export default {
       'resetNursingCareOffice'
     ]),
     backtoHome() {
+      let router_name = '';
+      if (this.isCareManagerLoggedIn) {
+        router_name = 'CareMangerDashboard';
+      } else if (this.isCareReceiverLoggedIn) {
+        router_name = 'CareReceiverDashboard';
+      } else if (this.isNursingCareOfficeLoggedIn) {
+        router_name = 'NursingCareOfficeDashboard';
+      } else {
+        router_name = 'Home';
+      }
       this.$router.push({
-        name: 'Home'
+        name: router_name
       });
     },
     async logoutCareManager() {

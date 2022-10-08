@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { api, careManagerAuthApi, careReceiverAuthApi } from "@/plugins/axios";
+import { api, careManagerAuthApi, careReceiverAuthApi, nursingCareOfficeAuthApi } from "@/plugins/axios";
 import { mapGetters, mapActions } from 'vuex'
 export default {
   props: {
@@ -72,6 +72,7 @@ export default {
       'setNursingCareOfficeAccessToken',
       'setLoggedInCareManagerData',
       'setLoggedInCareReceiverData',
+      'setLoggedInNursingCareOfficeData'
     ]),
     async login() {
         if (this.isCareManager) {
@@ -142,24 +143,34 @@ export default {
         const { data } = await api.post(
           '/nursing-care-offices/login', this.login_data
         );
+
         this.setNursingCareOfficeAccessToken(data.token);
-
-        this.$router.push({
-          name: 'NursingCareOfficeDashboard'
-        });
-
+        await this.postProcessNursingCareOfficeLogin();
       } catch (error) {
         this.showError(error);
       }
+    },
+    async postProcessNursingCareOfficeLogin() {
+      const { data } = await nursingCareOfficeAuthApi.get(
+        '/nursing-care-offices/me'
+      );
+
+      this.setLoggedInNursingCareOfficeData(data.data);
+      this.$router.push({
+        name: 'NursingCareOfficeDashboard'
+      });
     },
     showError(error) {
       console.log(error);
       switch (error.response.status) {
         case 401:
-          alert('メールアドレスとパスワードが一致しません');
+          this.login_error = 'メールアドレスとパスワードが一致しません';
           break;
         case 403:
           this.$router.push({ name: 'EmailUnverified' });
+          break;
+        case 404:
+          this.login_error = 'メールアドレスが存在しません';
           break;
       }
     }

@@ -257,6 +257,7 @@ export default {
         await this.fetchServiceTypes();
       }
       this.service_types = this.getServiceTypes;
+      console.log(this.service_types);
 
       if (this.$route.query.nursing_care_office === null) {
         this.nursing_care_office.service_type

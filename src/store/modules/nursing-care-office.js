@@ -9,14 +9,14 @@ const getters = {
   isNursingCareOfficeLoggedIn(state) {
     return state.nursingCareOfficeAccessToken !== null
   },
-  getLoggedInContactPersonName(state) {
-    return state.loggedInNursingCareOffice.name;
+  getLoggedInNursingCareOfficeName(state) {
+    return state.loggedInNursingCareOffice.office_name;
   },
-  hasLoggedInContactPersonName(state) {
+  hasLoggedInNursingCareOfficeName(state) {
     if (state.loggedInNursingCareOffice === null) {
       return false;
     }
-    return state.loggedInNursingCareOffice.name !== null;
+    return state.loggedInNursingCareOffice.office_name !== null;
   },
   getLoggedInNursingCareOffice(state) {
     return state.loggedInNursingCareOffice;
