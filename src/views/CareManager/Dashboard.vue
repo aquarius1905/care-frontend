@@ -53,7 +53,6 @@ export default {
   },
   methods: {
     ...mapActions([
-      'fetchCareManagerData',
       'setSelectedCareReceiver',
       'setDetailFlg'
     ]),

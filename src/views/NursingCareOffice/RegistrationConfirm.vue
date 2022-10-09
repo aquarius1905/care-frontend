@@ -96,12 +96,12 @@ export default {
       }
     },
     makeNursingCareOfficeData() {
-      this.nursing_care_office['name']
-        = this.nursing_care_office['last_name'] + '　' + this.nursing_care_office['first_name'];
-      this.nursing_care_office['name_furigana']
-        = this.nursing_care_office['last_name_furigana'] + '　' + this.nursing_care_office['first_name_furigana'];
-      this.nursing_care_office['service_type_id']
-        = this.nursing_care_office['service_type']['id'];
+      this.nursing_care_office.name
+        = this.nursing_care_office.last_name + '　' + this.nursing_care_office.first_name;
+      this.nursing_care_office.name_furigana
+        = this.nursing_care_office.last_name_furigana + '　' + this.nursing_care_office.first_name_furigana;
+      this.nursing_care_office.service_type_id
+        = this.nursing_care_office.service_type.id;
     }
   },
   created() {

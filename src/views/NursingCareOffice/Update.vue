@@ -58,8 +58,10 @@
                 郵便番号
                 <span class="required__lbl">必須</span>
               </label>
-              <input type="text" id="post_code" class="input" v-model="nursing_care_office.post_code" placeholder="1050004"
-                @blur="fetchAddress" required>
+              <div class="flex">
+                <input type="text" id="post_code" class="input" v-model="nursing_care_office.post_code" placeholder="1050004" required>
+                <button class="btn address-search__btn" @click="fetchAddress">住所検索</button>
+              </div>
               <div class="error">{{ errors[0] }}</div>
             </validation-provider>
           </div>
@@ -170,36 +172,42 @@
             </validation-provider>
           </div>
         </div>
-        <button class="btn confirm__btn" @click="confirmRegistration" :disabled="invalid">
-          登録内容確認
-        </button>
+        <button class="btn update-info__btn" @click="update" :disabled="invalid">更新</button>
       </validation-observer>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import Vue from 'vue'
+import plugin from '@/plugins'
+import { nursingCareOfficeAuthApi } from "@/plugins/axios";
+import { mapGetters, mapActions } from 'vuex'
 export default {
   data() {
     return {
-      nursing_care_office: null
+      nursing_care_office: null,
+      service_types: null
     }
   },
   computed: {
     ...mapGetters([
       'getLoggedInNursingCareOffice',
+      'emptyServiceTypes',
       'getServiceTypes'
     ])
   },
   methods: {
-    initialize() {
-      this.nursing_care_office = this.getLoggedInNursingCareOffice;
-      console.log(this.nursing_care_office);
-      this.service_types = this.getServiceTypes;
-      this.setNameAndFurigana();
-    },
-    setNameAndFurigana() {
+    ...mapActions([
+      'fetchServiceTypes',
+      'fetchNursingCareOfficeData'
+    ]),
+    initializeNursingCareOfficeData() {
+      this.nursing_care_office = Vue.util.extend({}, this.getLoggedInNursingCareOffice);
+
+      this.nursing_care_office.password = null;
+      this.nursing_care_office.password_confirmation = null;
+
       const name_arr = this.nursing_care_office.name.split(/\u3000/);
       this.nursing_care_office.last_name = name_arr[0];
       this.nursing_care_office.first_name = name_arr[1];
@@ -207,10 +215,50 @@ export default {
       const furigana_arr = this.nursing_care_office.name_furigana.split(/\u3000/);
       this.nursing_care_office.last_name_furigana = furigana_arr[0];
       this.nursing_care_office.first_name_furigana = furigana_arr[1];
-    }
+    },
+    async setServiceTypes() {
+      if (this.emptyServiceTypes) {
+        await this.fetchServiceTypes();
+      }
+
+      this.service_types = this.getServiceTypes;
+    },
+    async fetchAddress() {
+      this.nursing_care_office.address
+        = await plugin.fetchAddress(
+          this.nursing_care_office.post_code
+        );
+    },
+    async update() {
+      if (!confirm('更新しますか？')) {
+        return;
+      }
+
+      try {
+        const send_data = plugin.makeSendData(
+          this.nursing_care_office
+        );
+
+        const response = await nursingCareOfficeAuthApi.put(
+          '/nursing-care-offices/' + this.nursing_care_office.id,
+          send_data
+        );
+
+        if (response.status === 200) {
+          await this.fetchNursingCareOfficeData();
+          this.$router.push({
+            name: 'NursingCareOfficeUpdateCompletion'
+          });
+        }
+      } catch (error) {
+        alert("更新に失敗しました");
+        console.log(error);
+      }
+    },
   },
-  created() {
-    this.initialize();
+  async created() {
+    this.initializeNursingCareOfficeData();
+    await this.setServiceTypes();
   }
 }
 </script>

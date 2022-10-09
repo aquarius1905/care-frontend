@@ -82,6 +82,17 @@ const actions = {
   setSelectedCareReceiver(context, payload) {
     context.commit('setSelectedCareReceiver', payload);
   },
+  async fetchCareManagerData(context) {
+    try {
+      const { data } = await careManagerAuthApi.get(
+        '/care-managers/me'
+      );
+
+      context.commit('setLoggedInCareManagerData', data.data);
+    } catch (error) {
+      alert("登録情報の取得に失敗しました");
+    }
+  }
 };
 
 export default {

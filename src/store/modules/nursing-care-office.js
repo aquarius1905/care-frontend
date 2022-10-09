@@ -1,3 +1,5 @@
+import { nursingCareOfficeAuthApi } from "@/plugins/axios";
+
 const state = {
   nursingCareOfficeAccessToken: null,
   loggedInNursingCareOffice: null
@@ -43,6 +45,17 @@ const actions = {
   },
   resetNursingCareOffice(context) {
     context.commit('resetNursingCareOffice');
+  },
+  async fetchNursingCareOfficeData(context) {
+    try {
+      const { data } = await nursingCareOfficeAuthApi.get(
+        '/nursing-care-offices/me'
+      );
+
+      context.commit('setLoggedInNursingCareOfficeData', data.data);
+    } catch (error) {
+      alert("登録情報の取得に失敗しました");
+    }
   }
 };
 

@@ -1,12 +1,12 @@
-  import CareReceiverRegistrationView from '@/views/CareReceiver/RegistrationView.vue'
-import CareReceiverRegistrationConfirmView from '@/views/CareReceiver/RegistrationConfirmView.vue'
-import CareReceiverRegistrationCompletionView from '@/views/CareReceiver/RegistrationCompletionView.vue'
-import CareReceiverUpdateView from '@/views/CareReceiver/UpdateView.vue'
+  import CareReceiverRegistration from '@/views/CareReceiver/Registration.vue'
+import CareReceiverRegistrationConfirm from '@/views/CareReceiver/RegistrationConfirm.vue'
+import CareReceiverRegistrationCompletion from '@/views/CareReceiver/RegistrationCompletion.vue'
+import CareReceiverUpdate from '@/views/CareReceiver/Update.vue'
 import CareReceiverUpdateCompletion from '@/views/Common/UpdateCompletion.vue'
 import CareReceiverDetailView from '@/views/CareReceiver/DetailView.vue'
 import CareReceiverWeeklyServiceScheduleView from '@/views/CareReceiver/WeeklyServiceScheduleView.vue'
 import CareReceiverLoginView from '../views/CareReceiver/LoginView.vue'
-import CareReceiverDashboardView from '../views/CareReceiver/DashboardView.vue'
+import CareReceiverDashboard from '../views/CareReceiver/Dashboard.vue'
 import CareReceiverMonthlyScheduleView from '../views/CareReceiver/MonthlyScheduleView.vue'
 
 export default {
@@ -14,25 +14,25 @@ export default {
     {
       path: '/care-receiver/register',
       name: 'CareReceiverRegistration',
-      component: CareReceiverRegistrationView,
+      component: CareReceiverRegistration,
       meta: { requiresAuth: true },
     },
     {
       path: '/care-receiver/register/confirm',
       name: 'CareReceiverRegistrationConfirm',
-      component: CareReceiverRegistrationConfirmView,
+      component: CareReceiverRegistrationConfirm,
       meta: { requiresAuth: true },
     },
     {
       path: '/care-receiver/register/complete',
       name: 'CareReceiverRegistrationCompletion',
-      component: CareReceiverRegistrationCompletionView,
+      component: CareReceiverRegistrationCompletion,
       meta: { requiresAuth: false },
     },
     {
       path: '/care-receiver/update',
       name: 'CareReceiverUpdate',
-      component: CareReceiverUpdateView,
+      component: CareReceiverUpdate,
       meta: { requiresAuth: true },
     },
     {
@@ -62,7 +62,7 @@ export default {
     {
       path: '/care-receiver/dashboard',
       name: 'CareReceiverDashboard',
-      component: CareReceiverDashboardView,
+      component: CareReceiverDashboard,
       meta: { requiresAuth: true },
     },
     {

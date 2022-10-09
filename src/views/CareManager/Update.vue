@@ -170,7 +170,7 @@
             </validation-provider>
           </div>
         </div>
-        <button class="btn update__btn" @click="update" :disabled="invalid">更新</button>
+        <button class="btn update-info__btn" @click="update" :disabled="invalid">更新</button>
       </validation-observer>
     </div>
   </div>
@@ -195,7 +195,7 @@ export default {
   methods: {
     ...mapActions([
       'setDetailFlg',
-      'setLoggedInCareManagerData'
+      'fetchCareManagerData',
     ]),
     async fetchAddress() {
       this.care_manager.office_address
@@ -207,18 +207,20 @@ export default {
       if (!confirm('更新しますか？')) {
         return;
       }
-      await this.updateCareManagerData();
-    },
-    async updateCareManagerData() {
+
       try {
-        const send_data = this.makeSendData();
+        const send_data = plugin.makeSendData(
+          this.care_manager
+        );
+
         const response = await careManagerAuthApi.put(
           '/care-managers/' + this.care_manager.id,
           send_data
         );
 
         if (response.status === 200) {
-          this.setLoggedInCareManagerData(this.care_manager);
+          await this.fetchCareManagerData();
+
           this.$router.push({
             name: 'CareManagerUpdateCompletion'
           });
@@ -228,19 +230,9 @@ export default {
         console.log(error);
       }
     },
-    makeSendData() {
-      let send_data = Vue.util.extend({}, this.care_manager);
-      [
-        'id',
-        'last_name',
-        'first_name',
-        'last_name_furigana',
-        'first_name_furigana',
-      ].forEach(e => delete send_data[e]);
-      return send_data;
-    },
     initializeCareManagerData() {
       this.care_manager = Vue.util.extend({}, this.getLoggedInCareManagerData);
+      console.log(this.care_manager);
 
       this.care_manager.password = null;
       this.care_manager.password_confirmation = null;
@@ -260,13 +252,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.update__btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 20px auto 0;
-  border: none;
-}
-</style>
