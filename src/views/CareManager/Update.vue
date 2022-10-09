@@ -177,6 +177,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import plugin from '@/plugins'
 import { mapGetters, mapActions } from 'vuex'
 import { careManagerAuthApi } from "@/plugins/axios";
@@ -193,7 +194,8 @@ export default {
   },
   methods: {
     ...mapActions([
-      'setDetailFlg'
+      'setDetailFlg',
+      'setLoggedInCareManagerData'
     ]),
     async fetchAddress() {
       this.care_manager.office_address
@@ -207,20 +209,16 @@ export default {
       }
       await this.updateCareManagerData();
     },
-    makeSendData() {
-      let send_data = this.care_manager;
-      delete send_data.id;
-      return send_data;
-    },
     async updateCareManagerData() {
       try {
         const send_data = this.makeSendData();
         const response = await careManagerAuthApi.put(
-          `/care-managers/${this.care_manager.id}`, send_data
+          '/care-managers/' + this.care_manager.id,
+          send_data
         );
 
         if (response.status === 200) {
-          this.setCareManager(this.care_manager);
+          this.setLoggedInCareManagerData(this.care_manager);
           this.$router.push({
             name: 'CareManagerUpdateCompletion'
           });
@@ -230,8 +228,19 @@ export default {
         console.log(error);
       }
     },
+    makeSendData() {
+      let send_data = Vue.util.extend({}, this.care_manager);
+      [
+        'id',
+        'last_name',
+        'first_name',
+        'last_name_furigana',
+        'first_name_furigana',
+      ].forEach(e => delete send_data[e]);
+      return send_data;
+    },
     initializeCareManagerData() {
-      this.care_manager = this.getLoggedInCareManagerData;
+      this.care_manager = Vue.util.extend({}, this.getLoggedInCareManagerData);
 
       this.care_manager.password = null;
       this.care_manager.password_confirmation = null;
