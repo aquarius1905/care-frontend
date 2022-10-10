@@ -277,7 +277,4 @@ export default {
 .form__item >>> .vue__time-picker .dropdown ul li:not([disabled]).active:hover {
   background: #1A237E;
 }
-.registration__btn {
-  width: 100px;
-}
 </style>

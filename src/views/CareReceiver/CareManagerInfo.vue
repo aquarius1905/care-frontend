@@ -1,13 +1,8 @@
 <template>
-  <div class="care-receiver__detail">
-    <div class="detail__ttl-wrap">
-      <h2 class="detail__ttl">{{ page_ttl }}</h2>
-      <label class="visit-datetime__lbl">
-        次回訪問予定日：{{ visit_datetime }}
-      </label>
-    </div>
+  <div class="care-manager__info">
+    <h2 class="detail__ttl">{{ page_ttl }}</h2>
     <div class="detail__content box-shadow">
-      <h3 class="tbl__sub-ttl">被介護者情報</h3>
+      <h3 class="tbl__sub-ttl">担当ケアマネージャー情報</h3>
       <table class="detail__tbl">
         <tr>
           <th>氏名</th>
@@ -74,14 +69,12 @@
 </template>
 
 <script>
-import dayjs from 'dayjs'
 import { mapGetters, mapActions } from 'vuex'
 export default {
   data() {
     return {
       care_receiver: null,
-      page_ttl: null,
-      visit_datetime: null
+      page_ttl: null
     }
   },
   computed: {
@@ -96,37 +89,19 @@ export default {
     ...mapActions([
       'setCareManagerDetailFlg',
     ]),
-    initialize() {
-      if (this.isCareManagerLoggedIn) {
-        this.setCareManagerDetailFlg(true);
-        this.care_receiver = this.getSelectedCareReceiver;
-        this.page_ttl = '被介護者詳細情報';
-      } else if (this.isCareReceiverLoggedIn) {
-        this.care_receiver = this.getLoggedInCareReceiver;
-        this.page_ttl = '登録情報確認';
-      }
-      if (this.care_receiver.visit_datetime === null) {
-        this.visit_datetime = '未定';
-      } else {
-        this.visit_datetime
-          = dayjs(this.care_receiver.visit_datetime.date).format('YYYY年MM月DD日（ddd）')
-          + dayjs(this.care_receiver.visit_datetime.time).format('HH時mm分');
-      }
-    }
   },
   created() {
-    this.initialize();
-
+    if (this.isCareManagerLoggedIn) {
+      console.log('isCareManagerLoggedIn');
+      this.setCareManagerDetailFlg(true);
+      this.care_receiver = this.getSelectedCareReceiver;
+      this.page_ttl = '被介護者詳細情報';
+    } else if (this.isCareReceiverLoggedIn) {
+      console.log('isCareReceiverLoggedIn');
+      this.care_receiver = this.getLoggedInCareReceiver;
+      this.page_ttl = '登録情報確認';
+    }
+    console.log(this.care_receiver);
   }
 };
 </script>
-
-<style scoped>
-.detail__ttl-wrap {
-  display: flex;
-  align-items: center;
-}
-.visit-datetime__lbl {
-  margin-left: 40px;
-}
-</style>

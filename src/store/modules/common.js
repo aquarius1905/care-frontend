@@ -1,7 +1,7 @@
 const state = {
   careManagerFlg: false,
   careReceiverFlg: false,
-  nursingCareOfficeFlg: false
+  nursingCareOfficeFlg: false,
 };
 const getters = {
   isCareManager(state) {
@@ -35,7 +35,7 @@ const actions = {
   setCareManagerFlg(context) {
     context.commit('setCareManagerFlg');
   },
-  setCareReceiverFlg(context, payload) {
+  setCareReceiverFlg(context) {
     context.commit('setCareReceiverFlg');
   },
   setNursingCareOfficeFlg(context) {

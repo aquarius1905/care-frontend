@@ -4,10 +4,11 @@ import CareManagerRegistrationCompletion from '@/views/Common/RegistrationComple
 import CareManagerRegistrationConfirm from '@/views/CareManager/RegistrationConfirm.vue'
 import CareManagerUpdate from '@/views/CareManager/Update.vue'
 import CareManagerUpdateCompletion from '@/views/Common/UpdateCompletion.vue'
-import CareManagerVisitDateTimeView from '@/views/CareManager/VisitDateTimeView.vue'
+import CareManagerVisitDateTime from '@/views/CareManager/VisitDateTime.vue'
 import CareManagerForgotPasswordView from '@/views/CareManager/ForgotPassword.vue'
 import CareManagerDashboard from '@/views/CareManager/Dashboard.vue'
 import CareManagerCareReceiverDetail from '@/views/Common/CareReceiverDetail.vue'
+import VisitDateTimeRegistrationComplete from '@/views/Common/TextMessage.vue'
 
 
 export default {
@@ -51,7 +52,7 @@ export default {
     {
       path: '/care-manager/visit-date-time',
       name: 'CareManagerVisitDateTime',
-      component: CareManagerVisitDateTimeView,
+      component: CareManagerVisitDateTime,
       meta: { requiresAuth: true },
     },
     {
@@ -72,5 +73,11 @@ export default {
       component: CareManagerCareReceiverDetail,
       meta: { requiresAuth: true },
     },
+    {
+      path: '/care-manager/visit-datetime/register/complete',
+      name: 'VisitDateTimeRegistrationComplete',
+      component: VisitDateTimeRegistrationComplete,
+      meta: { requiresAuth: true },
+    }
   ]
 }

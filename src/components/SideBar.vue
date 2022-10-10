@@ -67,6 +67,11 @@
               登録情報確認
             </router-link>
           </li>
+          <li>
+            <router-link class="link" to="/care-receiver/care-manager-info">
+              担当ケアマネージャー
+            </router-link>
+          </li>
         </ul>
       </div>
     </nav>

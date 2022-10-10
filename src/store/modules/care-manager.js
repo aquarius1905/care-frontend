@@ -3,7 +3,6 @@ import { careManagerAuthApi } from "@/plugins/axios";
 const state = {
   careManagerAccessToken: null,
   loggedInCareManager: null,
-  visitTimes: null,
   selectedCareReceiver: null,
   detailFlg: false
 };
@@ -25,12 +24,6 @@ const getters = {
       return false;
     }
     return state.loggedInCareManager.name !== null;
-  },
-  getVisitTimes(state) {
-    return state.visitTimes;
-  },
-  hasVisitTimes(state) {
-    return state.visitTimes !== null;
   },
   isCareManagerDetail(state) {
     return state.detailFlg;
@@ -61,7 +54,6 @@ const mutations = {
   resetCareManager(state) {
     state.careManagerAccessToken = null;
     state.loggedInCareManager = null;
-    state.visitTimes = null;
     state.detailFlg = false;
     state.selectedCareReceiver = null;
   },

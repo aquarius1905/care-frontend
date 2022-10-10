@@ -1,7 +1,7 @@
 <template>
   <div class="visit-datetime">
+    <h2 class="visit-datetime__ttl">訪問日時{{ registered_flg? "確認・変更": "登録" }}</h2>
     <div class="visit-datetime__form box-shadow">
-      <h2 class="form__ttl">訪問日時{{ registered_flg ? "確認・変更": "登録" }}</h2>
         <validation-observer v-slot="{ invalid }">
         <div class="form__content">
           <div class="form__item">
@@ -24,10 +24,10 @@
               <div class="error">{{ errors[0] }}</div>
             </validation-provider>
           </div>
+          <button class="btn registration__btn" @click="register" :disabled="invalid">
+            {{ registered_flg ? "更新" : "登録" }}
+          </button>
         </div>
-        <button class="btn register-btn" @click="register" :disabled="invalid">
-          {{ registered_flg ? "更新" : "登録" }}
-        </button>
       </validation-observer>
     </div>
   </div>
@@ -58,7 +58,8 @@ export default {
   },
   methods: {
     ...mapActions([
-      'setCareManagerDetailFlg'
+      'setCareManagerDetailFlg',
+      'setSelectedCareReceiver'
     ]),
     initialize() {
       this.setCareManagerDetailFlg(true);
@@ -102,25 +103,30 @@ export default {
         return;
       }
 
-      const response = null;
+      let response = null;
       if (this.registered_flg) {
         response = await careManagerAuthApi.put(
-          `/care-managers/visit/${this.visit_datetime_id}`,
+          `/care-managers/visit-datetime/${this.visit_datetime_id}`,
           this.visit_datetime
         );
       } else {
         response = await careManagerAuthApi.post(
-          '/care-managers/visit',
+          '/care-managers/visit-datetime',
           this.visit_datetime
         );
       }
 
       if (response.status === 201) {
+        console.log("success");
         this.care_receiver.visit_datetime = this.visit_datetime;
-        await this.$store.dispatch('setSelectedCareReceiver', this.care_receiver);
+        this.setSelectedCareReceiver(this.care_receiver);
+        const msg = this.registered_flg
+          ? '訪問日時を変更しました' : '訪問日時の登録が完了しました'
+        console.log(msg);
         this.$router.push({
-            name: 'CareReceiverDetail'
-          });
+          name: 'VisitDateTimeRegistrationComplete',
+          query: { msg: msg }
+        });
       }
     },
   },
@@ -132,15 +138,22 @@ export default {
 
 <style scoped>
 .visit-datetime {
-  display: flex;
-  justify-content: center;
+  margin: 20px auto 0;
+  width: 400px;
 }
-.form {
-  width: 500px;
-  margin: 0;
+
+.visit-datetime__form {
+  background-color: #fff;
+  width: 100%;
+  margin: 20px auto 0;
+  border-radius: 6px;
 }
+
 .time-select {
   font-size: 20px;
   padding: 0 5px;
+}
+.form__content {
+  padding: 20px;
 }
 </style>

@@ -1,13 +1,14 @@
-  import CareReceiverRegistration from '@/views/CareReceiver/Registration.vue'
+import CareReceiverRegistration from '@/views/CareReceiver/Registration.vue'
 import CareReceiverRegistrationConfirm from '@/views/CareReceiver/RegistrationConfirm.vue'
 import CareReceiverRegistrationCompletion from '@/views/CareReceiver/RegistrationCompletion.vue'
 import CareReceiverUpdate from '@/views/CareReceiver/Update.vue'
 import CareReceiverUpdateCompletion from '@/views/Common/UpdateCompletion.vue'
 import CareReceiverDetail from '@/views/Common/CareReceiverDetail.vue'
 import CareReceiverWeeklyServiceScheduleView from '@/views/CareReceiver/WeeklyServiceScheduleView.vue'
-import CareReceiverLoginView from '../views/CareReceiver/LoginView.vue'
+import CareReceiverLogin from '../views/CareReceiver/LoginView.vue'
 import CareReceiverDashboard from '../views/CareReceiver/Dashboard.vue'
-import CareReceiverMonthlyScheduleView from '../views/CareReceiver/MonthlyScheduleView.vue'
+import CareReceiverMonthlySchedule from '../views/CareReceiver/MonthlySchedule.vue'
+import CareManagerInfo from '../views/CareReceiver/CareManagerInfo.vue'
 
 export default {
   routes: [
@@ -56,7 +57,7 @@ export default {
     {
       path: '/care-receiver/login',
       name: 'CareReceiverLogin',
-      component: CareReceiverLoginView,
+      component: CareReceiverLogin,
       meta: { requiresAuth: false },
     },
     {
@@ -68,7 +69,13 @@ export default {
     {
       path: '/care-receiver/monthly-schedule',
       name: 'CareReceiverMonthlySchedule',
-      component: CareReceiverMonthlyScheduleView,
+      component: CareReceiverMonthlySchedule,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/care-receiver/care-manager-info',
+      name: 'CareManagerInfo',
+      component: CareManagerInfo,
       meta: { requiresAuth: true },
     }
   ]

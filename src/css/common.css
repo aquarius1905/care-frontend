@@ -245,7 +245,8 @@ body {
 .registration__ttl,
 .confirmation__ttl,
 .update__ttl,
-.detail__ttl {
+.detail__ttl,
+.visit-datetime__ttl {
   color: #1a237e;
   font-size: 22px;
 }
@@ -362,6 +363,9 @@ body {
   border: none;
 }
 
+.registration__btn {
+  width: 100px;
+}
 /* 週間サービス計画表 */
 /* 月別スケジュール表 */
 
@@ -420,18 +424,15 @@ body {
 }
 
 /* ログインフォーム */
-/* 訪問日時設定フォーム */
 
-.login__form,
-.visit-datetime__form {
+.login__form {
   background-color: #fff;
   width: 500px;
   margin: 50px auto 0;
   border-radius: 6px;
 }
 
-.login__form-ttl,
-.visit-datetime__form-ttl {
+.login__form-ttl {
   color: #fff;
   background-color: #1a237e;
   padding: 20px;
