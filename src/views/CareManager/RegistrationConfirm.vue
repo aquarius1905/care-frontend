@@ -2,7 +2,7 @@
   <div class="confirmation">
     <h2 class="confirmation__ttl">ケアマネージャー 登録内容確認</h2>
     <div class="confirmation__content box-shadow">
-      <h3 class="confirmation__sub-ttl">事業所情報</h3>
+      <h3 class="tbl__sub-ttl">事業所情報</h3>
       <table class="confirmation__tbl">
         <tr>
           <th>事業所名</th>
@@ -25,7 +25,7 @@
           <td>{{ care_manager.office_address }}</td>
         </tr>
       </table>
-      <h3 class="confirmation__sub-ttl">ケアマネージャー情報</h3>
+      <h3 class="tbl__sub-ttl">ケアマネージャー情報</h3>
       <table class="confirmation__tbl">
         <tr>
           <th>氏名</th>

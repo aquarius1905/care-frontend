@@ -71,7 +71,7 @@ export default {
       'setCareReceiverAccessToken',
       'setNursingCareOfficeAccessToken',
       'fetchCareManagerData',
-      'setLoggedInCareReceiverData',
+      'fetchCareReceiverData',
       'fetchNursingCareOfficeData'
     ]),
     async login() {
@@ -107,24 +107,14 @@ export default {
         );
 
         this.setCareReceiverAccessToken(data.token);
-        await this.postProcessCareReceiverLogin();
-      } catch (error) {
-        this.showError(error);
-      }
-    },
-    async postProcessCareReceiverLogin() {
-      try {
-        const { data } = await careReceiverAuthApi.get(
-          '/care-receivers/me'
-        );
 
-        this.setLoggedInCareReceiverData(data.data);
+        await this.fetchCareReceiverData();
+
         this.$router.push({
           name: 'CareReceiverDashboard',
         });
-
       } catch (error) {
-        alert('登録情報の取得に失敗しました')
+        this.showError(error);
       }
     },
     async loginNursingCareOffice() {

@@ -188,7 +188,7 @@ body {
 }
 
 .confirmation__tbl,
-.detail-tbl,
+.detail__tbl,
 .visit-datetime-tbl {
   width: 100%;
 }
@@ -236,20 +236,23 @@ body {
 /* 登録画面・確認画面 */
 .registration,
 .confirmation,
-.update {
+.update,
+.care-receiver__detail {
   margin: 20px auto 50px;
   width: 700px;
 }
 
 .registration__ttl,
 .confirmation__ttl,
-.update__ttl {
+.update__ttl,
+.detail__ttl {
   color: #1a237e;
   font-size: 22px;
 }
 
 .form__info,
-.confirmation__content {
+.confirmation__content,
+.detail__content {
   background-color: #fff;
   margin-top: 20px;
   padding: 20px;
@@ -266,16 +269,21 @@ body {
   margin-right: 20px;
 }
 
-.confirmation__sub-ttl {
+.tbl__sub-ttl {
   font-size: 20px;
   margin-bottom: 40px;
 }
 
-.confirmation__tbl th {
+.confirmation__tbl th,
+.detail__tbl th {
   width: 40%;
   font-weight: 500;
   text-align: left;
   height: 60px;
+}
+
+.detail__tbl th {
+  width: 30%;
 }
 
 .confirm__btn,

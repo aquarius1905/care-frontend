@@ -4,8 +4,8 @@ const state = {
   careManagerAccessToken: null,
   loggedInCareManager: null,
   visitTimes: null,
-  detailFlg: false,
-  selectedCareReceiver: null
+  selectedCareReceiver: null,
+  detailFlg: false
 };
 const getters = {
   getCareManagerAccessToken(state) {
@@ -32,7 +32,7 @@ const getters = {
   hasVisitTimes(state) {
     return state.visitTimes !== null;
   },
-  isDetail(state) {
+  isCareManagerDetail(state) {
     return state.detailFlg;
   },
   getSelectedCareReceiver(state) {
@@ -52,18 +52,18 @@ const mutations = {
   setCareManagerAccessToken(state, payload) {
     state.careManagerAccessToken = payload;
   },
+  setCareManagerDetailFlg(state, payload) {
+    state.detailFlg = payload;
+  },
+  setSelectedCareReceiver(state ,payload) {
+    state.selectedCareReceiver = payload;
+  },
   resetCareManager(state) {
     state.careManagerAccessToken = null;
     state.loggedInCareManager = null;
     state.visitTimes = null;
     state.detailFlg = false;
     state.selectedCareReceiver = null;
-  },
-  setDetailFlg(state, payload) {
-    state.detailFlg = payload;
-  },
-  setSelectedCareReceiver(state, payload) {
-    state.selectedCareReceiver = payload;
   },
 };
 const actions = {
@@ -76,8 +76,8 @@ const actions = {
   setLoggedInCareManagerData(context, payload) {
     context.commit('setLoggedInCareManagerData', payload);
   },
-  setDetailFlg(context, payload) {
-    context.commit('setDetailFlg', payload);
+  setCareManagerDetailFlg(context, payload) {
+    context.commit('setCareManagerDetailFlg', payload);
   },
   setSelectedCareReceiver(context, payload) {
     context.commit('setSelectedCareReceiver', payload);

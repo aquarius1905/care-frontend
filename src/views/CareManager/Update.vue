@@ -194,7 +194,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      'setDetailFlg',
+      'setCareManagerDetailFlg',
       'fetchCareManagerData',
     ]),
     async fetchAddress() {
@@ -247,7 +247,7 @@ export default {
     },
   },
   async created() {
-    this.setDetailFlg(false);
+    this.setCareManagerDetailFlg(false);
     this.initializeCareManagerData();
   }
 }

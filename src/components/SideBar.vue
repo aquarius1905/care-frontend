@@ -4,18 +4,22 @@
       <div>
         <ul class="menu__content" v-if="this.isCareManagerLoggedIn">
           <li>
-            <router-link class="link" to="/care-manager/dashboard">ダッシュボード</router-link>
+            <router-link class="link" to="/care-manager/dashboard">
+              ダッシュボード
+            </router-link>
           </li>
           <li>
             <button class="btn__link" @click="showCareReceiverRegistrationPage">被介護者登録</button>
           </li>
           <li>
-            <button class="btn__link" @click="showCareManagerUpdatePage">登録情報確認・変更</button>
+            <router-link class="link" to="/care-manager/update">
+              登録情報確認・更新
+            </router-link>
           </li>
-          <ul class="menu__content" v-if="this.isCareManagerLoggedIn && this.isDetail">
+          <ul class="menu__content" v-if="this.isCareManagerLoggedIn && this.isCareManagerDetail">
             <h2 class="menu__ttl">詳細メニュー</h2>
             <li>
-              <router-link class="link" :to="{ name: 'CareReceiverDetail'}">
+              <router-link class="link" to="/care-manager/care-receiver/detail">
                 被介護者詳細情報
               </router-link>
             </li>
@@ -54,7 +58,14 @@
       <div>
         <ul class="menu__content">
           <li>
-            <router-link class="link" to="/care-receiver/dashboard">ダッシュボード</router-link>
+            <router-link class="link" to="/care-receiver/dashboard">
+              ダッシュボード
+            </router-link>
+          </li>
+          <li>
+            <router-link class="link" to="/care-receiver/detail">
+              登録情報確認
+            </router-link>
           </li>
         </ul>
       </div>
@@ -63,10 +74,14 @@
       <div>
         <ul class="menu__content" v-if="this.isNursingCareOfficeLoggedIn">
           <li>
-            <router-link class="link" to="/nursing-care-office/dashboard">ダッシュボード</router-link>
+            <router-link class="link" to="/nursing-care-office/dashboard">
+              ダッシュボード
+            </router-link>
           </li>
           <li>
-            <router-link class="link" to="/nursing-care-office/update">登録情報確認・変更</router-link>
+            <router-link class="link" to="/nursing-care-office/update">
+              登録情報確認・更新
+            </router-link>
           </li>
         </ul>
         <ul class="menu__content" v-else>
@@ -95,7 +110,9 @@ export default {
       'isCareManagerLoggedIn',
       'isCareReceiverLoggedIn',
       'isNursingCareOfficeLoggedIn',
-      'isDetail'
+      'isCareManagerDetail',
+      'getSelectedCareReceiver',
+      'getLoggedInCareReceiver'
     ])
   },
   methods: {
@@ -103,11 +120,6 @@ export default {
       this.$router.push({
         name: 'CareManagerRegistration',
         query: { care_manager: null }
-      });
-    },
-    showCareManagerUpdatePage() {
-      this.$router.push({
-        name: 'CareManagerUpdate'
       });
     },
     showCareReceiverRegistrationPage() {
@@ -122,6 +134,17 @@ export default {
         query: { nursing_care_office: null }
       });
     },
+    showCareReceiverDetail() {
+      if (this.isCareManagerLoggedIn) {
+        this.$router.push({
+          name: 'CareManagerCareReceiverDetail'
+        });
+      } else if (this.isCareReceiverLoggedIn) {
+        this.$router.push({
+          name: 'CareReceiverDetail'
+        });
+      }
+    }
   },
 }
 </script>

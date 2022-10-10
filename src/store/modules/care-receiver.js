@@ -3,7 +3,7 @@ import { careReceiverAuthApi } from "@/plugins/axios";
 const state = {
     careReceiverAccessToken: null,
     loggedInCareReceiver: null,
-    weeklyServiceSchedules: null
+    weeklyServiceSchedules: null,
 };
 const getters = {
   getCareReceiverAccessToken(state) {
@@ -38,7 +38,7 @@ const getters = {
   },
   getWeeklyServiceSchedules(state) {
     return state.weeklyServiceSchedules;
-  },
+  }
 };
 const mutations = {
   setCareReceiverAccessToken(state, payload) {
@@ -65,6 +65,17 @@ const actions = {
   },
   resetCareReceiver(context) {
     context.commit('resetCareReceiver');
+  },
+  async fetchCareReceiverData(context) {
+    try {
+      const { data } = await careReceiverAuthApi.get(
+        '/care-receivers/me'
+      );
+
+      context.commit('setLoggedInCareReceiverData', data.data);
+    } catch (error) {
+      alert("登録情報の取得に失敗しました");
+    }
   },
   async fetchWeeklyServiceSchedules(context, payload) {
     try {

@@ -312,7 +312,7 @@ export default {
   methods: {
     ...mapActions([
       'fetchCareLevels',
-      'setDetailFlg'
+      'setCareManagerDetailFlg'
     ]),
     async fetchAddress() {
       this.care_receiver.address = await
@@ -343,7 +343,7 @@ export default {
       if (this.$route.query.care_receiver !== null) {
         this.care_receiver = this.$route.query.care_receiver
       }
-      this.setDetailFlg(false);
+      this.setCareManagerDetailFlg(false);
       this.getCareLevels();
     }
   },

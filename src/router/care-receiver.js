@@ -3,7 +3,7 @@ import CareReceiverRegistrationConfirm from '@/views/CareReceiver/RegistrationCo
 import CareReceiverRegistrationCompletion from '@/views/CareReceiver/RegistrationCompletion.vue'
 import CareReceiverUpdate from '@/views/CareReceiver/Update.vue'
 import CareReceiverUpdateCompletion from '@/views/Common/UpdateCompletion.vue'
-import CareReceiverDetailView from '@/views/CareReceiver/DetailView.vue'
+import CareReceiverDetail from '@/views/Common/CareReceiverDetail.vue'
 import CareReceiverWeeklyServiceScheduleView from '@/views/CareReceiver/WeeklyServiceScheduleView.vue'
 import CareReceiverLoginView from '../views/CareReceiver/LoginView.vue'
 import CareReceiverDashboard from '../views/CareReceiver/Dashboard.vue'
@@ -44,7 +44,7 @@ export default {
     {
       path: '/care-receiver/detail',
       name: 'CareReceiverDetail',
-      component: CareReceiverDetailView,
+      component: CareReceiverDetail,
       meta: { requiresAuth: true },
     },
     {

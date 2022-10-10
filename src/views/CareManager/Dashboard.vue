@@ -20,7 +20,7 @@
       <tbody>
         <tr v-for="(care_receiver, index) in care_receivers" :key="care_receiver.id">
           <td>
-            <input type="checkbox" class="checkbox" v-model="checked_care_receiver_ids" :value=care_receiver.id>
+            <input type="checkbox" class="checkbox" v-model="checked_care_receiver_ids" :value=care_receiver.id @click="checked($event)">
           </td>
           <td>{{ index + 1 }}</td>
           <td>{{ care_receiver.name }}</td>
@@ -29,7 +29,7 @@
           <td>{{ $dayjs(care_receiver.birthday).format('YYYY/MM/DD') }}</td>
           <td>{{ care_receiver.care_level.name }}</td>
           <td>
-            <button class="btn delete__btn" @click="showDetailView(care_receiver)">詳細</button>
+            <button class="btn delete__btn" @click="showDetail(care_receiver)">詳細</button>
           </td>
           <td>
             <button class="btn update__btn" @click="updateCareReceiver(care_receiver)">更新</button>
@@ -37,7 +37,7 @@
         </tr>
       </tbody>
     </table>
-    <button class="btn all-delete__btn" @click="deleteCareReceivers">一括削除</button>
+    <button class="btn all-delete__btn" @click="deleteCareReceivers" :disabled="isDisabled">一括削除</button>
   </div>
 </template>
 
@@ -48,13 +48,14 @@ export default {
   data() {
     return {
       care_receivers: {},
-      checked_care_receiver_ids: []
+      checked_care_receiver_ids: [],
+      isDisabled: true
     }
   },
   methods: {
     ...mapActions([
       'setSelectedCareReceiver',
-      'setDetailFlg'
+      'setCareManagerDetailFlg'
     ]),
     async getCareReceivers() {
       try {
@@ -73,13 +74,15 @@ export default {
     },
     allChecked(event) {
       let check_boxes = document.getElementsByClassName('checkbox');
-      let action_flg = event.target.checked;
+      let checked_flg = event.target.checked;
+      this.isDisabled = !checked_flg;
+      console.log(this.isDisabled);
 
       for (let i = 0; i < check_boxes.length; i++) {
         const check_box = check_boxes[i];
-        check_box.checked = action_flg;
+        check_box.checked = checked_flg;
         const care_receiver_id = Number(check_box.value);
-        if (action_flg) {
+        if (checked_flg) {
           this.checked_care_receiver_ids.push(care_receiver_id);
         } else {
           this.checked_care_receiver_ids.splice(
@@ -88,11 +91,25 @@ export default {
         }
       }
     },
-    showDetailView(care_receiver) {
+    checked(event) {
+      if (event.target.checked) {
+        this.isDisabled = false;
+        return;
+      }
+      this.isDisabled = true;
+      let check_boxes = document.getElementsByClassName('checkbox');
+      for (let i = 0; i < check_boxes.length; i++) {
+        if (check_boxes[i].checked) {
+          this.isDisabled = false;
+          break;
+        }
+      }
+    },
+    showDetail(care_receiver) {
       this.setSelectedCareReceiver(care_receiver);
 
       this.$router.push({
-        name: 'CareReceiverDetail'
+        name: 'CareManagerCareReceiverDetail'
       });
     },
     updateCareReceiver(care_receiver) {
@@ -102,21 +119,27 @@ export default {
       });
     },
     async deleteCareReceivers() {
-      if (confirm("削除しますか？")) {
-        const response = await careManagerAuthApi.post(
+      if (!confirm("削除しますか？")) {
+      }
+      try {
+        const send_data = {
+          ids: this.checked_care_receiver_ids
+        };
+        const { data } = await careManagerAuthApi.post(
           '/care-receivers/batch-delete',
-          this.checked_care_receiver_ids
+          send_data
         );
-        if (response.status === 200) {
-          await this.getCareReceivers();
-        } else {
-          alert("削除に失敗しました");
-        }
+
+        this.care_receivers = data.data;
+
+      } catch (error) {
+        console.log(error);
+        alert("削除に失敗しました");
       }
     },
   },
   async created() {
-    this.setDetailFlg(false);
+    this.setCareManagerDetailFlg(false);
     await this.getCareReceivers();
   }
 };

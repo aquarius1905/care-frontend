@@ -2,7 +2,7 @@
   <div class="confirmation">
     <h2 class="confirmation__ttl">被介護者 登録内容確認</h2>
     <div class="confirmation__content box-shadow">
-      <h3 class="confirmation__sub-ttl">被介護者情報</h3>
+      <h3 class="tbl__sub-ttl">被介護者情報</h3>
       <table class="confirmation__tbl">
         <tr>
           <th>氏名</th>
@@ -41,7 +41,7 @@
           <td>{{ care_receiver.insured_number }}</td>
         </tr>
       </table>
-      <h3 class="confirmation__sub-ttl">キーパーソン情報</h3>
+      <h3 class="tbl__sub-ttl">キーパーソン情報</h3>
       <table class="confirmation__tbl">
         <tr>
           <th>氏名</th>

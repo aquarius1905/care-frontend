@@ -58,10 +58,10 @@ export default {
   },
   methods: {
     ...mapActions([
-      'setDetailFlg'
+      'setCareManagerDetailFlg'
     ]),
     initialize() {
-      this.setDetailFlg(true);
+      this.setCareManagerDetailFlg(true);
 
       this.visit_datetime.care_receiver_id = this.care_receiver.id;
       this.registered_flg = this.care_receiver.visit_datetime !== null;
