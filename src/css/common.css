@@ -237,7 +237,8 @@ body {
 .registration,
 .confirmation,
 .update,
-.care-receiver__detail {
+.care-receiver__detail,
+.care-manager__info {
   margin: 20px auto 50px;
   width: 700px;
 }
@@ -246,14 +247,16 @@ body {
 .confirmation__ttl,
 .update__ttl,
 .detail__ttl,
-.visit-datetime__ttl {
+.visit-datetime__ttl,
+.info__ttl {
   color: #1a237e;
   font-size: 22px;
 }
 
 .form__info,
 .confirmation__content,
-.detail__content {
+.detail__content,
+.info__content {
   background-color: #fff;
   margin-top: 20px;
   padding: 20px;

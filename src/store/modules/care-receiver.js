@@ -4,6 +4,7 @@ const state = {
     careReceiverAccessToken: null,
     loggedInCareReceiver: null,
     weeklyServiceSchedules: null,
+    careManagerInCharege: null,
 };
 const getters = {
   getCareReceiverAccessToken(state) {
@@ -38,6 +39,9 @@ const getters = {
   },
   getWeeklyServiceSchedules(state) {
     return state.weeklyServiceSchedules;
+  },
+  getCareManagerInCharge(state) {
+    return state.loggedInCareReceiver.care_manager;
   }
 };
 const mutations = {
@@ -54,14 +58,15 @@ const mutations = {
   },
   setWeeklyServiceSchedules(state, payload) {
     state.weeklyServiceSchedules = payload;
+  },
+  setInfoAboutCareReceiver(state, payload) {
+    state.loggedInCareReceiver = payload;
+    state.weeklyServiceSchedules = payload.weekly_service_schedules;
   }
 };
 const actions = {
   setCareReceiverAccessToken(context, payload) {
     context.commit('setCareReceiverAccessToken', payload);
-  },
-  setLoggedInCareReceiverData(context, payload) {
-    context.commit('setLoggedInCareReceiverData', payload);
   },
   resetCareReceiver(context) {
     context.commit('resetCareReceiver');
@@ -72,7 +77,7 @@ const actions = {
         '/care-receivers/me'
       );
 
-      context.commit('setLoggedInCareReceiverData', data.data);
+      context.commit('setInfoAboutCareReceiver', data.data);
     } catch (error) {
       alert("登録情報の取得に失敗しました");
     }
