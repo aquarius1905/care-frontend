@@ -232,7 +232,6 @@ export default {
     },
     initializeCareManagerData() {
       this.care_manager = Vue.util.extend({}, this.getLoggedInCareManagerData);
-      console.log(this.care_manager);
 
       this.care_manager.password = null;
       this.care_manager.password_confirmation = null;

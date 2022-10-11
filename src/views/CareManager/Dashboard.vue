@@ -76,7 +76,6 @@ export default {
       let check_boxes = document.getElementsByClassName('checkbox');
       let checked_flg = event.target.checked;
       this.isDisabled = !checked_flg;
-      console.log(this.isDisabled);
 
       for (let i = 0; i < check_boxes.length; i++) {
         const check_box = check_boxes[i];

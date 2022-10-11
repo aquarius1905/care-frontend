@@ -14,7 +14,6 @@ export default {
     }
   },
   created() {
-    console.log("TextMessage");
     this.msg = this.$route.query.msg;
   }
 };

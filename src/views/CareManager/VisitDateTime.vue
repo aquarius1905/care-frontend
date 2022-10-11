@@ -117,12 +117,11 @@ export default {
       }
 
       if (response.status === 201) {
-        console.log("success");
-        this.care_receiver.visit_datetime = this.visit_datetime;
+        this.care_receiver.visit_datetime = response.data.data;
         this.setSelectedCareReceiver(this.care_receiver);
+        console.log(this.care_receiver);
         const msg = this.registered_flg
           ? '訪問日時を変更しました' : '訪問日時の登録が完了しました'
-        console.log(msg);
         this.$router.push({
           name: 'VisitDateTimeRegistrationComplete',
           query: { msg: msg }

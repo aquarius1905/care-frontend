@@ -92,16 +92,13 @@ export default {
   },
   created() {
     if (this.isCareManagerLoggedIn) {
-      console.log('isCareManagerLoggedIn');
       this.setCareManagerDetailFlg(true);
       this.care_receiver = this.getSelectedCareReceiver;
       this.page_ttl = '被介護者詳細情報';
     } else if (this.isCareReceiverLoggedIn) {
-      console.log('isCareReceiverLoggedIn');
       this.care_receiver = this.getLoggedInCareReceiver;
       this.page_ttl = '登録情報確認';
     }
-    console.log(this.care_receiver);
   }
 };
 </script>
