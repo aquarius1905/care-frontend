@@ -143,7 +143,8 @@ export default {
       'getSelectedCareReceiverId',
     ]),
     ...mapGetters({
-      care_receiver_name: 'getSelectedCareReceiverName'
+      care_receiver_name: 'getSelectedCareReceiverName',
+      weekly_service_schedules: 'getWeeklyServiceSchedules'
     })
   },
   methods: {
@@ -152,25 +153,8 @@ export default {
     ]),
     async initialize() {
       this.setCurrentCareReceiverId();
-      await this.fetchWeeklyServiceSchedules();
       await this.setDayofweeksAndServicetypes();
       this.changeServiceType();
-    },
-    async fetchWeeklyServiceSchedules() {
-      try {
-        const params = {
-          care_receiver_id: this.weekly_service_schedule.care_receiver_id
-        }
-        const { data } = await careManagerAuthApi.get(
-          '/weekly-service-schedules',
-          { params }
-        );
-
-        this.weekly_service_schedules = data.data;
-      } catch (error) {
-        console.log(error);
-        alert('週間サービス計画表のデータ取得に失敗しました');
-      }
     },
     async setDayofweeksAndServicetypes() {
       if (this.emptyServiceTypesWithNursingCareOffices) {

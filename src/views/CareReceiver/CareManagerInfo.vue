@@ -1,6 +1,11 @@
 <template>
   <div class="care-manager__info">
-    <h2 class="info__ttl">担当ケアマネージャー情報</h2>
+    <div class="ttl__wrap">
+      <h2 class="info__ttl">担当ケアマネージャー</h2>
+      <label class="visit-datetime__lbl">
+        次回訪問日時：{{ visit_datetime }}
+      </label>
+    </div>
     <div class="detail__content box-shadow">
       <h3 class="tbl__sub-ttl">ケアマネージャー情報</h3>
       <table class="detail__tbl">
@@ -45,11 +50,12 @@ import { mapGetters } from 'vuex'
 export default {
   computed: {
     ...mapGetters({
-      care_manager: 'getCareManagerInCharge'
+      care_manager: 'getCareManagerInCharge',
+      visit_datetime: 'getCareManagerVisitDateTime'
+
     })
   },
   created() {
-    console.log("CareManagerInfo")
   }
 };
 </script>

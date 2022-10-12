@@ -84,24 +84,14 @@ export default {
     })
   },
   methods: {
-    ...mapActions([
-      'fetchWeeklyServiceSchedules',
-    ]),
     async initialize() {
       this.setYearAndMonth();
-      await this.fetchWeeklyServiceSchedules();
+      this.weekly_service_schedules = this.getWeeklyServiceSchedules;
       this.makeMonthlySchedules();
     },
     setYearAndMonth() {
       this.this_year_and_month
         = dayjs().format('YYYY年MM月');
-    },
-    async fetchWeeklyServiceSchedules() {
-      if (this.emptyWeeklyServiceSchedules) {
-        await this.fetchWeeklyServiceSchedules(this.care_receiver.id);
-      }
-
-      this.weekly_service_schedules = this.getWeeklyServiceSchedules;
     },
     makeMonthlySchedules() {
       const monthStart = dayjs().startOf('month');

@@ -1,4 +1,5 @@
 import { careManagerAuthApi } from "@/plugins/axios";
+import dayjs from 'dayjs'
 
 const state = {
   careManagerAccessToken: null,
@@ -37,6 +38,14 @@ const getters = {
   getSelectedCareReceiverName(state) {
     return state.selectedCareReceiver.name;
   },
+  getVisitDateTime(state) {
+    const visit_datetime = state.selectedCareReceiver.visit_datetime;
+    if (visit_datetime === null) {
+      return '未定';
+    }
+    return dayjs(visit_datetime.date).format('YYYY年MM月DD日（ddd）')
+      + dayjs(visit_datetime.time).format('HH時mm分');
+  }
 };
 const mutations = {
   setLoggedInCareManagerData(state, payload) {

@@ -404,7 +404,7 @@ body {
 .monthly-schedule__tbl td,
 .users-list__tbl td {
   text-align: center;
-  padding: 5px 10px;
+  padding: 5px;
 }
 
 .weekly-service-schedule__tbl tr:first-child th:first-child,
@@ -447,4 +447,13 @@ body {
 
 .login__form-content {
   padding: 30px 20px 20px;
+}
+
+.ttl__wrap {
+  display: flex;
+  align-items: center;
+}
+
+.visit-datetime__lbl {
+  margin-left: 40px;
 }

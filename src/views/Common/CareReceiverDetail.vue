@@ -1,9 +1,9 @@
 <template>
   <div class="care-receiver__detail">
-    <div class="detail__ttl-wrap">
+    <div class="ttl__wrap">
       <h2 class="detail__ttl">{{ page_ttl }}</h2>
-      <label class="visit-datetime__lbl">
-        次回訪問予定日：{{ visit_datetime }}
+      <label class="visit-datetime__lbl" v-show="isCareManagerLoggedIn">
+        次回訪問日時：{{ visit_datetime }}
       </label>
     </div>
     <div class="detail__content box-shadow">
@@ -74,7 +74,6 @@
 </template>
 
 <script>
-import dayjs from 'dayjs'
 import { mapGetters, mapActions } from 'vuex'
 export default {
   data() {
@@ -90,6 +89,7 @@ export default {
       'isCareReceiverLoggedIn',
       'getSelectedCareReceiver',
       'getLoggedInCareReceiver',
+      'getVisitDateTime'
     ])
   },
   methods: {
@@ -101,32 +101,15 @@ export default {
         this.setCareManagerDetailFlg(true);
         this.care_receiver = this.getSelectedCareReceiver;
         this.page_ttl = '被介護者詳細情報';
+        this.visit_datetime = this.getVisitDateTime;
       } else if (this.isCareReceiverLoggedIn) {
         this.care_receiver = this.getLoggedInCareReceiver;
         this.page_ttl = '登録情報確認';
-      }
-      if (this.care_receiver.visit_datetime === null) {
-        this.visit_datetime = '未定';
-      } else {
-        this.visit_datetime
-          = dayjs(this.care_receiver.visit_datetime.date).format('YYYY年MM月DD日（ddd）')
-          + dayjs(this.care_receiver.visit_datetime.time).format('HH時mm分');
       }
     }
   },
   created() {
     this.initialize();
-
   }
 };
 </script>
-
-<style scoped>
-.detail__ttl-wrap {
-  display: flex;
-  align-items: center;
-}
-.visit-datetime__lbl {
-  margin-left: 40px;
-}
-</style>

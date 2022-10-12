@@ -19,8 +19,8 @@
         </thead>
         <tbody>
           <tr v-for="(schedule, index) in weekly_service_schedules" :key="index">
-            <td>{{ day_of_weeks[schedule.dayofweek_id] }}</td>
-            <td>{{ schedule.service_type.name }}</td>
+            <td>{{ day_of_weeks[schedule.dayofweek_id]}}</td>
+            <td>{{ schedule.nursing_care_office.service_type.name }}</td>
             <td>{{ schedule.nursing_care_office.office_name }}</td>
             <td>{{ schedule.starting_time.substring(0, 5) }}</td>
             <td>{{ schedule.ending_time.substring(0, 5) }}</td>
@@ -32,38 +32,14 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 export default {
-  data() {
-    return {
-      weekly_service_schedules: null
-    }
-  },
   computed: {
-    ...mapGetters([
-      'emptyWeeklyServiceSchedules',
-      'getWeeklyServiceSchedules',
-    ]),
     ...mapGetters({
-      care_receiver: 'getLoggedInCareReceiver',
-      day_of_weeks: 'getDayOfWeeks'
+      day_of_weeks: 'getDayOfWeeks',
+      weekly_service_schedules: 'getWeeklyServiceSchedules'
     })
   },
-  methods: {
-    ...mapActions([
-      'fetchWeeklyServiceSchedules',
-    ]),
-    async initialize() {
-      if (this.emptyWeeklyServiceSchedules) {
-        await this.fetchWeeklyServiceSchedules(this.care_receiver.id);
-      }
-
-      this.weekly_service_schedules = this.getWeeklyServiceSchedules;
-    }
-  },
-  async created() {
-    await this.initialize();
-  }
 };
 </script>
 

@@ -4,7 +4,7 @@ import CareReceiverRegistrationCompletion from '@/views/CareReceiver/Registratio
 import CareReceiverUpdate from '@/views/CareReceiver/Update.vue'
 import CareReceiverUpdateCompletion from '@/views/Common/UpdateCompletion.vue'
 import CareReceiverDetail from '@/views/Common/CareReceiverDetail.vue'
-import CareReceiverWeeklyServiceScheduleView from '@/views/CareReceiver/WeeklyServiceScheduleView.vue'
+import CareReceiverWeeklyServiceSchedule from '@/views/CareReceiver/WeeklyServiceSchedule.vue'
 import CareReceiverLogin from '../views/CareReceiver/LoginView.vue'
 import CareReceiverDashboard from '../views/CareReceiver/Dashboard.vue'
 import CareReceiverMonthlySchedule from '../views/CareReceiver/MonthlySchedule.vue'
@@ -51,7 +51,7 @@ export default {
     {
       path: '/care-receiver/weekly-service-schedule',
       name: 'CareReceiverWeeklyServiceSchedule',
-      component: CareReceiverWeeklyServiceScheduleView,
+      component: CareReceiverWeeklyServiceSchedule,
       meta: { requiresAuth: true },
     },
     {

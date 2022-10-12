@@ -1,4 +1,5 @@
 import { careReceiverAuthApi } from "@/plugins/axios";
+import dayjs from 'dayjs'
 
 const state = {
     careReceiverAccessToken: null,
@@ -42,6 +43,14 @@ const getters = {
   },
   getCareManagerInCharge(state) {
     return state.loggedInCareReceiver.care_manager;
+  },
+  getCareManagerVisitDateTime(state) {
+    const visit_datetime = state.loggedInCareReceiver.visit_datetime;
+    if (visit_datetime === null) {
+      return '未定';
+    }
+    return dayjs(visit_datetime.date).format('YYYY年MM月DD日（ddd）')
+      + dayjs(visit_datetime.time).format('HH時mm分');
   }
 };
 const mutations = {
@@ -55,9 +64,6 @@ const mutations = {
     state.careReceiverAccessToken = null;
     state.loggedInCareReceiver = null;
     state.weeklyServiceSchedules = null;
-  },
-  setWeeklyServiceSchedules(state, payload) {
-    state.weeklyServiceSchedules = payload;
   },
   setInfoAboutCareReceiver(state, payload) {
     state.loggedInCareReceiver = payload;
@@ -82,23 +88,6 @@ const actions = {
       alert("登録情報の取得に失敗しました");
     }
   },
-  async fetchWeeklyServiceSchedules(context, payload) {
-    try {
-      const params = {
-        care_receiver_id: payload
-      }
-      const { data } = await careReceiverAuthApi.get(
-        '/weekly-service-schedules',
-        { params }
-      );
-
-      context.commit('setWeeklyServiceSchedules', data.data);
-
-    } catch (error) {
-        console.log(error);
-        alert('週間サービス計画表のデータ取得に失敗しました');
-    }
-  }
 };
 
 export default {
