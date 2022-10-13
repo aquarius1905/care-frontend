@@ -24,7 +24,13 @@
             <td>{{ schedule.office_name }}</td>
             <td>{{ schedule.starting_time }}</td>
             <td>{{ schedule.ending_time }}</td>
-            <td><button class="btn tbl-cancel__btn" :disabled="schedule.disabled">キャンセル</button></td>
+            <td>
+              <button class="btn tbl-cancel__btn" 
+              :disabled="schedule.disabled"
+              @click="cancel(schedule)">
+                キャンセル
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -40,8 +46,7 @@ export default {
   data() {
     return {
       this_year_and_month: null,
-      monthly_schedules: [],
-      today: dayjs()
+      monthly_schedules: []
     }
   },
   computed: {
@@ -78,6 +83,13 @@ export default {
           this.monthly_schedules.push(monthly_schedule);
         }
       }
+    },
+    cancel(schedule) {
+      schedule.care_receiver_id = this.care_receiver.id;
+      this.$router.push({
+        name: 'Cancellation',
+        query: { schedule: schedule }
+      });
     }
   },
   created() {

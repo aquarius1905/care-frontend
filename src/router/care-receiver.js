@@ -10,6 +10,7 @@ import CareReceiverDashboard from '@/views/CareReceiver/Dashboard.vue'
 import CareReceiverMonthlySchedule from '@/views/CareReceiver/MonthlySchedule.vue'
 import CareManagerInfo from '@/views/CareReceiver/CareManagerInfo.vue'
 import Cancellation from '@/views/CareReceiver/Cancellation.vue'
+import CancellationCompleted from '@/views/Common/TextMessage.vue'
 
 export default {
   routes: [
@@ -83,6 +84,12 @@ export default {
       path: '/care-receiver/cancellation',
       name: 'Cancellation',
       component: Cancellation,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/care-receiver/completed',
+      name: 'CancellationCompleted',
+      component: CancellationCompleted,
       meta: { requiresAuth: true },
     }
   ]

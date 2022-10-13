@@ -147,7 +147,7 @@ body {
 }
 
 .btn:disabled {
-  background: #777;
+  background: #aaa;
   cursor: default;
   pointer-events: none;
 }
@@ -460,8 +460,7 @@ body {
   margin-left: 40px;
 }
 
-.visit-datetime,
-.cancellation {
+.visit-datetime {
   margin: 20px auto 0;
   width: 400px;
 }

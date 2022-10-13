@@ -1,155 +1,102 @@
 <template>
   <div class="cancellation">
     <h2 class="cancellation__ttl">キャンセル連絡</h2>
-    <div class="visit-datetime__form box-shadow">
-        <validation-observer v-slot="{ invalid }">
+    <div class="cancellation__form box-shadow">
         <div class="form__content">
           <div class="form__item">
-            <!-- <validation-provider v-slot="{ errors }" rules="required"> -->
-              <label class="form__item-lbl">
-                日付
-                <span class="required__lbl">必須</span>
-              </label>
-              <!-- <div class="error">{{ errors[0] }}</div>
-            </validation-provider> -->
+            <label class="form__item-lbl">氏名</label>
+            <label>{{ care_receiver_name }}</label>
           </div>
           <div class="form__item">
             <label class="form__item-lbl">施設名</label>
-            <label></label>
+            <label>{{ schedule.office_name }}</label>
           </div>
           <div class="form__item">
-            <label class="form__item-lbl" for="visit_time">時間</label>
-            <label></label>
+            <label class="form__item-lbl">日付</label>
           </div>
-          <button class="btn cancel__btn" @click="cancel" :disabled="invalid">
+          <div class="form__item">
+            <label class="form__item-lbl">時間</label>
+            <label>{{ schedule.starting_time }}～{{ schedule.ending_time }}</label>
+          </div>
+          <div class="form__item reason__item">
+            <label class="form__item-lbl" for="reason">
+              理由
+              <span class="required__lbl">必須</span>
+            </label>
+            <textarea name="" id="reason" class="reason" v-model="schedule.reason"></textarea>
+          </div>
+          <button class="btn cancel__btn" @click="cancel">
             キャンセル
           </button>
         </div>
-      </validation-observer>
     </div>
   </div>
 </template>
 
 <script>
 import dayjs from 'dayjs';
-import { careManagerAuthApi } from "@/plugins/axios";
-import { mapGetters, mapActions } from 'vuex'
+import { careReceiverAuthApi } from "@/plugins/axios";
+import { mapGetters } from 'vuex';
 export default {
   data() {
     return {
-      visit_datetime_id: 0,
-      visit_datetime: {
-        care_receiver_id: null,
-        date: null,
-        time: null
-      },
-      times: [],
-      tomorrow: null,
-      registered_flg: false,
+      schedule: {}
     }
   },
   computed: {
     ...mapGetters({
-      care_receiver: 'getSelectedCareReceiver',
+      care_receiver_name: 'getLoggedInCareReceiverName',
     })
   },
   methods: {
-    ...mapActions([
-      'setCareManagerDetailFlg',
-      'setSelectedCareReceiver'
-    ]),
-    initialize() {
-      this.setCareManagerDetailFlg(true);
-
-      this.visit_datetime.care_receiver_id = this.care_receiver.id;
-      this.registered_flg = this.care_receiver.visit_datetime !== null;
-      if (this.registered_flg) {
-        this.visit_datetime_id = this.care_receiver.visit_datetime.id;
-      }
-      
-      this.setTomorrow();
-      this.setTimes();
-      this.setVisitDateTime();
-    },
-    setTomorrow() {
-      const today = new Date();
-      const tomorrow = new Date(today);
-      tomorrow.setDate(today.getDate() + 1);
-      this.tomorrow = dayjs(tomorrow).format('YYYY-MM-DD');
-    },
-    setTimes() {
-      for (let h = 9; h <= 18; h++) {
-        this.times.push(h + ':' + '00');
-        this.times.push(h + ':' + '30');
-      }
-    },
-    setVisitDateTime() {
-      if (this.registered_flg) {
-        const visit_datetime = this.care_receiver.visit_datetime;
-        this.visit_datetime.date = dayjs(visit_datetime.date).format('YYYY-MM-DD');
-        this.visit_datetime.time = dayjs(visit_datetime.time).format('HH:mm');
-      } else {
-        this.visit_datetime.date = this.tomorrow;
-        this.visit_datetime.time = '14:00';
-      }
-    },
-    async register() {
-      const msg = this.registered_flg ?
-      "訪問日時を更新しますか？" : "訪問日時を登録しますか？"
-      if (!confirm(msg)) {
-        return;
-      }
-
-      let response = null;
-      if (this.registered_flg) {
-        response = await careManagerAuthApi.put(
-          `/care-managers/visit-datetime/${this.visit_datetime_id}`,
-          this.visit_datetime
+    cancel() {
+      try {
+        const response = careReceiverAuthApi.post(
+          '/cancellation', this.schedule
         );
-      } else {
-        response = await careManagerAuthApi.post(
-          '/care-managers/visit-datetime',
-          this.visit_datetime
-        );
+        if (response.status === 201) {
+          this.$router.push({
+            name: 'CancellationCompleted',
+            query: { msg: "キャンセルの登録が完了しました" }
+          });
+        }
+      } catch (error) {
+        console.log(error);
+        alert("キャンセルの登録に失敗しました");
       }
 
-      if (response.status === 201) {
-        this.care_receiver.visit_datetime = response.data.data;
-        this.setSelectedCareReceiver(this.care_receiver);
-        console.log(this.care_receiver);
-        const msg = this.registered_flg
-          ? '訪問日時を変更しました' : '訪問日時の登録が完了しました'
-        this.$router.push({
-          name: 'VisitDateTimeRegistrationComplete',
-          query: { msg: msg }
-        });
-      }
-    },
+    }
   },
   created() {
-    this.initialize();
+    this.schedule = this.$route.query.schedule;
   }
 }
 </script>
 
 <style scoped>
-.visit-datetime {
+.cancellation {
   margin: 20px auto 0;
-  width: 400px;
+  width: 550px;
 }
-
-.visit-datetime__form {
+.cancellation__form {
   background-color: #fff;
   width: 100%;
   margin: 20px auto 0;
   border-radius: 6px;
 }
-
-.time-select {
-  font-size: 20px;
-  padding: 0 5px;
-}
 .form__content {
   padding: 20px;
+}
+.form__item-lbl {
+  display: inline-block;
+  margin: 0;
+  width: 150px;
+}
+.reason {
+  resize: none;
+  width: 300px;
+  height: 100px;
+  padding: 10px;
+  font-size: 18px;
 }
 </style>
