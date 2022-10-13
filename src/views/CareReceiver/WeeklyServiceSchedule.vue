@@ -226,11 +226,6 @@ export default {
 .weekly-schedule {
   padding-bottom: 30px;
 }
-.page__header {
-  display: flex;
-  align-items: center;
-  padding: 20px;
-}
 .page__ttl {
   padding: 0;
   margin-right: 40px;

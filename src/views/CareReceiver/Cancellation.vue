@@ -1,31 +1,28 @@
 <template>
-  <div class="visit-datetime">
-    <h2 class="visit-datetime__ttl">訪問日時{{ registered_flg? "確認・変更": "登録" }}</h2>
+  <div class="cancellation">
+    <h2 class="cancellation__ttl">キャンセル連絡</h2>
     <div class="visit-datetime__form box-shadow">
         <validation-observer v-slot="{ invalid }">
         <div class="form__content">
           <div class="form__item">
-            <label class="form__item-lbl">氏名</label>
-            <label class="">{{ care_receiver.name }}</label>
+            <!-- <validation-provider v-slot="{ errors }" rules="required"> -->
+              <label class="form__item-lbl">
+                日付
+                <span class="required__lbl">必須</span>
+              </label>
+              <!-- <div class="error">{{ errors[0] }}</div>
+            </validation-provider> -->
           </div>
           <div class="form__item">
-            <validation-provider v-slot="{ errors }" rules="required">
-              <label class="form__item-lbl" for="visit_date">訪問日</label>
-              <input type="date" id="visit_date" class="input" v-model="visit_datetime.date" :min="tomorrow" required>
-              <div class="error">{{ errors[0] }}</div>
-            </validation-provider>
+            <label class="form__item-lbl">施設名</label>
+            <label></label>
           </div>
           <div class="form__item">
-            <validation-provider v-slot="{ errors }" rules="required">
-              <label class="form__item-lbl" for="visit_time">時間</label>
-              <select id="visit_time" class="select time-select" v-model="visit_datetime.time">
-                <option v-for="(time, index) in times" :value="time" :key="index">{{ time }}</option>
-              </select>
-              <div class="error">{{ errors[0] }}</div>
-            </validation-provider>
+            <label class="form__item-lbl" for="visit_time">時間</label>
+            <label></label>
           </div>
-          <button class="btn registration__btn" @click="register" :disabled="invalid">
-            {{ registered_flg ? "更新" : "登録" }}
+          <button class="btn cancel__btn" @click="cancel" :disabled="invalid">
+            キャンセル
           </button>
         </div>
       </validation-observer>
@@ -119,6 +116,7 @@ export default {
       if (response.status === 201) {
         this.care_receiver.visit_datetime = response.data.data;
         this.setSelectedCareReceiver(this.care_receiver);
+        console.log(this.care_receiver);
         const msg = this.registered_flg
           ? '訪問日時を変更しました' : '訪問日時の登録が完了しました'
         this.$router.push({
@@ -135,6 +133,11 @@ export default {
 </script>
 
 <style scoped>
+.visit-datetime {
+  margin: 20px auto 0;
+  width: 400px;
+}
+
 .visit-datetime__form {
   background-color: #fff;
   width: 100%;

@@ -149,6 +149,7 @@ body {
 .btn:disabled {
   background: #777;
   cursor: default;
+  pointer-events: none;
 }
 
 .next__btn,
@@ -248,7 +249,8 @@ body {
 .update__ttl,
 .detail__ttl,
 .visit-datetime__ttl,
-.info__ttl {
+.info__ttl,
+.cancellation__ttl {
   color: #1a237e;
   font-size: 22px;
 }
@@ -456,4 +458,10 @@ body {
 
 .visit-datetime__lbl {
   margin-left: 40px;
+}
+
+.visit-datetime,
+.cancellation {
+  margin: 20px auto 0;
+  width: 400px;
 }

@@ -5,10 +5,11 @@ import CareReceiverUpdate from '@/views/CareReceiver/Update.vue'
 import CareReceiverUpdateCompletion from '@/views/Common/UpdateCompletion.vue'
 import CareReceiverDetail from '@/views/Common/CareReceiverDetail.vue'
 import CareReceiverWeeklyServiceSchedule from '@/views/CareReceiver/WeeklyServiceSchedule.vue'
-import CareReceiverLogin from '../views/CareReceiver/LoginView.vue'
-import CareReceiverDashboard from '../views/CareReceiver/Dashboard.vue'
-import CareReceiverMonthlySchedule from '../views/CareReceiver/MonthlySchedule.vue'
-import CareManagerInfo from '../views/CareReceiver/CareManagerInfo.vue'
+import CareReceiverLogin from '@/views/CareReceiver/LoginView.vue'
+import CareReceiverDashboard from '@/views/CareReceiver/Dashboard.vue'
+import CareReceiverMonthlySchedule from '@/views/CareReceiver/MonthlySchedule.vue'
+import CareManagerInfo from '@/views/CareReceiver/CareManagerInfo.vue'
+import Cancellation from '@/views/CareReceiver/Cancellation.vue'
 
 export default {
   routes: [
@@ -76,6 +77,12 @@ export default {
       path: '/care-receiver/care-manager-info',
       name: 'CareManagerInfo',
       component: CareManagerInfo,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/care-receiver/cancellation',
+      name: 'Cancellation',
+      component: Cancellation,
       meta: { requiresAuth: true },
     }
   ]

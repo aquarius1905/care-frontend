@@ -63,6 +63,11 @@
             </router-link>
           </li>
           <li>
+            <router-link class="link" to="/care-receiver/monthly-schedule">
+              月間スケジュール
+            </router-link>
+          </li>
+          <li>
             <router-link class="link" to="/care-receiver/detail">
               登録情報確認
             </router-link>
