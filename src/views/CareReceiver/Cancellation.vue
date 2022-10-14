@@ -3,28 +3,28 @@
     <h2 class="cancellation__ttl">キャンセル連絡</h2>
     <div class="cancellation__form box-shadow">
         <div class="form__content">
-          <div class="form__item">
-            <label class="form__item-lbl">氏名</label>
-            <label>{{ care_receiver_name }}</label>
-          </div>
-          <div class="form__item">
-            <label class="form__item-lbl">施設名</label>
-            <label>{{ schedule.office_name }}</label>
-          </div>
-          <div class="form__item">
-            <label class="form__item-lbl">日付</label>
-          </div>
-          <div class="form__item">
-            <label class="form__item-lbl">時間</label>
-            <label>{{ schedule.starting_time }}～{{ schedule.ending_time }}</label>
-          </div>
-          <div class="form__item reason__item">
-            <label class="form__item-lbl" for="reason">
-              理由
-              <span class="required__lbl">必須</span>
-            </label>
-            <textarea name="" id="reason" class="reason" v-model="schedule.reason"></textarea>
-          </div>
+          <table class="cancellation__tbl">
+            <tr>
+              <th>氏名</th>
+              <td>{{ care_receiver_name }}</td>
+            </tr>
+            <tr>
+              <th>施設名</th>
+              <td>{{ schedule.office_name }}</td>
+            </tr>
+            <tr>
+              <th>日付</th>
+              <td>{{ schedule.date }}</td>
+            </tr>
+            <tr>
+              <th>時間</th>
+              <td>{{ schedule.starting_time }}～{{ schedule.ending_time }}</td>
+            </tr>
+            <tr>
+              <th>理由<span class="required__lbl">必須</span></th>
+              <td><textarea name="" id="reason" class="reason" v-model="schedule.reason"></textarea></td>
+            </tr>
+          </table>
           <button class="btn cancel__btn" @click="cancel">
             キャンセル
           </button>
@@ -87,10 +87,12 @@ export default {
 .form__content {
   padding: 20px;
 }
-.form__item-lbl {
-  display: inline-block;
-  margin: 0;
-  width: 150px;
+.cancellation__tbl th {
+  width: 30%;
+  font-weight: 500;
+  text-align: left;
+  height: 50px;
+  vertical-align: top;
 }
 .reason {
   resize: none;

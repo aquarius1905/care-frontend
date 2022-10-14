@@ -86,6 +86,8 @@ export default {
     },
     cancel(schedule) {
       schedule.care_receiver_id = this.care_receiver.id;
+      schedule.date = dayjs(schedule.date, 'YYYY年MM月DD日 (ddd)').toDate();
+      console.log(schedule.date);
       this.$router.push({
         name: 'Cancellation',
         query: { schedule: schedule }
