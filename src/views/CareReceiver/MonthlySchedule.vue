@@ -74,6 +74,7 @@ export default {
         }
         for (let schedule of schedules) {
           const monthly_schedule = {
+            'weekly_service_schedule_id': schedule.id,
             'date': date,
             'office_name': schedule.nursing_care_office.office_name,
             'starting_time': schedule.starting_time.substring(0, 5),
@@ -85,9 +86,7 @@ export default {
       }
     },
     cancel(schedule) {
-      schedule.care_receiver_id = this.care_receiver.id;
-      schedule.date = dayjs(schedule.date, 'YYYY年MM月DD日 (ddd)').toDate();
-      console.log(schedule.date);
+      schedule.date = dayjs(schedule.date, 'YYYY年MM月DD日 (ddd)').toDate().toString();
       this.$router.push({
         name: 'Cancellation',
         query: { schedule: schedule }

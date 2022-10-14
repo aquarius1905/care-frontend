@@ -54,8 +54,6 @@ export default {
       visit_datetime: 'getCareManagerVisitDateTime'
 
     })
-  },
-  created() {
   }
 };
 </script>

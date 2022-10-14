@@ -1,6 +1,6 @@
 <template>
   <div class="cancellation">
-    <h2 class="cancellation__ttl">キャンセル連絡</h2>
+    <h2 class="cancellation__ttl">キャンセル</h2>
     <div class="cancellation__form box-shadow">
         <div class="form__content">
           <table class="cancellation__tbl">
@@ -14,7 +14,7 @@
             </tr>
             <tr>
               <th>日付</th>
-              <td>{{ schedule.date }}</td>
+              <td>{{ $dayjs(schedule.date).format('YYYY年MM月DD日（ddd）') }}</td>
             </tr>
             <tr>
               <th>時間</th>
@@ -22,11 +22,13 @@
             </tr>
             <tr>
               <th>理由<span class="required__lbl">必須</span></th>
-              <td><textarea name="" id="reason" class="reason" v-model="schedule.reason"></textarea></td>
+              <td>
+                <textarea name="" id="reason" class="reason" v-model="schedule.reason"></textarea>
+              </td>
             </tr>
           </table>
           <button class="btn cancel__btn" @click="cancel">
-            キャンセル
+            登録
           </button>
         </div>
     </div>
@@ -34,7 +36,6 @@
 </template>
 
 <script>
-import dayjs from 'dayjs';
 import { careReceiverAuthApi } from "@/plugins/axios";
 import { mapGetters } from 'vuex';
 export default {
@@ -49,11 +50,18 @@ export default {
     })
   },
   methods: {
-    cancel() {
+    async cancel() {
+      if (!confirm('キャンセル登録しますか？')) {
+        return; 
+      }
       try {
-        const response = careReceiverAuthApi.post(
-          '/cancellation', this.schedule
+        this.schedule.date = new Date(this.schedule.date);
+
+        const response = await careReceiverAuthApi.post(
+          'care-receivers/cancel',
+          this.schedule
         );
+
         if (response.status === 201) {
           this.$router.push({
             name: 'CancellationCompleted',
@@ -64,7 +72,6 @@ export default {
         console.log(error);
         alert("キャンセルの登録に失敗しました");
       }
-
     }
   },
   created() {
