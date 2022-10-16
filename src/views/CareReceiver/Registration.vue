@@ -335,7 +335,7 @@ export default {
     },
     confirmRegistration() {
       this.$router.push({
-        name: 'CareReceiverRegistrationConfirm',
+        name: 'CareReceiverConfirm',
         query: { care_receiver: this.care_receiver }
       });
     },

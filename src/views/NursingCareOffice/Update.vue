@@ -247,7 +247,7 @@ export default {
         if (response.status === 200) {
           await this.fetchNursingCareOfficeData();
           this.$router.push({
-            name: 'NursingCareOfficeUpdateCompletion'
+            name: 'NursingCareOfficeUpdateCompleted'
           });
         }
       } catch (error) {

@@ -222,7 +222,7 @@ export default {
           await this.fetchCareManagerData();
 
           this.$router.push({
-            name: 'CareManagerUpdateCompletion'
+            name: 'CareManagerUpdateCompleted'
           });
         }
       } catch (error) {

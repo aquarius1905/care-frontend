@@ -1,8 +1,8 @@
-import CareReceiverRegistration from '@/views/CareReceiver/Registration.vue'
-import CareReceiverRegistrationConfirm from '@/views/CareReceiver/RegistrationConfirm.vue'
-import CareReceiverRegistrationCompletion from '@/views/CareReceiver/RegistrationCompletion.vue'
+import CareReceiverInput from '@/views/CareReceiver/Registration.vue'
+import CareReceiverConfirm from '@/views/CareReceiver/RegistrationConfirm.vue'
+import CareReceiverCompleted from '@/views/CareReceiver/RegistrationCompletion.vue'
 import CareReceiverUpdate from '@/views/CareReceiver/Update.vue'
-import CareReceiverUpdateCompletion from '@/views/Common/UpdateCompletion.vue'
+import CareReceiverUpdateCompleted from '@/views/Common/UpdateCompleted.vue'
 import CareReceiverDetail from '@/views/Common/CareReceiverDetail.vue'
 import CareReceiverWeeklyServiceSchedule from '@/views/CareReceiver/WeeklyServiceSchedule.vue'
 import CareReceiverLogin from '@/views/CareReceiver/LoginView.vue'
@@ -15,21 +15,21 @@ import CancellationCompleted from '@/views/Common/TextMessage.vue'
 export default {
   routes: [
     {
-      path: '/care-receiver/register',
-      name: 'CareReceiverRegistration',
-      component: CareReceiverRegistration,
+      path: '/care-receiver/input',
+      name: 'CareReceiverInput',
+      component: CareReceiverInput,
       meta: { requiresAuth: true },
     },
     {
-      path: '/care-receiver/register/confirm',
-      name: 'CareReceiverRegistrationConfirm',
-      component: CareReceiverRegistrationConfirm,
+      path: '/care-receiver/confirm',
+      name: 'CareReceiverConfirm',
+      component: CareReceiverConfirm,
       meta: { requiresAuth: true },
     },
     {
-      path: '/care-receiver/register/complete',
-      name: 'CareReceiverRegistrationCompletion',
-      component: CareReceiverRegistrationCompletion,
+      path: '/care-receiver/completed',
+      name: 'CareReceiverCompleted',
+      component: CareReceiverCompleted,
       meta: { requiresAuth: false },
     },
     {
@@ -39,9 +39,9 @@ export default {
       meta: { requiresAuth: true },
     },
     {
-      path: '/care-receiver/update/completion',
-      name: 'CareReceiverUpdateCompletion',
-      component: CareReceiverUpdateCompletion,
+      path: '/care-receiver/update/completed',
+      name: 'CareReceiverUpdateCompleted',
+      component: CareReceiverUpdateCompleted,
       meta: { requiresAuth: true },
     },
     {
@@ -63,7 +63,7 @@ export default {
       meta: { requiresAuth: false },
     },
     {
-      path: '/care-receiver/dashboard',
+      path: '/care-receiver/index',
       name: 'CareReceiverDashboard',
       component: CareReceiverDashboard,
       meta: { requiresAuth: true },
@@ -81,13 +81,13 @@ export default {
       meta: { requiresAuth: true },
     },
     {
-      path: '/care-receiver/cancellation',
+      path: '/care-receiver/cancel',
       name: 'Cancellation',
       component: Cancellation,
       meta: { requiresAuth: true },
     },
     {
-      path: '/care-receiver/completed',
+      path: '/care-receiver/cancel/completed',
       name: 'CancellationCompleted',
       component: CancellationCompleted,
       meta: { requiresAuth: true },

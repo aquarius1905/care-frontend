@@ -1,34 +1,34 @@
-import CareManagerLoginView from '@/views/CareManager/LoginView.vue'
-import CareManagerRegistrationView from '@/views/CareManager/Registration.vue'
-import CareManagerRegistrationCompletion from '@/views/Common/RegistrationCompletion.vue'
-import CareManagerRegistrationConfirm from '@/views/CareManager/RegistrationConfirm.vue'
+import CareManagerLogin from '@/views/CareManager/LoginView.vue'
+import CareManagerInput from '@/views/CareManager/Registration.vue'
+import CareManagerCompleted from '@/views/Common/RegistrationCompletion.vue'
+import CareManagerConfirm from '@/views/CareManager/RegistrationConfirm.vue'
 import CareManagerUpdate from '@/views/CareManager/Update.vue'
-import CareManagerUpdateCompletion from '@/views/Common/UpdateCompletion.vue'
+import CareManagerUpdateCompleted from '@/views/Common/UpdateCompleted.vue'
 import CareManagerVisitDateTime from '@/views/CareManager/VisitDateTime.vue'
-import CareManagerForgotPasswordView from '@/views/CareManager/ForgotPassword.vue'
+import CareManagerForgotPassword from '@/views/CareManager/ForgotPassword.vue'
 import CareManagerDashboard from '@/views/CareManager/Dashboard.vue'
 import CareManagerCareReceiverDetail from '@/views/Common/CareReceiverDetail.vue'
-import VisitDateTimeRegistrationComplete from '@/views/Common/TextMessage.vue'
+import VisitDateTimeRegistrationCompleted from '@/views/Common/TextMessage.vue'
 
 
 export default {
   routes: [
     {
-      path: '/care-manager/register',
-      name: 'CareManagerRegistration',
-      component: CareManagerRegistrationView,
+      path: '/care-manager/input',
+      name: 'CareManagerInput',
+      component: CareManagerInput,
       meta: { requiresAuth: false } 
     },
     {
-      path: '/care-manager/register/confirm',
-      name: 'CareManagerRegistrationConfirm',
-      component: CareManagerRegistrationConfirm,
+      path: '/care-manager/confirm',
+      name: 'CareManagerConfirm',
+      component: CareManagerConfirm,
       meta: { requiresAuth: false },
     },
     {
-      path: '/care-manager/register/complete',
-      name: 'CareManagerRegistrationCompletion',
-      component: CareManagerRegistrationCompletion,
+      path: '/care-manager/completed',
+      name: 'CareManagerCompleted',
+      component: CareManagerCompleted,
       meta: { requiresAuth: false },
     },
     {
@@ -38,13 +38,13 @@ export default {
       meta: { requiresAuth: true },
     },
     {
-      path: '/care-manager/update/completion',
-      name: 'CareManagerUpdateCompletion',
-      component: CareManagerUpdateCompletion,
+      path: '/care-manager/update/completed',
+      name: 'CareManagerUpdateCompleted',
+      component: CareManagerUpdateCompleted,
       meta: { requiresAuth: true },
     },
     {
-      path: '/care-manager/dashboard',
+      path: '/care-manager/index',
       name: 'CareManagerDashboard',
       component: CareManagerDashboard,
       meta: { requiresAuth: true },
@@ -58,13 +58,13 @@ export default {
     {
       path: '/care-manager/login',
       name: 'CareManagerLogin',
-      component: CareManagerLoginView,
+      component: CareManagerLogin,
       meta: { requiresAuth: false },
     },
     {
       path: '/care-manager/forgot-password',
       name: 'CareManagerForgotPassword',
-      component: CareManagerForgotPasswordView,
+      component: CareManagerForgotPassword,
       meta: { requiresAuth: false },
     },
     {
@@ -74,9 +74,9 @@ export default {
       meta: { requiresAuth: true },
     },
     {
-      path: '/care-manager/visit-datetime/register/complete',
-      name: 'VisitDateTimeRegistrationComplete',
-      component: VisitDateTimeRegistrationComplete,
+      path: '/care-manager/visit-datetime/register/completed',
+      name: 'VisitDateTimeRegistrationCompleted',
+      component: VisitDateTimeRegistrationCompleted,
       meta: { requiresAuth: true },
     }
   ]

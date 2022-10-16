@@ -122,7 +122,7 @@ export default {
         const msg = this.registered_flg
           ? '訪問日時を変更しました' : '訪問日時の登録が完了しました'
         this.$router.push({
-          name: 'VisitDateTimeRegistrationComplete',
+          name: 'VisitDateTimeRegistrationCompleted',
           query: { msg: msg }
         });
       }

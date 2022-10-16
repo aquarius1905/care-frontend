@@ -71,7 +71,7 @@ export default {
   methods: {
     back() {
       this.$router.push({
-        name: 'CareManagerRegistration',
+        name: 'CareManagerInput',
         query: { care_manager: this.care_manager }
       });
     },
@@ -86,7 +86,7 @@ export default {
 
           if (response.status === 201) {
             this.$router.push({
-              name: 'CareManagerRegistrationCompletion'
+              name: 'CareManagerCompleted'
             });
           }
         } catch (error) {

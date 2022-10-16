@@ -15,6 +15,7 @@
             <th rowspan="2">電話番号</th>
             <th colspan="2">サービス提供時間</th>
             <th rowspan="2"></th>
+            <th rowspan="2"></th>
           </tr>
           <tr>
             <th>開始</th>
@@ -30,6 +31,9 @@
             <td>{{ user.care_receiver.tel }}</td>
             <td>{{ user.starting_time.substring(0, 5) }}</td>
             <td>{{ user.ending_time.substring(0, 5) }}</td>
+            <td>
+              <button class="btn diary__btn" @click="showDiary(user)">日誌</button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -70,6 +74,12 @@ export default {
         console.log(error);
         alert("利用者一覧の取得に失敗しました")
       }
+    },
+    showDiary() {
+      this.$router.push({
+        name: 'Cancellation',
+        query: { schedule: schedule }
+      });
     }
   },
   async created() {
@@ -88,5 +98,8 @@ export default {
 }
 .dashboard__main {
   padding: 0 20px 20px;
+}
+.diary__btn {
+  width: 60px;
 }
 </style>

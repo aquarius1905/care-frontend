@@ -248,7 +248,7 @@ export default {
     },
     confirmRegistration() {
       this.$router.push({
-        name: 'NursingCareOfficeRegistrationConfirm',
+        name: 'NursingCareOfficeConfirm',
         query: {
           nursing_care_office: this.nursing_care_office
         }

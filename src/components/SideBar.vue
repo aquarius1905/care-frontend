@@ -4,7 +4,7 @@
       <div>
         <ul class="menu__content" v-if="this.isCareManagerLoggedIn">
           <li>
-            <router-link class="link" to="/care-manager/dashboard">
+            <router-link class="link" to="/care-manager/index">
               ダッシュボード
             </router-link>
           </li>
@@ -58,7 +58,7 @@
       <div>
         <ul class="menu__content">
           <li>
-            <router-link class="link" to="/care-receiver/dashboard">
+            <router-link class="link" to="/care-receiver/index">
               ダッシュボード
             </router-link>
           </li>
@@ -84,7 +84,7 @@
       <div>
         <ul class="menu__content" v-if="this.isNursingCareOfficeLoggedIn">
           <li>
-            <router-link class="link" to="/nursing-care-office/dashboard">
+            <router-link class="link" to="/nursing-care-office/index">
               ダッシュボード
             </router-link>
           </li>
@@ -128,19 +128,19 @@ export default {
   methods: {
     showCareManagerRegistrationPage() {
       this.$router.push({
-        name: 'CareManagerRegistration',
+        name: 'CareManagerInput',
         query: { care_manager: null }
       });
     },
     showCareReceiverRegistrationPage() {
       this.$router.push({
-        name: 'CareReceiverRegistration',
+        name: 'CareReceiverInput',
         query: { care_receiver: null }
       });
     },
     showNursingCareOfficeRegistrationPage() {
       this.$router.push({
-        name: 'NursingCareOfficeRegistration',
+        name: 'NursingCareOfficeInput',
         query: { nursing_care_office: null }
       });
     },

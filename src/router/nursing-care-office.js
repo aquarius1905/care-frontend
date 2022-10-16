@@ -1,10 +1,11 @@
 import NursingCareOfficeLogin from '@/views/NursingCareOffice/Login.vue'
-import NursingCareOfficeRegistration from '@/views/NursingCareOffice/Registration.vue'
-import NursingCareOfficeRegistrationConfirm from '@/views/NursingCareOffice/RegistrationConfirm.vue'
-import NursingCareOfficeRegistrationCompletion from '@/views/Common/RegistrationCompletion.vue'
+import NursingCareOfficeInput from '@/views/NursingCareOffice/Registration.vue'
+import NursingCareOfficeConfirm from '@/views/NursingCareOffice/RegistrationConfirm.vue'
+import NursingCareOfficeCompleted from '@/views/Common/RegistrationCompletion.vue'
 import NursingCareOfficeDashboard from '@/views/NursingCareOffice/Dashboard.vue'
 import NursingCareOfficeUpdate from '@/views/NursingCareOffice/Update.vue'
-import NursingCareOfficeUpdateCompletion from '@/views/Common/UpdateCompletion.vue'
+import NursingCareOfficeUpdateCompleted from '@/views/Common/UpdateCompleted.vue'
+import DiaryInput from '@/views/NursingCareOffice/DiaryInput.vue'
 
 export default {
   routes: [
@@ -15,25 +16,25 @@ export default {
       meta: { requiresAuth: false } 
     },
     {
-      path: '/nursing-care-office/register',
-      name: 'NursingCareOfficeRegistration',
-      component: NursingCareOfficeRegistration,
+      path: '/nursing-care-office/input',
+      name: 'NursingCareOfficeInput',
+      component: NursingCareOfficeInput,
       meta: { requiresAuth: false } 
     },
     {
-      path: '/nursing-care-office/register/confirm',
-      name: 'NursingCareOfficeRegistrationConfirm',
-      component: NursingCareOfficeRegistrationConfirm,
+      path: '/nursing-care-office/confirm',
+      name: 'NursingCareOfficeConfirm',
+      component: NursingCareOfficeConfirm,
       meta: { requiresAuth: false } 
     },
     {
-      path: '/nursing-care-office/register/complete',
-      name: 'NursingCareOfficeRegistrationCompletion',
-      component: NursingCareOfficeRegistrationCompletion,
+      path: '/nursing-care-office/completed',
+      name: 'NursingCareOfficeCompleted',
+      component: NursingCareOfficeCompleted,
       meta: { requiresAuth: false } 
     },
     {
-      path: '/nursing-care-office/dashboard',
+      path: '/nursing-care-office/index',
       name: 'NursingCareOfficeDashboard',
       component: NursingCareOfficeDashboard,
       meta: { requiresAuth: true } 
@@ -45,9 +46,15 @@ export default {
       meta: { requiresAuth: true } 
     },
     {
-      path: '/nursing-care-office/update/completion',
-      name: 'NursingCareOfficeUpdateCompletion',
-      component: NursingCareOfficeUpdateCompletion,
+      path: '/nursing-care-office/update/completed',
+      name: 'NursingCareOfficeUpdateCompleted',
+      component: NursingCareOfficeUpdateCompleted,
+      meta: { requiresAuth: true } 
+    },
+    {
+      path: '/diary/input',
+      name: 'DiaryInput',
+      component: DiaryInput,
       meta: { requiresAuth: true } 
     },
   ]
