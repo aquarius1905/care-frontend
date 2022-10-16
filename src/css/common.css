@@ -29,7 +29,8 @@ body {
   padding: 20px;
 }
 
-.page__ttl {
+.page__ttl,
+.content__ttl {
   color: #1a237e;
   padding: 20px;
   font-size: 22px;
@@ -37,7 +38,13 @@ body {
   text-align: center;
 }
 
-.page-content {
+.content__ttl {
+  padding: 20px 0 20px 20px;
+  text-align: left;
+}
+
+.page-content,
+.content {
   padding: 0 20px 20px;
 }
 
@@ -406,7 +413,7 @@ body {
 .monthly-schedule__tbl td,
 .users-list__tbl td {
   text-align: center;
-  padding: 5px;
+  padding: 8px;
 }
 
 .weekly-service-schedule__tbl tr:first-child th:first-child,
@@ -451,7 +458,8 @@ body {
   padding: 30px 20px 20px;
 }
 
-.ttl__wrap {
+.ttl__wrap,
+.visit-datetime__wrap {
   display: flex;
   align-items: center;
 }

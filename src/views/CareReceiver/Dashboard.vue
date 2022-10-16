@@ -1,9 +1,11 @@
 <template>
   <div class="dashboard">
-    <div class="page__header">
-      <h2 class="page__ttl">ダッシュボード</h2>
+    <div class="visit-datetime__wrap">
+      <h2 class="content__ttl">次回ケアマネジャー訪問日時</h2>
+      <label class="visit-datetime__lbl">{{ visit_datetime }}</label>
     </div>
-    <div class="page-content">
+    <h2 class="content__ttl">週間スケジュール</h2>
+    <div class="content">
       <table class="weekly-service-schedule__tbl box-shadow">
         <thead>
           <tr>
@@ -28,6 +30,7 @@
         </tbody>
       </table>
     </div>
+
   </div>
 </template>
 
@@ -37,7 +40,8 @@ export default {
   computed: {
     ...mapGetters({
       day_of_weeks: 'getDayOfWeeks',
-      weekly_service_schedules: 'getWeeklyServiceSchedules'
+      weekly_service_schedules: 'getWeeklyServiceSchedules',
+      visit_datetime: 'getCareManagerVisitDateTime'
     })
   },
 };

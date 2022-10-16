@@ -46,7 +46,7 @@ const getters = {
   },
   getCareManagerVisitDateTime(state) {
     const visit_datetime = state.loggedInCareReceiver.visit_datetime;
-    if (visit_datetime === null) {
+    if (visit_datetime == null) {
       return '未定';
     }
     return dayjs(visit_datetime.date).format('YYYY年MM月DD日（ddd）')
@@ -64,6 +64,7 @@ const mutations = {
     state.careReceiverAccessToken = null;
     state.loggedInCareReceiver = null;
     state.weeklyServiceSchedules = null;
+    state.careManagerInCharege = null;
   },
   setInfoAboutCareReceiver(state, payload) {
     state.loggedInCareReceiver = payload;

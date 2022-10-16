@@ -40,7 +40,7 @@ const getters = {
   },
   getVisitDateTime(state) {
     const visit_datetime = state.selectedCareReceiver.visit_datetime;
-    if (visit_datetime === null) {
+    if (visit_datetime == null) {
       return '未定';
     }
     return dayjs(visit_datetime.date).format('YYYY年MM月DD日（ddd）')

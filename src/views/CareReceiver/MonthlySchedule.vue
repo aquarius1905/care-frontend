@@ -12,6 +12,7 @@
             <th rowspan="2">施設名</th>
             <th colspan="2">サービス提供時間</th>
             <th rowspan="2"></th>
+            <th rowspan="2"></th>
           </tr>
           <tr>
             <th>開始</th>
@@ -25,9 +26,15 @@
             <td>{{ schedule.starting_time }}</td>
             <td>{{ schedule.ending_time }}</td>
             <td>
+              <label v-if="beforeToday(schedule.date)">ー</label>
               <button class="btn tbl-cancel__btn" 
-              :disabled="schedule.disabled"
-              @click="cancel(schedule)">
+              @click="cancel(schedule)" v-else>
+                キャンセル
+              </button>
+            </td>
+            <td>
+              <label v-if="beforeToday(schedule.date)">ー</label>
+              <button class="btn tbl-cancel__btn" @click="cancel(schedule)" v-else>
                 キャンセル
               </button>
             </td>
@@ -53,7 +60,17 @@ export default {
     ...mapGetters({
       care_receiver: 'getLoggedInCareReceiver',
       weekly_service_schedules: 'getWeeklyServiceSchedules'
-    })
+    }),
+    beforeToday: function () {
+      return function (date) {
+        return dayjs(date).isSameOrBefore(dayjs());
+      }
+    },
+    isCancel: function () {
+      return function (schedule) {
+
+      }
+    }
   },
   methods: {
     setYearAndMonth() {
@@ -79,10 +96,16 @@ export default {
             'office_name': schedule.nursing_care_office.office_name,
             'starting_time': schedule.starting_time.substring(0, 5),
             'ending_time': schedule.ending_time.substring(0, 5),
-            'disabled': date.isSameOrBefore(dayjs())
+            'disabled': date.isSameOrBefore(dayjs()),
+            'cancelled': this.isCancelled(schedule.cancellations, date)
           }
           this.monthly_schedules.push(monthly_schedule);
         }
+      }
+    },
+    isCancelled(cancellations, date) {
+      if (cancellations.length === 0) {
+        return false;
       }
     },
     cancel(schedule) {
@@ -104,14 +127,10 @@ export default {
 .monthly-schedule {
   padding-bottom: 30px;
   margin: 0 auto;
-  width: 70%;
-}
-.monthly-schedule__tbl th,
-.monthly-schedule__tbl td {
-  padding: 10px;
-  width: auto;
+  max-width: 1000px;
 }
 .tbl-cancel__btn {
-  width: 110px;
+  width: 105px;
+  font-size: 16px;
 }
 </style>
