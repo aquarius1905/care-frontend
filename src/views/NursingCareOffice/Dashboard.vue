@@ -1,8 +1,9 @@
 <template>
   <div class="dashboard">
     <div class="dashboard__header">
-      <h2 class="page__ttl">本日の利用者一覧</h2>
-      <h3 class="date">{{ today }}</h3>
+      <button class="btn yesterday__btn" @click="yesterday"> &lt; 前日</button>
+      <h2 class="page__ttl">{{ $dayjs().format('YYYY年MM月DD日（ddd）') }} 利用者一覧</h2>
+      <button class="btn tomorrow__btn" @click="tomorrow">明日 &gt; </button>
     </div>
     <div class="dashboard__main">
       <table class="users-list__tbl box-shadow">
@@ -32,7 +33,10 @@
             <td>{{ user.starting_time.substring(0, 5) }}</td>
             <td>{{ user.ending_time.substring(0, 5) }}</td>
             <td>
-              <button class="btn diary__btn" @click="showDiary(user)">日誌</button>
+              <button class="btn contact-book__btn"
+              @click="showContactBook(user)">
+                連絡帳
+              </button>
             </td>
           </tr>
         </tbody>
@@ -47,18 +51,11 @@ import dayjs from 'dayjs';
 export default {
   data() {
     return {
-      today: null,
+      date: null,
       users_list: null
     }
   },
   methods: {
-    async intialize() {
-      this.setToday();
-      await this.searchCareReceivers();
-    },
-    setToday() {
-      this.today = dayjs().format('YYYY年MM月DD日（ddd）');
-    },
     async searchCareReceivers() {
       try {
         const params = {
@@ -80,10 +77,32 @@ export default {
         name: 'Cancellation',
         query: { schedule: schedule }
       });
+    },
+    yesterday() {
+      this.$router.push({
+        name: 'NursingCareOfficeDashboard'
+      });
+    },
+    tomorrow() {
+      this.$router.push({
+        name: 'NursingCareOfficeDashboard'
+      });
+    },
+    showContactBook(care_receiver) {
+      const service_type_id = care_receiver.nursing_care_office.service_type_id;
+      switch (service_type_id) {
+        case 2:
+          this.$router.push({
+            name: 'DaycareContactBookInput',
+            query: { care_receiver: care_receiver }
+          });
+          break;
+      }
+
     }
   },
   async created() {
-    this.intialize();
+    await this.searchCareReceivers();
   } 
 }
 </script>
@@ -92,6 +111,7 @@ export default {
 .dashboard__header{
   display: flex;
   align-items: center;
+  padding: 20px;
 }
 .date {
   margin-left: 30px;
@@ -99,7 +119,22 @@ export default {
 .dashboard__main {
   padding: 0 20px 20px;
 }
-.diary__btn {
-  width: 60px;
+.contact-book__btn {
+  width: auto;
+  padding: 5px 10px;
+}
+.page__ttl {
+  padding: 0;
+}
+.yesterday__btn,
+.tomorrow__btn {
+  width: auto;
+  padding: 5px 10px;
+}
+.yesterday__btn {
+  margin-right: 20px;
+}
+.tomorrow__btn {
+  margin-left: 20px;
 }
 </style>

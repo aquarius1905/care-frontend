@@ -72,7 +72,10 @@ localize({
       office_name: "事業所名",
       corporate_name: "法人名",
       office_number: "事業所番号",
-      service_type: "サービス種別"
+      service_type: "サービス種別",
+      reason: "理由",
+      body_temperature: "体温",
+      body_temperature_retest: "体温",
     },
    },
 });

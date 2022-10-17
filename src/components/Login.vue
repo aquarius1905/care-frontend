@@ -37,7 +37,8 @@
 </template>
 
 <script>
-import { api, careManagerAuthApi, careReceiverAuthApi, nursingCareOfficeAuthApi } from "@/plugins/axios";
+import dayjs from 'dayjs';
+import { api } from "@/plugins/axios";
 import { mapGetters, mapActions } from 'vuex'
 export default {
   props: {
@@ -126,9 +127,9 @@ export default {
         this.setNursingCareOfficeAccessToken(data.token);
 
         await this.fetchNursingCareOfficeData();
-        
         this.$router.push({
-          name: 'NursingCareOfficeDashboard'
+          name: 'NursingCareOfficeDashboard',
+          query: { date: dayjs() }
         });
       } catch (error) {
         this.showError(error);

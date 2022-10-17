@@ -23,7 +23,7 @@
             <tr>
               <th>理由<span class="required__lbl">必須</span></th>
               <td>
-                <textarea name="" id="reason" class="reason" v-model="schedule.reason"></textarea>
+                <textarea id="reason" class="reason" v-model="schedule.reason"></textarea>
               </td>
             </tr>
           </table>
