@@ -24,17 +24,17 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(user, index) in users_list" :key="index">
+          <tr v-for="(object, index) in users_list" :key="index">
             <td>{{ index + 1 }}</td>
-            <td>{{ user.care_receiver.name }}</td>
-            <td>{{ user.care_receiver.name_furigana }}</td>
-            <td>{{ user.care_receiver.email }}</td>
-            <td>{{ user.care_receiver.tel }}</td>
-            <td>{{ user.starting_time.substring(0, 5) }}</td>
-            <td>{{ user.ending_time.substring(0, 5) }}</td>
+            <td>{{ object.care_receiver.name }}</td>
+            <td>{{ object.care_receiver.name_furigana }}</td>
+            <td>{{ object.care_receiver.email }}</td>
+            <td>{{ object.care_receiver.tel }}</td>
+            <td>{{ object.starting_time.substring(0, 5) }}</td>
+            <td>{{ object.ending_time.substring(0, 5) }}</td>
             <td>
               <button class="btn contact-book__btn"
-              @click="showContactBook(user)">
+              @click="showContactBook(object)">
                 連絡帳
               </button>
             </td>
@@ -88,13 +88,17 @@ export default {
         name: 'NursingCareOfficeDashboard'
       });
     },
-    showContactBook(care_receiver) {
-      const service_type_id = care_receiver.nursing_care_office.service_type_id;
+    showContactBook(object) {
+      const service_type_id = object.nursing_care_office.service_type_id;
+      const send_data = {
+        care_receiver_id: object.care_receiver_id,
+        care_receiver_name: object.care_receiver.name
+      };
       switch (service_type_id) {
         case 2:
           this.$router.push({
             name: 'DaycareContactBookInput',
-            query: { care_receiver: care_receiver }
+            query: send_data
           });
           break;
       }

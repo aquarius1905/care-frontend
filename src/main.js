@@ -75,7 +75,9 @@ localize({
       service_type: "サービス種別",
       reason: "理由",
       body_temperature: "体温",
-      body_temperature_retest: "体温",
+      blood_pressure: "血圧",
+      pulse: "脈拍",
+      staple_food: "主食"
     },
    },
 });
