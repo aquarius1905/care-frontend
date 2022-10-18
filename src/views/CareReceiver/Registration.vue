@@ -133,8 +133,7 @@
             <div class="care-level__wrap">
               <ul class="care-level__lst">
                 <li v-for="needed_support_level in needed_support_levels" :key="needed_support_level.id">
-                  <input type="radio" name="care_level" :id="needed_support_level.name" :value="needed_support_level"
-                    v-model="care_receiver.care_level">
+                  <input type="radio" name="care_level" :id="needed_support_level.name" >
                   <label class="radio-btn__lbl" :for="needed_support_level.name">{{ needed_support_level.name
                     }}</label>
                 </li>
@@ -207,7 +206,7 @@
           </div>
         </div>
         <div class="form__item">
-          <validation-provider v-slot="{ errors }" rules="required|max:10">
+          <validation-provider v-slot="{ errors }" rules="required|max:255">
             <label class="form__item-lbl" for="relationship">
               続柄
               <span class="required__lbl">必須</span>

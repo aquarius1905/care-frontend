@@ -87,37 +87,38 @@ export default {
   methods: {
     back() {
       this.$router.push({
-        name: 'CareReceiverRegistration',
+        name: 'CareReceiverInput',
         query: {
           care_receiver: this.care_receiver
         }
       });
     },
     async register() {
-      if (confirm('登録しますか？')) {
+      if (!confirm('登録しますか？')) {
+        return;
+      }
+      try {
         this.makeCareReceiverData();
-        try {
-          const response = await careManagerAuthApi.post(
-            '/care-receivers', this.care_receiver
-          );
+        const response = await careManagerAuthApi.post(
+          '/care-receivers', this.care_receiver
+        );
 
-          if (response.status === 201) {
-            this.$router.push({
-              name: 'CareReceiverRegistrationCompletion'
-            });
-          }
-        } catch (error) {
-          console.log(error);
-          alert('登録に失敗しました');
+        if (response.status === 201) {
+          this.$router.push({
+            name: 'CareReceiverCompleted'
+          });
         }
+      } catch (error) {
+        console.log(error);
+        alert('登録に失敗しました');
       }
     },
     makeCareReceiverData() {
+      this.care_receiver.care_level_id = this.care_receiver.care_level.id;
       this.care_receiver.name
         = this.care_receiver.last_name + '　' + this.care_receiver.first_name;
       this.care_receiver.name_furigana
         = this.care_receiver.last_name_furigana + '　' + this.care_receiver.first_name_furigana;
-      this.care_receiver.care_level_id = this.care_receiver.care_level.id;
       this.care_receiver.keyperson_name
         = this.care_receiver.keyperson_lastname + '　' + this.care_receiver.keyperson_firstname;
       this.care_receiver.keyperson_name_furigana

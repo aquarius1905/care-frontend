@@ -131,7 +131,7 @@ export default {
       day_of_weeks: null,
       service_types: null,
       nursing_care_offices: null,
-      weekly_service_schedules: null,
+      weekly_service_schedules: [],
       selected_service_type_id: 1
     }
   },

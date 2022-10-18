@@ -38,7 +38,7 @@ extend('full_sized_katakana', {
 })
 
 extend('insurer_number', {
-  message: "{_field_}は6桁または8桁で入力してください",
+  message: "保険者番号は6桁または8桁で入力してください",
   validate(value) {
     if (value.length === 6 || value.length === 8) {
       return true;

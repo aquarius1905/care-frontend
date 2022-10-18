@@ -123,9 +123,6 @@ export default {
   width: auto;
   padding: 5px 10px;
 }
-.page__ttl {
-  padding: 0;
-}
 .yesterday__btn,
 .tomorrow__btn {
   width: auto;
