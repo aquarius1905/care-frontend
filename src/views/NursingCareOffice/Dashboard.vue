@@ -34,8 +34,8 @@
             <td>{{ object.ending_time.substring(0, 5) }}</td>
             <td>
               <button class="btn contact-book__btn"
-              @click="showContactBook(object)">
-                連絡帳
+              @click="showDiary(object)">
+                日誌
               </button>
             </td>
           </tr>
@@ -88,7 +88,7 @@ export default {
         name: 'NursingCareOfficeDashboard'
       });
     },
-    showContactBook(object) {
+    showDiary(object) {
       const service_type_id = object.nursing_care_office.service_type_id;
       const send_data = {
         care_receiver_id: object.care_receiver_id,
