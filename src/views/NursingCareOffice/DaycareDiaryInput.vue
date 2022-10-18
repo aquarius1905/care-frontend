@@ -1,8 +1,12 @@
 <template>
   <div class="contact-book">
-    <h2 class="contact-book__ttl">連絡帳</h2>
+    <h2 class="contact-book__ttl">日誌</h2>
     <div class="contact-book__content box-shadow">
       <validation-observer v-slot="{ invalid }">
+        <div class="form__item">
+          <label class="form__item-lbl">日付</label>
+          <label>{{ $dayjs(contact_book.date).format("YYYY年MM月DD日（ddd）") }}</label>
+        </div>
         <div class="form__item">
           <label class="form__item-lbl">名前</label>
           <label>{{ contact_book.care_receiver_name }}</label>
@@ -100,14 +104,14 @@
 </template>
 
 <script>
+import dayjs from 'dayjs';
 export default {
   data() {
     return {
       contact_book: {
         care_receiver_id: null,
         care_receiver_name: null,
-        last_name: null,
-        first_name: null,
+        date: dayjs().format('YYYY-MM-DD'),
         situation_at_home: 'ー',
         body_temperature: null,
         systonic_blood_pressure: null,

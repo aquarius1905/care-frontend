@@ -5,7 +5,7 @@ import NursingCareOfficeCompleted from '@/views/Common/RegistrationCompletion.vu
 import NursingCareOfficeDashboard from '@/views/NursingCareOffice/Dashboard.vue'
 import NursingCareOfficeUpdate from '@/views/NursingCareOffice/Update.vue'
 import NursingCareOfficeUpdateCompleted from '@/views/Common/UpdateCompleted.vue'
-import DaycareContactBookInput from '@/views/NursingCareOffice/DaycareContactBookInput.vue'
+import DaycareDiaryInput from '@/views/NursingCareOffice/DaycareDiaryInput.vue'
 
 export default {
   routes: [
@@ -52,9 +52,9 @@ export default {
       meta: { requiresAuth: true } 
     },
     {
-      path: '/daycare-diary/contact-book/input',
-      name: 'DaycareContactBookInput',
-      component: DaycareContactBookInput,
+      path: '/daycare-diary/diary/input',
+      name: 'DaycareDiaryInput',
+      component: DaycareDiaryInput,
       meta: { requiresAuth: true } 
     },
   ]

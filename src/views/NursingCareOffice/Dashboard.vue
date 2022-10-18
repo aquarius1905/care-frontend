@@ -97,7 +97,7 @@ export default {
       switch (service_type_id) {
         case 2:
           this.$router.push({
-            name: 'DaycareContactBookInput',
+            name: 'DaycareDiaryInput',
             query: send_data
           });
           break;
