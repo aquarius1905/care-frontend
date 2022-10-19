@@ -77,7 +77,8 @@ localize({
       body_temperature: "体温",
       blood_pressure: "血圧",
       pulse: "脈拍",
-      staple_food: "主食"
+      staple_food: "主食",
+      side_dish: "副食",
     },
    },
 });
