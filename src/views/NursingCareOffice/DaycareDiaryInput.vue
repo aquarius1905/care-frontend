@@ -16,7 +16,7 @@
           <label>{{ contact_book.situation_at_home }}</label>
         </div>
         <div class="form__item">
-          <validation-provider v-slot="{ errors }" rules="required">
+          <validation-provider v-slot="{ errors }" rules="required|min_value:30.0|max_value:40.0|body_temperature">
             <div>
               <label for="body_temperature" class="form__item-lbl">
                 体温
@@ -24,27 +24,31 @@
               </label>
               <div class="body-temperature-input__wrap">
                 <input type="number" id="body_temperature" class="input body-temperature__input"
-                  v-model="contact_book.body_temperature" placeholder="36.0" required>
+                  v-model="contact_book.body_temperature" 
+                  step="0.1" placeholder="36.0" required>
               </div>
               <div class="error">{{ errors[0] }}</div>
             </div>
           </validation-provider>
         </div>
         <div class="form__item">
-            <validation-provider v-slot="{ errors }" rules="required">
-              <label for="blood_pressure"  class="form__item-lbl">
-                血圧
-                <span class="required__lbl">必須</span>
-              </label>
-              <div class="blood-pressure__wrap">
+            <label for="blood_pressure"  class="form__item-lbl">
+              血圧
+              <span class="required__lbl">必須</span>
+            </label>
+            <div class="blood-pressure__wrap">
+              <validation-provider v-slot="{ errors }" rules="required|numeric|digits:3">
                 <input type="number" id="blood_pressure" class="input blood-pressure__input"
                   v-model="contact_book.systonic_blood_pressure" placeholder="120" required>
-                  /
+                <div class="error">{{ errors[0] }}</div>
+              </validation-provider>
+                /
+              <validation-provider v-slot="{ errors }" rules="required|numeric|digits:3">
                 <input type="number" id="blood_pressure" class="input blood-pressure__input"
                   v-model="contact_book.diastolic_blood_pressure" placeholder="80" required>
-              </div>
-              <div class="error">{{ errors[0] }}</div>
-            </validation-provider>
+                <div class="error">{{ errors[0] }}</div>
+              </validation-provider>
+            </div>
         </div>
         <div class="form__item">
           <validation-provider v-slot="{ errors }" rules="required">
@@ -227,11 +231,13 @@ export default {
   font-size: 16px;
 }
 .body-temperature__input,
-.blood-pressure__input,
 .pulse__input,
 .staple-food__input,
 .side-dish__input{
   width: 30%;
+}
+.blood-pressure__input {
+  width: 90%;
 }
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
