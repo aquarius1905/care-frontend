@@ -126,7 +126,7 @@
         </div>
         <div class="form__item">
           <fieldset class="fieldset">
-            <legend class="form__item-lbl legend-lbl">
+            <legend class="form__item-lbl legend__lbl">
               介護度
               <span class="required__lbl">必須</span>
             </legend>

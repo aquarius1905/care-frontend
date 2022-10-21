@@ -17,12 +17,6 @@ body {
   box-shadow: 2px 2px 4px 1px #888;
 }
 
-.ttl {
-  color: #1a237e;
-  font-weight: bold;
-  font-size: 30px;
-}
-
 .page__header {
   display: flex;
   align-items: center;
@@ -87,7 +81,7 @@ body {
   font-size: 14px;
 }
 
-.legend-lbl {
+.legend__lbl {
   margin-bottom: 0;
   padding: 0 10px;
 }

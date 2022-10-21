@@ -1,14 +1,14 @@
 <template>
   <div id="home">
-    <div class="home-btn-box box-shadow">
-      <h1 class="ttl">Care</h1>
-        <button class="btn home-btn" @click="showCareManagerLoginPage()">
+    <div class="home-btn__box box-shadow">
+      <h1 class="app__ttl">Care</h1>
+        <button class="btn home__btn " @click="showCareManagerLoginPage()">
         ケアマネージャーの方はこちら
         </button>
-        <button class="btn home-btn" @click="showCareReceiverLoginPage()">
+        <button class="btn home__btn " @click="showCareReceiverLoginPage()">
         被介護者、キーパーソンの方はこちら
         </button>
-        <button class="btn home-btn" @click="showNursingCareOfficeLoginPage()">
+        <button class="btn home__btn " @click="showNursingCareOfficeLoginPage()">
         介護事業所の方はこちら
         </button>
     </div>
@@ -45,28 +45,30 @@ export default {
   }
 }
 </script>
+
 <style scoped>
-.ttl {
+.app__ttl {
   text-align: center;
-  padding: 0;
   margin-bottom: 20px;
   font-size: 36px;
+  color: #1a237e;
 }
-.home-btn-box {
+.home-btn__box {
   width: 400px;
   margin: 50px auto 0;
   padding: 40px;
   background-color: #fff;
   border-radius: 6px;
 }
-.home-btn {
+.home__btn {
   display: inline-block;
   color: #fff;
-  background-color: #1A237E;
-  font-size: 18px;
   padding: 20px;
   margin-bottom: 20px;
   box-sizing: border-box;
   width: 100%;
+}
+.home__btn:last-child {
+  margin-bottom: 0;
 }
 </style>
