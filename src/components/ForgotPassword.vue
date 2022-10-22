@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="forgot-password-form box-shadow">
-      <h2 class="form__ttl">{{ 'パスワード再設定' + formTitle }}</h2>
+      <h2 class="forgot-password__ttl">{{ 'パスワード再設定' + formTitle }}</h2>
       <validation-observer ref="obs" v-slot="ObserverProps">
         <div class="forgot-password-form-content">
           <div class="form__item">
@@ -14,9 +14,7 @@
               <div class="error">{{ errors[0] }}</div>
             </validation-provider>
           </div>
-        </div>
-        <div class="form-btn-wrap">
-          <button class="btn send-mail-btn"
+          <button class="btn send-mail__btn" 
           :disabled="ObserverProps.invalid || !ObserverProps.validated"
           @click="sendEmail">メール送信</button>
         </div>

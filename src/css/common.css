@@ -23,8 +23,7 @@ body {
   padding: 20px;
 }
 
-.page__ttl,
-.content__ttl {
+.page__ttl {
   color: #1a237e;
   padding: 20px;
   font-size: 22px;
@@ -32,13 +31,7 @@ body {
   text-align: center;
 }
 
-.content__ttl {
-  padding: 20px 0 20px 20px;
-  text-align: left;
-}
-
-.page-content,
-.content {
+.page__content {
   padding: 0 20px 20px;
 }
 
@@ -47,10 +40,6 @@ body {
   width: 600px;
   margin: 0 auto;
   border-radius: 6px;
-}
-
-.confirm-form {
-  width: 700px;
 }
 
 .form-content,
@@ -98,15 +87,6 @@ body {
   display: flex;
   justify-content: space-between;
   width: 100%;
-}
-
-.form-btn-wrap {
-  text-align: center;
-  padding: 20px 0;
-}
-
-.form-confirm-btn-wrap {
-  padding-top: 0;
 }
 
 .error {
@@ -207,9 +187,14 @@ body {
   padding: 30px 20px 20px;
 }
 
-.login-btn,
-.send-mail-btn {
+.login__btn,
+.send-mail__btn {
   width: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px auto 0;
+  border: none;
 }
 
 .detail {
@@ -437,7 +422,8 @@ body {
   border-radius: 6px;
 }
 
-.login__form-ttl {
+.login__form-ttl,
+.forgot-password__ttl {
   color: #fff;
   background-color: #1a237e;
   padding: 20px;

@@ -4,7 +4,7 @@
       <h2 class="page__ttl">月別スケジュール</h2>
       <label class="date">{{ this_year_and_month }}</label>
     </div>
-    <div class="page-content">
+    <div class="page__content">
       <table class="monthly-schedule__tbl box-shadow">
         <thead>
           <tr>

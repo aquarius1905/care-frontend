@@ -151,10 +151,13 @@ export default {
   position: relative;
   box-sizing: border-box;
 }
+
 .main__ttl {
   user-select: none;
   cursor: pointer;
+  font-size: 30px;
 }
+
 .logout__wrap {
   display: flex;
   align-items: center;

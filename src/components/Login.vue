@@ -25,9 +25,7 @@
             </validation-provider>
           </div>
           <router-link :to="`${forgotPasswordLink}`">パスワードを忘れた方はこちら</router-link>
-        </div>
-        <div class="form-btn-wrap">
-          <button class="btn login-btn" :disabled="invalid" @click="login">
+          <button class="btn login__btn" :disabled="invalid" @click="login">
             ログイン
           </button>
         </div>
