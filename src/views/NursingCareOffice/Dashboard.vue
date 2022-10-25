@@ -17,6 +17,7 @@
             <th colspan="2">サービス提供時間</th>
             <th rowspan="2"></th>
             <th rowspan="2"></th>
+            <th rowspan="2"></th>
           </tr>
           <tr>
             <th>開始</th>
@@ -33,7 +34,13 @@
             <td>{{ object.starting_time.substring(0, 5) }}</td>
             <td>{{ object.ending_time.substring(0, 5) }}</td>
             <td>
-              <button class="btn contact-book__btn"
+              <button class="btn notify__btn" 
+                @click="notifyPickupTime(object.care_receiver.id)">
+                送迎時間通知
+              </button>
+            </td>
+            <td>
+              <button class="btn diary__btn"
               @click="showDiary(object)">
                 日誌
               </button>
@@ -103,6 +110,24 @@ export default {
           break;
       }
 
+    },
+    async notifyPickupTime(care_receiver_id) {
+      if (!confirm("送迎時間を通知しますか？")) {
+        return;
+      }
+
+      try {
+        const send_data = {
+          care_receiver_id: care_receiver_id
+        };
+        const { data } = nursingCareOfficeAuthApi.post(
+          '/pickup-and-dropoff-notifications', send_data
+        );
+        
+      } catch (error) {
+        console.log(error);
+        alert("送迎時間の通知に失敗しました")
+      }
     }
   },
   async created() {
@@ -111,7 +136,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .dashboard__header{
   display: flex;
   align-items: center;
@@ -123,10 +148,13 @@ export default {
 .dashboard__main {
   padding: 0 20px 20px;
 }
-.contact-book__btn {
+
+.notify__btn,
+.diary__btn {
   width: auto;
   padding: 5px 10px;
 }
+
 .yesterday__btn,
 .tomorrow__btn {
   width: auto;

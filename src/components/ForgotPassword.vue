@@ -14,9 +14,9 @@
               <div class="error">{{ errors[0] }}</div>
             </validation-provider>
           </div>
-          <button class="btn send-mail__btn" 
+          <button class="btn reset-password__btn" 
           :disabled="ObserverProps.invalid || !ObserverProps.validated"
-          @click="sendEmail">メール送信</button>
+          @click="sendForgotPasswordEmail">パスワードリセット</button>
         </div>
       </validation-observer>
     </div>
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { api } from "@/plugins/axios";
+import axios from 'axios';
 export default {
   props: {
     formTitle: {
@@ -37,11 +37,19 @@ export default {
     }
   },
   methods: {
-    async sendEmail() {
-      const response = await api.post(
-        '/care-managers/forgot-password', this.email
-      );
+    async sendForgotPasswordEmail() {
+      try {
+        await axios.get("sanctum/csrf-cookie");
+        await axios.post("forgot-password", this.email);
+      } catch (e) {
+        
+      }
     }
   }
 }
 </script>
+<style scoped>
+.reset-password__btn {
+  width: 200px;
+}
+</style>
