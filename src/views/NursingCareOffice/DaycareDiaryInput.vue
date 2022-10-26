@@ -1,171 +1,189 @@
 <template>
-  <div class="contact-book">
-    <h2 class="contact-book__ttl">日誌</h2>
-    <div class="contact-book__content box-shadow">
+  <div class="diary">
+    <h2 class="diary__ttl">日誌</h2>
+    <div class="diary__content box-shadow">
       <validation-observer v-slot="{ invalid }">
-        <div class="form__item">
-          <label class="form__item-lbl">日付</label>
-          <label>{{ $dayjs(contact_book.date).format("YYYY年MM月DD日（ddd）") }}</label>
-        </div>
-        <div class="form__item">
-          <label class="form__item-lbl">名前</label>
-          <label>{{ contact_book.care_receiver_name }}</label>
-        </div>
-        <div class="form__item">
-          <label class="form__item-lbl">ご家庭での状況</label>
-          <label>{{ contact_book.situation_at_home }}</label>
-        </div>
-        <div class="form__item">
-          <validation-provider v-slot="{ errors }" rules="required|min_value:30.0|max_value:40.0|body_temperature">
-            <div>
-              <label for="body_temperature" class="form__item-lbl">
-                体温
-                <span class="required__lbl">必須</span>
-              </label>
-              <div class="body-temperature-input__wrap">
-                <input type="number" id="body_temperature" class="input body-temperature__input"
-                  v-model="contact_book.body_temperature" 
-                  step="0.1" placeholder="36.0" required>
-              </div>
-              <div class="error">{{ errors[0] }}</div>
-            </div>
-          </validation-provider>
-        </div>
-        <div class="form__item">
-            <label for="blood_pressure"  class="form__item-lbl">
-              血圧
+        <table class="diary__tbl">
+          <tr>
+            <th>日付</th>
+            <td>{{ $dayjs(contact_book.date).format("YYYY年MM月DD日（ddd）") }}</td>
+          </tr>
+          <tr>
+            <th>名前</th>
+            <td>{{ contact_book.care_receiver_name }}</td>
+          </tr>
+          <tr>
+            <th>ご家庭での状況</th>
+            <td>{{ contact_book.situation_at_home }}</td>
+          </tr>
+          <tr>
+            <th>
+              体温
               <span class="required__lbl">必須</span>
-            </label>
-            <div class="blood-pressure__wrap">
-              <validation-provider v-slot="{ errors }" rules="required|numeric|digits:3">
-                <input type="number" id="blood_pressure" class="input blood-pressure__input"
-                  v-model="contact_book.systonic_blood_pressure" placeholder="120" required>
+            </th>
+            <td>
+              <validation-provider v-slot="{ errors }" rules="required|min_value:30.0|max_value:40.0|body_temperature">
+                <div class="body-temperature-input__wrap">
+                  <input type="number" id="body_temperature" class="input body-temperature__input"
+                    v-model="contact_book.body_temperature" step="0.1" placeholder="36.0" required>
+                </div>
                 <div class="error">{{ errors[0] }}</div>
               </validation-provider>
-                /
-              <validation-provider v-slot="{ errors }" rules="required|numeric|digits:3">
-                <input type="number" id="blood_pressure" class="input blood-pressure__input"
-                  v-model="contact_book.diastolic_blood_pressure" placeholder="80" required>
-                <div class="error">{{ errors[0] }}</div>
-              </validation-provider>
-            </div>
-        </div>
-        <div class="form__item">
-          <validation-provider v-slot="{ errors }" rules="required">
-            <div>
-              <label for="pulse" class="form__item-lbl">
-                脈拍
-                <span class="required__lbl">必須</span>
-              </label>
-              <div class="pulse-input__wrap">
-                <input type="number" id="pulse" class="input pulse__input"
-                  v-model="contact_book.pulse" placeholder="70" required>
-              </div>
-              <div class="error">{{ errors[0] }}</div>
-            </div>
-          </validation-provider>
-        </div>
-        <div class="form__item">
-          <div>
-            <label class="form__item-lbl">
-              食事量
+            </td>
+          </tr>
+          <tr>
+            <th>
+              血圧（上）
               <span class="required__lbl">必須</span>
-            </label>
-            <ul class="food-amount__list">
-              <validation-provider v-slot="{ errors }" rules="required|numeric|between:0,10">
-                <li class="staple_food-input__wrap">
-                  <label for="staple_food">主食</label>
-                  <input type="number" id="staple_food" class="input staple-food__input" v-model="contact_book.staple_food"
-                    placeholder="10" required>
-                </li>
+            </th>
+            <td>
+              <validation-provider v-slot="{ errors }" rules="required|numeric|digits:3">
+                <div class="blood-pressure__wrap">
+                  <input type="number" id="blood_pressure" class="input blood-pressure__input"
+                    v-model="contact_book.systonic_blood_pressure" placeholder="120" required>
+                </div>
                 <div class="error">{{ errors[0] }}</div>
               </validation-provider>
-              <validation-provider v-slot="{ errors }" rules="required|numeric|between:0,10">
-                <li class="side_dish-input__wrap">
-                  <label for="side_dish">副食</label>
-                  <input type="number" id="side_dish" class="input side-dish__input" v-model="contact_book.side_dish"
-                  placeholder="10" required>
-                </li>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              血圧（下）
+              <span class="required__lbl">必須</span>
+            </th>
+            <td>
+              <validation-provider v-slot="{ errors }" rules="required|numeric|digits:3">
+                <div class="blood-pressure__wrap">
+                  <input type="number" id="blood_pressure" class="input blood-pressure__input"
+                    v-model="contact_book.diastolic_blood_pressure" placeholder="80" required>
+                </div>
                 <div class="error">{{ errors[0] }}</div>
               </validation-provider>
-            </ul>
-          </div>
-        </div>
-        <div class="form__item">
-          <fieldset class="fieldset">
-            <legend class="legend__lbl">リハビリ内容</legend>
-            <ul class="rehabilitation__lst">
-              <li>
-                <input type="checkbox" id="strength_training"
-                v-model="contact_book.strength_training">
-                <label for="strength_training">筋力トレーニング（上肢・下肢・体幹）</label>
-              </li>
-              <li>
-                <input type="checkbox" id="stand_up_practice"
-                v-model="contact_book.stand_up_practice">
-                <label for="stand_up_practice">立ち上がり練習</label>
-              </li>
-              <li>
-                <input type="checkbox" id="stretch"
-                v-model="contact_book.stretch">
-                <label for="stretch">ストレッチ</label>
-              </li>
-              <li>
-                <input type="checkbox" id="thermotherapy"
-                v-model="contact_book.thermotherapy">
-                <label for="thermotherapy">温熱療法</label>
-              </li>
-              <li>
-                <input type="checkbox" id="bicycle_exercise"
-                v-model="contact_book.bicycle_exercise">
-                <label for="bicycle_exercise">自転車運動</label>
-              </li>
-              <li>
-                <input type="checkbox" id="walking_practice"
-                v-model="contact_book.walking_practice">
-                <label for="walking_practice">歩行練習</label>
-              </li>
-              <li>
-                <input type="checkbox" id="others"
-                v-model="contact_book.others">
-                <label for="others">その他</label>
-                <input type="text" class="input"
-                v-model="contact_book.others_detail">
-              </li>
-              <li>
-                <input type="checkbox" id="rehabilitation_plan">
-                <label for="rehabilitation_plan">リハビリ計画書</label>
-              </li>
-            </ul>
-          </fieldset>
-        </div>
-        <div class="form__item">
-          <input type="checkbox" id="recreation" v-model="contact_book.recreation">
-          <label for="recreation">レクリエーション</label>
-        </div>
-        <div class="form__item">
-          <validation-provider v-slot="{ errors }" rules="max:255">
-            <label for="special_notes" class="form__item-lbl">特記事項</label>
-            <textarea id="special_notes" class="special-notes" v-model="contact_book.special_notes"></textarea>
-            <div class="error">{{ errors[0] }}</div>
-          </validation-provider>
-        </div>
-        <div class="form__item">
-          <validation-provider v-slot="{ errors }" rules="required|max:255">
-            <label for="entry_person" class="form__item-lbl">
+            </td>
+          </tr>
+          <tr>
+            <th>
+              脈拍
+              <span class="required__lbl">必須</span>
+            </th>
+            <td>
+              <validation-provider v-slot="{ errors }" rules="required">
+                <div class="pulse-input__wrap">
+                  <input type="number" id="pulse" class="input pulse__input" v-model="contact_book.pulse" placeholder="70"
+                    required>
+                </div>
+                <div class="error">{{ errors[0] }}</div>
+              </validation-provider>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              食事量（主食）
+              <span class="required__lbl">必須</span>
+            </th>
+            <td>
+              <ul class="food-amount__list">
+                <validation-provider v-slot="{ errors }" rules="required|numeric|between:0,10">
+                  <div class="staple_food-input__wrap">
+                    <input type="number" id="staple_food" class="input staple-food__input" v-model="contact_book.staple_food"
+                      placeholder="10" required>
+                  </div>
+                  <div class="error">{{ errors[0] }}</div>
+                </validation-provider>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              食事量（副食）
+              <span class="required__lbl">必須</span>
+            </th>
+            <td>
+              <validation-provider v-slot="{ errors }" rules="required|numeric|between:0,10">
+                <div class="side_dish-input__wrap">
+                  <input type="number" id="side_dish" class="input side-dish__input" v-model="contact_book.side_dish" placeholder="10"
+                    required>
+                </div>
+                <div class="error">{{ errors[0] }}</div>
+              </validation-provider>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              リハビリ内容
+              <span class="required__lbl">必須</span>
+            </th>
+            <td>
+              <ul class="rehabilitation__lst">
+                <li>
+                  <input type="checkbox" id="strength_training" v-model="contact_book.strength_training">
+                  <label for="strength_training">筋力トレーニング（上肢・下肢・体幹）</label>
+                </li>
+                <li>
+                  <input type="checkbox" id="stand_up_practice" v-model="contact_book.stand_up_practice">
+                  <label for="stand_up_practice">立ち上がり練習</label>
+                </li>
+                <li>
+                  <input type="checkbox" id="stretch" v-model="contact_book.stretch">
+                  <label for="stretch">ストレッチ</label>
+                </li>
+                <li>
+                  <input type="checkbox" id="thermotherapy" v-model="contact_book.thermotherapy">
+                  <label for="thermotherapy">温熱療法</label>
+                </li>
+                <li>
+                  <input type="checkbox" id="bicycle_exercise" v-model="contact_book.bicycle_exercise">
+                  <label for="bicycle_exercise">自転車運動</label>
+                </li>
+                <li>
+                  <input type="checkbox" id="walking_practice" v-model="contact_book.walking_practice">
+                  <label for="walking_practice">歩行練習</label>
+                </li>
+                <li>
+                  <input type="checkbox" id="others" v-model="contact_book.others">
+                  <label for="others">その他</label>
+                  <input type="text" class="input" v-model="contact_book.others_detail">
+                </li>
+                <li>
+                  <input type="checkbox" id="rehabilitation_plan">
+                  <label for="rehabilitation_plan">リハビリ計画書</label>
+                </li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <th>レクリエーション</th>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <th>特記事項</th>
+            <td>
+              <validation-provider v-slot="{ errors }" rules="max:255">
+                <label for="special_notes" class="form__item-lbl"></label>
+                <textarea id="special_notes" class="special-notes" v-model="contact_book.special_notes"></textarea>
+                <div class="error">{{ errors[0] }}</div>
+              </validation-provider>
+            </td>
+          </tr>
+          <tr>
+            <th>
               記入者
               <span class="required__lbl">必須</span>
-            </label>
-            <input type="text" class="input" placeholder="佐藤">
-            <div class="error">{{ errors[0] }}</div>
-          </validation-provider>
-        </div>
+            </th>
+            <td>
+              <validation-provider v-slot="{ errors }" rules="required|max:255">
+                <input type="text" class="input" placeholder="佐藤">
+                <div class="error">{{ errors[0] }}</div>
+              </validation-provider>
+            </td>
+          </tr>
+        </table>
         <button class="btn confirm__btn" :disabled="invalid">
           入力内容確認
         </button>
       </validation-observer>
     </div>
-
   </div>
 </template>
 
@@ -208,9 +226,9 @@ export default {
 </script>
 
 <style scoped>
-.contact-book {
+.diary {
   margin: 20px auto 50px;
-  width: 500px;
+  width: 600px;
 }
 .special-notes {
   resize: none;
@@ -292,14 +310,15 @@ input[type="number"] {
 .form__item-lbl {
   vertical-align: center;
 }
-.legend__lbl {
-  font-weight: 500;
-  color: #333;
-}
 li {
   list-style: none;
 }
 .rehabilitation__lst li{
   margin-bottom: 15px;
+}
+.diary__tbl th {
+  text-align: left;
+  vertical-align: top;
+  height: 80px;
 }
 </style>

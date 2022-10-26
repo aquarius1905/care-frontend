@@ -25,23 +25,23 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(object, index) in users_list" :key="index">
+          <tr v-for="(user, index) in users_list" :key="index">
             <td>{{ index + 1 }}</td>
-            <td>{{ object.care_receiver.name }}</td>
-            <td>{{ object.care_receiver.name_furigana }}</td>
-            <td>{{ object.care_receiver.email }}</td>
-            <td>{{ object.care_receiver.tel }}</td>
-            <td>{{ object.starting_time.substring(0, 5) }}</td>
-            <td>{{ object.ending_time.substring(0, 5) }}</td>
+            <td>{{ user.care_receiver.name }}</td>
+            <td>{{ user.care_receiver.name_furigana }}</td>
+            <td>{{ user.care_receiver.email }}</td>
+            <td>{{ user.care_receiver.tel }}</td>
+            <td>{{ user.starting_time.substring(0, 5) }}</td>
+            <td>{{ user.ending_time.substring(0, 5) }}</td>
             <td>
               <button class="btn notify__btn" 
-                @click="notifyPickupTime(object.care_receiver.id)">
+                @click="notifyPickupTime(user.care_receiver.id)">
                 送迎時間通知
               </button>
             </td>
             <td>
               <button class="btn diary__btn"
-              @click="showDiary(object)">
+              @click="showDiary(user)">
                 日誌
               </button>
             </td>
@@ -79,12 +79,6 @@ export default {
         alert("利用者一覧の取得に失敗しました")
       }
     },
-    showDiary() {
-      this.$router.push({
-        name: 'Cancellation',
-        query: { schedule: schedule }
-      });
-    },
     yesterday() {
       this.$router.push({
         name: 'NursingCareOfficeDashboard'
@@ -95,13 +89,16 @@ export default {
         name: 'NursingCareOfficeDashboard'
       });
     },
-    showDiary(object) {
-      const service_type_id = object.nursing_care_office.service_type_id;
+    showDiary(user) {
+      const service_type_id = user.nursing_care_office.service_type_id;
       const send_data = {
-        care_receiver_id: object.care_receiver_id,
-        care_receiver_name: object.care_receiver.name
+        care_receiver_id: user.care_receiver_id,
+        care_receiver_name: user.care_receiver.name
       };
+      console.log(service_type_id);
       switch (service_type_id) {
+        case 1:
+          break;
         case 2:
           this.$router.push({
             name: 'DaycareDiaryInput',
