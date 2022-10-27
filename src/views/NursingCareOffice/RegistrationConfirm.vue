@@ -33,11 +33,15 @@
       <table class="confirmation__tbl">
         <tr>
           <th>氏名</th>
-          <td>{{ nursing_care_office.last_name }}&emsp;{{ nursing_care_office.first_name }}</td>
+          <td>
+            <span class="last_name">{{ nursing_care_office.last_name }}</span><span>{{ nursing_care_office.first_name }}</span>
+          </td>
         </tr>
         <tr>
           <th>フリガナ</th>
-          <td>{{ nursing_care_office.last_name_furigana }}&emsp;{{ nursing_care_office.first_name_furigana }}</td>
+          <td>
+            <span class="last_name_furigana">{{ nursing_care_office.last_name_furigana }}</span><span>{{ nursing_care_office.first_name_furigana }}</span>
+          </td>
         </tr>
         <tr>
           <th>メールアドレス</th>

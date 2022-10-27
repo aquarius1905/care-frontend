@@ -2,7 +2,7 @@
   <div class="weekly-schedule">
     <div class="page__header">
       <h2 class="page__ttl">週間サービス計画表</h2>
-      <p>{{ care_receiver_name }}&emsp;様</p>
+      <p><span class="name">{{ care_receiver_name }}</span>様</p>
     </div>
     <div class="page__content">
       <div class="service-registration__form box-shadow">

@@ -451,3 +451,9 @@ body {
   margin: 20px auto 0;
   width: 400px;
 }
+
+.name,
+.last_name,
+.last_name_furigana {
+  margin-right: 20px;
+}

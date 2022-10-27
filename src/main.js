@@ -84,10 +84,12 @@ localize({
       service_type: "サービス種別",
       reason: "理由",
       body_temperature: "体温",
-      blood_pressure: "血圧",
+      systonic_blood_pressure: "血圧",
+      diastolic_blood_pressure: "血圧",
       pulse: "脈拍",
-      staple_food: "主食",
-      side_dish: "副食",
+      staple_food: "食事量",
+      side_dish: "食事量",
+      entry_person: "記入者"
     },
    },
 });

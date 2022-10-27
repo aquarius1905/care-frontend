@@ -29,11 +29,15 @@
       <table class="confirmation__tbl">
         <tr>
           <th>氏名</th>
-          <td>{{ care_manager.last_name }}&emsp;{{ care_manager.first_name }}</td>
+          <td>
+            <span class="last_name">{{ care_manager.last_name }}</span><span>{{ care_manager.first_name }}</span>
+          </td>
         </tr>
         <tr>
           <th>フリガナ</th>
-          <td>{{ care_manager.last_name_furigana }}&emsp;{{ care_manager.first_name_furigana }}</td>
+          <td>
+            <span class="last_name_furigana">{{ care_manager.last_name_furigana }}</span><span>{{ care_manager.first_name_furigana }}</span>
+          </td>
         </tr>
         <tr>
           <th>介護支援専門員登録番号</th>

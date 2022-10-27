@@ -212,7 +212,7 @@ export default {
     },
     confirmRegistration() {
       this.$router.push({
-        name: 'CareManagerRegistrationConfirm',
+        name: 'CareManagerConfirm',
         query: { care_manager: this.care_manager }
       });
     },
