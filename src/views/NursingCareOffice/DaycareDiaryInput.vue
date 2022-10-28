@@ -124,59 +124,36 @@
           </tr>
           <tr>
             <th>
-              リハビリ内容
-              <span class="required__lbl">必須</span>
-            </th>
-            <td>
-              <ul class="rehabilitation__lst">
-                <li>
-                  <input type="checkbox" id="strength_training" v-model="diary.strength_training">
-                  <label for="strength_training">筋力トレーニング（上肢・下肢・体幹）</label>
-                </li>
-                <li>
-                  <input type="checkbox" id="stand_up_practice" v-model="diary.stand_up_practice">
-                  <label for="stand_up_practice">立ち上がり練習</label>
-                </li>
-                <li>
-                  <input type="checkbox" id="stretch" v-model="diary.stretch">
-                  <label for="stretch">ストレッチ</label>
-                </li>
-                <li>
-                  <input type="checkbox" id="thermotherapy" v-model="diary.thermotherapy">
-                  <label for="thermotherapy">温熱療法</label>
-                </li>
-                <li>
-                  <input type="checkbox" id="bicycle_exercise" v-model="diary.bicycle_exercise">
-                  <label for="bicycle_exercise">自転車運動</label>
-                </li>
-                <li>
-                  <input type="checkbox" id="walking_practice" v-model="diary.walking_practice">
-                  <label for="walking_practice">歩行練習</label>
-                </li>
-                <li>
-                  <input type="checkbox" id="others" v-model="diary.others">
-                  <label for="others">その他</label>
-                  <input type="text" class="input" v-model="diary.others_detail">
-                </li>
-                <li>
-                  <input type="checkbox" id="rehabilitation_plan">
-                  <label for="rehabilitation_plan">リハビリ計画書</label>
-                </li>
-              </ul>
-            </td>
-          </tr>
-          <tr>
-            <th>
               レクリエーション
               <span class="required__lbl">必須</span>
             </th>
             <td>
-              <label class="radio__lbl">
-                <input type="radio" name="recreation" value="0" v-model="diary.recreation">未実施
-              </label>
-              <label class="radio__lbl">
-                <input type="radio" name="recreation" value="1" v-model="diary.recreation">実施
-              </label>
+              <validation-provider v-slot="{ errors }" rules="required">
+                <label class="radio__lbl">
+                  <input type="radio" name="recreation" value="0" v-model="diary.recreation">未実施
+                </label>
+                <label class="radio__lbl">
+                  <input type="radio" name="recreation" value="1" v-model="diary.recreation">実施
+                </label>
+                <div class="error">{{ errors[0] }}</div>
+              </validation-provider>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              リハビリ内容
+              <span class="required__lbl">必須</span>
+            </th>
+            <td>
+              <validation-provider v-slot="{ errors }" rules="required">
+                <label :for="rehabilitation_content.name" v-for="(rehabilitation_content, index) in rehabilitation_contents" :key="index"
+                class="checkbox__lbl">
+                  <input type="checkbox" :id="rehabilitation_content.name" v-model="diary.rehabilitations" :value="rehabilitation_content.id">
+                  {{ rehabilitation_content.name }}
+                </label>
+                <input type="text" class="input" v-model="diary.others_detail">
+                <div class="error">{{ errors[0] }}</div>
+              </validation-provider>
             </td>
           </tr>
           <tr>
@@ -215,6 +192,7 @@
 
 <script>
 import dayjs from 'dayjs';
+import { mapGetters, mapActions } from 'vuex';
 export default {
   data() {
     return {
@@ -229,29 +207,40 @@ export default {
         pulse: null,
         staple_food: null,
         side_dish: null,
-        strength_training: false,
-        stretch: false,
-        stand_up_practice: false,
-        thermotherapy: false,
-        bicycle_exercise: false,
-        walking_practice: false,
-        others: false,
+        rehabilitations: [],
         others_detail: '',
-        rehabilitation_plan: false,
         recreation: 0,
         special_notes: null,
         entry_person: null
-      }
+      },
+      rehabilitation_contents: null
     }
+  },
+  computed: {
+    ...mapGetters([
+      'emptyRehabilitationContents',
+      'getRehabilitationContents'
+    ])
   },
   methods: {
+    ...mapActions([
+      'fetchRehabilitationContents',
+    ]),
     register() {
       console.log(this.diary);
+    },
+    async setRehabilitationContents() {
+      if (this.emptyRehabilitationContents) {
+        await this.fetchRehabilitationContents();
+      }
+
+      this.rehabilitation_contents = this.getRehabilitationContents;
     }
   },
-  created() {
+  async created() {
     this.diary.care_receiver_id = this.$route.query.care_receiver_id;
     this.diary.care_receiver_name = this.$route.query.care_receiver_name;
+    await this.setRehabilitationContents();
   }
 }
 </script>
@@ -311,14 +300,17 @@ input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   appearance: none;
 }
+
 input[type="number"] {
   -moz-appearance: textfield;
   appearance: none;
   margin-right: 10px;
 }
+
 input[type="radio"] {
   height: 40px;
 }
+
 .blood-pressure__wrap::after {
   content: "mmHg";
   font-size: 16px;
@@ -338,21 +330,10 @@ input[type="radio"] {
   align-items: center;
 }
 
-.staple-food__wrap,
-.side_dish__wrap {
-  display: flex;
-  align-items: center;
-  margin-left: 30px;
+.checkbox__lbl {
+  display: block;
+  margin-bottom: 10px;
 }
-
-li {
-  list-style: none;
-}
-
-.rehabilitation__lst li {
-  margin-bottom: 15px;
-}
-
 .radio__lbl {
   margin-right: 20px;
 }

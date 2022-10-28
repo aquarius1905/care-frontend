@@ -2,7 +2,8 @@ import { nursingCareOfficeAuthApi } from "@/plugins/axios";
 
 const state = {
   nursingCareOfficeAccessToken: null,
-  loggedInNursingCareOffice: null
+  loggedInNursingCareOffice: null,
+  rehabilitationContents: null,
 };
 const getters = {
   getNursingCareOfficeAccessToken(state) {
@@ -23,6 +24,12 @@ const getters = {
   getLoggedInNursingCareOffice(state) {
     return state.loggedInNursingCareOffice;
   },
+  getRehabilitationContents(state) {
+    return state.rehabilitationContents;
+  },
+  emptyRehabilitationContents(state) {
+    return state.rehabilitationContents === null;
+  }
 };
 const mutations = {
   setNursingCareOfficeAccessToken(state, payload) {
@@ -34,7 +41,11 @@ const mutations = {
   resetNursingCareOffice(state) {
     state.nursingCareOfficeAccessToken = null;
     state.loggedInNursingCareOffice = null;
+    state.rehabilitationContents = null;
   },
+  setRehabilitationContents(state, payload) {
+    state.rehabilitationContents = payload;
+  }
 };
 const actions = {
   setNursingCareOfficeAccessToken(context, payload) {
@@ -55,6 +66,20 @@ const actions = {
       context.commit('setLoggedInNursingCareOfficeData', data.data);
     } catch (error) {
       alert("登録情報の取得に失敗しました");
+    }
+  },
+  async fetchRehabilitationContents(context) {
+    try {
+      const { data } = await nursingCareOfficeAuthApi.get(
+        '/rehabilitation-contents'
+      );
+      context.commit(
+        'setRehabilitationContents',
+        data.data
+      );
+    } catch (error) {
+      console.log(error);
+      alert("リハビリ内容の取得に失敗しました");
     }
   }
 };
