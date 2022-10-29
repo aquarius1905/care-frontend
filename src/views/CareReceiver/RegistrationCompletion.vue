@@ -8,7 +8,7 @@
 import TextMessage from "@/components/TextMessage";
 export default {
   components: { TextMessage },
-  data: function () {
+  data() {
     return {
       msg: "被介護者、及びキーパーソンの登録が完了しました"
     }

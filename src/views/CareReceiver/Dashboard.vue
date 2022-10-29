@@ -1,11 +1,11 @@
 <template>
   <div class="dashboard">
     <div class="visit-datetime__wrap">
-      <h2 class="content__ttl">次回ケアマネジャー訪問日時</h2>
+      <h2 class="visit-datetime__ttl">次回ケアマネジャー訪問日時</h2>
       <label class="visit-datetime__lbl">{{ visit_datetime }}</label>
     </div>
-    <h2 class="content__ttl">週間スケジュール</h2>
-    <div class="content">
+    <div>
+      <h2 class="weekly-schedule__ttl">週間スケジュール</h2>
       <table class="weekly-service-schedule__tbl box-shadow">
         <thead>
           <tr>
@@ -30,7 +30,6 @@
         </tbody>
       </table>
     </div>
-
   </div>
 </template>
 
@@ -49,14 +48,23 @@ export default {
 
 <style scoped>
 .dashboard {
-  padding-bottom: 30px;
+  padding: 20px;
 }
-.page__header {
-  justify-content: space-between;
+
+.visit-datetime__wrap {
+  margin-bottom: 20px;
 }
-.page__ttl {
-  padding: 0;
-  margin-right: 40px;
+
+.visit-datetime__ttl,
+.weekly-schedule__ttl {
+  text-align: left;
+}
+
+.weekly-schedule__ttl {
+  margin-bottom: 10px;
+}
+.weekly-service-schedule__tbl {
+  padding: 10px;
 }
 
 .weekly-service-schedule__tbl td {

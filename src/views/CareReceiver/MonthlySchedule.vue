@@ -11,8 +11,8 @@
             <th rowspan="2">日付</th>
             <th rowspan="2">施設名</th>
             <th colspan="2">サービス提供時間</th>
-            <th rowspan="2"></th>
-            <th rowspan="2"></th>
+            <th rowspan="2">キャンセル</th>
+            <th rowspan="2">日誌</th>
           </tr>
           <tr>
             <th>開始</th>
@@ -33,10 +33,12 @@
               </button>
             </td>
             <td>
-              <label v-if="beforeToday(schedule.date)">ー</label>
-              <button class="btn tbl-cancel__btn" @click="cancel(schedule)" v-else>
-                キャンセル
-              </button>
+              <button class="btn tbl-diary__btn" 
+              v-if="beforeToday(schedule.date)" 
+              @click="showDiary(schedule)">
+              日誌
+            </button>
+              <label v-else>ー</label>
             </td>
           </tr>
         </tbody>
@@ -114,6 +116,12 @@ export default {
         name: 'Cancellation',
         query: { schedule: schedule }
       });
+    },
+    showDiary(schedule) {
+      this.$router.push({
+        name: 'CareReceiverDiary',
+        query: { schedule: schedule }
+      });
     }
   },
   created() {
@@ -129,7 +137,8 @@ export default {
   margin: 0 auto;
   max-width: 1000px;
 }
-.tbl-cancel__btn {
+.tbl-cancel__btn,
+.tbl-diary__btn {
   width: 105px;
   font-size: 16px;
 }
