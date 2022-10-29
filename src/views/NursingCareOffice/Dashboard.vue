@@ -90,12 +90,11 @@ export default {
       });
     },
     showDiary(user) {
-      const service_type_id = user.nursing_care_office.service_type_id;
       const send_data = {
-        care_receiver_id: user.care_receiver_id,
+        weekly_service_schedule_id: user.id,
         care_receiver_name: user.care_receiver.name
       };
-      console.log(service_type_id);
+      const service_type_id = user.nursing_care_office.service_type_id;
       switch (service_type_id) {
         case 1:
           break;

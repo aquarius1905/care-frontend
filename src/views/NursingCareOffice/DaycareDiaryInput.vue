@@ -145,9 +145,11 @@
               <span class="required__lbl">必須</span>
             </th>
             <td>
-              <validation-provider v-slot="{ errors }" rules="required">
-                <label :for="rehabilitation_content.name" v-for="(rehabilitation_content, index) in rehabilitation_contents" :key="index"
-                class="checkbox__lbl">
+              <validation-provider v-slot="{ errors }" rules="required" name="リハビリ内容">
+                <label v-for="(rehabilitation_content, index) in rehabilitation_contents" 
+                :key="index"
+                class="checkbox__lbl"
+                :for="rehabilitation_content.name">
                   <input type="checkbox" :id="rehabilitation_content.name" v-model="diary.rehabilitations" :value="rehabilitation_content.id">
                   {{ rehabilitation_content.name }}
                 </label>
@@ -193,14 +195,15 @@
 <script>
 import dayjs from 'dayjs';
 import { mapGetters, mapActions } from 'vuex';
+import { nursingCareOfficeAuthApi } from "@/plugins/axios";
 export default {
   data() {
     return {
       diary: {
-        care_receiver_id: null,
+        weekly_service_schedule_id: 0,
         care_receiver_name: null,
         date: dayjs().format('YYYY-MM-DD'),
-        situation_at_home: 'ー',
+        situation_at_home: '',
         body_temperature: null,
         systonic_blood_pressure: null,
         diastolic_blood_pressure: null,
@@ -226,8 +229,24 @@ export default {
     ...mapActions([
       'fetchRehabilitationContents',
     ]),
-    register() {
-      console.log(this.diary);
+    async register() {
+      if (!confirm("日誌を登録しますか？")) {
+        return;
+      }
+      try {
+        const response = await nursingCareOfficeAuthApi.post(
+          '/daycare-diaries', this.diary
+        );
+        if (response.status === 201) {
+          this.$router.push({
+            name: 'DaycareDiaryCompleted',
+            query: { msg: "日誌の登録が完了しました" }
+          });
+        }
+      } catch (error) {
+        console.log(error);
+        alert("日誌の登録に失敗しました");
+      }
     },
     async setRehabilitationContents() {
       if (this.emptyRehabilitationContents) {
@@ -238,7 +257,7 @@ export default {
     }
   },
   async created() {
-    this.diary.care_receiver_id = this.$route.query.care_receiver_id;
+    this.diary.weekly_service_schedule_id = this.$route.query.weekly_service_schedule_id;
     this.diary.care_receiver_name = this.$route.query.care_receiver_name;
     await this.setRehabilitationContents();
   }
@@ -336,5 +355,9 @@ input[type="radio"] {
 }
 .radio__lbl {
   margin-right: 20px;
+}
+
+.registration__btn {
+  width: 100%;
 }
 </style>
