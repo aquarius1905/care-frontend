@@ -83,7 +83,7 @@ const actions = {
       const { data } = await careReceiverAuthApi.get(
         '/care-receivers/me'
       );
-
+      
       context.commit('setInfoAboutCareReceiver', data.data);
     } catch (error) {
       alert("登録情報の取得に失敗しました");

@@ -9,20 +9,27 @@
           </tr>
           <tr>
             <th>名前</th>
-            <td><span class="name">{{ diary.care_receiver_name }}</span>様</td>
+            <td><span class="name">{{ care_receiver_name }}</span>様</td>
           </tr>
           <tr>
             <th>ご家庭での状況</th>
-            <td>{{ diary.situation_at_home }}</td>
+            <td>
+              <validation-provider v-slot="{ errors }" rules="max:255">
+                <label for="situation_at_home" class="form__item-lbl"></label>
+                <textarea id="situation_at_home" class="situation-at-home" 
+                v-model="diary.situation_at_home" placeholder="体調の変化・薬の変更等ご記入下さい"></textarea>
+                <div class="error">{{ errors[0] }}</div>
+              </validation-provider>
+            </td>
           </tr>
           <tr>
             <th>体温</th>
-            <td>{{ diary.body_temperature }}</td>
+            <td>{{ diary.body_temperature + ' ℃' }}</td>
           </tr>
           <tr>
             <th>血圧</th>
             <td>
-              {{ systonic_blood_pressure + ' / ' + diary.diastolic_blood_pressure + ' mmHg'}}
+              {{ diary.systonic_blood_pressure + ' / ' + diary.diastolic_blood_pressure + ' mmHg'}}
             </td>
           </tr>
           <tr>
@@ -31,11 +38,11 @@
           </tr>
           <tr>
             <th>食事量（主食）</th>
-            <td>{{ diary.staple_food + '割' }}</td>
+            <td>{{ diary.staple_food + ' 割' }}</td>
           </tr>
           <tr>
             <th>食事量（副食）</th>
-            <td>{{ diary.side_dish + '割' }}</td>
+            <td>{{ diary.side_dish + ' 割' }}</td>
           </tr>
           <tr>
             <th>レクリエーション</th>
@@ -64,11 +71,23 @@
 </template>
 
 <script>
-import { nursingCareOfficeAuthApi } from "@/plugins/axios";
+import { careReceiverAuthApi } from "@/plugins/axios";
+import { mapGetters } from 'vuex';
 export default {
   props: {
-    diary: {
+    sendData: {
       type: Object
+    }
+  },
+  computed: {
+    ...mapGetters({
+      care_receiver_name: 'getLoggedInCareReceiverName'
+    })
+  },
+  data() {
+    return {
+      diary: {},
+      rehabilitaion_contents: {}
     }
   },
   methods: {
@@ -77,7 +96,7 @@ export default {
         return;
       }
       try {
-        const response = await nursingCareOfficeAuthApi.post(
+        const response = await careReceiverAuthApi.put(
           '/daycare-diaries', this.diary
         );
         if (response.status === 201) {
@@ -91,7 +110,23 @@ export default {
         alert("日誌の登録に失敗しました");
       }
     },
+    async getDaycareDiary() {
+      try {
+        const params = this.sendData;
+        const { data } = await careReceiverAuthApi.get(
+          '/daycare-diaries/search', { params }
+        );
+
+        this.diary = data.data;
+      } catch (error) {
+        console.log(error);
+        alert("日誌の取得に失敗しました");
+      }
+    }
   },
+  async created() {
+    await this.getDaycareDiary();
+  }
 }
 </script>
 
@@ -114,15 +149,11 @@ export default {
 
 .diary__tbl td {
   width: 65%;
-  height: 80px;
+  height: 70px;
   vertical-align: middle;
 }
 
-.special-notes {
-  resize: none;
-  width: 95%;
-  height: 100px;
-  padding: 10px;
-  font-size: 16px;
+.update__btn {
+  width: 100%;
 }
 </style>

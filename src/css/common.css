@@ -222,7 +222,8 @@ body {
 .confirmation,
 .update,
 .care-receiver__detail,
-.care-manager__info {
+.care-manager__info,
+.diary {
   margin: 20px auto 50px;
   width: 700px;
 }
@@ -458,4 +459,19 @@ body {
 .last_name,
 .last_name_furigana {
   margin-right: 20px;
+}
+
+.diary {
+  margin: 20px auto 50px;
+  width: 600px;
+}
+
+.special-notes,
+.situation-at-home {
+  resize: none;
+  width: 95%;
+  height: 100px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 6px;
 }

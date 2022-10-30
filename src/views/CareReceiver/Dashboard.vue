@@ -21,7 +21,7 @@
         </thead>
         <tbody>
           <tr v-for="(schedule, index) in weekly_service_schedules" :key="index">
-            <td>{{ day_of_weeks[schedule.dayofweek_id]}}</td>
+            <td>{{ day_of_weeks[schedule.dayofweek]}}</td>
             <td>{{ schedule.nursing_care_office.service_type.name }}</td>
             <td>{{ schedule.nursing_care_office.office_name }}</td>
             <td>{{ schedule.starting_time.substring(0, 5) }}</td>

@@ -265,11 +265,6 @@ export default {
 </script>
 
 <style scoped>
-.diary {
-  margin: 20px auto 50px;
-  width: 600px;
-}
-
 .diary-input__form {
   width: 100%;
   border-collapse: collapse;
@@ -285,14 +280,6 @@ export default {
   width: 65%;
   height: 80px;
   vertical-align: middle;
-}
-
-.special-notes {
-  resize: none;
-  width: 95%;
-  height: 100px;
-  padding: 10px;
-  font-size: 16px;
 }
 
 .body-temperature-input__wrap {

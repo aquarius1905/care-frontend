@@ -1,7 +1,7 @@
 <template>
-  <div class="care-manager__info">
-    <h2 class="info__ttl">日誌</h2>
-    <DaycareDiary :diary="diary"/>
+  <div class="diary">
+    <h2 class="diary__ttl">日誌</h2>
+    <DaycareDiary :send-data="send_data"/>
   </div>
 </template>
 
@@ -11,11 +11,11 @@ export default {
   components: { DaycareDiary },
   data() {
     return {
-      diary: {}
+      send_data: {}
     }
   },
   created() {
-    this.diary = this.$route.query.diary;
+    this.send_data = this.$route.query.send_data;
   }
 };
 </script>

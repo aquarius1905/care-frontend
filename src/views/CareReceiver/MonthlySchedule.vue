@@ -86,7 +86,7 @@ export default {
       for (let i = 0; i <= numberOfDays; i++) {
         let date = monthStart.add(i, 'd');
         const schedules = this.weekly_service_schedules.filter(
-          item => item.dayofweek_id === date.day()
+          item => item.dayofweek === date.day()
         );
         if (schedules.length === 0) {
           continue;
@@ -118,9 +118,13 @@ export default {
       });
     },
     showDiary(schedule) {
+      const send_data = {
+        'weekly_service_schedule_id': schedule.weekly_service_schedule_id,
+        'date': dayjs(schedule.date).format('YYYY-MM-DD')
+      }
       this.$router.push({
         name: 'CareReceiverDiary',
-        query: { schedule: schedule }
+        query: { send_data: send_data }
       });
     }
   },

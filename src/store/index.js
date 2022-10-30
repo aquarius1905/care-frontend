@@ -19,7 +19,7 @@ export default new Vuex.Store({
     Common,
     DayOfWeeks,
     NursingCareOffice,
-    ServiceTypes
+    ServiceTypes,
   },
   plugins: [CreatePersistedState(
     { // ストレージのキーを指定
