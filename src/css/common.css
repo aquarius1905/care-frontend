@@ -440,7 +440,12 @@ body {
   padding: 30px 20px 20px;
 }
 
-.ttl__wrap,
+.ttl__wrap {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
 .visit-datetime__wrap {
   display: flex;
   align-items: center;

@@ -113,3 +113,15 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.ttl__wrap {
+  padding-left: 0;
+}
+.care-receiver__detail {
+  margin-top: 0;
+}
+.detail__content {
+  margin-top: 0;
+}
+</style>

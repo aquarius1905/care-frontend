@@ -1,8 +1,10 @@
 <template>
   <div class="monthly-schedule">
     <div class="ttl__wrap">
+      <button class="btn last-month__btn" @click="moveToMonthlySchedulePage(false)">先月へ</button>
       <h2 class="page__ttl">月別スケジュール</h2>
-      <label class="date">{{ this_year_and_month }}</label>
+      <label class="date">{{ $dayjs(this.$route.query.month).format('YYYY年MM月') }}</label>
+      <button class="btn next-month__btn" @click="moveToMonthlySchedulePage(true)">来月へ</button>
     </div>
     <div class="page__content">
       <table class="monthly-schedule__tbl box-shadow">
@@ -68,16 +70,10 @@ export default {
         return dayjs(date).isSameOrBefore(dayjs());
       }
     },
-    isCancel: function () {
-      return function (schedule) {
-
-      }
-    }
   },
   methods: {
     setYearAndMonth() {
-      this.this_year_and_month
-        = dayjs().format('YYYY年MM月');
+      this.this_year_and_month = this.$route.query.date;
     },
     makeMonthlySchedules() {
       const monthStart = dayjs().startOf('month');
@@ -126,7 +122,23 @@ export default {
         name: 'CareReceiverDiary',
         query: { send_data: send_data }
       });
-    }
+    },
+    moveToMonthlySchedulePage(next_month_flg) {
+      let date = new Date(this.this_year_and_month);
+      console.log(date);
+      if (next_month_flg) {
+        console.log(date.getMonth() + 1);
+        date.setMonth(date.getMonth() + 1);
+      } else {
+        console.log(date.getMonth() - 1);
+        date.setMonth(date.getMonth() - 1);
+      }
+      console.log(date);
+      this.$router.push({
+        name: 'CareReceiverMonthlySchedule',
+        query: { date: date }
+      });
+    },
   },
   created() {
     dayjs.extend(isSameOrBefore);
@@ -145,5 +157,22 @@ export default {
 .tbl-diary__btn {
   width: 105px;
   font-size: 16px;
+}
+
+.page__ttl {
+  padding: 0;
+  margin-right: 10px;
+}
+
+.last-month__btn,
+.next-month__btn {
+  width: auto;
+  padding: 5px 15px;
+}
+.last-month__btn {
+  margin-right: 20px;
+}
+.next-month__btn {
+  margin-left: 20px;
 }
 </style>

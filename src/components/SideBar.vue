@@ -9,7 +9,9 @@
             </router-link>
           </li>
           <li>
-            <button class="btn__link" @click="showCareReceiverRegistrationPage">被介護者登録</button>
+            <button class="btn__link" @click="moveToCareReceiverRegistrationPage">
+              被介護者登録
+            </button>
           </li>
           <li>
             <router-link class="link" to="/care-manager/update">
@@ -43,7 +45,7 @@
         </ul>
         <ul class="menu__content" v-else>
           <li>
-            <button class="btn__link" @click="showCareManagerRegistrationPage">
+            <button class="btn__link" @click="moveToCareReceiverRegistrationPage">
             新規登録
             </button>
           </li>
@@ -63,9 +65,9 @@
             </router-link>
           </li>
           <li>
-            <router-link class="link" to="/care-receiver/monthly-schedule">
+            <button class="btn__link" @click="moveToMonthlySchedulePage">
               月間スケジュール
-            </router-link>
+            </button>
           </li>
           <li>
             <router-link class="link" to="/care-receiver/detail">
@@ -96,7 +98,7 @@
         </ul>
         <ul class="menu__content" v-else>
           <li>
-            <button class="btn__link" @click="showNursingCareOfficeRegistrationPage">
+            <button class="btn__link" @click="moveToNursingCareOfficeRegistrationPage">
             新規登録
             </button>
           </li>
@@ -126,34 +128,30 @@ export default {
     ])
   },
   methods: {
-    showCareManagerRegistrationPage() {
+    moveToCareReceiverRegistrationPage() {
       this.$router.push({
         name: 'CareManagerInput',
         query: { care_manager: null }
       });
     },
-    showCareReceiverRegistrationPage() {
+    moveToCareReceiverRegistrationPage() {
       this.$router.push({
         name: 'CareReceiverInput',
         query: { care_receiver: null }
       });
     },
-    showNursingCareOfficeRegistrationPage() {
+    moveToNursingCareOfficeRegistrationPage() {
       this.$router.push({
         name: 'NursingCareOfficeInput',
         query: { nursing_care_office: null }
       });
     },
-    showCareReceiverDetail() {
-      if (this.isCareManagerLoggedIn) {
-        this.$router.push({
-          name: 'CareManagerCareReceiverDetail'
-        });
-      } else if (this.isCareReceiverLoggedIn) {
-        this.$router.push({
-          name: 'CareReceiverDetail'
-        });
-      }
+    moveToMonthlySchedulePage() {
+      const date = new Date();
+      this.$router.push({
+        name: 'CareReceiverMonthlySchedule',
+        query: { date: date.toDateString() }
+      });
     }
   },
 }
