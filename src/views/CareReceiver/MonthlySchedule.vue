@@ -3,7 +3,7 @@
     <div class="ttl__wrap">
       <button class="btn last-month__btn" @click="moveToMonthlySchedulePage(false)">先月へ</button>
       <h2 class="page__ttl">月別スケジュール</h2>
-      <label class="date">{{ $dayjs(this.$route.query.month).format('YYYY年MM月') }}</label>
+      <label class="date">{{ $dayjs(this.year_and_month).format('YYYY年MM月') }}</label>
       <button class="btn next-month__btn" @click="moveToMonthlySchedulePage(true)">来月へ</button>
     </div>
     <div class="page__content">
@@ -56,7 +56,7 @@ import { mapGetters } from 'vuex';
 export default {
   data() {
     return {
-      this_year_and_month: null,
+      year_and_month: null,
       monthly_schedules: []
     }
   },
@@ -72,13 +72,13 @@ export default {
     },
   },
   methods: {
-    setYearAndMonth() {
-      this.this_year_and_month = this.$route.query.date;
-    },
     makeMonthlySchedules() {
-      const monthStart = dayjs().startOf('month');
-      const monthEnd = dayjs().endOf('month');
+      const date = new Date(this.year_and_month);
+      const monthStart = dayjs(date, 'YYYY-MM-DD').startOf('month');
+      const monthEnd = dayjs(date, 'YYYY-MM-DD').endOf('month');
       const numberOfDays = monthEnd.diff(monthStart, "day");
+
+      this.monthly_schedules = [];
       for (let i = 0; i <= numberOfDays; i++) {
         let date = monthStart.add(i, 'd');
         const schedules = this.weekly_service_schedules.filter(
@@ -124,25 +124,20 @@ export default {
       });
     },
     moveToMonthlySchedulePage(next_month_flg) {
-      let date = new Date(this.this_year_and_month);
-      console.log(date);
+      let date = new Date(this.year_and_month);
       if (next_month_flg) {
-        console.log(date.getMonth() + 1);
         date.setMonth(date.getMonth() + 1);
       } else {
-        console.log(date.getMonth() - 1);
         date.setMonth(date.getMonth() - 1);
       }
-      console.log(date);
-      this.$router.push({
-        name: 'CareReceiverMonthlySchedule',
-        query: { date: date }
-      });
+      this.year_and_month = date.toDateString();
+
+      this.makeMonthlySchedules();
     },
   },
   created() {
     dayjs.extend(isSameOrBefore);
-    this.setYearAndMonth();
+    this.year_and_month = this.$route.query.year_and_month;
     this.makeMonthlySchedules();
   }
 }

@@ -150,7 +150,7 @@ export default {
       const date = new Date();
       this.$router.push({
         name: 'CareReceiverMonthlySchedule',
-        query: { date: date.toDateString() }
+        query: { year_and_month: date.toDateString() }
       });
     }
   },
