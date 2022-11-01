@@ -12,6 +12,7 @@ import CareManagerInfo from '@/views/CareReceiver/CareManagerInfo.vue'
 import Cancellation from '@/views/CareReceiver/Cancellation.vue'
 import CancellationCompleted from '@/views/Common/TextMessage.vue'
 import CareReceiverDiary from '@/views/CareReceiver/Diary.vue'
+import CareReceiverDiaryUpdateCompleted from '@/views/Common/TextMessage.vue'
 
 export default {
   routes: [
@@ -97,7 +98,13 @@ export default {
       path: '/care-receiver/diary',
       name: 'CareReceiverDiary',
       component: CareReceiverDiary,
-      meta: { requiresAuth: true },
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/care-receiver/diary-update/completed',
+      name: 'CareReceiverDiaryUpdateCompleted',
+      component: CareReceiverDiaryUpdateCompleted,
+      meta: { requiresAuth: true }
     }
   ]
 }

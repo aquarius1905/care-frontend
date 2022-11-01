@@ -8,10 +8,6 @@
             <td>{{ $dayjs(diary.date).format("YYYY年MM月DD日（ddd）") }}</td>
           </tr>
           <tr>
-            <th>名前</th>
-            <td><span class="name">{{ care_receiver_name }}</span>様</td>
-          </tr>
-          <tr>
             <th>ご家庭での状況</th>
             <td>
               <validation-provider v-slot="{ errors }" rules="max:255">
@@ -34,7 +30,7 @@
           </tr>
           <tr>
             <th>脈拍</th>
-            <td>{{ diary.pulse }}</td>
+            <td>{{ diary.pulse + ' 回/分' }}</td>
           </tr>
           <tr>
             <th>食事量（主食）</th>
@@ -74,11 +70,7 @@
 import { careReceiverAuthApi } from "@/plugins/axios";
 import { mapGetters } from 'vuex';
 export default {
-  props: {
-    sendData: {
-      type: Object
-    }
-  },
+  props: ['sendData'],
   computed: {
     ...mapGetters({
       care_receiver_name: 'getLoggedInCareReceiverName'
@@ -95,19 +87,24 @@ export default {
       if (!confirm("日誌を更新しますか？")) {
         return;
       }
+      const send_data = {
+        'id': this.diary.id,
+        'situation_at_home': this.diary.situation_at_home
+      };
       try {
         const response = await careReceiverAuthApi.put(
-          '/daycare-diaries', this.diary
+          '/daycare-diaries/situation-at-home-updates', send_data
         );
+
         if (response.status === 201) {
           this.$router.push({
-            name: 'DaycareDiaryCompleted',
-            query: { msg: "日誌の登録が完了しました" }
+            name: 'CareReceiverDiaryUpdateCompleted',
+            query: { msg: "日誌の更新が完了しました" }
           });
         }
       } catch (error) {
         console.log(error);
-        alert("日誌の登録に失敗しました");
+        alert("日誌の更新に失敗しました");
       }
     },
     async getDaycareDiary() {

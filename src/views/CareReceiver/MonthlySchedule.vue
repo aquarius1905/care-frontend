@@ -118,6 +118,7 @@ export default {
         'weekly_service_schedule_id': schedule.weekly_service_schedule_id,
         'date': dayjs(schedule.date).format('YYYY-MM-DD')
       }
+      
       this.$router.push({
         name: 'CareReceiverDiary',
         query: { send_data: send_data }
