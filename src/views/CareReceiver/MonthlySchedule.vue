@@ -1,10 +1,10 @@
 <template>
   <div class="monthly-schedule">
     <div class="ttl__wrap">
-      <button class="btn last-month__btn" @click="moveToMonthlySchedulePage(false)">先月へ</button>
+      <button class="btn last-month__btn" @click="movePage(false)">&lt; 先月</button>
       <h2 class="page__ttl">月別スケジュール</h2>
       <label class="date">{{ $dayjs(this.year_and_month).format('YYYY年MM月') }}</label>
-      <button class="btn next-month__btn" @click="moveToMonthlySchedulePage(true)">来月へ</button>
+      <button class="btn next-month__btn" @click="movePage(true)">来月 &gt;</button>
     </div>
     <div class="page__content">
       <table class="monthly-schedule__tbl box-shadow">
@@ -124,7 +124,7 @@ export default {
         query: { send_data: send_data }
       });
     },
-    moveToMonthlySchedulePage(next_month_flg) {
+    movePage(next_month_flg) {
       let date = new Date(this.year_and_month);
       if (next_month_flg) {
         date.setMonth(date.getMonth() + 1);
@@ -138,7 +138,8 @@ export default {
   },
   created() {
     dayjs.extend(isSameOrBefore);
-    this.year_and_month = this.$route.query.year_and_month;
+    const today = new Date();
+    this.year_and_month = today.toDateString();
     this.makeMonthlySchedules();
   }
 }
@@ -149,6 +150,7 @@ export default {
   margin: 0 auto;
   max-width: 1000px;
 }
+
 .tbl-cancel__btn,
 .tbl-diary__btn {
   width: 105px;
@@ -156,7 +158,6 @@ export default {
 }
 
 .page__ttl {
-  padding: 0;
   margin-right: 10px;
 }
 

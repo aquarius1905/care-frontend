@@ -147,10 +147,8 @@ export default {
       });
     },
     moveToMonthlySchedulePage() {
-      const date = new Date();
       this.$router.push({
-        name: 'CareReceiverMonthlySchedule',
-        query: { year_and_month: date.toDateString() }
+        name: 'CareReceiverMonthlySchedule'
       });
     }
   },

@@ -227,7 +227,6 @@ export default {
   padding-bottom: 30px;
 }
 .page__ttl {
-  padding: 0;
   margin-right: 40px;
 }
 

@@ -1,9 +1,11 @@
 <template>
   <div class="dashboard">
     <div class="dashboard__header">
-      <button class="btn yesterday__btn" @click="yesterday"> &lt; 前日</button>
-      <h2 class="page__ttl">{{ $dayjs().format('YYYY年MM月DD日（ddd）') }} 利用者一覧</h2>
-      <button class="btn tomorrow__btn" @click="tomorrow">明日 &gt; </button>
+      <button class="btn yesterday__btn" @click="movePage(false)">&lt; 前日</button>
+      <h2 class="page__ttl">{{ $dayjs(this.date).format('YYYY年MM月DD日（ddd）') }} 
+        本日の利用者一覧
+      </h2>
+      <button class="btn tomorrow__btn" @click="movePage(true)">明日 &gt;</button>
     </div>
     <div class="dashboard__main">
       <table class="users-list__tbl box-shadow">
@@ -66,7 +68,7 @@ export default {
     async searchCareReceivers() {
       try {
         const params = {
-          dayofweek: dayjs().day()
+          dayofweek: dayjs(this.date).day()
         };
         const { data } = await nursingCareOfficeAuthApi.get(
           '/weekly-service-schedules/search',
@@ -79,15 +81,15 @@ export default {
         alert("利用者一覧の取得に失敗しました")
       }
     },
-    yesterday() {
-      this.$router.push({
-        name: 'NursingCareOfficeDashboard'
-      });
-    },
-    tomorrow() {
-      this.$router.push({
-        name: 'NursingCareOfficeDashboard'
-      });
+    async movePage(tomorrow_flg) {
+      let date = new Date(this.date);
+      if (tomorrow_flg) {
+        date.setDate(date.getDate() + 1);
+      } else {
+        date.setDate(date.getDate() + 1);
+      }
+      this.date = date;
+      await this.searchCareReceivers();
     },
     showDiary(user) {
       const send_data = {
@@ -105,7 +107,6 @@ export default {
           });
           break;
       }
-
     },
     async notifyPickupTime(care_receiver_id) {
       if (!confirm("送迎時間を通知しますか？")) {
@@ -127,6 +128,8 @@ export default {
     }
   },
   async created() {
+    const today = new Date();
+    this.date = today.toDateString();
     await this.searchCareReceivers();
   } 
 }
@@ -138,9 +141,7 @@ export default {
   align-items: center;
   padding: 20px;
 }
-.date {
-  margin-left: 30px;
-}
+
 .dashboard__main {
   padding: 0 20px 20px;
 }

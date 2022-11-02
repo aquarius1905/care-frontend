@@ -221,7 +221,7 @@
               メールアドレス
               <span class="required__lbl">必須</span>
             </label>
-            <input type="email" id="email" class="input" v-model="care_receiver.email" placeholder="taro_yamada@sample.com"
+            <input type="email" id="email" class="input" v-model="care_receiver.email" placeholder="hanako_yamada@sample.com"
               required>
             <div class="error">{{ errors[0] }}</div>
           </validation-provider>
