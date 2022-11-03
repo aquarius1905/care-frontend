@@ -49,10 +49,9 @@
         </ul>
       </div>
     </nav>
-    <nav class="nav" 
-      v-show="this.isCareReceiver && this.isCareReceiverLoggedIn">
+    <nav class="nav" v-if="this.isCareReceiver">
       <div>
-        <ul class="menu__content">
+        <ul class="menu__content" v-if="this.isCareReceiverLoggedIn">
           <li>
             <router-link class="link" to="/care-receiver/index">
               ダッシュボード
@@ -72,6 +71,11 @@
             <router-link class="link" to="/care-receiver/care-manager-info">
               担当ケアマネージャー
             </router-link>
+          </li>
+        </ul>
+        <ul class="menu__content" v-else>
+          <li>
+            <router-link class="link" to="/care-receiver/login">ログイン</router-link>
           </li>
         </ul>
       </div>

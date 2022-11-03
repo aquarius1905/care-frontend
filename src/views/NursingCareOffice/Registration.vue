@@ -278,10 +278,6 @@ export default {
 </script>
 
 <style scoped>
-.confirm__btn {
-
-}
-
 .contact-person__info {
   margin-top: 40px;
 }
