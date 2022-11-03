@@ -1,6 +1,6 @@
 import CareReceiverInput from '@/views/CareReceiver/Registration.vue'
 import CareReceiverConfirm from '@/views/CareReceiver/RegistrationConfirm.vue'
-import CareReceiverCompleted from '@/views/CareReceiver/RegistrationCompletion.vue'
+import CareReceiverCompleted from '@/views/Common/TextMessage.vue'
 import CareReceiverUpdate from '@/views/CareReceiver/Update.vue'
 import CareReceiverUpdateCompleted from '@/views/Common/TextMessage.vue'
 import CareReceiverDetail from '@/views/Common/CareReceiverDetail.vue'
@@ -32,7 +32,7 @@ export default {
       path: '/care-receiver/completed',
       name: 'CareReceiverCompleted',
       component: CareReceiverCompleted,
-      meta: { requiresAuth: false },
+      meta: { requiresAuth: true },
     },
     {
       path: '/care-receiver/update',

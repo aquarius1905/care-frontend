@@ -90,8 +90,8 @@ export default {
 
           if (response.status === 201) {
             this.$router.push({
-              name: 'CancellationCompleted',
-              query: { msg: "キャンセルの登録が完了しました" }
+              name: 'CareReceiverCompleted',
+              query: { msg: "" }
             });
           }
         } catch (error) {

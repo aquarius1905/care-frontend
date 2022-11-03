@@ -86,7 +86,7 @@ export default {
       if (tomorrow_flg) {
         date.setDate(date.getDate() + 1);
       } else {
-        date.setDate(date.getDate() + 1);
+        date.setDate(date.getDate() - 1);
       }
       this.date = date;
       await this.searchCareReceivers();

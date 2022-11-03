@@ -31,15 +31,9 @@
               </router-link>
             </li>
             <li>
-              <button class="btn__link">居宅サービス計画書</button>
-            </li>
-            <li>
               <router-link class="link" :to="{ name: 'CareReceiverWeeklyServiceSchedule'}">
                 週間サービス計画表
               </router-link>
-            </li>
-            <li>
-              <button class="btn__link">サービス利用票</button>
             </li>
           </ul>
         </ul>

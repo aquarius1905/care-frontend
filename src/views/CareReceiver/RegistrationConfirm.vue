@@ -113,7 +113,8 @@ export default {
 
         if (response.status === 201) {
           this.$router.push({
-            name: 'CareReceiverCompleted'
+            name: 'CareReceiverCompleted',
+            query: { msg: "被介護者、及びキーパーソンの登録が完了しました" }
           });
         }
       } catch (error) {
