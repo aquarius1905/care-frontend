@@ -1,5 +1,5 @@
 <template>
-  <div id="header">
+  <div class="header">
     <h1 class="main__ttl ttl" @click="backtoHome">Care</h1>
     <div class="logout__wrap" 
     v-show="this.isCareManagerLoggedIn || this.isCareReceiverLoggedIn || this.isNursingCareOfficeLoggedIn">
@@ -20,7 +20,11 @@
 </template>
 
 <script>
-import { careManagerAuthApi, careReceiverAuthApi, nursingCareOfficeAuthApi } from "@/plugins/axios";
+import {
+  careManagerAuthApi,
+  careReceiverAuthApi,
+  nursingCareOfficeAuthApi
+} from "@/plugins/axios";
 import { mapGetters, mapActions } from 'vuex'
 export default {
   data() {
@@ -139,7 +143,7 @@ export default {
 </script>
 
 <style scoped>
-#header {
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
