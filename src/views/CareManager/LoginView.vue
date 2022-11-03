@@ -14,7 +14,7 @@ export default {
   data() {
     return {
       form_ttl: 'ケアマネージャー',
-      forgot_password_link: '/care-manager/forgot-password'
+      forgot_password_link: '/care-manager/password-reset'
     }
   },
   created() {

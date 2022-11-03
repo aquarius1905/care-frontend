@@ -16,7 +16,7 @@
           </div>
           <button class="btn reset-password__btn" 
           :disabled="ObserverProps.invalid || !ObserverProps.validated"
-          @click="sendForgotPasswordEmail">パスワードリセット</button>
+          @click="sendForgotPasswordEmail">メール送信</button>
         </div>
       </validation-observer>
     </div>
@@ -48,8 +48,3 @@ export default {
   }
 }
 </script>
-<style scoped>
-.reset-password__btn {
-  width: 200px;
-}
-</style>

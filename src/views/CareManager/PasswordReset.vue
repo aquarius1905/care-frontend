@@ -1,16 +1,16 @@
 <template>
   <div>
-    <ForgotPassword
+    <PasswordReset
     :form-title="form_ttl"
     >
-    </ForgotPassword>
+    </PasswordReset>
   </div>
 </template>
 
 <script>
-import ForgotPassword from "@/components/ForgotPassword";
+import PasswordReset from "@/components/PasswordReset";
 export default {
-  components: { ForgotPassword },
+  components: { PasswordReset },
   data() {
     return {
       form_ttl: '（ケアマネージャー）'

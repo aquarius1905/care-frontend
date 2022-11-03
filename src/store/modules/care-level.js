@@ -1,4 +1,4 @@
-import { api } from "@/plugins/axios";
+import { careManagerAuthApi } from "@/plugins/axios";
 
 const state = {
   careLevels: null,
@@ -23,7 +23,7 @@ const mutations = {
 };
 const actions = {
   async fetchCareLevels(context) {
-    const { data } = await api.get('/care-levels');
+    const { data } = await careManagerAuthApi.get('/care-levels');
     context.commit('setCareLevels', data.data);
   }
 };

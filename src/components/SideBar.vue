@@ -39,7 +39,7 @@
         </ul>
         <ul class="menu__content" v-else>
           <li>
-            <button class="btn__link" @click="moveToCareReceiverRegistrationPage">
+            <button class="btn__link" @click="moveToCareManagerRegistrationPage">
             新規登録
             </button>
           </li>
@@ -122,7 +122,7 @@ export default {
     ])
   },
   methods: {
-    moveToCareReceiverRegistrationPage() {
+    moveToCareManagerRegistrationPage() {
       this.$router.push({
         name: 'CareManagerInput',
         query: { care_manager: null }

@@ -50,3 +50,9 @@ export default {
   }
 };
 </script>
+<style scoped>
+.care-manager__info {
+  margin: 20px auto 50px;
+  width: 700px;
+}
+</style>
