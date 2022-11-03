@@ -94,7 +94,8 @@ export default {
     showDiary(user) {
       const send_data = {
         weekly_service_schedule_id: user.id,
-        care_receiver_name: user.care_receiver.name
+        care_receiver_name: user.care_receiver.name,
+        date: new Date(this.date).toDateString()
       };
       const service_type_id = user.nursing_care_office.service_type_id;
       switch (service_type_id) {

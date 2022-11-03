@@ -346,8 +346,7 @@ body {
   padding: 0 20px 20px;
 }
 
-.registration__btn,
-.cancel__btn {
+.registration__btn {
   display: flex;
   justify-content: center;
   align-items: center;

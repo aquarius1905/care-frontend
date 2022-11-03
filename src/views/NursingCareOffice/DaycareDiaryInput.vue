@@ -24,7 +24,7 @@
               </label>
             </th>
             <td>
-              <validation-provider v-slot="{ errors }" rules="required|min_value:30.0|max_value:40.0|body_temperature">
+              <validation-provider v-slot="{ errors }" rules="required|between:30,40">
                 <div class="body-temperature-input__wrap">
                   <input type="number" id="body_temperature" class="input body-temperature__input"
                     v-model="diary.body_temperature" step="0.1" placeholder="36.0" required>
@@ -184,7 +184,10 @@
             </td>
           </tr>
         </table>
-        <button class="btn registration__btn" :disabled="invalid" @click="register">
+        <button class="btn update__btn" :disabled="invalid" @click="register" v-if="is_diary">
+          更新
+        </button>
+        <button  class="btn registration__btn" :disabled="invalid" @click="register" v-else>
           登録
         </button>
       </validation-observer>
@@ -216,7 +219,8 @@ export default {
         special_notes: null,
         entry_person: null
       },
-      rehabilitation_contents: null
+      rehabilitation_contents: null,
+      is_diary: false
     }
   },
   computed: {
@@ -229,6 +233,24 @@ export default {
     ...mapActions([
       'fetchRehabilitationContents',
     ]),
+    async searchDiary() {
+      const params = {
+        weekly_service_schedule_id: this.$route.query.weekly_service_schedule_id,
+        date: dayjs(this.diary.date).format('YYYY-MM-DD')
+      };
+      const response = await nursingCareOfficeAuthApi.get(
+        '/daycare-diaries/search', { params }
+      );
+      console.log(response);
+      if (response.status === 200) {
+        this.is_diary = true;
+        this.diary = response.data.data;
+      } else if (response === 404) {
+        this.is_diary = false;
+      }
+      this.diary.care_receiver_name = this.$route.query.care_receiver_name;
+      console.log(this.diary);
+    },
     async register() {
       if (!confirm("日誌を登録しますか？")) {
         return;
@@ -258,7 +280,8 @@ export default {
   },
   async created() {
     this.diary.weekly_service_schedule_id = this.$route.query.weekly_service_schedule_id;
-    this.diary.care_receiver_name = this.$route.query.care_receiver_name;
+    this.diary.date = new Date(this.$route.query.date);
+    await this.searchDiary();
     await this.setRehabilitationContents();
   }
 }
@@ -321,15 +344,18 @@ input[type="radio"] {
   content: "mmHg";
   font-size: 16px;
 }
+
 .pulse-input__wrap::after {
   content: "回/分";
   font-size: 16px;
 }
+
 .staple_food-input__wrap::after,
 .side_dish-input__wrap::after {
   content: "割";
   font-size: 16px;
 }
+
 .body-temerature__wrap,
 .blood-pressure__wrap {
   display: flex;
@@ -340,10 +366,12 @@ input[type="radio"] {
   display: block;
   margin-bottom: 10px;
 }
+
 .radio__lbl {
   margin-right: 20px;
 }
 
+.update__btn,
 .registration__btn {
   width: 100%;
 }

@@ -46,15 +46,6 @@ extend('insurer_number', {
   }
 })
 
-extend('body_temperature', {
-  message: "体温は小数点第一位まで入力可能です",
-  validate(value) {
-    if (value.match(/^([0-9]|[1-3][0-9])(\.[0-9]?)?|40$/)) {
-      return true;
-    }
-  }
-})
-
 // 日本語に設定
 localize('ja', ja);
 localize({
