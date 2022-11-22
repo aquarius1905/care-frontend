@@ -174,17 +174,6 @@ body {
   table-layout: fixed;
 }
 
-.forgot-password-form {
-  background-color: #fff;
-  width: 400px;
-  margin: 50px auto 0;
-  border-radius: 6px;
-}
-
-.forgot-password-form-content {
-  padding: 30px 20px 20px;
-}
-
 .login__btn,
 .reset-password__btn {
   width: 100%;

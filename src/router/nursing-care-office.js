@@ -5,6 +5,7 @@ import NursingCareOfficeCompleted from '@/views/Common/RegistrationCompletion.vu
 import NursingCareOfficeDashboard from '@/views/NursingCareOffice/Dashboard.vue'
 import NursingCareOfficeUpdate from '@/views/NursingCareOffice/UpdateInfo.vue'
 import NursingCareOfficeUpdateCompleted from '@/views/Common/UpdateCompleted.vue'
+import NursingCareOfficeResetPassword from '@/views/Common/ResetPassword.vue'
 import DaycareDiaryInput from '@/views/NursingCareOffice/DaycareDiaryInput.vue'
 import DaycareDiaryCompleted from '@/views/Common/TextMessage.vue'
 
@@ -51,6 +52,12 @@ export default {
       name: 'NursingCareOfficeUpdateCompleted',
       component: NursingCareOfficeUpdateCompleted,
       meta: { requiresAuth: true } 
+    },
+    {
+      path: '/nursing-care-office/reset-passowrd',
+      name: 'NursingCareOfficeResetPassword',
+      component: NursingCareOfficeResetPassword,
+      meta: { requiresAuth: false }
     },
     {
       path: '/daycare-diary/input',

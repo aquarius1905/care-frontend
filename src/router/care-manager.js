@@ -5,11 +5,10 @@ import CareManagerConfirm from '@/views/CareManager/RegistrationConfirm.vue'
 import CareManagerUpdate from '@/views/CareManager/UpdateInfo.vue'
 import CareManagerUpdateCompleted from '@/views/Common/UpdateCompleted.vue'
 import CareManagerVisitDateTime from '@/views/CareManager/VisitDateTime.vue'
-import CareManagerPasswordReset from '@/views/CareManager/PasswordReset.vue'
+import CareManagerResetPassword from '@/views/Common/ResetPassword.vue'
 import CareManagerDashboard from '@/views/CareManager/Dashboard.vue'
 import CareManagerCareReceiverDetail from '@/views/Common/CareReceiverDetail.vue'
 import VisitDateTimeRegistrationCompleted from '@/views/Common/TextMessage.vue'
-
 
 export default {
   routes: [
@@ -62,9 +61,9 @@ export default {
       meta: { requiresAuth: false },
     },
     {
-      path: '/care-manager/password-reset',
-      name: 'CareManagerPasswordReset',
-      component: CareManagerPasswordReset,
+      path: '/care-manager/reset-password',
+      name: 'CareManagerResetPassword',
+      component: CareManagerResetPassword,
       meta: { requiresAuth: false },
     },
     {

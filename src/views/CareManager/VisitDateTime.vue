@@ -66,6 +66,7 @@ export default {
 
       this.visit_datetime.care_receiver_id = this.care_receiver.id;
       this.registered_flg = this.care_receiver.visit_datetime !== null;
+      console.log(this.care_receiver);
       if (this.registered_flg) {
         this.visit_datetime_id = this.care_receiver.visit_datetime.id;
       }

@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <div class="forgot-password-form box-shadow">
-      <h2 class="forgot-password__ttl">{{ 'パスワード再設定' + formTitle }}</h2>
+  <div class="reset-password">
+    <div class="reset-password__form box-shadow">
+      <h2 class="forgot-password__ttl">{{ 'パスワード再設定' }}</h2>
       <validation-observer ref="obs" v-slot="ObserverProps">
-        <div class="forgot-password-form-content">
+        <div class="reset-password__form-content">
           <div class="form__item">
             <label class="form__item-lbl" for="email">メールアドレス</label>
             <validation-provider v-slot="{ errors }" rules="required|email">
@@ -27,9 +27,7 @@
 import axios from 'axios';
 export default {
   props: {
-    formTitle: {
-      type: String
-    }
+    formTitle: String
   },
   data() {
     return {
@@ -42,9 +40,21 @@ export default {
         await axios.get("sanctum/csrf-cookie");
         await axios.post("forgot-password", this.email);
       } catch (e) {
-        
       }
     }
   }
 }
 </script>
+
+<style scoped>
+.reset-password__form {
+  background-color: #fff;
+  width: 400px;
+  margin: 50px auto 0;
+  border-radius: 6px;
+}
+
+.reset-password__form-content {
+  padding: 30px 20px 20px;
+}
+</style>

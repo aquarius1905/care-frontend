@@ -24,7 +24,9 @@
               <div class="error">{{ login_error }}</div>
             </validation-provider>
           </div>
-          <router-link :to="`${forgotPasswordLink}`">パスワードを忘れた方はこちら</router-link>
+          <router-link :to="`${resetPasswordLink}`">
+            パスワードを忘れた方はこちら
+          </router-link>
           <button class="btn login__btn" :disabled="invalid" @click="login">
             ログイン
           </button>
@@ -40,12 +42,8 @@ import { api } from "@/plugins/axios";
 import { mapGetters, mapActions } from 'vuex'
 export default {
   props: {
-    formTitle: {
-      type: String
-    },
-    forgotPasswordLink: {
-      type: String
-    }
+    formTitle: String,
+    resetPasswordLink: String
   },
   data() {
     return {
