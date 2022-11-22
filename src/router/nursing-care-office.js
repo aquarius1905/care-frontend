@@ -54,7 +54,7 @@ export default {
       meta: { requiresAuth: true } 
     },
     {
-      path: '/nursing-care-office/reset-passowrd',
+      path: '/nursing-care-office/reset-password',
       name: 'NursingCareOfficeResetPassword',
       component: NursingCareOfficeResetPassword,
       meta: { requiresAuth: false }

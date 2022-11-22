@@ -55,6 +55,6 @@ export default {
 }
 
 .reset-password__form-content {
-  padding: 30px 20px 20px;
+  padding: 25px 20px 20px;
 }
 </style>

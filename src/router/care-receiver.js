@@ -108,7 +108,7 @@ export default {
       meta: { requiresAuth: true }
     },
     {
-      path: '/care-receiver/reset-passowrd',
+      path: '/care-receiver/reset-password',
       name: 'CareReceiverResetPassword',
       component: CareReceiverResetPassword,
       meta: { requiresAuth: false }
