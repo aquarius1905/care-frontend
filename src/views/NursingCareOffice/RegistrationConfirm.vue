@@ -61,15 +61,19 @@
       <button class="bk__btn btn" @click="back">戻る</button>
       <button class="btn" @click="register">登録</button>
     </div>
+    <Spinner v-show="spinner_flg"></Spinner>
   </div>
 </template>
 
 <script>
+import Spinner from "@/components/Spinner"
 import { api } from "@/plugins/axios";
 export default {
-  data: function () {
+  components: { Spinner },
+  data() {
     return {
-      nursing_care_office: null
+      nursing_care_office: null,
+      spinner_flg: false
     }
   },
   methods: {
@@ -84,17 +88,21 @@ export default {
         this.makeNursingCareOfficeData();
 
         try {
+          this.spinner_flg = true;
           const response = await api.post(
             '/nursing-care-offices',
             this.nursing_care_office
           );
 
           if (response.status === 201) {
+            this.spinner_flg = false;
             this.$router.push({
-              name: 'NursingCareOfficeRegistrationCompletion'
+              name: 'NursingCareOfficeCompleted'
             });
           }
         } catch (error) {
+          this.spinner_flg = false;
+          console.log(error);
           alert('登録に失敗しました');
         }
       }

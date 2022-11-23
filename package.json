@@ -19,6 +19,7 @@
     "vee-validate": "3",
     "vue": "^2.6.14",
     "vue-router": "^3.5.1",
+    "vue-simple-spinner": "^1.2.10",
     "vue2-timepicker": "^1.1.6",
     "vuex": "^3.6.2",
     "vuex-persistedstate": "^4.1.0"

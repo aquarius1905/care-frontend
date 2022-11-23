@@ -3,7 +3,7 @@
     <Login
     :form-title="form_ttl"
     :reset-password-link="reset_password_link">
-  </Login>
+    </Login>
   </div>
 </template>
 

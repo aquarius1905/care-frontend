@@ -33,14 +33,17 @@
         </div>
       </validation-observer>
     </div>
+    <Spinner v-show="spinner_flg"></Spinner>
   </div>
 </template>
 
 <script>
+import Spinner from "@/components/Spinner";
 import dayjs from 'dayjs';
 import { api } from "@/plugins/axios";
 import { mapGetters, mapActions } from 'vuex'
 export default {
+  components: { Spinner },
   props: {
     formTitle: String,
     resetPasswordLink: String
@@ -51,7 +54,8 @@ export default {
         email: null,
         password: null,
       },
-      login_error: null
+      login_error: null,
+      spinner_flg: false
     }
   },
   computed: {
@@ -72,6 +76,7 @@ export default {
       'fetchNursingCareOfficeData'
     ]),
     async login() {
+        this.spinner_flg = true;
         if (this.isCareManager) {
           await this.loginCareManager();
         } else if (this.isCareReceiver) {
@@ -90,6 +95,8 @@ export default {
 
         await this.fetchCareManagerData();
 
+        this.spinner_flg = false;
+
         this.$router.push({
           name: 'CareManagerDashboard',
         });
@@ -107,6 +114,8 @@ export default {
 
         await this.fetchCareReceiverData();
 
+        this.spinner_flg = false;
+
         this.$router.push({
           name: 'CareReceiverDashboard',
         });
@@ -123,6 +132,9 @@ export default {
         this.setNursingCareOfficeAccessToken(data.token);
 
         await this.fetchNursingCareOfficeData();
+
+        this.spinner_flg = false;
+
         this.$router.push({
           name: 'NursingCareOfficeDashboard',
           query: { date: dayjs() }
@@ -132,6 +144,7 @@ export default {
       }
     },
     showError(error) {
+      this.spinner_flg = false;
       console.log(error);
       switch (error.response.status) {
         case 401:

@@ -1,4 +1,4 @@
-import CareManagerLogin from '@/views/CareManager/LoginView.vue'
+import CareManagerLogin from '@/views/CareManager/Login.vue'
 import CareManagerInput from '@/views/CareManager/Registration.vue'
 import CareManagerCompleted from '@/views/Common/RegistrationCompletion.vue'
 import CareManagerConfirm from '@/views/CareManager/RegistrationConfirm.vue'

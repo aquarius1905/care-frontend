@@ -61,15 +61,19 @@
       <button class="bk__btn btn" @click="back">戻る</button>
       <button class="btn" @click="register">登録</button>
     </div>
+    <Spinner v-show="spinner_flg"></Spinner>
   </div>
 </template>
 
 <script>
-import { api } from "@/plugins/axios";
+import { api } from "@/plugins/axios"
+import Spinner from "@/components/Spinner"
 export default {
+  components: { Spinner },
   data: function () {
     return {
-      care_manager: null
+      care_manager: null,
+      spinner_flg: false
     }
   },
   methods: {
@@ -84,17 +88,19 @@ export default {
         this.makeCareManagerData();
 
         try {
+          this.spinner_flg = true;
           const response = await api.post(
             '/care-managers', this.care_manager
           );
 
           if (response.status === 201) {
+            this.spinner_flg = false;
             this.$router.push({
-              name: 'CareReceiverCompleted',
-              query: { msg: "" }
+              name: 'CareManagerCompleted',
             });
           }
         } catch (error) {
+          this.spinner_flg = false;
           console.log(error);
           alert('登録に失敗しました');
         }
