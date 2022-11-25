@@ -32,6 +32,9 @@ const getters = {
   getSelectedCareReceiver(state) {
     return state.selectedCareReceiver;
   },
+  getSelectedWeeklyServiceSchedules(state) {
+    return state.selectedCareReceiver.weekly_service_schedules;
+  },
   getSelectedCareReceiverId(state) {
     return state.selectedCareReceiver.id;
   },
@@ -57,7 +60,7 @@ const mutations = {
   setCareManagerDetailFlg(state, payload) {
     state.detailFlg = payload;
   },
-  setSelectedCareReceiver(state ,payload) {
+  setSelectedCareReceiver(state, payload) {
     state.selectedCareReceiver = payload;
   },
   resetCareManager(state) {

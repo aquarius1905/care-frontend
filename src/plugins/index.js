@@ -54,7 +54,6 @@ export default {
       'keyperson_first_name_furigana',
     ].forEach(e => delete send_data[e]);
 
-    console.log(send_data);
     return send_data;
   }
 }

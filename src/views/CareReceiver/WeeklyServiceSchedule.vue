@@ -29,11 +29,14 @@
                   サービス提供時間
                   <span class="required__lbl">必須</span>
                 </label>
-                <vue-timepicker name="starting_time" id="timepicker" v-model="weekly_service_schedule.starting_time" format="HH:mm"
-                  minute-interval="10" hour-label="時" minute-label="分" advanced-keyboard manual-input hide-clear-button>
+                <vue-timepicker name="starting_time" id="timepicker" v-model="weekly_service_schedule.starting_time"
+                  format="HH:mm" minute-interval="10" hour-label="時" minute-label="分" advanced-keyboard manual-input
+                  hide-clear-button>
                 </vue-timepicker>
                 ～
-                <vue-timepicker name="ending_time" id="timepicker" v-model="weekly_service_schedule.ending_time" format="HH:mm" minute-interval="10" hour-label="時" minute-label="分" advanced-keyboard manual-input hide-clear-button>
+                <vue-timepicker name="ending_time" id="timepicker" v-model="weekly_service_schedule.ending_time"
+                  format="HH:mm" minute-interval="10" hour-label="時" minute-label="分" advanced-keyboard manual-input
+                  hide-clear-button>
                 </vue-timepicker>
                 <div class="error">{{ errors[0] }}</div>
               </validation-provider>
@@ -44,9 +47,7 @@
                   サービス種別
                   <span class="required__lbl">必須</span>
                 </label>
-                <select id="service_type" class="select" 
-                v-model="selected_service_type_id"
-                @change="changeServiceType">
+                <select id="service_type" class="select" v-model="selected_service_type_id" @change="changeServiceType">
                   <option v-for="service_type in service_types" :key="service_type.id" :value="service_type.id">
                     {{ service_type.name }}
                   </option>
@@ -60,9 +61,10 @@
                   施設名
                   <span class="required__lbl">必須</span>
                 </label>
-                <select id="service_type" class="select" v-model="weekly_service_schedule.nursing_care_office_id" required>
-                  <option v-for="nursing_care_office in nursing_care_offices"    :key="nursing_care_office.id"
-                  :value="nursing_care_office.id">
+                <select id="service_type" class="select" v-model="weekly_service_schedule.nursing_care_office_id"
+                  required>
+                  <option v-for="nursing_care_office in nursing_care_offices" :key="nursing_care_office.id"
+                    :value="nursing_care_office.id">
                     {{ nursing_care_office.office_name }}
                   </option>
                 </select>
@@ -75,37 +77,35 @@
           </validation-observer>
         </div>
       </div>
-      <div>
-        <table class="weekly-service-schedule__tbl box-shadow">
-          <thead>
-            <tr>
-              <th rowspan="2">曜日</th>
-              <th rowspan="2">サービス名</th>
-              <th rowspan="2">施設名</th>
-              <th colspan="2">サービス提供時間</th>
-              <th rowspan="2"></th>
-            </tr>
-            <tr>
-              <th>開始</th>
-              <th>終了</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(schedule, index) in weekly_service_schedules" :key="index">
-              <td>{{ day_of_weeks[schedule.dayofweek] }}</td>
-              <td>{{ schedule.nursing_care_office.service_type.name }}</td>
-              <td>{{ schedule.nursing_care_office.office_name }}</td>
-              <td>{{ schedule.starting_time.substring(0, 5) }}</td>
-              <td>{{ schedule.ending_time.substring(0, 5) }}</td>
-              <td>
+      <table class="weekly-service-schedule__tbl box-shadow">
+        <thead>
+          <tr>
+            <th rowspan="2">曜日</th>
+            <th rowspan="2">サービス名</th>
+            <th rowspan="2">施設名</th>
+            <th colspan="2">サービス提供時間</th>
+            <th rowspan="2"></th>
+          </tr>
+          <tr>
+            <th>開始</th>
+            <th>終了</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(schedule, index) in weekly_service_schedules" :key="index">
+            <td>{{ day_of_weeks[schedule.dayofweek] }}</td>
+            <td>{{ schedule.nursing_care_office.service_type.name }}</td>
+            <td>{{ schedule.nursing_care_office.office_name }}</td>
+            <td>{{ schedule.starting_time.substring(0, 5) }}</td>
+            <td>{{ schedule.ending_time.substring(0, 5) }}</td>
+            <td>
               <button class="btn delete__btn" @click="deleteSchedule(schedule.id, index)">
                 削除
               </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
@@ -131,7 +131,6 @@ export default {
       day_of_weeks: null,
       service_types: null,
       nursing_care_offices: null,
-      weekly_service_schedules: [],
       selected_service_type_id: 1
     }
   },
@@ -144,7 +143,7 @@ export default {
     ]),
     ...mapGetters({
       care_receiver_name: 'getSelectedCareReceiverName',
-      weekly_service_schedules: 'getWeeklyServiceSchedules'
+      weekly_service_schedules: 'getSelectedWeeklyServiceSchedules'
     })
   },
   methods: {
@@ -226,12 +225,22 @@ export default {
 .weekly-schedule {
   padding-bottom: 30px;
 }
+
 .page__ttl {
   margin-right: 40px;
 }
 
+.page__content {
+  display: flex;
+}
+
 .service-registration__form {
-  width: 600px;
+  width: 490px;
+  margin-right: 20px;
+}
+
+.weekly-service-schedule__tbl {
+  width: calc(100% - 500px);
 }
 .delete__btn {
   width: 60px;
@@ -240,8 +249,9 @@ export default {
 .vue__time-picker,
 .vue__time-picker .dropdown .select-list,
 .vue__time-picker .dropdown {
-  width: 210px;
+  width: 200px;
 }
+
 .vue__time-picker input.display-time {
   border: 1px solid #767676;
   padding: 5px;
@@ -250,9 +260,10 @@ export default {
   height: auto;
   border-radius: 6px;
 }
-.form__item >>> .vue__time-picker .dropdown ul li:not([disabled]).active,
-.form__item >>> .vue__time-picker .dropdown ul li:not([disabled]).active:focus,
-.form__item >>> .vue__time-picker .dropdown ul li:not([disabled]).active:hover {
+
+.form__item>>>.vue__time-picker .dropdown ul li:not([disabled]).active,
+.form__item>>>.vue__time-picker .dropdown ul li:not([disabled]).active:focus,
+.form__item>>>.vue__time-picker .dropdown ul li:not([disabled]).active:hover {
   background: #1A237E;
 }
 </style>

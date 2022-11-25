@@ -249,7 +249,6 @@ export default {
         this.is_diary = false;
       }
       this.diary.care_receiver_name = this.$route.query.care_receiver_name;
-      console.log(this.diary);
     },
     async register() {
       if (!confirm("日誌を登録しますか？")) {

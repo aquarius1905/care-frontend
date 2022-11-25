@@ -179,19 +179,23 @@
         </div>
       </validation-observer>
     </div>
+    <Spinner v-show="spinner_flg"></Spinner>
   </div>
 </template>
 
 <script>
 import Vue from 'vue'
 import plugin from '@/plugins'
-import { nursingCareOfficeAuthApi } from "@/plugins/axios";
+import { nursingCareOfficeAuthApi } from "@/plugins/axios"
 import { mapGetters, mapActions } from 'vuex'
+import Spinner from "@/components/Spinner"
 export default {
+  components: { Spinner },
   data() {
     return {
       nursing_care_office: null,
-      service_types: null
+      service_types: null,
+      spinner_flg: false
     }
   },
   computed: {
@@ -239,6 +243,7 @@ export default {
       }
 
       try {
+        this.spinner_flg = true;
         const send_data = plugin.makeSendData(
           this.nursing_care_office
         );
@@ -250,11 +255,13 @@ export default {
 
         if (response.status === 200) {
           await this.fetchNursingCareOfficeData();
+          this.spinner_flg = false;
           this.$router.push({
             name: 'NursingCareOfficeUpdateCompleted'
           });
         }
       } catch (error) {
+        this.spinner_flg = false;
         alert("更新に失敗しました");
         console.log(error);
       }
