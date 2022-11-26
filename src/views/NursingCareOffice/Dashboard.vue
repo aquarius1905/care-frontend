@@ -37,7 +37,7 @@
             <td>{{ user.ending_time.substring(0, 5) }}</td>
             <td>
               <button class="btn notify__btn" 
-                @click="notifyPickupTime(user.care_receiver.id)">
+                @click="notifyPickupTime(user.care_receiver)">
                 送迎時間通知
               </button>
             </td>
@@ -55,13 +55,13 @@
 </template>
 
 <script>
-import { nursingCareOfficeAuthApi } from "@/plugins/axios";
-import dayjs from 'dayjs';
+import { nursingCareOfficeAuthApi } from "@/plugins/axios"
+import dayjs from 'dayjs'
 export default {
   data() {
     return {
       date: null,
-      users_list: null
+      users_list: null,
     }
   },
   methods: {
@@ -91,6 +91,28 @@ export default {
       this.date = date;
       await this.searchCareReceivers();
     },
+    notifyPickupTime(care_receiver) {
+      if (!confirm("送迎時間を通知しますか？")) {
+        return;
+      }
+      try {
+        const send_data = {
+          care_receiver_id: care_receiver.id,
+          tel: care_receiver.tel,
+          email: care_receiver.email
+        };
+        const response = nursingCareOfficeAuthApi.post(
+          '/pickuptime-notifications', send_data
+        );
+
+        if (response.status === 201) {
+          alert("送迎時間を通知しました");
+        }
+      } catch (error) {
+        console.log(error);
+        alert("送迎時間の通知に失敗しました")
+      }
+    },
     showDiary(user) {
       const send_data = {
         weekly_service_schedule_id: user.id,
@@ -109,24 +131,6 @@ export default {
           break;
       }
     },
-    async notifyPickupTime(care_receiver_id) {
-      if (!confirm("送迎時間を通知しますか？")) {
-        return;
-      }
-
-      try {
-        const send_data = {
-          care_receiver_id: care_receiver_id
-        };
-        const { data } = nursingCareOfficeAuthApi.post(
-          '/pickup-and-dropoff-notifications', send_data
-        );
-        
-      } catch (error) {
-        console.log(error);
-        alert("送迎時間の通知に失敗しました")
-      }
-    }
   },
   async created() {
     const today = new Date();

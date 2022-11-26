@@ -370,8 +370,7 @@ input[type="radio"] {
   margin-right: 20px;
 }
 
-.update__btn,
-.registration__btn {
+.update__btn {
   width: 100%;
 }
 </style>
