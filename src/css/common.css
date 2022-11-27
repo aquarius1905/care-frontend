@@ -175,7 +175,8 @@ body {
 }
 
 .login__btn,
-.reset-password__btn {
+.reset-password__btn,
+.send-email__btn {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -409,7 +410,8 @@ body {
 }
 
 .login__form-ttl,
-.forgot-password__ttl {
+.forgot-password__ttl,
+.reset-password__ttl {
   color: #fff;
   background-color: #1a237e;
   padding: 20px;

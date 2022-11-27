@@ -24,7 +24,7 @@
               <div class="error">{{ login_error }}</div>
             </validation-provider>
           </div>
-          <router-link :to="`${resetPasswordLink}`">
+          <router-link to="/" @click.native="showForgotPasswordPage">
             パスワードを忘れた方はこちら
           </router-link>
           <button class="btn login__btn" :disabled="invalid" @click="login">
@@ -46,7 +46,8 @@ export default {
   components: { Spinner },
   props: {
     formTitle: String,
-    resetPasswordLink: String
+    forgotPasswordLink: String,
+    path: String
   },
   data() {
     return {
@@ -157,6 +158,12 @@ export default {
           this.login_error = 'メールアドレスが存在しません';
           break;
       }
+    },
+    showForgotPasswordPage() {
+      this.$router.push({
+        name: this.forgotPasswordLink,
+        query: { path: this.path }
+      });
     }
   }
 }

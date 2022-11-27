@@ -2,6 +2,7 @@
   <div id="sidebar">
     <nav class="nav" v-show="this.isCareManager">
       <div>
+        <h2 class="menu__ttl">ケアマネジャー</h2>
         <ul class="menu__content" v-if="this.isCareManagerLoggedIn">
           <li>
             <router-link class="link" to="/care-manager/index">
@@ -51,6 +52,7 @@
     </nav>
     <nav class="nav" v-if="this.isCareReceiver">
       <div>
+        <h2 class="menu__ttl">被介護者</h2>
         <ul class="menu__content" v-if="this.isCareReceiverLoggedIn">
           <li>
             <router-link class="link" to="/care-receiver/index">
@@ -82,6 +84,7 @@
     </nav>
     <nav class="nav" v-show="this.isNursingCareOffice">
       <div>
+        <h2 class="menu__ttl">介護事業所</h2>
         <ul class="menu__content" v-if="this.isNursingCareOfficeLoggedIn">
           <li>
             <router-link class="link" to="/nursing-care-office/index">
@@ -186,7 +189,6 @@ export default {
 	transform: rotate(135deg);
 }
 .menu__content {
-  padding: 10px 0;
 	margin-bottom: 10px;
 	overflow: hidden;
 }

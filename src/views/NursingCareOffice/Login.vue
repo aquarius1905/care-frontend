@@ -2,7 +2,8 @@
   <div>
     <Login 
     :form-title="form_ttl"
-    :reset-password-link="reset_password_link">
+    :forgot-password-link="forgot_password_link"
+    :path="path">
     </Login>
   </div>
 </template>
@@ -14,7 +15,8 @@ export default {
   data() {
     return {
       form_ttl: '介護事業者',
-      reset_password_link: '/nursing-care-office/reset-password'
+      forgot_password_link: 'NursingCareOfficeForgotPassword',
+      path: '/nursing-care-offices/forgot-password'
     }
   },
   created() {

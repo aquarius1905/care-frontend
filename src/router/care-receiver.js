@@ -14,6 +14,7 @@ import CancellationCompleted from '@/views/Common/TextMessage.vue'
 import CareReceiverDiary from '@/views/CareReceiver/Diary.vue'
 import CareReceiverDiaryUpdateCompleted from '@/views/Common/TextMessage.vue'
 import CareReceiverResetPassword from '@/views/Common/ResetPassword.vue'
+import CareReceiverForgotPassword from '@/views/Common/ForgotPassword.vue'
 
 export default {
   routes: [
@@ -111,6 +112,13 @@ export default {
       path: '/care-receiver/reset-password',
       name: 'CareReceiverResetPassword',
       component: CareReceiverResetPassword,
+      meta: { requiresAuth: false }
+    }
+,
+    {
+      path: '/care-receiver/forgot-password',
+      name: 'CareReceiverForgotPassword',
+      component: CareReceiverForgotPassword,
       meta: { requiresAuth: false }
     }
   ]
