@@ -41,6 +41,7 @@ import { api } from "@/plugins/axios";
 export default {
   data() {
     return {
+      token: null,
       email: null,
       password: null,
       password_confirmation: null
@@ -67,7 +68,16 @@ export default {
     }
   },
   created() {
-    this.path = this.$route.query.path;
+    const path = this.$route.path
+    if (path.includes('care-manager')) {
+      this.$store.dispatch('setCareManagerFlg');
+    } else if (path.includes('care-receiver')) {
+      this.$store.dispatch('setCareReceiverFlg');
+    } else if (path.includes('nursing-care-office')) {
+      this.$store.dispatch('setNursingCareOfficeFlg');
+    }
+    this.email = this.$route.query.email;
+    this.token = this.$route.query.toekn;
   }
 }
 </script>

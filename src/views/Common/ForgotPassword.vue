@@ -31,6 +31,7 @@
 <script>
 import Spinner from "@/components/Spinner"
 import { api } from "@/plugins/axios"
+import { mapGetters } from 'vuex'
 export default {
   components: { Spinner },
   data() {
@@ -41,6 +42,13 @@ export default {
       spinner_flg: false
     }
   },
+  computed: {
+    ...mapGetters([
+      'isCareManager',
+      'isCareReceiver',
+      'isNursingCareOffice'
+    ])
+  },
   methods: {
     async sendForgotPasswordEmail() {
       try {
@@ -49,9 +57,23 @@ export default {
           email: this.email
         };
         const response = await api.post(this.path, send_data);
+        
         if (response.status === 200) {
+          let routerName = '';
+          if (this.isCareManager) {
+            routerName = 'CareManagerForgotPasswordCompleted'
+          } else if (this.isCareReceiver) {
+            routerName = 'CareReceiverForgotPasswordCompleted'
+          } else if (this.isNursingCareOffice) {
+            routerName = 'NursingCareOfficeForgotPasswordCompleted'
+          }
+
           this.spinner_flg = false;
-          alert("パスワード再設定のメールを送信しました。");
+
+          this.$router.push({
+            name: routerName,
+            query: { msg: "パスワード再設定のメールを送信しました" }
+          });
         }
       } catch (error) {
         this.spinner_flg = false;

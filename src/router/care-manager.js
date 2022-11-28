@@ -7,6 +7,7 @@ import CareManagerUpdateCompleted from '@/views/Common/UpdateCompleted.vue'
 import CareManagerVisitDateTime from '@/views/CareManager/VisitDateTime.vue'
 import CareManagerResetPassword from '@/views/Common/ResetPassword.vue'
 import CareManagerForgotPassword from '@/views/Common/ForgotPassword.vue'
+import CareManagerForgotPasswordCompleted from '@/views/Common/TextMessage.vue'
 import CareManagerDashboard from '@/views/CareManager/Dashboard.vue'
 import CareManagerCareReceiverDetail from '@/views/Common/CareReceiverDetail.vue'
 import VisitDateTimeRegistrationCompleted from '@/views/Common/TextMessage.vue'
@@ -65,6 +66,12 @@ export default {
       path: '/care-manager/forgot-password',
       name: 'CareManagerForgotPassword',
       component: CareManagerForgotPassword,
+      meta: { requiresAuth: false },
+    },
+    {
+      path: '/care-manager/forgot-password/completed',
+      name: 'CareManagerForgotPasswordCompleted',
+      component: CareManagerForgotPasswordCompleted,
       meta: { requiresAuth: false },
     },
     {
