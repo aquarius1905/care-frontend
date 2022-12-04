@@ -99,7 +99,7 @@ export default {
   methods: {
     back() {
       this.$router.push({
-        name: 'CareReceiverInput',
+        name: 'CareReceiverRegister',
         query: {
           care_receiver: this.care_receiver
         }

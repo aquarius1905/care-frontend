@@ -99,7 +99,7 @@ export default {
         this.spinner_flg = false;
 
         this.$router.push({
-          name: 'CareManagerDashboard',
+          name: 'CareReceiversList',
         });
       } catch (error) {
         this.showError(error);

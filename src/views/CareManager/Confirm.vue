@@ -79,7 +79,7 @@ export default {
   methods: {
     back() {
       this.$router.push({
-        name: 'CareManagerInput',
+        name: 'CareManagerRegister',
         query: { care_manager: this.care_manager }
       });
     },

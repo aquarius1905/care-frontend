@@ -120,12 +120,13 @@ export default {
         date: new Date(this.date).toDateString()
       };
       const service_type_id = user.nursing_care_office.service_type_id;
+      console.log(service_type_id);
       switch (service_type_id) {
         case 1:
           break;
         case 2:
           this.$router.push({
-            name: 'DaycareDiaryInput',
+            name: 'DaycareDiaryRegister',
             query: send_data
           });
           break;

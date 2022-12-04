@@ -1,23 +1,23 @@
 import CareManagerLogin from '@/views/CareManager/Login.vue'
-import CareManagerInput from '@/views/CareManager/Registration.vue'
+import CareManagerRegister from '@/views/CareManager/Register.vue'
+import CareManagerConfirm from '@/views/CareManager/Confirm.vue'
 import CareManagerCompleted from '@/views/Common/RegistrationCompletion.vue'
-import CareManagerConfirm from '@/views/CareManager/RegistrationConfirm.vue'
 import CareManagerUpdate from '@/views/CareManager/UpdateInfo.vue'
 import CareManagerUpdateCompleted from '@/views/Common/UpdateCompleted.vue'
 import CareManagerVisitDateTime from '@/views/CareManager/VisitDateTime.vue'
 import CareManagerResetPassword from '@/views/Common/ResetPassword.vue'
 import CareManagerForgotPassword from '@/views/Common/ForgotPassword.vue'
 import CareManagerForgotPasswordCompleted from '@/views/Common/TextMessage.vue'
-import CareManagerDashboard from '@/views/CareManager/Dashboard.vue'
+import CareReceiversList from '@/views/CareManager/CareReceiversList.vue'
 import CareManagerCareReceiverDetail from '@/views/Common/CareReceiverDetail.vue'
 import VisitDateTimeRegistrationCompleted from '@/views/Common/TextMessage.vue'
 
 export default {
   routes: [
     {
-      path: '/care-manager/input',
-      name: 'CareManagerInput',
-      component: CareManagerInput,
+      path: '/care-manager/register',
+      name: 'CareManagerRegister',
+      component: CareManagerRegister,
       meta: { requiresAuth: false }
     },
     {
@@ -45,9 +45,9 @@ export default {
       meta: { requiresAuth: true },
     },
     {
-      path: '/care-manager/index',
-      name: 'CareManagerDashboard',
-      component: CareManagerDashboard,
+      path: '/care-manager/care-receivers-list',
+      name: 'CareReceiversList',
+      component: CareReceiversList,
       meta: { requiresAuth: true },
     },
     {
@@ -81,7 +81,7 @@ export default {
       meta: { requiresAuth: false },
     },
     {
-      path: '/care-manager/care-receiver/detail',
+      path: '/care-manager/care-receiver-details',
       name: 'CareManagerCareReceiverDetail',
       component: CareManagerCareReceiverDetail,
       meta: { requiresAuth: true },

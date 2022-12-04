@@ -1,12 +1,12 @@
 <template>
-  <div id="sidebar">
+  <div class="sidebar">
     <nav class="nav" v-show="this.isCareManager">
       <div>
         <h2 class="menu__ttl">ケアマネジャー</h2>
         <ul class="menu__content" v-if="this.isCareManagerLoggedIn">
           <li>
-            <router-link class="link" to="/care-manager/index">
-              ダッシュボード
+            <router-link class="link" to="/care-manager/care-receivers-list">
+              担当被介護者一覧
             </router-link>
           </li>
           <li>
@@ -20,9 +20,9 @@
             </router-link>
           </li>
           <ul class="menu__content" v-if="this.isCareManagerLoggedIn && this.isCareManagerDetail">
-            <h2 class="menu__ttl">詳細メニュー</h2>
+            <h2 class="menu__ttl">被介護者詳細</h2>
             <li>
-              <router-link class="link" to="/care-manager/care-receiver/detail">
+              <router-link class="link" to="/care-manager/care-receiver-details">
                 被介護者詳細情報
               </router-link>
             </li>
@@ -131,19 +131,19 @@ export default {
   methods: {
     moveToCareManagerRegistrationPage() {
       this.$router.push({
-        name: 'CareManagerInput',
+        name: 'CareManagerRegister',
         query: { care_manager: null }
       });
     },
     moveToCareReceiverRegistrationPage() {
       this.$router.push({
-        name: 'CareReceiverInput',
+        name: 'CareReceiverRegister',
         query: { care_receiver: null }
       });
     },
     moveToNursingCareOfficeRegistrationPage() {
       this.$router.push({
-        name: 'NursingCareOfficeInput',
+        name: 'NursingCareOfficeRegister',
         query: { nursing_care_office: null }
       });
     },
@@ -157,49 +157,25 @@ export default {
 </script>
 
 <style scoped>
-#sidebar {
+.sidebar {
   width: 210px;
   height: 100%;
   top: 0px;
   transform: translateX(0%);
   box-shadow: 2px 0 4px 1px #888;
 }
+
 .nav {
   background: #1A237E;
   width: 100%;
   height: 100vh;
 }
-.acd-lbl {
-  display: block;
-  font-size: 16px;
-  color: #fff;
-  padding: 16px;
-  cursor: pointer;
-}
-.acd-lbl::before { /*タイトル横の矢印*/
-	content:"";
-	width: 6px;
-	height: 6px;
-	border-top: 2px solid #fff;
-	border-right: 2px solid #fff;
-	-webkit-transform: rotate(45deg);
-	position: absolute;
-	top: calc(50% - 5px);
-	right: 15px;
-	transform: rotate(135deg);
-}
+
 .menu__content {
 	margin-bottom: 10px;
 	overflow: hidden;
 }
-.toggle:checked +.acd-lbl +.menu__content { /*開閉時*/
-  height: auto;
-  padding: 10px 20px;
-  transition: all .3s;
-}
-.toggle:checked + .acd-lbl::before {
-  transform: rotate(-45deg) !important;
-}
+
 .link {
   display: inline-block;
   text-decoration: none;
@@ -210,6 +186,7 @@ export default {
   height: 40px;
   padding-left: 20px;
 }
+
 .btn__link {
   border: none;
   font-size: 14px;
@@ -222,10 +199,12 @@ export default {
   line-height: 40px;
   height: 40px;
 }
+
 .link:hover,
 .btn__link:hover {
   background-color: #212c9e;
 }
+
 .menu__ttl {
   color: #fff;
   padding: 20px;

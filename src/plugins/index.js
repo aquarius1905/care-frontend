@@ -1,5 +1,7 @@
 import axios from "axios";
 import Vue from 'vue'
+import USER_TYPE from '@/const/index.js'
+
 const jsonpAdapter = require('axios-jsonp')
 
 export default {
@@ -55,5 +57,15 @@ export default {
     ].forEach(e => delete send_data[e]);
 
     return send_data;
+  },
+  getLoggedInUserType() {
+    const locationPathName = location.pathname;
+    if (locationPathName.match(/care-manager/)) {
+      return USER_TYPE.CARE_MANAGER;
+    } else if (locationPathName.match(/care-receiver/)) {
+      return USER_TYPE.CARE_RECEIVER;
+    } else if (locationPathName.match(/nursing-care-office/)) {
+      return USER_TYPE.NURSING_CARE_OFFICE;
+    }
   }
 }

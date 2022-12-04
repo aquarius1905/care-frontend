@@ -1,5 +1,5 @@
-import CareReceiverInput from '@/views/CareReceiver/Registration.vue'
-import CareReceiverConfirm from '@/views/CareReceiver/RegistrationConfirm.vue'
+import CareReceiverRegister from '@/views/CareReceiver/Register.vue'
+import CareReceiverConfirm from '@/views/CareReceiver/Confirm.vue'
 import CareReceiverCompleted from '@/views/Common/TextMessage.vue'
 import CareReceiverUpdate from '@/views/CareReceiver/UpdateInfo.vue'
 import CareReceiverUpdateCompleted from '@/views/Common/TextMessage.vue'
@@ -20,9 +20,9 @@ import CareReceiverForgotPasswordCompleted from '@/views/Common/TextMessage.vue'
 export default {
   routes: [
     {
-      path: '/care-receiver/input',
-      name: 'CareReceiverInput',
-      component: CareReceiverInput,
+      path: '/care-receiver/register',
+      name: 'CareReceiverRegister',
+      component: CareReceiverRegister,
       meta: { requiresAuth: true },
     },
     {

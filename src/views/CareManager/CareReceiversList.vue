@@ -159,9 +159,11 @@ export default {
   margin: 0 auto;
   border-radius: 6px;
 }
+
 .tbl tr {
   background-color: #fff;
 }
+
 .tbl th,
 .tbl td {
   text-align: center;
@@ -172,16 +174,20 @@ export default {
   color: #f5f5f5;
   background-color: #1A237E;
 }
+
 .tbl th:first-child {
   border-top-left-radius: 6px;
 }
+
 .tbl th:last-child {
   border-top-right-radius: 6px;
 }
+
 .tbl tr:last-child td {
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
 }
+
 .tbl td {
   color: #555;
 }
@@ -196,6 +202,7 @@ export default {
 .checkbox {
   transform: scale(1.5);
 }
+
 .checkbox-width {
   width: 6%;
 }
