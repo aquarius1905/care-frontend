@@ -14,7 +14,7 @@
                 </label>
                 <input type="text" id="office_name" class="input" 
                 v-model="nursing_care_office.office_name" name="事業所名"
-                  placeholder="デイサービスセンター　新橋">
+                  placeholder="デイサービスセンター新橋">
                 <div class="error">{{ errors[0] }}</div>
               </validation-provider>
             </div>

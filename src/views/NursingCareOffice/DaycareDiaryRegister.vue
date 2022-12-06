@@ -223,12 +223,14 @@ export default {
       is_diary: false
     }
   },
+
   computed: {
     ...mapGetters([
       'emptyRehabilitationContents',
       'getRehabilitationContents'
     ])
   },
+
   methods: {
     ...mapActions([
       'fetchRehabilitationContents',
@@ -277,6 +279,7 @@ export default {
       this.rehabilitation_contents = this.getRehabilitationContents;
     }
   },
+  
   async created() {
     this.diary.weekly_service_schedule_id = this.$route.query.weekly_service_schedule_id;
     this.diary.date = new Date(this.$route.query.date);

@@ -87,9 +87,10 @@ export default {
       if (!confirm('登録しますか？')) {
         return;
       }
-        this.makeCareManagerData();
 
       try {
+        this.makeCareManagerData();
+        
         this.spinner_flg = true;
         const response = await api.post(
           '/care-managers', this.care_manager
