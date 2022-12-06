@@ -13,9 +13,8 @@
 <script>
 import Header from "./components/Header";
 import SideBar from "./components/SideBar";
-import Footer from "./components/Footer";
 export default {
-  components: { Header, SideBar, Footer },
+  components: { Header, SideBar },
   computed: {
     isShow: function () {
       return this.$route.path !== '/';
