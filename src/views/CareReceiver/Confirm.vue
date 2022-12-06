@@ -109,6 +109,7 @@ export default {
       if (!confirm('登録しますか？')) {
         return;
       }
+      
       try {
         this.spinner_flg = true;
         this.makeCareReceiverData();

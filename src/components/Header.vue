@@ -128,14 +128,16 @@ export default {
       }
     },
     async logout() {
-      if (confirm('ログアウトしますか？')) {
-        if (this.isCareManagerLoggedIn) {
-          await this.logoutCareManager();
-        } else if (this.isCareReceiverLoggedIn) {
-          await this.logoutCareReceiver();
-        } else if (this.isNursingCareOfficeLoggedIn) {
-          await this.logoutNursingCareOffice();
-        }
+      if (!confirm('ログアウトしますか？')) {
+        return;
+      }
+      
+      if (this.isCareManagerLoggedIn) {
+        await this.logoutCareManager();
+      } else if (this.isCareReceiverLoggedIn) {
+        await this.logoutCareReceiver();
+      } else if (this.isNursingCareOfficeLoggedIn) {
+        await this.logoutNursingCareOffice();
       }
     },
   },

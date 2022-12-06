@@ -84,26 +84,27 @@ export default {
       });
     },
     async register() {
-      if (confirm('登録しますか？')) {
+      if (!confirm('登録しますか？')) {
+        return;
+      }
         this.makeCareManagerData();
 
-        try {
-          this.spinner_flg = true;
-          const response = await api.post(
-            '/care-managers', this.care_manager
-          );
+      try {
+        this.spinner_flg = true;
+        const response = await api.post(
+          '/care-managers', this.care_manager
+        );
 
-          if (response.status === 201) {
-            this.spinner_flg = false;
-            this.$router.push({
-              name: 'CareManagerCompleted',
-            });
-          }
-        } catch (error) {
+        if (response.status === 201) {
           this.spinner_flg = false;
-          console.log(error);
-          alert('登録に失敗しました');
+          this.$router.push({
+            name: 'CareManagerCompleted',
+          });
         }
+      } catch (error) {
+        this.spinner_flg = false;
+        console.log(error);
+        alert('登録に失敗しました');
       }
     },
     makeCareManagerData() {

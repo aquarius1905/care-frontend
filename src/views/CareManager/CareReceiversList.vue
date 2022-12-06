@@ -119,7 +119,9 @@ export default {
     },
     async deleteCareReceivers() {
       if (!confirm("削除しますか？")) {
+        return;
       }
+      
       try {
         const send_data = {
           ids: this.checked_care_receiver_ids

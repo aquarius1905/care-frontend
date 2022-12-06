@@ -84,27 +84,29 @@ export default {
       });
     },
     async register() {
-      if (confirm('登録しますか？')) {
+      if (!confirm('登録しますか？')) {
+        return;
+      }
+
+      try {
         this.makeNursingCareOfficeData();
 
-        try {
-          this.spinner_flg = true;
-          const response = await api.post(
-            '/nursing-care-offices',
-            this.nursing_care_office
-          );
+        this.spinner_flg = true;
+        const response = await api.post(
+          '/nursing-care-offices',
+          this.nursing_care_office
+        );
 
-          if (response.status === 201) {
-            this.spinner_flg = false;
-            this.$router.push({
-              name: 'NursingCareOfficeCompleted'
-            });
-          }
-        } catch (error) {
+        if (response.status === 201) {
           this.spinner_flg = false;
-          console.log(error);
-          alert('登録に失敗しました');
+          this.$router.push({
+            name: 'NursingCareOfficeCompleted'
+          });
         }
+      } catch (error) {
+        this.spinner_flg = false;
+        console.log(error);
+        alert('登録に失敗しました');
       }
     },
     makeNursingCareOfficeData() {

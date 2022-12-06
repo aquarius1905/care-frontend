@@ -95,6 +95,7 @@ export default {
       if (!confirm("送迎時間を通知しますか？")) {
         return;
       }
+      
       try {
         const send_data = {
           care_receiver_id: care_receiver.id,

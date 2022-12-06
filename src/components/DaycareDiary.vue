@@ -87,6 +87,7 @@ export default {
       if (!confirm("日誌を更新しますか？")) {
         return;
       }
+      
       const send_data = {
         'id': this.diary.id,
         'situation_at_home': this.diary.situation_at_home

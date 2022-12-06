@@ -58,6 +58,7 @@ export default {
       if (!confirm('キャンセル登録しますか？')) {
         return; 
       }
+      
       try {
         this.schedule.date = new Date(this.schedule.date);
 
