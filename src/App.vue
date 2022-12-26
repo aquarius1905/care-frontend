@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <Header v-show="isShow"></Header>
+    <Header v-show="isShow" />
     <div class="flex">
-      <SideBar v-show="isShow"></SideBar>
+      <SideBar v-show="isShow" />
       <main class="main">
         <router-view/>
       </main>
@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import Header from "./components/Header";
-import SideBar from "./components/SideBar";
+import Header from "./components/Header"
+import SideBar from "./components/SideBar"
 export default {
   components: { Header, SideBar },
   computed: {

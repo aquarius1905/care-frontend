@@ -7,10 +7,8 @@ const api = axios.create({
   baseURL: 'http://127.0.0.1:8000/api'
 });
 
-const careManagerAuthApi = axios.create({
-  baseURL: 'http://127.0.0.1:8000/api'
-});
-
+//ケアマネージャーログイン時に使用
+const careManagerAuthApi = Object.assign({},api);
 careManagerAuthApi.interceptors.request.use(config => {
   config.headers = {
     'Authorization': 'Bearer ' + store.getters.getCareManagerAccessToken
@@ -18,10 +16,8 @@ careManagerAuthApi.interceptors.request.use(config => {
   return config;
 });
 
-const careReceiverAuthApi = axios.create({
-  baseURL: 'http://127.0.0.1:8000/api'
-});
-
+//被介護者ログイン時に使用
+const careReceiverAuthApi = Object.assign({},api);
 careReceiverAuthApi.interceptors.request.use(config => {
   config.headers = {
     'Authorization': 'Bearer ' + store.getters.getCareReceiverAccessToken
@@ -29,16 +25,15 @@ careReceiverAuthApi.interceptors.request.use(config => {
   return config;
 });
 
-const nursingCareOfficeAuthApi = axios.create({
-  baseURL: 'http://127.0.0.1:8000/api'
-});
-
+// 介護事業所ログイン時に使用
+const nursingCareOfficeAuthApi = Object.assign({},api);
 nursingCareOfficeAuthApi.interceptors.request.use(config => {
   config.headers = {
     'Authorization': 'Bearer ' + store.getters.getNursingCareOfficeAccessToken
   }
   return config;
 });
+
 export {
   api,
   careManagerAuthApi,

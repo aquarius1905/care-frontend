@@ -1,6 +1,12 @@
 import axios from "axios";
 import Vue from 'vue'
-import USER_TYPE from '@/const/index.js'
+
+const USER_TYPE = {
+    NONE: 0,
+    CARE_MANAGER: 1,
+    CARE_RECEIVER: 2,
+    NURSING_CARE_OFFICE: 3,
+}
 
 const jsonpAdapter = require('axios-jsonp')
 
