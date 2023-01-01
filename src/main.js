@@ -89,7 +89,7 @@ Vue.component('ValidationProvider', ValidationProvider);
 Vue.component('validation-observer', ValidationObserver);
 
 Vue.config.productionTip = false
-
+c
 // ロケール設定
 dayjs.locale('ja')
 Vue.prototype.$dayjs = dayjs;
