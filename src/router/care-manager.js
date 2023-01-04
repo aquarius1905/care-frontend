@@ -11,13 +11,13 @@ import CareManagerForgotPasswordCompleted from '@/views/Common/TextMessage.vue'
 import CareReceiversList from '@/views/CareManager/CareReceiversList.vue'
 import CareManagerCareReceiverDetail from '@/views/Common/CareReceiverDetail.vue'
 import VisitDateTimeRegistrationCompleted from '@/views/Common/TextMessage.vue'
-import CARE_MANAGER_REGISTER from '@/const/pathName.js'
+import * as path from '@/const/pathName'
 
 export default {
   routes: [
     {
       path: '/care-manager/register',
-      name: CARE_MANAGER_REGISTER,
+      name: path.CAREMANAGER_REGISTER,
       component: CareManagerRegister,
       meta: { requiresAuth: false }
     },

@@ -146,7 +146,6 @@ export default {
     },
     showError(error) {
       this.spinner_flg = false;
-      console.log(error);
       switch (error.response.status) {
         case 401:
           this.login_error = 'メールアドレスとパスワードが一致しません';
