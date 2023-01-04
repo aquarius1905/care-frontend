@@ -114,6 +114,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { CAREMANAGER_REGISTER } from '@/const/pathName'
 export default {
   computed: {
     ...mapGetters([
@@ -131,7 +132,7 @@ export default {
   methods: {
     moveToCareManagerRegistrationPage() {
       this.$router.push({
-        name: 'CareManagerRegister',
+        name: CAREMANAGER_REGISTER,
         query: { care_manager: null }
       });
     },

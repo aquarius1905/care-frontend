@@ -68,6 +68,7 @@
 <script>
 import { api } from "@/plugins/axios"
 import Spinner from "@/components/Spinner"
+import { CAREMANAGER_REGISTER } from "@/const/pathName"
 export default {
   components: { Spinner },
   data: function () {
@@ -79,7 +80,7 @@ export default {
   methods: {
     back() {
       this.$router.push({
-        name: 'CareManagerRegister',
+        name: CAREMANAGER_REGISTER,
         query: { care_manager: this.care_manager }
       });
     },
