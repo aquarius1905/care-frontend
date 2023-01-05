@@ -243,7 +243,6 @@ export default {
       const response = await nursingCareOfficeAuthApi.get(
         '/daycare-diaries/search', { params }
       );
-      console.log(response);
       if (response.status === 200) {
         this.is_diary = true;
         this.diary = response.data.data;
